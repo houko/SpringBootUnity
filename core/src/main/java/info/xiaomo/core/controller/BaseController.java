@@ -23,6 +23,14 @@ import javax.servlet.http.HttpServletResponse;
 
 public abstract class BaseController<E extends BaseModel> {
 
+    protected static final String code = "code";
+
+    protected static final int success = 200;
+
+    protected static final int error = 400;
+
+    protected static final int notFound = 404;
+
     /**
      * 跨域处理
      * 后端需要加个callback

@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
@@ -34,7 +35,7 @@ public class UserController extends BaseController {
     @Autowired
     private UserService service;
 
-    @RequestMapping("findById/{id}")
+    @RequestMapping(value = "findById/{id}", method = RequestMethod.GET)
     public HashMap<String, Object> findUserById(@PathVariable("id") Long id) {
         HashMap<String, Object> result = new HashMap<>();
         UserModel userModel = service.findUserById(id);
@@ -47,8 +48,7 @@ public class UserController extends BaseController {
         return result;
     }
 
-
-    @RequestMapping("findAll/{start}/{pageSize}")
+    @RequestMapping(value = "findAll/{start}/{pageSize}", method = RequestMethod.GET)
     public HashMap<String, Object> getAll(@PathVariable("start") int start, @PathVariable("pageSize") int page) {
         HashMap<String, Object> result = new HashMap<>();
         Page<UserModel> pages = service.getUsers(new PageRequest(start - 1, page));
@@ -57,7 +57,7 @@ public class UserController extends BaseController {
         return result;
     }
 
-    @RequestMapping("deleteById/{id}")
+    @RequestMapping(value = "deleteById/{id}", method = RequestMethod.GET)
     public HashMap<String, Object> deleteUserById(@PathVariable("id") Long id) throws UserNotFoundException {
         HashMap<String, Object> result = new HashMap<>();
         UserModel userModel = service.deleteUserById(id);

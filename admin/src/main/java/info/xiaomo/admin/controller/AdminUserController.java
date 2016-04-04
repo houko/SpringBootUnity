@@ -4,13 +4,11 @@ import info.xiaomo.core.controller.BaseController;
 import info.xiaomo.core.exception.UserNotFoundException;
 import info.xiaomo.core.model.AdminModel;
 import info.xiaomo.core.service.AdminUserService;
+import info.xiaomo.core.untils.MD5;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -44,14 +42,14 @@ public class AdminUserController extends BaseController {
     @Autowired
     AdminUserService service;
 
-    @RequestMapping("login")
+    @RequestMapping(value = "login", method = RequestMethod.POST)
     public Map<String, Object> login(@RequestParam String userName, @RequestParam String password) {
         HashMap<String, java.lang.Object> result = new HashMap<>();
         AdminModel adminModel = service.findAdminUserByUserName(userName);
         if (adminModel == null) {
             result.put(code, notFound);
         } else {
-            if (password.equals(adminModel.getPassword())) {
+            if (MD5.encode(password).equals(adminModel.getPassword())) {
                 result.put(code, success);
                 result.put("adminUser", adminModel);
             } else {
@@ -61,7 +59,7 @@ public class AdminUserController extends BaseController {
         return result;
     }
 
-    @RequestMapping("findById/{id}")
+    @RequestMapping(value = "findById/{id}", method = RequestMethod.GET)
     public HashMap<String, Object> findUserById(@PathVariable("id") Long id) {
         HashMap<String, Object> result = new HashMap<>();
         AdminModel adminModel = service.findAdminUserById(id);
@@ -76,7 +74,7 @@ public class AdminUserController extends BaseController {
     }
 
 
-    @RequestMapping("findAll/{start}/{pageSize}")
+    @RequestMapping(value = "findAll/{start}/{pageSize}", method = RequestMethod.GET)
     public HashMap<String, Object> getAll(@PathVariable("start") int start, @PathVariable("pageSize") int page) {
         HashMap<String, Object> result = new HashMap<>();
         Page<AdminModel> pages = service.getAdminUsers(new PageRequest(start - 1, page));
@@ -98,11 +96,11 @@ public class AdminUserController extends BaseController {
         return result;
     }
 
-    @RequestMapping("update/{userName}/{password}/{authLevel}")
+    @RequestMapping(value = "update", method = RequestMethod.POST)
     public HashMap<String, Object> update(
-            @PathVariable("userName") String userName,
-            @PathVariable("password") String password,
-            @PathVariable("authLevel") int authLevel
+            @RequestParam("userName") String userName,
+            @RequestParam("password") String password,
+            @RequestParam("authLevel") int authLevel
     ) {
         HashMap<String, Object> result = new HashMap<>();
         AdminModel adminModel = service.findAdminUserByUserName(userName);
@@ -118,7 +116,7 @@ public class AdminUserController extends BaseController {
         return result;
     }
 
-    @RequestMapping("forbid/{id}")
+    @RequestMapping(value = "forbid/{id}", method = RequestMethod.GET)
     public HashMap<String, Object> forbid(@PathVariable("id") Long id) throws UserNotFoundException {
         HashMap<String, Object> result = new HashMap<>();
         AdminModel model = service.findAdminUserById(id);
@@ -127,7 +125,7 @@ public class AdminUserController extends BaseController {
         } else {
             model = service.forbidAdminUserById(id);
             result.put(code, success);
-            result.put("user", model);
+            result.put("adminUser", model);
         }
         return result;
     }

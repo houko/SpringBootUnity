@@ -6,10 +6,7 @@ import info.xiaomo.core.model.UserModel;
 import info.xiaomo.core.service.UserService;
 import info.xiaomo.core.untils.MD5;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 
@@ -34,8 +31,8 @@ public class UserController extends BaseController {
     @Autowired
     private UserService service;
 
-    @RequestMapping("login/{userName}/{password}")
-    public HashMap<String, Object> login(@PathVariable String userName, @PathVariable String password) {
+    @RequestMapping(value = "login", method = RequestMethod.POST)
+    public HashMap<String, Object> login(@RequestParam String userName, @RequestParam String password) {
         HashMap<String, Object> result = new HashMap<>();
         UserModel userModel = service.findUserByUserName(userName);
         if (userModel == null) {
@@ -52,7 +49,7 @@ public class UserController extends BaseController {
     }
 
 
-    @RequestMapping("register")
+    @RequestMapping(value = "register", method = RequestMethod.POST)
     public HashMap<String, Object> register(
             @RequestParam String userName,
             @RequestParam String nickName,
@@ -87,12 +84,12 @@ public class UserController extends BaseController {
     }
 
 
-    @RequestMapping("findById/{id}")
+    @RequestMapping(value = "findById/{id}", method = RequestMethod.GET)
     public UserModel findUserById(@PathVariable("id") Long id) {
         return service.findUserById(id);
     }
 
-    @RequestMapping("update")
+    @RequestMapping(value = "update", method = RequestMethod.POST)
     public HashMap<String, Object> update(
             @RequestParam String userName,
             @RequestParam String nickName,

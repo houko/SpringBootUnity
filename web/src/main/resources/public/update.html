@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.css">
 </head>
 <body>
-<form action="/api/web/user/register" method="post">
+<form action="/api/web/user/upate" method="post">
     <div class="container">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -62,10 +62,13 @@
                     </div>
                     <div class="row">
                         <div class="col-md-2">
-                            <button type="submit">注册</button>
+                            <button type="submit" class="btn btn-success">注册</button>
                         </div>
                         <div class="col-md-2">
-                            <button type="reset">取消</button>
+                            <button type="reset" class="btn btn-default">取消</button>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="reset" class="btn btn-primary">修改</button>
                         </div>
                     </div>
                 </div>

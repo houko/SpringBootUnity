@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Copyright(©) 2015 by xiaomo.
  **/
 @RestController
-@RequestMapping("api/web/user")
+@RequestMapping("api/admin/user")
 public class UserController extends BaseController {
 
     @Autowired

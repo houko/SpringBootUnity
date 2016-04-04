@@ -1,6 +1,7 @@
 package info.xiaomo.web.controller;
 
 import info.xiaomo.core.controller.BaseController;
+import info.xiaomo.core.exception.UserNotFoundException;
 import info.xiaomo.core.model.UserModel;
 import info.xiaomo.core.service.UserService;
 import info.xiaomo.core.untils.MD5;
@@ -84,4 +85,45 @@ public class UserController extends BaseController {
         }
         return result;
     }
+
+
+    @RequestMapping("findById/{id}")
+    public UserModel findUserById(@PathVariable("id") Long id) {
+        return service.findUserById(id);
+    }
+
+    @RequestMapping("update")
+    public HashMap<String, Object> update(
+            @RequestParam String userName,
+            @RequestParam String nickName,
+            @RequestParam String password,
+            @RequestParam String email,
+            @RequestParam int gender,
+            @RequestParam long phone,
+            @RequestParam String address
+    ) throws UserNotFoundException {
+        HashMap<String, Object> result = new HashMap<>();
+        UserModel userModel = service.findUserByUserName(userName);
+        if (userModel != null) {
+            result.put(code, error);
+        } else {
+            userModel = new UserModel();
+            userModel.setUserName(userName);
+            userModel.setNickName(nickName);
+            userModel.setEmail(email);
+            userModel.setGender(gender);
+            userModel.setPhone(phone);
+            userModel.setAddress(address);
+            userModel.setPassword(MD5.encode(password));
+            UserModel res = service.updateUser(userModel);
+            if (res != null) {
+                result.put(code, success);
+                result.put("user", userModel);
+            } else {
+                result.put(code, error);
+            }
+        }
+        return result;
+    }
+
 }

@@ -59,6 +59,32 @@ public class AdminUserController extends BaseController {
         return result;
     }
 
+    @RequestMapping(value = "add", method = RequestMethod.POST)
+    public HashMap<String, Object> register(
+            @RequestParam String userName,
+            @RequestParam String password,
+            @RequestParam int authLevel
+    ) {
+        HashMap<String, Object> result = new HashMap<>();
+        AdminModel adminModel = service.findAdminUserByUserName(userName);
+        if (adminModel != null) {
+            result.put(code, error);
+        } else {
+            adminModel = new AdminModel();
+            adminModel.setUserName(userName);
+            adminModel.setPassword(MD5.encode(password));
+            adminModel.setStatus(authLevel);
+            AdminModel res = service.addAdminUser(adminModel);
+            if (res != null) {
+                result.put(code, success);
+                result.put("user", adminModel);
+            } else {
+                result.put(code, error);
+            }
+        }
+        return result;
+    }
+
     @RequestMapping(value = "findById/{id}", method = RequestMethod.GET)
     public HashMap<String, Object> findUserById(@PathVariable("id") Long id) {
         HashMap<String, Object> result = new HashMap<>();
@@ -101,7 +127,7 @@ public class AdminUserController extends BaseController {
             @RequestParam("userName") String userName,
             @RequestParam("password") String password,
             @RequestParam("authLevel") int authLevel
-    ) {
+    ) throws UserNotFoundException {
         HashMap<String, Object> result = new HashMap<>();
         AdminModel adminModel = service.findAdminUserByUserName(userName);
         if (adminModel == null) {
@@ -110,6 +136,7 @@ public class AdminUserController extends BaseController {
             adminModel.setUserName(userName);
             adminModel.setPassword(password);
             adminModel.setAuthLevel(authLevel);
+            service.updateAdminUser(adminModel);
             result.put(code, success);
             result.put("adminUser", adminModel);
         }

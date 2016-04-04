@@ -54,7 +54,9 @@ public class AdminUserServiceImpl implements AdminUserService {
     public AdminModel addAdminUser(AdminModel model) {
         model.setCreateTime(new Date());
         model.setUpdateTime(new Date());
-        return dao.save(model);
+        dao.save(model);
+        return model;
+
     }
 
     @Override

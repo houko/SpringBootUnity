@@ -41,4 +41,6 @@ public interface AdminUserService {
 
     AdminModel deleteAdminUserById(Long id) throws UserNotFoundException;
 
+    AdminModel forbidAdminUserById(Long id) throws UserNotFoundException;
+
 }

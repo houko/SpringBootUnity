@@ -80,6 +80,7 @@ public class UserServiceImpl implements UserService {
             userUpdate.setUserName(model.getUserName());
         }
         userUpdate.setUpdateTime(new Date());
+        dao.save(userUpdate);
         return userUpdate;
     }
 

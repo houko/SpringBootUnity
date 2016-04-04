@@ -62,19 +62,74 @@ public class AdminUserController extends BaseController {
     }
 
     @RequestMapping("findById/{id}")
-    public AdminModel findUserById(@PathVariable("id") Long id) {
-        return service.findAdminUserById(id);
+    public HashMap<String, Object> findUserById(@PathVariable("id") Long id) {
+        HashMap<String, Object> result = new HashMap<>();
+        AdminModel adminModel = service.findAdminUserById(id);
+        if (adminModel == null) {
+            result.put(code, notFound);
+        } else {
+
+            result.put(code, success);
+            result.put("adminUser", adminModel);
+        }
+        return result;
     }
 
 
     @RequestMapping("findAll/{start}/{pageSize}")
-    public Page<AdminModel> getAll(@PathVariable("start") int start, @PathVariable("pageSize") int page) {
-        return service.getAdminUsers(new PageRequest(start - 1, page));
+    public HashMap<String, Object> getAll(@PathVariable("start") int start, @PathVariable("pageSize") int page) {
+        HashMap<String, Object> result = new HashMap<>();
+        Page<AdminModel> pages = service.getAdminUsers(new PageRequest(start - 1, page));
+        result.put(code, success);
+        result.put("adminUsers", pages);
+        return result;
     }
 
     @RequestMapping("deleteById/{id}")
-    public AdminModel deleteUserById(@PathVariable("id") Long id) throws UserNotFoundException {
-        return service.deleteAdminUserById(id);
+    public HashMap<String, Object> deleteUserById(@PathVariable("id") Long id) throws UserNotFoundException {
+        HashMap<String, Object> result = new HashMap<>();
+        AdminModel adminModel = service.deleteAdminUserById(id);
+        if (adminModel == null) {
+            result.put(code, notFound);
+        } else {
+            result.put(code, success);
+            result.put("adminUser", adminModel);
+        }
+        return result;
     }
 
+    @RequestMapping("update/{userName}/{password}/{authLevel}")
+    public HashMap<String, Object> update(
+            @PathVariable("userName") String userName,
+            @PathVariable("password") String password,
+            @PathVariable("authLevel") int authLevel
+    ) {
+        HashMap<String, Object> result = new HashMap<>();
+        AdminModel adminModel = service.findAdminUserByUserName(userName);
+        if (adminModel == null) {
+            result.put(code, notFound);
+        } else {
+            adminModel.setUserName(userName);
+            adminModel.setPassword(password);
+            adminModel.setAuthLevel(authLevel);
+            result.put(code, success);
+            result.put("adminUser", adminModel);
+        }
+        return result;
+    }
+
+    @RequestMapping("forbid/{id}")
+    public HashMap<String, Object> forbid(@PathVariable("id") Long id) throws UserNotFoundException {
+        HashMap<String, Object> result = new HashMap<>();
+        AdminModel model = service.findAdminUserById(id);
+        if (model == null) {
+            result.put(code, notFound);
+        } else {
+            model = service.forbidAdminUserById(id);
+            result.put(code, success);
+            result.put("user", model);
+        }
+        return result;
+    }
 }
+

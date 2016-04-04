@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+
 /**
  * 把今天最好的表现当作明天最新的起点．．～
  * いま 最高の表現 として 明日最新の始発．．～
@@ -33,18 +35,38 @@ public class UserController extends BaseController {
     private UserService service;
 
     @RequestMapping("findById/{id}")
-    public UserModel findUserById(@PathVariable("id") Long id) {
-        return service.findUserById(id);
+    public HashMap<String, Object> findUserById(@PathVariable("id") Long id) {
+        HashMap<String, Object> result = new HashMap<>();
+        UserModel userModel = service.findUserById(id);
+        if (userModel == null) {
+            result.put(code, notFound);
+        } else {
+            result.put(code, success);
+            result.put("user", userModel);
+        }
+        return result;
     }
 
 
     @RequestMapping("findAll/{start}/{pageSize}")
-    public Page<UserModel> getAll(@PathVariable("start") int start, @PathVariable("pageSize") int page) {
-        return service.getUsers(new PageRequest(start - 1, page));
+    public HashMap<String, Object> getAll(@PathVariable("start") int start, @PathVariable("pageSize") int page) {
+        HashMap<String, Object> result = new HashMap<>();
+        Page<UserModel> pages = service.getUsers(new PageRequest(start - 1, page));
+        result.put(code, success);
+        result.put("users", pages);
+        return result;
     }
 
     @RequestMapping("deleteById/{id}")
-    public UserModel deleteUserById(@PathVariable("id") Long id) throws UserNotFoundException {
-        return service.deleteUserById(id);
+    public HashMap<String, Object> deleteUserById(@PathVariable("id") Long id) throws UserNotFoundException {
+        HashMap<String, Object> result = new HashMap<>();
+        UserModel userModel = service.deleteUserById(id);
+        if (userModel == null) {
+            result.put(code, notFound);
+        } else {
+            result.put(code, success);
+            result.put("user", userModel);
+        }
+        return result;
     }
 }

@@ -73,6 +73,7 @@ public class AdminUserServiceImpl implements AdminUserService {
             userUpdate.setUserName(model.getUserName());
         }
         userUpdate.setUpdateTime(new Date());
+        dao.save(userUpdate);
         return userUpdate;
     }
 
@@ -89,5 +90,16 @@ public class AdminUserServiceImpl implements AdminUserService {
         }
         dao.delete(adminModel.getId());
         return adminModel;
+    }
+
+    @Override
+    public AdminModel forbidAdminUserById(Long id) throws UserNotFoundException {
+        AdminModel model = dao.findOne(id);
+        if (model == null) {
+            throw new UserNotFoundException();
+        }
+        model.setStatus(2);
+        dao.save(model);
+        return model;
     }
 }

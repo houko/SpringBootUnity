@@ -36,6 +36,11 @@ public class AdminModel extends BaseModel {
     private String password;
 
     /**
+     * 1正常 2异常
+     */
+    private int status;
+
+    /**
      * 0(游客用户:默认admin) 1超级管理员
      */
     private int authLevel;
@@ -62,5 +67,13 @@ public class AdminModel extends BaseModel {
 
     public void setAuthLevel(int authLevel) {
         this.authLevel = authLevel;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

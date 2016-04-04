@@ -1,0 +1,126 @@
+@import "../../framework/bootstrap-4.0.0-alpha/scss/bootstrap";
+
+* {
+  font-family: 微软雅黑, serif;
+}
+
+.header {
+  background: url("../images/index.jpg") no-repeat;
+  overflow: hidden;
+  background-size: 100% 100%;
+  height: 600px;
+  width: 100%;
+  .navbar-brand img {
+    padding-top: 5px;
+    width: 60px;
+    height: 12%;
+    transition: width 1s, heigth 1s;
+  }
+  .navbar-brand img:hover {
+    width: 70px;
+    height: 12%;
+  }
+  .navbar-color {
+    width: 70px;
+    height: 30px;
+    line-height: 15px;
+    text-align: center;
+    font-size: 14px;
+    color: white;
+    border-radius: 2px;
+    transition: background-color .5s, color .5s, font-size .5s, font-weigth .5s;
+  }
+  .navbar-color:hover {
+    font-size: 15px;
+    font-weight: 800;
+    background-color: rgba(173, 255, 47, 0.3);
+    color: greenyellow;
+  }
+}
+
+.skills {
+  margin-top: 5px;
+  background-color: #f5f5fe;
+  .content {
+    width: 70%;
+    margin: 0 auto;
+    padding-bottom: 20px;
+    .my {
+      display: block;
+      color: black;
+      font-weight: 900;
+      text-align: center;
+      margin-top: 3px;
+      padding-top: 40px;
+      padding-bottom: 40px;
+      overflow: hidden;
+    }
+    .row {
+      .col-md-3 {
+        h3 {
+          font-size: 15px;
+          font-weight: 500;
+          color: dodgerblue;
+        }
+      }
+    }
+  }
+}
+
+.useful {
+  background-color: #0bb59b;
+  height: 230px;
+  width: 100%;
+  img {
+    position: relative;
+    left: 10%;
+    top: 30px;
+  }
+  .content {
+    padding-top: 40px;
+    padding-left: 30px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .useful {
+    height: 330px;
+  }
+  .header {
+    height: 180px;
+  }
+}
+
+@media only screen and (min-width: 480px) and (max-width: 768px) {
+  .useful {
+    height: 330px;
+    img {
+      left: 20%;
+    }
+  }
+  .header {
+    height: 400px;
+  }
+}
+
+footer {
+  color: gray;
+  .footer {
+    padding-top: 40px;
+    height: 100px;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    line-height: 100px;
+    h5 {
+      font-size: 13px;
+    }
+    h6 {
+      a {
+        font-size: 12px;
+        text-decoration: none;
+        color: darkgray;
+      }
+    }
+  }
+}

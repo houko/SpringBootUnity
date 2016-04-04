@@ -7,8 +7,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -31,15 +29,15 @@ import org.springframework.web.bind.annotation.RestController;
 @EntityScan("info.xiaomo.*.model")
 @EnableTransactionManagement
 @EnableJpaRepositories("info.xiaomo.*.dao")
-@RestController
+//@RestController
 public class WebMain {
     public static void main(String[] args) throws Exception {
         SpringApplication.run(WebMain.class, args);
     }
 
-    @RequestMapping("/")
-    String index() {
-        return "Hello World! this is web index";
-    }
+//    @RequestMapping("/")
+//    String index() {
+//        return "Hello World! this is web index";
+//    }
 
 }

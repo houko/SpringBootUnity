@@ -34,6 +34,14 @@ public abstract class BaseModel {
     @Column(name = "updateTime")
     private Date updateTime;
 
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
     public long getId() {
         return id;
     }

@@ -1,7 +1,10 @@
 package info.xiaomo.core.service;
 
 
+import info.xiaomo.core.exception.UserNotFoundException;
 import info.xiaomo.core.model.UserModel;
+
+import java.util.List;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -20,5 +23,15 @@ import info.xiaomo.core.model.UserModel;
 public interface UserService {
 
     UserModel findUserById(Long id);
+
+    UserModel findUserByUserName(String userName);
+
+    UserModel addUser(UserModel model);
+
+    UserModel updateUser(UserModel model) throws UserNotFoundException;
+
+    List<UserModel> getUsers();
+
+    UserModel deleteUserById(Long id) throws UserNotFoundException;
 
 }

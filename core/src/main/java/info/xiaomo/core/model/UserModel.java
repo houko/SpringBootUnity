@@ -33,7 +33,7 @@ public class UserModel extends BaseModel {
 
     private int gender;
 
-    private int phone;
+    private Long phone;
 
     private String imgUrl;
 
@@ -79,11 +79,11 @@ public class UserModel extends BaseModel {
         this.gender = gender;
     }
 
-    public int getPhone() {
+    public Long getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(Long phone) {
         this.phone = phone;
     }
 

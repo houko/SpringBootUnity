@@ -1,10 +1,15 @@
 package info.xiaomo.core.service.impl;
 
-import info.xiaomo.core.dao.CommonDao;
+import info.xiaomo.core.dao.UserDao;
+import info.xiaomo.core.exception.UserNotFoundException;
 import info.xiaomo.core.model.UserModel;
 import info.xiaomo.core.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -24,10 +29,70 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private CommonDao dao;
+    private UserDao dao;
 
     @Override
     public UserModel findUserById(Long id) {
-        return dao.get(UserModel.class, id);
+        return dao.findOne(id);
+    }
+
+    @Override
+    public UserModel findUserByUserName(String userName) {
+        return dao.findUserByUserName(userName);
+    }
+
+    @Override
+    public UserModel addUser(UserModel model) {
+        model.setCreateTime(new Date());
+        model.setUpdateTime(new Date());
+        return dao.save(model);
+    }
+
+    @Override
+    public UserModel updateUser(UserModel model) throws UserNotFoundException {
+        UserModel userUpdate = dao.findOne(model.getId());
+        if (userUpdate == null) {
+            throw new UserNotFoundException();
+        }
+        if (!Objects.equals(model.getPassword(), userUpdate.getPassword())) {
+            userUpdate.setPassword(model.getPassword());
+        }
+        if (!Objects.equals(model.getAddress(), userUpdate.getAddress())) {
+            userUpdate.setAddress(model.getAddress());
+        }
+        if (!Objects.equals(model.getEmail(), userUpdate.getEmail())) {
+            userUpdate.setEmail(model.getEmail());
+        }
+        if (model.getGender() != userUpdate.getGender()) {
+            userUpdate.setGender(model.getGender());
+        }
+        if (!Objects.equals(model.getImgUrl(), userUpdate.getImgUrl())) {
+            userUpdate.setImgUrl(model.getImgUrl());
+        }
+        if (!Objects.equals(model.getNickName(), userUpdate.getNickName())) {
+            userUpdate.setNickName(model.getNickName());
+        }
+        if (model.getPhone() != userUpdate.getPhone()) {
+            userUpdate.setPhone(model.getPhone());
+        }
+        if (!Objects.equals(model.getUserName(), userUpdate.getUserName())) {
+            userUpdate.setUserName(model.getUserName());
+        }
+        return userUpdate;
+    }
+
+    @Override
+    public List<UserModel> getUsers() {
+        return dao.findAll();
+    }
+
+    @Override
+    public UserModel deleteUserById(Long id) throws UserNotFoundException {
+        UserModel userModel = dao.findOne(id);
+        if (userModel == null) {
+            throw new UserNotFoundException();
+        }
+        dao.delete(userModel.getId());
+        return userModel;
     }
 }

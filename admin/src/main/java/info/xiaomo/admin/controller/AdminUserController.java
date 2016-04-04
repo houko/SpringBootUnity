@@ -1,9 +1,13 @@
 package info.xiaomo.admin.controller;
 
 import info.xiaomo.core.controller.BaseController;
+import info.xiaomo.core.exception.UserNotFoundException;
 import info.xiaomo.core.model.AdminModel;
 import info.xiaomo.core.service.AdminUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,7 +38,7 @@ import java.util.Map;
  * @Copyright(©) 2015 by xiaomo.
  */
 @RestController
-@RequestMapping("admin")
+@RequestMapping("api/admin/adminUser")
 public class AdminUserController extends BaseController {
 
     @Autowired
@@ -55,6 +59,22 @@ public class AdminUserController extends BaseController {
             }
         }
         return result;
+    }
+
+    @RequestMapping("findById/{id}")
+    public AdminModel findUserById(@PathVariable("id") Long id) {
+        return service.findAdminUserById(id);
+    }
+
+
+    @RequestMapping("findAll/{start}/{pageSize}")
+    public Page<AdminModel> getAll(@PathVariable("start") int start, @PathVariable("pageSize") int page) {
+        return service.getAdminUsers(new PageRequest(start - 1, page));
+    }
+
+    @RequestMapping("deleteById/{id}")
+    public AdminModel deleteUserById(@PathVariable("id") Long id) throws UserNotFoundException {
+        return service.deleteAdminUserById(id);
     }
 
 }

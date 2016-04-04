@@ -5,6 +5,7 @@ import info.xiaomo.core.model.UserModel;
 import info.xiaomo.core.service.UserService;
 import info.xiaomo.core.untils.MD5;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,14 +27,14 @@ import java.util.HashMap;
  * @Copyright(©) 2015 by xiaomo.
  **/
 @RestController
-@RequestMapping("user")
+@RequestMapping("api/web/user")
 public class UserController extends BaseController {
 
     @Autowired
     private UserService service;
 
-    @RequestMapping("login")
-    public HashMap<String, Object> login(@RequestParam String userName, @RequestParam String password) {
+    @RequestMapping("login/{userName}/{password}")
+    public HashMap<String, Object> login(@PathVariable String userName, @PathVariable String password) {
         HashMap<String, Object> result = new HashMap<>();
         UserModel userModel = service.findUserByUserName(userName);
         if (userModel == null) {

@@ -29,15 +29,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EntityScan("info.xiaomo.*.model")
 @EnableTransactionManagement
 @EnableJpaRepositories("info.xiaomo.*.dao")
-//@RestController
 public class WebMain {
     public static void main(String[] args) throws Exception {
         SpringApplication.run(WebMain.class, args);
     }
-
-//    @RequestMapping("/")
-//    String index() {
-//        return "Hello World! this is web index";
-//    }
 
 }

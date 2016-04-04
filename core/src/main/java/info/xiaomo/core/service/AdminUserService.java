@@ -1,6 +1,9 @@
 package info.xiaomo.core.service;
 
+import info.xiaomo.core.exception.UserNotFoundException;
 import info.xiaomo.core.model.AdminModel;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
  * │＼＿＿╭╭╭╭╭＿＿／│
@@ -27,5 +30,15 @@ import info.xiaomo.core.model.AdminModel;
 public interface AdminUserService {
 
     AdminModel findAdminUserByUserName(String userName);
+
+    AdminModel findAdminUserById(Long id);
+
+    AdminModel addAdminUser(AdminModel model);
+
+    AdminModel updateAdminUser(AdminModel model) throws UserNotFoundException;
+
+    Page<AdminModel> getAdminUsers(Pageable pageable);
+
+    AdminModel deleteAdminUserById(Long id) throws UserNotFoundException;
 
 }

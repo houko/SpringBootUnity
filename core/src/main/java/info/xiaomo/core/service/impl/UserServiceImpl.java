@@ -5,10 +5,11 @@ import info.xiaomo.core.exception.UserNotFoundException;
 import info.xiaomo.core.model.UserModel;
 import info.xiaomo.core.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -72,18 +73,19 @@ public class UserServiceImpl implements UserService {
         if (!Objects.equals(model.getNickName(), userUpdate.getNickName())) {
             userUpdate.setNickName(model.getNickName());
         }
-        if (model.getPhone() != userUpdate.getPhone()) {
+        if (!Objects.equals(model.getPhone(), userUpdate.getPhone())) {
             userUpdate.setPhone(model.getPhone());
         }
         if (!Objects.equals(model.getUserName(), userUpdate.getUserName())) {
             userUpdate.setUserName(model.getUserName());
         }
+        userUpdate.setUpdateTime(new Date());
         return userUpdate;
     }
 
     @Override
-    public List<UserModel> getUsers() {
-        return dao.findAll();
+    public Page<UserModel> getUsers(Pageable pageable) {
+        return dao.findAll(pageable);
     }
 
     @Override

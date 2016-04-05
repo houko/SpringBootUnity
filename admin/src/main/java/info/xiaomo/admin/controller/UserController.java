@@ -7,9 +7,9 @@ import info.xiaomo.core.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
@@ -41,8 +41,8 @@ public class UserController extends BaseController {
      * @param id id
      * @return result
      */
-    @RequestMapping(value = "findById/{id}", method = RequestMethod.GET)
-    public HashMap<String, Object> findUserById(@PathVariable("id") Long id) {
+    @RequestMapping(value = "findById", method = RequestMethod.GET)
+    public HashMap<String, Object> findUserById(@RequestParam("id") Long id) {
         UserModel userModel = service.findUserById(id);
         if (userModel == null) {
             result.put(code, notFound);
@@ -60,8 +60,8 @@ public class UserController extends BaseController {
      * @param page  page
      * @return result
      */
-    @RequestMapping(value = "findAll/{start}/{pageSize}", method = RequestMethod.GET)
-    public HashMap<String, Object> getAll(@PathVariable("start") int start, @PathVariable("pageSize") int page) {
+    @RequestMapping(value = "findAll", method = RequestMethod.GET)
+    public HashMap<String, Object> getAll(@RequestParam("start") int start, @RequestParam("pageSize") int page) {
         Page<UserModel> pages = service.getUsers(new PageRequest(start - 1, page));
         result.put(code, success);
         result.put("users", pages);
@@ -75,8 +75,8 @@ public class UserController extends BaseController {
      * @return result
      * @throws UserNotFoundException
      */
-    @RequestMapping(value = "deleteById/{id}", method = RequestMethod.GET)
-    public HashMap<String, Object> deleteUserById(@PathVariable("id") Long id) throws UserNotFoundException {
+    @RequestMapping(value = "deleteById", method = RequestMethod.GET)
+    public HashMap<String, Object> deleteUserById(@RequestParam("id") Long id) throws UserNotFoundException {
         UserModel userModel = service.deleteUserById(id);
         if (userModel == null) {
             result.put(code, notFound);

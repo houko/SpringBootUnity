@@ -11,7 +11,10 @@ import org.hibernate.service.spi.ServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.text.ParseException;
 import java.util.Date;
@@ -127,8 +130,8 @@ public class UserController extends BaseController {
      * @param email email
      * @return result
      */
-    @RequestMapping(value = "findById/{email}", method = RequestMethod.GET)
-    public Map<String, Object> findUserByEmail(@PathVariable("email") String email) {
+    @RequestMapping(value = "findByEmail", method = RequestMethod.GET)
+    public Map<String, Object> findUserByEmail(@RequestParam("email") String email) {
         UserModel userModel = service.findUserByEmail(email);
         if (userModel == null) {
             result.put(code, notFound);
@@ -146,8 +149,8 @@ public class UserController extends BaseController {
      * @param id id
      * @return result
      */
-    @RequestMapping(value = "findById/{id}", method = RequestMethod.GET)
-    public HashMap<String, Object> findUserById(@PathVariable("id") Long id) {
+    @RequestMapping(value = "findById", method = RequestMethod.GET)
+    public HashMap<String, Object> findUserById(@RequestParam("id") Long id) {
         UserModel userModel = service.findUserById(id);
         if (userModel == null) {
             result.put(code, notFound);

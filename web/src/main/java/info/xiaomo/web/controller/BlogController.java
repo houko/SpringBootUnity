@@ -6,7 +6,10 @@ import info.xiaomo.core.service.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -34,11 +37,12 @@ public class BlogController extends BaseController {
 
     /**
      * findById
+     *
      * @param id id
      * @return result
      */
-    @RequestMapping(value = "findById/{id}", method = RequestMethod.GET)
-    public HashMap<String, Object> findById(@PathVariable Long id) {
+    @RequestMapping(value = "findById/", method = RequestMethod.GET)
+    public HashMap<String, Object> findById(@RequestParam Long id) {
         BlogModel model = service.findBlogById(id);
         if (model == null) {
             result.put(code, notFound);
@@ -51,12 +55,13 @@ public class BlogController extends BaseController {
 
     /**
      * 分页查询
-     * @param start start
+     *
+     * @param start    start
      * @param pageSize pageSize
      * @return result
      */
-    @RequestMapping(value = "findAll/{start}/{pageSize}", method = RequestMethod.GET)
-    public HashMap<String, Object> findAll(@PathVariable("start") int start, @PathVariable("pageSize") int pageSize) {
+    @RequestMapping(value = "findAll", method = RequestMethod.GET)
+    public HashMap<String, Object> findAll(@RequestParam("start") int start, @RequestParam("pageSize") int pageSize) {
         Page<BlogModel> models = service.findAll(new PageRequest(start, pageSize));
         result.put(code, success);
         result.put("blogs", models);
@@ -65,10 +70,11 @@ public class BlogController extends BaseController {
 
     /**
      * 增加博客
-     * @param title title
+     *
+     * @param title   title
      * @param summary summary
      * @param content content
-     * @param tagId tagId
+     * @param tagId   tagId
      * @return result
      */
     @RequestMapping(value = "add", method = RequestMethod.POST)
@@ -96,7 +102,7 @@ public class BlogController extends BaseController {
         return result;
     }
 
-    @RequestMapping(value = "update",method = RequestMethod.POST)
+    @RequestMapping(value = "update", method = RequestMethod.POST)
     public HashMap<String, Object> update(@RequestParam String params) {
         return result;
     }

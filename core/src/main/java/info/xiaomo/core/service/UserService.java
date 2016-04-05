@@ -24,7 +24,7 @@ public interface UserService {
 
     UserModel findUserById(Long id);
 
-    UserModel findUserByUserName(String userName);
+    UserModel findUserByEmail(String userName);
 
     UserModel addUser(UserModel model);
 

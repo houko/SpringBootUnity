@@ -4,6 +4,7 @@ import info.xiaomo.core.dao.UserDao;
 import info.xiaomo.core.exception.UserNotFoundException;
 import info.xiaomo.core.model.UserModel;
 import info.xiaomo.core.service.UserService;
+import info.xiaomo.core.untils.MailUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -38,12 +39,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserModel findUserByUserName(String userName) {
-        return dao.findUserByUserName(userName);
+    public UserModel findUserByEmail(String email) {
+        return dao.findUserByUserName(email);
     }
 
     @Override
     public UserModel addUser(UserModel model) {
+        StringBuilder sb = new StringBuilder("点击下面链接激活账号，48小时生效，否则重新注册账号，链接只能使用一次，请尽快激活！</br>");
+        sb.append("<a href=\"http://localhost:8080/springmvc/user/register?action=activate&email=");
+        sb.append(model.getEmail());
+        sb.append("&validateCode=");
+        sb.append(model.getValidateCode());
+        sb.append("\">http://localhost:8080/springmvc/user/register?action=activate&email=");
+        sb.append(model.getEmail());
+        sb.append("&validateCode=");
+        sb.append(model.getValidateCode());
+        sb.append("</a>");
+        MailUtil.send(model.getEmail(), sb.toString());
         model.setCreateTime(new Date());
         model.setUpdateTime(new Date());
         return dao.save(model);
@@ -75,9 +87,6 @@ public class UserServiceImpl implements UserService {
         }
         if (!Objects.equals(model.getPhone(), userUpdate.getPhone())) {
             userUpdate.setPhone(model.getPhone());
-        }
-        if (!Objects.equals(model.getUserName(), userUpdate.getUserName())) {
-            userUpdate.setUserName(model.getUserName());
         }
         userUpdate.setUpdateTime(new Date());
         dao.save(userUpdate);

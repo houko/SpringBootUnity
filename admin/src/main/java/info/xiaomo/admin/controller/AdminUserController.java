@@ -109,7 +109,7 @@ public class AdminUserController extends BaseController {
         return result;
     }
 
-    @RequestMapping("deleteById/{id}")
+    @RequestMapping(value = "deleteById/{id}",method = RequestMethod.GET)
     public HashMap<String, Object> deleteUserById(@PathVariable("id") Long id) throws UserNotFoundException {
         HashMap<String, Object> result = new HashMap<>();
         AdminModel adminModel = service.deleteAdminUserById(id);

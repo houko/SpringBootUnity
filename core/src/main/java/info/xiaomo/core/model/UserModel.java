@@ -23,13 +23,21 @@ import javax.persistence.Table;
 @Table(name = "user")
 public class UserModel extends BaseModel {
 
-    private String userName;
+    /**
+     * 登录用户
+     */
+    private String Email;
 
     private String nickName;
 
     private String password;
 
-    private String email;
+    /**
+     *  1己激活 0 未激活
+     */
+    private int validateStatus=0;//激活状态
+
+    private String validateCode;//激活码
 
     private int gender;
 
@@ -38,14 +46,6 @@ public class UserModel extends BaseModel {
     private String imgUrl;
 
     private String address;
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
 
     public String getNickName() {
         return nickName;
@@ -64,11 +64,11 @@ public class UserModel extends BaseModel {
     }
 
     public String getEmail() {
-        return email;
+        return Email;
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        Email = email;
     }
 
     public int getGender() {
@@ -101,5 +101,21 @@ public class UserModel extends BaseModel {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public int getValidateStatus() {
+        return validateStatus;
+    }
+
+    public void setValidateStatus(int validateStatus) {
+        this.validateStatus = validateStatus;
+    }
+
+    public String getValidateCode() {
+        return validateCode;
+    }
+
+    public void setValidateCode(String validateCode) {
+        this.validateCode = validateCode;
     }
 }

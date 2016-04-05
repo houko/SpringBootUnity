@@ -35,38 +35,55 @@ public class UserController extends BaseController {
     @Autowired
     private UserService service;
 
+    /**
+     * 根据id 查找用户
+     *
+     * @param id id
+     * @return result
+     */
     @RequestMapping(value = "findById/{id}", method = RequestMethod.GET)
     public HashMap<String, Object> findUserById(@PathVariable("id") Long id) {
-        HashMap<String, Object> result = new HashMap<>();
         UserModel userModel = service.findUserById(id);
         if (userModel == null) {
             result.put(code, notFound);
-        } else {
-            result.put(code, success);
-            result.put("user", userModel);
+            return result;
         }
+        result.put(code, success);
+        result.put("user", userModel);
         return result;
     }
 
+    /**
+     * 分页查询用户
+     *
+     * @param start start
+     * @param page  page
+     * @return result
+     */
     @RequestMapping(value = "findAll/{start}/{pageSize}", method = RequestMethod.GET)
     public HashMap<String, Object> getAll(@PathVariable("start") int start, @PathVariable("pageSize") int page) {
-        HashMap<String, Object> result = new HashMap<>();
         Page<UserModel> pages = service.getUsers(new PageRequest(start - 1, page));
         result.put(code, success);
         result.put("users", pages);
         return result;
     }
 
+    /**
+     * 根据id 删除用户
+     *
+     * @param id id
+     * @return result
+     * @throws UserNotFoundException
+     */
     @RequestMapping(value = "deleteById/{id}", method = RequestMethod.GET)
     public HashMap<String, Object> deleteUserById(@PathVariable("id") Long id) throws UserNotFoundException {
-        HashMap<String, Object> result = new HashMap<>();
         UserModel userModel = service.deleteUserById(id);
         if (userModel == null) {
             result.put(code, notFound);
-        } else {
-            result.put(code, success);
-            result.put("user", userModel);
+            return result;
         }
+        result.put(code, success);
+        result.put("user", userModel);
         return result;
     }
 }

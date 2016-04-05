@@ -33,6 +33,11 @@ public class BlogModel extends BaseModel {
 
     private Long tagId;
 
+    /**
+     * 0正常 1己删除
+     */
+    private int status;
+
     public String getTitle() {
         return title;
     }
@@ -71,5 +76,13 @@ public class BlogModel extends BaseModel {
 
     public void setTagId(Long tagId) {
         this.tagId = tagId;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

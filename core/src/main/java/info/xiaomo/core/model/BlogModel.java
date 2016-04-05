@@ -29,6 +29,8 @@ public class BlogModel extends BaseModel {
 
     private String content;
 
+    private String author;
+
     private int vote;
 
     private Long tagId;
@@ -84,5 +86,13 @@ public class BlogModel extends BaseModel {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 }

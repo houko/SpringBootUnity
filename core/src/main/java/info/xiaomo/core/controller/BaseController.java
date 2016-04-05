@@ -101,7 +101,7 @@ public abstract class BaseController<E extends BaseModel> {
      *
      * @param start    start
      * @param pageSize pageSize
-     * @return
+     * @return result
      */
     @RequestMapping(value = "findAll", method = RequestMethod.GET)
     public HashMap<String, Object> RequestParam(@RequestParam("start") int start, @RequestParam("pageSize") int pageSize) {

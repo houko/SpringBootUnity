@@ -8,6 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -46,6 +48,22 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public BlogModel updateBlog(BlogModel model) {
+        BlogModel updateBlog = dao.findOne(model.getId());
+        if (updateBlog == null) {
+            return null;
+        }
+        if (!Objects.equals(model.getAuthor(), updateBlog.getAuthor())) {
+            updateBlog.setAuthor(model.getAuthor());
+        }
+        if (Objects.equals(model.getContent(), updateBlog.getContent())) {
+            updateBlog.setContent(model.getContent());
+        }
+        if (Objects.equals(model.getSummary(), updateBlog.getSummary())) {
+            updateBlog.setSummary(model.getSummary());
+        }
+        if (Objects.equals(model.getTitle(), updateBlog.getTitle())) {
+            updateBlog.setTitle(model.getTitle());
+        }
         return dao.save(model);
     }
 

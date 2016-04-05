@@ -49,6 +49,8 @@ public class BlogController extends BaseController {
             return result;
         }
         result.put(code, success);
+        model.setVote(model.getVote() + 1);
+        service.updateBlog(model);
         result.put("blog", model);
         return result;
     }
@@ -80,6 +82,7 @@ public class BlogController extends BaseController {
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public HashMap<String, Object> add(
             @RequestParam String title,
+            @RequestParam String nickName,
             @RequestParam String summary,
             @RequestParam String content,
             @RequestParam Long tagId
@@ -93,6 +96,7 @@ public class BlogController extends BaseController {
         blogModel.setTitle(title);
         blogModel.setContent(content);
         blogModel.setSummary(summary);
+        blogModel.setAuthor(nickName);
         blogModel.setStatus(0);
         blogModel.setUpdateTime(new Date());
         blogModel.setTagId(tagId);
@@ -102,8 +106,41 @@ public class BlogController extends BaseController {
         return result;
     }
 
+
+    /**
+     * 修改博客
+     *
+     * @param title    title
+     * @param nickName nickName
+     * @param summary  summary
+     * @param content  content
+     * @param tagId    tagId
+     * @return result
+     */
     @RequestMapping(value = "update", method = RequestMethod.POST)
-    public HashMap<String, Object> update(@RequestParam String params) {
+    public HashMap<String, Object> update(
+            @RequestParam String title,
+            @RequestParam String nickName,
+            @RequestParam String summary,
+            @RequestParam String content,
+            @RequestParam Long tagId
+    ) {
+        BlogModel blogModel = service.findBlogByTitle(title);
+        if (blogModel == null) {
+            result.put(code, notFound);
+            return result;
+        }
+        blogModel.setTitle(title);
+        blogModel.setStatus(0);
+        blogModel.setContent(content);
+        blogModel.setAuthor(nickName);
+        blogModel.setSummary(summary);
+        blogModel.setTagId(tagId);
+        blogModel = service.updateBlog(blogModel);
+        result.put(code, success);
+        result.put("blog", blogModel);
         return result;
     }
+
+
 }

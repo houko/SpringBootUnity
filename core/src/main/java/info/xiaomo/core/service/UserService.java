@@ -30,7 +30,7 @@ public interface UserService {
 
     UserModel updateUser(UserModel model) throws UserNotFoundException;
 
-    Page<UserModel> getUsers(Pageable pageable);
+    Page<UserModel> findAll(Pageable pageable);
 
     UserModel deleteUserById(Long id) throws UserNotFoundException;
 

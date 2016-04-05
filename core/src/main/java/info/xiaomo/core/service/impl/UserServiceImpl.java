@@ -86,7 +86,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Page<UserModel> getUsers(Pageable pageable) {
+    public Page<UserModel> findAll(Pageable pageable) {
         return dao.findAll(pageable);
     }
 

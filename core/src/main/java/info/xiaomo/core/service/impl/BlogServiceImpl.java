@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Iterator;
 import java.util.Objects;
 
 
@@ -38,7 +39,13 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public Page<BlogModel> findAll(Pageable pageable) {
-        return dao.findAll(pageable);
+        Page<BlogModel> blogModels = dao.findAll(pageable);
+        for (Iterator<BlogModel> it = blogModels.iterator(); it.hasNext(); ) {
+            if (it.next().getStatus() == 1) {//去掉己删除的博客
+                it.remove();
+            }
+        }
+        return blogModels;
     }
 
     @Override

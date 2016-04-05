@@ -41,7 +41,7 @@ public class BlogController extends BaseController {
      * @param id id
      * @return result
      */
-    @RequestMapping(value = "findById/", method = RequestMethod.GET)
+    @RequestMapping(value = "findById", method = RequestMethod.GET)
     public HashMap<String, Object> findById(@RequestParam Long id) {
         BlogModel model = service.findBlogById(id);
         if (model == null) {
@@ -136,6 +136,27 @@ public class BlogController extends BaseController {
         blogModel.setAuthor(nickName);
         blogModel.setSummary(summary);
         blogModel.setTagId(tagId);
+        blogModel = service.updateBlog(blogModel);
+        result.put(code, success);
+        result.put("blog", blogModel);
+        return result;
+    }
+
+
+    /**
+     * 删除博客(软删除)
+     *
+     * @param id id
+     * @return result
+     */
+    @RequestMapping(value = "deleteBlogById", method = RequestMethod.GET)
+    public HashMap<String, Object> deleteBlogById(@RequestParam Long id) {
+        BlogModel blogModel = service.findBlogById(id);
+        if (blogModel == null) {
+            result.put(code, notFound);
+            return result;
+        }
+        blogModel.setStatus(1);
         blogModel = service.updateBlog(blogModel);
         result.put(code, success);
         result.put("blog", blogModel);

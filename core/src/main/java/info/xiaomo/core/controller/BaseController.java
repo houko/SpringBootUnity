@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -45,7 +46,21 @@ public abstract class BaseController<E extends BaseModel> {
      */
     protected static final int activated = 303;
 
+    /**
+     * 己过期
+     */
     protected static final int expired = 304;
+
+    /**
+     * 未激活
+     */
+    protected static final int notActivated = 305;
+
+    /**
+     * result
+     */
+    protected HashMap<String,Object> result = new HashMap<>();
+
 
     /**
      * 跨域处理

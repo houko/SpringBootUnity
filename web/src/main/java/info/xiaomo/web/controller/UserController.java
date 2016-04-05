@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -40,24 +41,50 @@ public class UserController extends BaseController {
     @Autowired
     private UserService service;
 
+
+    /**
+     * 登录
+     *
+     * @param email    email
+     * @param password password
+     * @return result
+     */
     @RequestMapping(value = "login", method = RequestMethod.POST)
     public HashMap<String, Object> login(@RequestParam String email, @RequestParam String password) {
-        HashMap<String, Object> result = new HashMap<>();
         UserModel userModel = service.findUserByEmail(email);
+        //找不到用户
         if (userModel == null) {
             result.put(code, notFound);
-        } else {
-            if (MD5.encode(password).equals(userModel.getPassword())) {
-                result.put(code, success);
-                result.put("user", userModel);
-            } else {
-                result.put(code, error);
-            }
+            return result;
         }
+        //邮箱未验证
+        if (userModel.getValidateStatus() == 0) {
+            result.put(code, notActivated);
+            result.put("user", userModel);
+            return result;
+        }
+        //密码不正确
+        if (!MD5.encode(password).equals(userModel.getPassword())) {
+            result.put(code, error);
+            return result;
+        }
+        result.put(code, success);
+        result.put("user", userModel);
         return result;
     }
 
 
+    /**
+     * 注册
+     *
+     * @param nickName nickName
+     * @param password password
+     * @param email    email
+     * @param gender   gender
+     * @param phone    phone
+     * @param address  address
+     * @return result
+     */
     @RequestMapping(value = "register", method = RequestMethod.POST)
     public HashMap<String, Object> register(
             @RequestParam String nickName,
@@ -67,38 +94,83 @@ public class UserController extends BaseController {
             @RequestParam long phone,
             @RequestParam String address
     ) {
-        HashMap<String, Object> result = new HashMap<>();
         UserModel userModel = service.findUserByEmail(email);
+        //邮箱被占用
         if (userModel != null) {
-            result.put(code, error);
+            result.put(code, notFound);
+            return result;
+        }
+        userModel = new UserModel();
+        userModel.setNickName(nickName);
+        userModel.setEmail(email);
+        userModel.setGender(gender);
+        userModel.setValidateStatus(0);//默认未验证
+        userModel.setValidateCode(MD5.encode(email));
+        userModel.setPhone(phone);
+        userModel.setImgUrl(WebDefaultValueConst.defaultImage);
+        userModel.setAddress(address);
+        userModel.setPassword(MD5.encode(password));
+        userModel = service.addUser(userModel);
+        if (userModel != null) {
+            result.put(code, success);
+            result.put("user", userModel);
         } else {
-            userModel = new UserModel();
-            userModel.setNickName(nickName);
-            userModel.setEmail(email);
-            userModel.setGender(gender);
-            userModel.setValidateStatus(0);//默认未验证
-            userModel.setValidateCode(MD5.encode(email));
-            userModel.setPhone(phone);
-            userModel.setImgUrl(WebDefaultValueConst.defaultImage);
-            userModel.setAddress(address);
-            userModel.setPassword(MD5.encode(password));
-            UserModel res = service.addUser(userModel);
-            if (res != null) {
-                result.put(code, success);
-                result.put("user", userModel);
-            } else {
-                result.put(code, error);
-            }
+            result.put(code, error);
         }
         return result;
     }
 
 
-    @RequestMapping(value = "findById/{id}", method = RequestMethod.GET)
-    public UserModel findUserById(@PathVariable("id") Long id) {
-        return service.findUserById(id);
+    /**
+     * 检测帐号有没有被注册
+     *
+     * @param email email
+     * @return result
+     */
+    @RequestMapping(value = "findById/{email}", method = RequestMethod.GET)
+    public Map<String, Object> findUserByEmail(@PathVariable("email") String email) {
+        UserModel userModel = service.findUserByEmail(email);
+        if (userModel == null) {
+            result.put(code, notFound);
+            return result;
+        }
+        result.put(code, success);
+        result.put("user", userModel);
+        return result;
     }
 
+
+    /**
+     * 检测帐号有没有被注册
+     *
+     * @param id id
+     * @return result
+     */
+    @RequestMapping(value = "findById/{id}", method = RequestMethod.GET)
+    public HashMap<String, Object> findUserById(@PathVariable("id") Long id) {
+        UserModel userModel = service.findUserById(id);
+        if (userModel == null) {
+            result.put(code, notFound);
+            return result;
+        }
+        result.put(code, success);
+        result.put("user", userModel);
+        return result;
+    }
+
+    /**
+     * 修改个人信息
+     *
+     * @param nickName nickName
+     * @param password password
+     * @param email    email
+     * @param imgUrl   imgUrl
+     * @param gender   gender
+     * @param phone    phone
+     * @param address  address
+     * @return result
+     * @throws UserNotFoundException
+     */
     @RequestMapping(value = "update", method = RequestMethod.POST)
     public HashMap<String, Object> update(
             @RequestParam String nickName,
@@ -109,26 +181,26 @@ public class UserController extends BaseController {
             @RequestParam long phone,
             @RequestParam String address
     ) throws UserNotFoundException {
-        HashMap<String, Object> result = new HashMap<>();
         UserModel userModel = service.findUserByEmail(email);
+        //找不到用户
         if (userModel != null) {
             result.put(code, error);
+            return result;
+        }
+        userModel = new UserModel();
+        userModel.setNickName(nickName);
+        userModel.setEmail(email);
+        userModel.setGender(gender);
+        userModel.setPhone(phone);
+        userModel.setImgUrl(imgUrl);
+        userModel.setAddress(address);
+        userModel.setPassword(MD5.encode(password));
+        userModel = service.updateUser(userModel);
+        if (userModel != null) {
+            result.put(code, success);
+            result.put("user", userModel);
         } else {
-            userModel = new UserModel();
-            userModel.setNickName(nickName);
-            userModel.setEmail(email);
-            userModel.setGender(gender);
-            userModel.setPhone(phone);
-            userModel.setImgUrl(imgUrl);
-            userModel.setAddress(address);
-            userModel.setPassword(MD5.encode(password));
-            UserModel res = service.updateUser(userModel);
-            if (res != null) {
-                result.put(code, success);
-                result.put("user", userModel);
-            } else {
-                result.put(code, error);
-            }
+            result.put(code, error);
         }
         return result;
     }
@@ -143,7 +215,6 @@ public class UserController extends BaseController {
             @RequestParam String email,
             @RequestParam String validateCode
     ) throws ServiceException, ParseException, UserNotFoundException {
-        HashMap<String, Object> result = new HashMap<>();
         //数据访问层，通过email获取用户信息
         UserModel user = service.findUserByEmail(email);
         //验证用户是否存在
@@ -168,7 +239,6 @@ public class UserController extends BaseController {
             result.put(code, error);
             return result;
         }
-
         //激活
         user.setValidateStatus(1);//把状态改为激活
         UserModel userModel = service.updateUser(user);

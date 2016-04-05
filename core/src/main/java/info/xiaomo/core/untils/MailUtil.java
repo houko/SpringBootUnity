@@ -21,11 +21,11 @@ import java.util.Properties;
  * @Copyright(©) 2015 by xiaomo.
  **/
 public class MailUtil {
-    private static final String HOST = "smtp.163.com";
+    private static final String HOST = "smtp.xiaomo.info";
     private static final String PROTOCOL = "smtp";
     private static final int PORT = 25;
-    private static final String FROM = "hupbentbest@163.com";//发件人的email
-    private static final String PWD = "xiaomoxiaomo123";//发件人密码
+    private static final String FROM = "admin@xiaomo.info";//发件人的email
+    private static final String PWD = "Xiaomo123";//发件人密码
 
     /**
      * 获取Session
@@ -35,6 +35,8 @@ public class MailUtil {
         props.put("mail.smtp.host", HOST);//设置服务器地址
         props.put("mail.store.protocol", PROTOCOL);//设置协议
         props.put("mail.smtp.port", PORT);//设置端口
+        props.put("mail.user", FROM);
+        props.put("mail.password", PWD);
         props.put("mail.smtp.auth", true);
 
         Authenticator authenticator = new Authenticator() {
@@ -50,19 +52,14 @@ public class MailUtil {
     public static void send(String toEmail, String content) {
         Session session = getSession();
         try {
-            System.out.println("--send--" + content);
-            // Instantiate a message
+            System.out.println("--send--" + toEmail);
             Message msg = new MimeMessage(session);
-
-            //Set message attributes
             msg.setFrom(new InternetAddress(FROM));
             InternetAddress[] address = {new InternetAddress(toEmail)};
             msg.setRecipients(Message.RecipientType.TO, address);
             msg.setSubject("账号激活邮件");
             msg.setSentDate(new Date());
             msg.setContent(content, "text/html;charset=utf-8");
-
-            //Send the message
             Transport.send(msg);
         } catch (MessagingException mex) {
             mex.printStackTrace();

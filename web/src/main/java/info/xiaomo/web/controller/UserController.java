@@ -1,11 +1,15 @@
 package info.xiaomo.web.controller;
 
+import info.xiaomo.core.constant.WebDefaultValueConst;
 import info.xiaomo.core.controller.BaseController;
 import info.xiaomo.core.exception.UserNotFoundException;
 import info.xiaomo.core.model.UserModel;
 import info.xiaomo.core.service.UserService;
 import info.xiaomo.core.untils.MD5;
+import info.xiaomo.core.untils.TimeUtil;
 import org.hibernate.service.spi.ServiceException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,6 +34,8 @@ import java.util.HashMap;
 @RestController
 @RequestMapping("api/web/user")
 public class UserController extends BaseController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     private UserService service;
@@ -73,6 +79,7 @@ public class UserController extends BaseController {
             userModel.setValidateStatus(0);//默认未验证
             userModel.setValidateCode(MD5.encode(email));
             userModel.setPhone(phone);
+            userModel.setImgUrl(WebDefaultValueConst.defaultImage);
             userModel.setAddress(address);
             userModel.setPassword(MD5.encode(password));
             UserModel res = service.addUser(userModel);
@@ -97,6 +104,7 @@ public class UserController extends BaseController {
             @RequestParam String nickName,
             @RequestParam String password,
             @RequestParam String email,
+            @RequestParam String imgUrl,
             @RequestParam int gender,
             @RequestParam long phone,
             @RequestParam String address
@@ -111,6 +119,7 @@ public class UserController extends BaseController {
             userModel.setEmail(email);
             userModel.setGender(gender);
             userModel.setPhone(phone);
+            userModel.setImgUrl(imgUrl);
             userModel.setAddress(address);
             userModel.setPassword(MD5.encode(password));
             UserModel res = service.updateUser(userModel);
@@ -130,38 +139,42 @@ public class UserController extends BaseController {
      * @throws ParseException
      */
     @RequestMapping(value = "validateEmail", method = RequestMethod.GET)
-    public void validateEmail(@RequestParam String email, @RequestParam String validateCode) throws ServiceException, ParseException, UserNotFoundException {
+    public HashMap<String, Object> validateEmail(
+            @RequestParam String email,
+            @RequestParam String validateCode
+    ) throws ServiceException, ParseException, UserNotFoundException {
+        HashMap<String, Object> result = new HashMap<>();
         //数据访问层，通过email获取用户信息
         UserModel user = service.findUserByEmail(email);
         //验证用户是否存在
-        if (user != null) {
-            //验证用户激活状态
-            if (user.getValidateStatus() == 0) {
-                ///没激活
-                Date currentTime = new Date();//获取当前时间
-                //验证链接是否过期
-                currentTime.before(user.getCreateTime());
-                if (currentTime.before(user.getUpdateTime())) {
-                    //验证激活码是否正确
-                    if (validateCode.equals(user.getValidateCode())) {
-                        //激活成功， //并更新用户的激活状态，为已激活
-                        System.out.println("==sq===" + user.getValidateStatus());
-                        user.setValidateStatus(1);//把状态改为激活
-                        System.out.println("==sh===" + user.getValidateStatus());
-                        service.updateUser(user);
-                    } else {
-                        throw new ServiceException("激活码不正确");
-                    }
-                } else {
-                    throw new ServiceException("激活码已过期！");
-                }
-            } else {
-                throw new ServiceException("邮箱已激活，请登录！");
-            }
-        } else {
-            throw new ServiceException("该邮箱未注册（邮箱地址不存在）！");
+        if (user == null) {
+            result.put(code, notFound);
+            return result;
+        }
+        //验证用户激活状态
+        if (user.getValidateStatus() == 1) {
+            result.put(code, activated);
+            return result;
+        }
+        //验证码是否过期
+        Date lastDate = TimeUtil.getDateAfter(new Date(), 2);//获取激活码过期时间
+        if (!lastDate.after(user.getUpdateTime())) {
+            LOGGER.info("用户{}使用己过期的激活码{}激活邮箱失败！", user.getEmail(), user.getValidateCode());
+            result.put(code, expired);
+            return result;
+        }
+        //验证码是否正确
+        if (!validateCode.equals(user.getValidateCode())) {
+            result.put(code, error);
+            return result;
         }
 
+        //激活
+        user.setValidateStatus(1);//把状态改为激活
+        UserModel userModel = service.updateUser(user);
+        LOGGER.info("用户{}使用激活码{}激活邮箱成功！", user.getEmail(), user.getValidateCode());
+        result.put("user", userModel);
+        return result;
     }
 
 

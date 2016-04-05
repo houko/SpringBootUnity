@@ -26,7 +26,7 @@ public class UserModel extends BaseModel {
     /**
      * 登录用户
      */
-    private String Email;
+    private String email;
 
     private String nickName;
 
@@ -64,11 +64,11 @@ public class UserModel extends BaseModel {
     }
 
     public String getEmail() {
-        return Email;
+        return email;
     }
 
     public void setEmail(String email) {
-        Email = email;
+        this.email = email;
     }
 
     public int getGender() {

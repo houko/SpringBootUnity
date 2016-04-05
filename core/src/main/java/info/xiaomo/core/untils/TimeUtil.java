@@ -290,7 +290,39 @@ public class TimeUtil {
     }
 
     public static String getFormatDateToday() {
-        SimpleDateFormat format = new SimpleDateFormat("yyyyMMDD");
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
         return format.format(new Date());
+    }
+
+    public static String getFormatDate() {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        return format.format(new Date());
+    }
+
+    /**
+     * 得到几天前的时间
+     *
+     * @param d
+     * @param day
+     * @return
+     */
+    public static Date getDateBefore(Date d, int day) {
+        Calendar now = Calendar.getInstance();
+        now.setTime(d);
+        now.set(Calendar.DATE, now.get(Calendar.DATE) - day);
+        return now.getTime();
+    }
+    /**
+     * 得到几天后的时间
+     *
+     * @param d
+     * @param day
+     * @return
+     */
+    public static Date getDateAfter(Date d, int day) {
+        Calendar now = Calendar.getInstance();
+        now.setTime(d);
+        now.set(Calendar.DATE, now.get(Calendar.DATE) + day);
+        return now.getTime();
     }
 }

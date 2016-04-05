@@ -25,11 +25,27 @@ public abstract class BaseController<E extends BaseModel> {
 
     protected static final String code = "code";
 
+    /**
+     * 成功
+     */
     protected static final int success = 200;
 
+    /**
+     * 出错
+     */
     protected static final int error = 400;
 
+    /**
+     * 找不到
+     */
     protected static final int notFound = 404;
+
+    /**
+     * 己激活
+     */
+    protected static final int activated = 303;
+
+    protected static final int expired = 304;
 
     /**
      * 跨域处理

@@ -14,10 +14,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-/**
- * @author TODO 要更改此生成的类型注释的模板，请转至
- *         窗口 － 首选项 － Java － 代码样式 － 代码模板
- */
 public class FileUploadUtil {
 
     //当上传文件超过限制时设定的临时文件位置，注意是绝对路径
@@ -28,15 +24,16 @@ public class FileUploadUtil {
 
     //新文件名称，不设置时默认为原文件名
     private String newFileName = null;
+
     //获取的上传请求
     private HttpServletRequest fileuploadReq = null;
 
     //设置最多只允许在内存中存储的数据,单位:字节，这个参数不要设置太大
-    private int sizeThreshold = 4096;
+    private static final int sizeThreshold = 4096;
 
     //设置允许用户上传文件大小,单位:字节
     //共10M
-    private long sizeMax = 10485760;
+    private static long sizeMax = 10485760;
 
     //图片文件序号
     private int picSeqNo = 1;
@@ -69,15 +66,14 @@ public class FileUploadUtil {
 
             //如果没有上传目的目录，则创建它
             FileUtil.makeDirectory(dstPath + "/ddd");
-            /*if (!FileUtil.makeDirectory(dstPath+"/ddd")) {
+            if (!FileUtil.makeDirectory(dstPath + "/ddd")) {
                 throw new IOException("Create destination Directory Error.");
-            }*/
+            }
             //如果没有临时目录，则创建它
             FileUtil.makeDirectory(tempPath + "/ddd");
-            /*if (!FileUtil.makeDirectory(tempPath+"/ddd")) {
+            if (!FileUtil.makeDirectory(tempPath + "/ddd")) {
                 throw new IOException("Create Temp Directory Error.");
-            }*/
-
+            }
             //上传项目只要足够小，就应该保留在内存里。
             //较大的项目应该被写在硬盘的临时文件上。
             //非常大的上传请求应该避免。
@@ -85,7 +81,6 @@ public class FileUploadUtil {
 
             //设置最多只允许在内存中存储的数据,单位:字节
             factory.setSizeThreshold(sizeThreshold);
-            // the location for saving data that is larger than getSizeThreshold()
             factory.setRepository(new File(tempPath));
 
             ServletFileUpload upload = new ServletFileUpload(factory);
@@ -93,10 +88,7 @@ public class FileUploadUtil {
             upload.setSizeMax(sizeMax);
 
             List fileItems = upload.parseRequest(fileuploadReq);
-            // assume we know there are two files. The first file is a small
-            // text file, the second is unknown and is written to a file on
-            // the server
-            Iterator iter = fileItems.iterator();
+            Iterator it = fileItems.iterator();
 
             //  正则匹配，过滤路径取文件名
             String regExp = ".+\\\\(.+)$";
@@ -104,9 +96,9 @@ public class FileUploadUtil {
             //  过滤掉的文件类型
             String[] errorType = {".exe", ".com", ".cgi", ".asp", ".php", ".jsp"};
             Pattern p = Pattern.compile(regExp);
-            while (iter.hasNext()) {
-                System.out.println("++00++=====" + newFileName);
-                FileItem item = (FileItem) iter.next();
+            while (it.hasNext()) {
+                System.out.println("newFileName:" + newFileName);
+                FileItem item = (FileItem) it.next();
                 //忽略其他不是文件域的所有表单信息
                 if (!item.isFormField()) {
                     String name = item.getName();
@@ -118,8 +110,8 @@ public class FileUploadUtil {
                     Matcher m = p.matcher(name);
                     boolean result = m.find();
                     if (result) {
-                        for (int temp = 0; temp < errorType.length; temp++) {
-                            if (m.group(1).endsWith(errorType[temp])) {
+                        for (String anErrorType : errorType) {
+                            if (m.group(1).endsWith(anErrorType)) {
                                 throw new IOException(name + ": Wrong File Type");
                             }
                         }
@@ -131,22 +123,19 @@ public class FileUploadUtil {
                             if (newFileName == null || newFileName.trim().equals("")) {
                                 item.write(new File(dstPath + "/" + m.group(1)));
                             } else {
-                                String uploadfilename = "";
+                                String uploadFilename = "";
                                 if (isSmallPic) {
-                                    uploadfilename = dstPath + "/" + newFileName + "_" + picSeqNo + "_small" + ext;
+                                    uploadFilename = dstPath + "/" + newFileName + "_" + picSeqNo + "_small" + ext;
                                 } else {
-                                    uploadfilename = dstPath + "/" + newFileName + "_" + picSeqNo + ext;
+                                    uploadFilename = dstPath + "/" + newFileName + "_" + picSeqNo + ext;
                                 }
                                 //生成所有未生成的目录
-                                System.out.println("++++=====" + uploadfilename);
-                                FileUtil.makeDirectory(uploadfilename);
-                                //item.write(new File(dstPath +"/"+ newFileName));
-                                item.write(new File(uploadfilename));
+                                System.out.println("++++=====" + uploadFilename);
+                                FileUtil.makeDirectory(uploadFilename);
+                                item.write(new File(uploadFilename));
                             }
                             picSeqNo++;
-                            //out.print(name + "&nbsp;&nbsp;" + size + "<br>");
                         } catch (Exception e) {
-                            //out.println(e);
                             throw new IOException(e.getMessage());
                         }
                     } else {
@@ -154,9 +143,7 @@ public class FileUploadUtil {
                     }
                 }
             }
-        } catch (IOException e) {
-            System.out.println(e);
-        } catch (FileUploadException e) {
+        } catch (IOException | FileUploadException e) {
             System.out.println(e);
         }
         return true;
@@ -164,12 +151,9 @@ public class FileUploadUtil {
 
     /**
      * 从路径中获取单独文件名
-     *
-     * @author TODO 要更改此生成的类型注释的模板，请转至
-     * 窗口 － 首选项 － Java － 代码样式 － 代码模板
      */
     public String GetFileName(String filepath) {
-        String returnstr = "*.*";
+        String returnStr = "*.*";
         int length = filepath.trim().length();
 
         filepath = filepath.replace('\\', '/');
@@ -177,10 +161,10 @@ public class FileUploadUtil {
             int i = filepath.lastIndexOf("/");
             if (i >= 0) {
                 filepath = filepath.substring(i + 1);
-                returnstr = filepath;
+                returnStr = filepath;
             }
         }
-        return returnstr;
+        return returnStr;
     }
 
     /**
@@ -201,7 +185,7 @@ public class FileUploadUtil {
      * 设置最大上传文件字节数，不设置时默认10M
      */
     public void setFileMaxSize(long maxsize) {
-        this.sizeMax = maxsize;
+        sizeMax = maxsize;
     }
 
     /**

@@ -12,6 +12,7 @@ public class Symbol {
     public static final String JINHAO_AND_BAIFENHAO = "#%";
     public static final String DOUHAO = ",";
     public static final String DIAN = ".";
-    public static final String ZHENGXIEXIAN = "\\/";
+    public static final String ZHENGXIEXIAN = "/";
     public static final String DENGHAO = "=";
+    public static final String SPACE = " ";
 }

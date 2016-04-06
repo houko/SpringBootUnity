@@ -54,7 +54,7 @@ public class Base64Util {
 
 	public static final String version = "1.2";
 
-	protected static ResourceBundle labels = ResourceBundle.getBundle("com.Ostermiller.util.Base64Util",  Locale.getDefault());
+	protected static ResourceBundle labels = ResourceBundle.getBundle("info.xiaomo.core.utils.Base64Util",  Locale.getDefault());
 
 	private static final int ACTION_GUESS = 0;
 	private static final int ACTION_ENCODE = 1;

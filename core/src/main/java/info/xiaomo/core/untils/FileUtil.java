@@ -105,12 +105,16 @@ public class FileUtil {
                 );
             }
         } finally {
-            if (in != null) {
-                in.close();
-            }
-            if (out != null) {
-                out.flush();
-                out.close();
+            try {
+                if (in != null) {
+                    in.close();
+                }
+                if (out != null) {
+                    out.flush();
+                    out.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }
@@ -121,22 +125,6 @@ public class FileUtil {
      * @since ostermillerutils 1.00.00
      */
     private final static int BUFFER_SIZE = 1024;
-
-    /**
-     * Copy the data from the input stream to the output stream.
-     *
-     * @param in  data source
-     * @param out data destination
-     * @throws IOException in an input or output error occurs
-     * @since ostermillerutils 1.00.00
-     */
-    private static void copy(InputStream in, OutputStream out) throws IOException {
-        byte[] buffer = new byte[BUFFER_SIZE];
-        int read;
-        while ((read = in.read(buffer)) != -1) {
-            out.write(buffer, 0, read);
-        }
-    }
 
     /**
      * 修改文件的最后访问时间。
@@ -382,29 +370,6 @@ public class FileUtil {
         return files;
     }
 
-    /**
-     * 将目录中的内容添加到列表。
-     *
-     * @param list   文件列表
-     * @param filter 过滤器
-     * @param file   目录
-     */
-    private static void list(ArrayList list, File file,
-                             javax.swing.filechooser.FileFilter filter) {
-        if (filter.accept(file)) {
-            list.add(file);
-            if (file.isFile()) {
-                return;
-            }
-        }
-        if (file.isDirectory()) {
-            File files[] = file.listFiles();
-            for (int i = 0; i < files.length; i++) {
-                list(list, files[i], filter);
-            }
-        }
-
-    }
 
     /**
      * 返回文件的URL地址。
@@ -823,8 +788,47 @@ public class FileUtil {
                     counts++;
             }
         }
-
         return counts;
+    }
+
+    /**
+     * Copy the data from the input stream to the output stream.
+     *
+     * @param in  data source
+     * @param out data destination
+     * @throws IOException in an input or output error occurs
+     * @since ostermillerutils 1.00.00
+     */
+    private static void copy(InputStream in, OutputStream out) throws IOException {
+        byte[] buffer = new byte[BUFFER_SIZE];
+        int read;
+        while ((read = in.read(buffer)) != -1) {
+            out.write(buffer, 0, read);
+        }
+    }
+
+    /**
+     * 将目录中的内容添加到列表。
+     *
+     * @param list   文件列表
+     * @param filter 过滤器
+     * @param file   目录
+     */
+    private static void list(ArrayList list, File file,
+                             javax.swing.filechooser.FileFilter filter) {
+        if (filter.accept(file)) {
+            list.add(file);
+            if (file.isFile()) {
+                return;
+            }
+        }
+        if (file.isDirectory()) {
+            File files[] = file.listFiles();
+            for (File file1 : files) {
+                list(list, file1, filter);
+            }
+        }
+
     }
 
 }

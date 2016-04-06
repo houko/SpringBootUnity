@@ -1,6 +1,6 @@
 package info.xiaomo.admin.test;
 
-import info.xiaomo.admin.test.base.BaseTest;
+import info.xiaomo.admin.base.BaseTest;
 import info.xiaomo.core.model.AdminModel;
 import info.xiaomo.core.service.AdminUserService;
 import info.xiaomo.core.untils.MD5;

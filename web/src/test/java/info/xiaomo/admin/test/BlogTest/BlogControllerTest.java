@@ -1,8 +1,8 @@
-package info.xiaomo.admin.test;
+package info.xiaomo.admin.test.blogTest;
 
 import info.xiaomo.admin.test.base.BaseTest;
-import info.xiaomo.core.model.UserModel;
-import info.xiaomo.core.service.UserService;
+import info.xiaomo.core.model.BlogModel;
+import info.xiaomo.core.service.BlogService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -28,15 +28,15 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @Description: admin测试
  * @Copyright(©) 2015 by xiaomo.
  */
-public class UserControllerTest extends BaseTest {
+public class BlogControllerTest extends BaseTest {
 
     @Autowired
-    private UserService service;
+    private BlogService service;
 
     @Test
     public void testFindAll() {
-        UserModel userModel = service.findUserById(19L);
-        System.out.println(userModel.getNickName());
+        BlogModel blogModel = service.findBlogById(19L);
+        System.out.println(blogModel.getTitle());
     }
 
 }

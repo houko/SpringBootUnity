@@ -4,6 +4,7 @@ import info.xiaomo.core.model.base.BaseModel;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -21,7 +22,7 @@ import javax.persistence.Table;
  **/
 @Entity
 @Table(name = "blog")
-public class BlogModel extends BaseModel {
+public class BlogModel extends BaseModel implements Serializable {
 
     private String title;
 

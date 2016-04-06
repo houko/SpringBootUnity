@@ -1,6 +1,6 @@
 package info.xiaomo.admin.test;
 
-import info.xiaomo.admin.test.base.BaseTest;
+import info.xiaomo.admin.base.BaseTest;
 import info.xiaomo.core.model.UserModel;
 import info.xiaomo.core.service.UserService;
 import org.junit.Test;

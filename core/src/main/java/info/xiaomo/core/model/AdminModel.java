@@ -4,6 +4,7 @@ import info.xiaomo.core.model.base.BaseModel;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 /**
  * │＼＿＿╭╭╭╭╭＿＿／│
@@ -29,7 +30,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "admin")
-public class AdminModel extends BaseModel {
+public class AdminModel extends BaseModel implements Serializable {
 
     private String userName;
 

@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserModel updateUser(UserModel model) throws UserNotFoundException {
-        UserModel userUpdate = dao.findOne(model.getId());
+        UserModel userUpdate = dao.findUserByEmail(model.getEmail());
         if (userUpdate == null) {
             throw new UserNotFoundException();
         }
@@ -113,7 +113,7 @@ public class UserServiceImpl implements UserService {
         sb.append("&validateCode=");
         sb.append(model.getValidateCode());
         sb.append("</a><br/>");
-        sb.append("<span style='float:right;padding-right:6%'>小莫</span></br>");
+        sb.append("<span style='float:right;padding-right:4%'>小莫</span></br>");
         sb.append("<span style='float:right'>");
         sb.append(TimeUtil.getFormatDate());
         sb.append("</span></br>");

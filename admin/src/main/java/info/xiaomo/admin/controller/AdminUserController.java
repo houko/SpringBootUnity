@@ -61,7 +61,7 @@ public class AdminUserController extends BaseController {
         }
         if (MD5.encode(password).equals(adminModel.getPassword())) {
             result.put(code, success);
-            result.put("adminUser", adminModel);
+            result.put(adminUser, adminModel);
         } else {
             result.put(code, error);
         }
@@ -101,7 +101,7 @@ public class AdminUserController extends BaseController {
             result.put(code, success);
         }
         result.put(code, success);
-        result.put("adminUser", adminModel);
+        result.put(adminUser, adminModel);
         return result;
     }
 
@@ -110,7 +110,7 @@ public class AdminUserController extends BaseController {
     public HashMap<String, Object> getAll(@RequestParam("start") int start, @RequestParam("pageSize") int page) {
         Page<AdminModel> pages = service.getAdminUsers(new PageRequest(start - 1, page));
         result.put(code, success);
-        result.put("adminUsers", pages);
+        result.put(adminUsers, pages);
         return result;
     }
 
@@ -122,7 +122,7 @@ public class AdminUserController extends BaseController {
             return result;
         }
         result.put(code, success);
-        result.put("adminUser", adminModel);
+        result.put(adminUser, adminModel);
         return result;
     }
 
@@ -142,7 +142,7 @@ public class AdminUserController extends BaseController {
         adminModel.setAuthLevel(authLevel);
         service.updateAdminUser(adminModel);
         result.put(code, success);
-        result.put("adminUser", adminModel);
+        result.put(adminUser, adminModel);
         return result;
     }
 
@@ -155,7 +155,7 @@ public class AdminUserController extends BaseController {
         }
         model = service.forbidAdminUserById(id);
         result.put(code, success);
-        result.put("adminUser", model);
+        result.put(adminUser, model);
         return result;
     }
 }

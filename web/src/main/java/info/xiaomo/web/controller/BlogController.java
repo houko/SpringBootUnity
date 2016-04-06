@@ -51,7 +51,7 @@ public class BlogController extends BaseController {
         result.put(code, success);
         model.setVote(model.getVote() + 1);
         service.updateBlog(model);
-        result.put("blog", model);
+        result.put(blog, model);
         return result;
     }
 
@@ -66,7 +66,7 @@ public class BlogController extends BaseController {
     public HashMap<String, Object> getAll(@RequestParam("start") int start, @RequestParam("pageSize") int pageSize) {
         Page<BlogModel> models = service.findAll(new PageRequest(start, pageSize));
         result.put(code, success);
-        result.put("blogs", models);
+        result.put(blogs, models);
         return result;
     }
 
@@ -102,7 +102,7 @@ public class BlogController extends BaseController {
         blogModel.setTagId(tagId);
         blogModel = service.addBlog(blogModel);
         result.put(code, success);
-        result.put("blog", blogModel);
+        result.put(blog, blogModel);
         return result;
     }
 
@@ -138,7 +138,7 @@ public class BlogController extends BaseController {
         blogModel.setTagId(tagId);
         blogModel = service.updateBlog(blogModel);
         result.put(code, success);
-        result.put("blog", blogModel);
+        result.put(blog, blogModel);
         return result;
     }
 
@@ -159,7 +159,7 @@ public class BlogController extends BaseController {
         blogModel.setStatus(1);
         blogModel = service.updateBlog(blogModel);
         result.put(code, success);
-        result.put("blog", blogModel);
+        result.put(blog, blogModel);
         return result;
     }
 

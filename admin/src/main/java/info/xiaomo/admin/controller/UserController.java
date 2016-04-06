@@ -49,7 +49,7 @@ public class UserController extends BaseController {
             return result;
         }
         result.put(code, success);
-        result.put("user", userModel);
+        result.put(user, userModel);
         return result;
     }
 
@@ -64,7 +64,7 @@ public class UserController extends BaseController {
     public HashMap<String, Object> getAll(@RequestParam("start") int start, @RequestParam("pageSize") int page) {
         Page<UserModel> pages = service.findAll(new PageRequest(start - 1, page));
         result.put(code, success);
-        result.put("users", pages);
+        result.put(users, pages);
         return result;
     }
 
@@ -83,7 +83,7 @@ public class UserController extends BaseController {
             return result;
         }
         result.put(code, success);
-        result.put("user", userModel);
+        result.put(user, userModel);
         return result;
     }
 }

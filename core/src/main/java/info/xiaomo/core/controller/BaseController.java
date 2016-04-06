@@ -1,5 +1,6 @@
 package info.xiaomo.core.controller;
 
+import info.xiaomo.core.constant.Code;
 import info.xiaomo.core.model.base.BaseModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,46 +24,10 @@ import java.util.HashMap;
  * @Copyright(©) 2015 by xiaomo.
  **/
 
-public abstract class BaseController<E extends BaseModel> {
+public abstract class BaseController<E extends BaseModel> extends Code {
 
-    protected static final String code = "code";
+    protected final Logger LOGGER = LoggerFactory.getLogger(getClass());
 
-    /**
-     * 成功
-     */
-    protected static final int success = 200;
-    /**
-     * 己激活
-     */
-    protected static final int activated = 201;
-    /**
-     * 己过期
-     */
-    protected static final int expired = 202;
-    /**
-     * 未激活
-     */
-    protected static final int notActivated = 203;
-    /**
-     * 重复
-     */
-    protected static final int repeat = 204;
-
-    /**
-     * 出错
-     */
-    protected static final int error = 205;
-
-    /**
-     * 找不到
-     */
-    protected static final int notFound = 404;
-    /**
-     * 跨域处理
-     * 后端需要加个callback
-     * 前端要使用jsoup
-     */
-    protected final Logger logger = LoggerFactory.getLogger(getClass());
     /**
      * result
      */
@@ -70,6 +35,8 @@ public abstract class BaseController<E extends BaseModel> {
 
     /**
      * 跨域处理
+     * 后端需要加个callback
+     * 前端要使用jsoup
      *
      * @param response response
      */

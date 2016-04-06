@@ -8,8 +8,6 @@ import info.xiaomo.core.service.UserService;
 import info.xiaomo.core.untils.MD5;
 import info.xiaomo.core.untils.TimeUtil;
 import org.hibernate.service.spi.ServiceException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -39,11 +37,8 @@ import java.util.Map;
 @RequestMapping("api/web/user")
 public class UserController extends BaseController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
-
     @Autowired
     private UserService service;
-
 
     /**
      * 登录
@@ -63,7 +58,7 @@ public class UserController extends BaseController {
         //邮箱未验证
         if (userModel.getValidateStatus() == 0) {
             result.put(code, notActivated);
-            result.put("user", userModel);
+            result.put(user, userModel);
             return result;
         }
         //密码不正确
@@ -72,7 +67,7 @@ public class UserController extends BaseController {
             return result;
         }
         result.put(code, success);
-        result.put("user", userModel);
+        result.put(user, userModel);
         return result;
     }
 
@@ -116,7 +111,7 @@ public class UserController extends BaseController {
         userModel = service.addUser(userModel);
         if (userModel != null) {
             result.put(code, success);
-            result.put("user", userModel);
+            result.put(user, userModel);
         } else {
             result.put(code, error);
         }
@@ -138,7 +133,7 @@ public class UserController extends BaseController {
             return result;
         }
         result.put(code, success);
-        result.put("user", userModel);
+        result.put(user, userModel);
         return result;
     }
 
@@ -157,7 +152,7 @@ public class UserController extends BaseController {
             return result;
         }
         result.put(code, success);
-        result.put("user", userModel);
+        result.put(user, userModel);
         return result;
     }
 
@@ -201,7 +196,7 @@ public class UserController extends BaseController {
         userModel = service.updateUser(userModel);
         if (userModel != null) {
             result.put(code, success);
-            result.put("user", userModel);
+            result.put(user, userModel);
         } else {
             result.put(code, error);
         }
@@ -246,7 +241,7 @@ public class UserController extends BaseController {
         user.setValidateStatus(1);//把状态改为激活
         UserModel userModel = service.updateUser(user);
         LOGGER.info("用户{}使用激活码{}激活邮箱成功！", user.getEmail(), user.getValidateCode());
-        result.put("user", userModel);
+        result.put(user, userModel);
         return result;
     }
 

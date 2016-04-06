@@ -22,28 +22,24 @@ import java.util.regex.Pattern;
 
 public class FileUploadUtil {
 
-    //当上传文件超过限制时设定的临时文件位置，注意是绝对路径
-    private String tempPath = null;
-
-    //文件上传目标目录，注意是绝对路径
-    private String dstPath = null;
-
-    //新文件名称，不设置时默认为原文件名
-    private String newFileName = null;
-
-    //获取的上传请求
-    private HttpServletRequest fileuploadReq = null;
-
+    public final static String separator = "/";
+    public final static String split = "_";
     //设置最多只允许在内存中存储的数据,单位:字节，这个参数不要设置太大
     private static final int sizeThreshold = 4096;
-
     //设置允许用户上传文件大小,单位:字节
     //共10M
     private static long sizeMax = 10485760;
-
+    protected final Log log = LogFactory.getLog(getClass());
+    //当上传文件超过限制时设定的临时文件位置，注意是绝对路径
+    private String tempPath = null;
+    //文件上传目标目录，注意是绝对路径
+    private String dstPath = null;
+    //新文件名称，不设置时默认为原文件名
+    private String newFileName = null;
+    //获取的上传请求
+    private HttpServletRequest fileuploadReq = null;
     //图片文件序号
     private int picSeqNo = 1;
-
     private boolean isSmallPic = false;
 
     public FileUploadUtil() {
@@ -58,6 +54,38 @@ public class FileUploadUtil {
         this.tempPath = tempPath;
         this.dstPath = destinationPath;
         this.fileuploadReq = fileuploadRequest;
+    }
+
+    /**
+     * 获得当前的文件路径（通过当前日期生成）
+     */
+    public static String getNowFilePath(String basePath) {
+        SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd");
+        String pathName = formater.format(new Date());
+        File dir = new File(basePath + separator + pathName);
+        if (!dir.exists())
+            dir.mkdir();
+        return pathName;
+    }
+
+    public static String getNewFileName(String oldFileName) {
+        oldFileName = oldFileName.replaceAll("'", "").replaceAll("\"", "");
+        Calendar date = Calendar.getInstance();
+        int hour = date.get(Calendar.HOUR_OF_DAY);
+        int minute = date.get(Calendar.MINUTE);
+        int second = date.get(Calendar.SECOND);
+        if (oldFileName.length() > 30)
+            oldFileName = oldFileName.substring(oldFileName.length() - 30);
+        return (Integer.toString(hour * 3600 + minute * 60 + second))
+                + split + oldFileName;
+    }
+
+    public static String getThumbFileName(String fileName) {
+        int pos = fileName.lastIndexOf(".");
+        if (pos >= 0)
+            return fileName.substring(0, pos) + "s" + fileName.substring(pos);
+        else
+            return fileName + "s";
     }
 
     /**
@@ -121,7 +149,7 @@ public class FileUploadUtil {
                                 throw new IOException(name + ": Wrong File Type");
                             }
                         }
-                        String ext = "." + FileUtil.getTypePart(name);
+                        String ext = "." + FileUtil.getFileType(name);
                         try {
                             //保存上传的文件到指定的目录
                             //在下文中上传文件至数据库时，将对这里改写
@@ -220,57 +248,6 @@ public class FileUploadUtil {
      */
     public void setPicSeqNo(int seqNo) {
         this.picSeqNo = seqNo;
-    }
-
-    public final static String separator = "/";
-    public final static String split = "_";
-
-    protected final Log log = LogFactory.getLog(getClass());
-
-    private class FilenameFilterImpl implements FilenameFilter {
-        private String filter = ".";
-
-        public FilenameFilterImpl(String aFilter) {
-            filter = aFilter;
-        }
-
-        public boolean accept(File dir, String name) {
-            return name.startsWith(filter);
-        }
-    }
-
-    ;
-
-    /**
-     * 获得当前的文件路径（通过当前日期生成）
-     */
-    public static String getNowFilePath(String basePath) {
-        SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd");
-        String pathName = formater.format(new Date());
-        File dir = new File(basePath + separator + pathName);
-        if (!dir.exists())
-            dir.mkdir();
-        return pathName;
-    }
-
-    public static String getNewFileName(String oldFileName) {
-        oldFileName = oldFileName.replaceAll("'", "").replaceAll("\"", "");
-        Calendar date = Calendar.getInstance();
-        int hour = date.get(Calendar.HOUR_OF_DAY);
-        int minute = date.get(Calendar.MINUTE);
-        int second = date.get(Calendar.SECOND);
-        if (oldFileName.length() > 30)
-            oldFileName = oldFileName.substring(oldFileName.length() - 30);
-        return (Integer.toString(hour * 3600 + minute * 60 + second))
-                + split + oldFileName;
-    }
-
-    public static String getThumbFileName(String fileName) {
-        int pos = fileName.lastIndexOf(".");
-        if (pos >= 0)
-            return fileName.substring(0, pos) + "s" + fileName.substring(pos);
-        else
-            return fileName + "s";
     }
 
     /**
@@ -382,6 +359,18 @@ public class FileUploadUtil {
         graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
         graphics2D.drawImage(image, 0, 0, thumbWidth, thumbHeight, null);
         javax.imageio.ImageIO.write(thumbImage, "JPG", new File(thumbnailFile));
+    }
+
+    private class FilenameFilterImpl implements FilenameFilter {
+        private String filter = ".";
+
+        public FilenameFilterImpl(String aFilter) {
+            filter = aFilter;
+        }
+
+        public boolean accept(File dir, String name) {
+            return name.startsWith(filter);
+        }
     }
 
 }

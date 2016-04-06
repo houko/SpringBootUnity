@@ -1,12 +1,11 @@
 package info.xiaomo.core.untils;
 
+import info.xiaomo.core.constant.Symbol;
+
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.Locale;
-import java.util.ResourceBundle;
 
 /**
  * 此类中封装一些常用的文件操作。
@@ -18,113 +17,19 @@ import java.util.ResourceBundle;
 
 public class FileUtil {
     /**
-     * 私有构造方法，防止类的实例化，因为工具类不需要实例化。
-     */
-    private FileUtil() {
-
-    }
-
-    /**
-     * Locale specific strings displayed to the user.
-     */
-    protected static ResourceBundle labels = ResourceBundle.getBundle("info.xiaomo.core.utils.FileUtil", Locale.getDefault());
-
-
-    /**
-     * Move a file from one location to another.  An attempt is made to rename
-     * the file and if that fails, the file is copied and the old file deleted.
-     * <p>
-     * If the destination file already exists, an exception will be thrown.
-     *
-     * @param from file which should be moved.
-     * @param to   desired destination of the file.
-     * @throws IOException if an error occurs.
-     * @since ostermillerutils 1.00.00
-     */
-    public static void move(File from, File to) throws IOException {
-        move(from, to, false);
-    }
-
-    /**
-     * Move a file from one location to another.  An attempt is made to rename
-     * the file and if that fails, the file is copied and the old file deleted.
-     *
-     * @param from      file which should be moved.
-     * @param to        desired destination of the file.
-     * @param overwrite If false, an exception will be thrown rather than overwrite a file.
-     * @throws IOException if an error occurs.
-     * @since ostermillerutils 1.00.00
-     */
-    public static void move(File from, File to, boolean overwrite) throws IOException {
-        if (to.exists()) {
-            if (overwrite) {
-                if (!to.delete()) {
-                    throw new IOException(
-                            MessageFormat.format(
-                                    labels.getString("deleteerror"),
-                                    (Object[]) new String[]{
-                                            to.toString()
-                                    }
-                            )
-                    );
-                }
-            } else {
-                throw new IOException(
-                        MessageFormat.format(
-                                labels.getString("alreadyexistserror"),
-                                (Object[]) new String[]{
-                                        to.toString()
-                                }
-                        )
-                );
-            }
-        }
-
-        if (from.renameTo(to)) return;
-
-        InputStream in = null;
-        OutputStream out = null;
-        try {
-            in = new FileInputStream(from);
-            out = new FileOutputStream(to);
-            copy(in, out);
-            in.close();
-            in = null;
-            out.flush();
-            out.close();
-            out = null;
-            if (!from.delete()) {
-                throw new IOException(
-                        MessageFormat.format(
-                                labels.getString("deleteoriginalerror"),
-                                (Object[]) new String[]{
-                                        from.toString(),
-                                        to.toString()
-                                }
-                        )
-                );
-            }
-        } finally {
-            try {
-                if (in != null) {
-                    in.close();
-                }
-                if (out != null) {
-                    out.flush();
-                    out.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    /**
      * Buffer size when reading from input stream.
      *
      * @since ostermillerutils 1.00.00
      */
     private final static int BUFFER_SIZE = 1024;
+
+
+    /**
+     * 私有构造方法，防止类的实例化，因为工具类不需要实例化。
+     */
+    private FileUtil() {
+
+    }
 
     /**
      * 修改文件的最后访问时间。
@@ -221,10 +126,7 @@ public class FileUtil {
      */
     public static boolean makeDirectory(File file) {
         File parent = file.getParentFile();
-        if (parent != null) {
-            return parent.mkdirs();
-        }
-        return false;
+        return parent != null && parent.mkdirs();
     }
 
     /**
@@ -314,40 +216,9 @@ public class FileUtil {
             }
         }
 
-        if (!dir.delete()) {
-            return false;
-        }
-        return true;
+        return dir.delete();
     }
 
-    /**
-     * 列出目录中的所有内容，包括其子目录中的内容。
-     * @param fileName 要列出的目录的目录名
-     * @return 目录内容的文件数组。
-     * @since 1.0
-     */
-  /*public static File[] listAll(String fileName) {
-    return listAll(new File(fileName));
-  }*/
-
-    /**
-     * 列出目录中的所有内容，包括其子目录中的内容。
-     * @param file 要列出的目录
-     * @return 目录内容的文件数组。
-     * @since 1.0
-     */
-  /*public static File[] listAll(File file) {
-    ArrayList list = new ArrayList();
-    File[] files;
-    if (!file.exists() || file.isFile()) {
-      return null;
-    }
-    list(list, file, new AllFileFilter());
-    list.remove(file);
-    files = new File[list.size()];
-    list.toArray(files);
-    return files;
-  }*/
 
     /**
      * 列出目录中的所有内容，包括其子目录中的内容。
@@ -445,7 +316,7 @@ public class FileUtil {
      * @return 文件名中的类型部分
      * @since 1.0
      */
-    public static String getTypePart(String fileName) {
+    public static String getFileType(String fileName) {
         int point = fileName.lastIndexOf('.');
         int length = fileName.length();
         if (point == -1 || point == length - 1) {
@@ -464,7 +335,7 @@ public class FileUtil {
      * @since 1.0
      */
     public static String getFileType(File file) {
-        return getTypePart(file.getName());
+        return getFileType(file.getName());
     }
 
     /**
@@ -681,8 +552,8 @@ public class FileUtil {
     /**
      * 根据内容生成文件
      *
-     * @param path要生成文件的绝对路径，
-     * @param 文件的内容。
+     * @param path          要生成文件的绝对路径，
+     * @param modulecontent 文件的内容。
      * @return 真假值
      * @since 1.0
      */
@@ -711,10 +582,22 @@ public class FileUtil {
         return true;
     }
 
+
+    /**
+     * 拼接新的文件名
+     *
+     * @param baseName
+     * @param fileType
+     * @return
+     */
+    public static String getNewFileName(String baseName, String fileType) {
+        return baseName + Symbol.DIAN + fileType;
+    }
+
     /**
      * 获取图片文件的扩展名（发布系统专用）
      *
-     * @param picname 为图片名称加上前面的路径不包括扩展名
+     * @param pic_path 为图片名称加上前面的路径不包括扩展名
      * @return 图片的扩展名
      * @since 1.0
      */
@@ -829,6 +712,95 @@ public class FileUtil {
             }
         }
 
+    }
+
+
+    public static void upload(File file, String savePath, String fileName) {
+        try {
+            FileOutputStream fos = new FileOutputStream(savePath + fileName);
+            FileInputStream fis = new FileInputStream(file);
+            byte[] buf = new byte[1024];
+            int len;
+            while ((len = fis.read(buf)) > 0) {
+                fos.write(buf, 0, len);
+            }
+            fis.close();
+            fos.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+    }
+
+
+    public static byte[] readStream(InputStream inStream) throws Exception {
+        ByteArrayOutputStream outsStream = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        int len = -1;
+        while ((len = inStream.read(buffer)) != -1) {
+            outsStream.write(buffer, 0, len);
+        }
+        outsStream.close();
+        inStream.close();
+        return outsStream.toByteArray();
+    }
+
+    public static byte[] readFileImage(File file) throws IOException {
+        BufferedInputStream bufferedInputStream = new BufferedInputStream(
+                new FileInputStream(file));
+        int len = bufferedInputStream.available();
+        byte[] bytes = new byte[len];
+        int r = bufferedInputStream.read(bytes);
+        if (len != r) {
+            bytes = null;
+            throw new IOException("读取文件不正确");
+        }
+        bufferedInputStream.close();
+        return bytes;
+    }
+
+    public static byte[] readFileImage(String filename) throws IOException {
+        BufferedInputStream bufferedInputStream = new BufferedInputStream(
+                new FileInputStream(filename));
+        int len = bufferedInputStream.available();
+        byte[] bytes = new byte[len];
+        int r = bufferedInputStream.read(bytes);
+        if (len != r) {
+            bytes = null;
+            throw new IOException("读取文件不正确");
+        }
+        bufferedInputStream.close();
+        return bytes;
+    }
+
+
+    /**
+     * 读取返回的信息
+     *
+     * @param in
+     * @return
+     */
+    private static String getData(InputStream in) {
+        String result = "";
+        StringBuilder sb = new StringBuilder();
+        BufferedReader br = new BufferedReader(new InputStreamReader(in));
+        String line = "";
+        try {
+            while ((line = br.readLine()) != null) {
+                // result = result + line;
+                sb.append(line);
+            }
+            br.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                br.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return sb.toString();
     }
 
 }

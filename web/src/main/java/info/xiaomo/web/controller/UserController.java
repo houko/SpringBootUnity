@@ -7,6 +7,7 @@ import info.xiaomo.core.exception.UserNotFoundException;
 import info.xiaomo.core.model.UserModel;
 import info.xiaomo.core.service.UserService;
 import info.xiaomo.core.untils.DateUtil;
+import info.xiaomo.core.untils.FileUtil;
 import info.xiaomo.core.untils.MD5Util;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
@@ -93,19 +93,32 @@ public class UserController extends BaseController {
             @RequestParam String password,
             @RequestParam String email,
             @RequestParam int gender,
+            @RequestParam File img,
             @RequestParam long phone,
             @RequestParam String address
-    ) {
+    ) throws Exception {
         UserModel userModel = service.findUserByEmail(email);
         //邮箱被占用
         if (userModel != null) {
-            result.put(code, notFound);
+            result.put(code, repeat);
             return result;
         }
+        //目标目录
+        File targetFile = new File(WebDefaultValueConst.imgBaseUrl);
+        if (!targetFile.exists()) {
+            targetFile.mkdir();
+        }
+        //目标文件名
+        String fileType = FileUtil.getFileType(img.getName());
+        String newFileName = FileUtil.getNewFileName(email.split(Symbol.AT)[0], fileType);
+        String imgUrl = WebDefaultValueConst.imgBaseUrl + newFileName;
+        FileUtil.upload(img, WebDefaultValueConst.imgBaseUrl, newFileName);
+
         userModel = new UserModel();
         userModel.setNickName(nickName);
         userModel.setEmail(email);
         userModel.setGender(gender);
+        userModel.setImgUrl(imgUrl);
         userModel.setValidateStatus(0);//默认未验证
         userModel.setValidateCode(MD5Util.encode(email));
         userModel.setPhone(phone);
@@ -178,7 +191,7 @@ public class UserController extends BaseController {
             @RequestParam String nickName,
             @RequestParam String password,
             @RequestParam String email,
-            @RequestParam(value = "img", required = false) MultipartFile img,
+            @RequestParam File img,
             @RequestParam int gender,
             @RequestParam long phone,
             @RequestParam String address
@@ -189,11 +202,11 @@ public class UserController extends BaseController {
             result.put(code, error);
             return result;
         }
-        String OldFileName = img.getOriginalFilename();
+        String OldFileName = img.getName();
         String fileType = OldFileName.split(Symbol.DIAN)[1];
         String newFileName = email + Symbol.DIAN + fileType;
         File targetFile = new File(WebDefaultValueConst.imgBaseUrl + Symbol.ZHENGXIEXIAN + newFileName, newFileName);
-        if(!targetFile.exists()){
+        if (!targetFile.exists()) {
             targetFile.mkdirs();
         }
         if (!targetFile.exists()) {

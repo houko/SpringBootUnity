@@ -1,4 +1,4 @@
-package info.xiaomo.admin.test.userTest;
+package info.xiaomo.admin.test.UserTest;
 
 import com.alibaba.fastjson.JSONObject;
 import info.xiaomo.admin.test.base.BaseTest;

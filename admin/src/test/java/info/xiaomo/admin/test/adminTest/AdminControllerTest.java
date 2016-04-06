@@ -1,4 +1,4 @@
-package info.xiaomo.admin.test;
+package info.xiaomo.admin.test.adminTest;
 
 import info.xiaomo.admin.base.BaseTest;
 import info.xiaomo.core.model.AdminModel;

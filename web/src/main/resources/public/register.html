@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.css">
 </head>
 <body>
-<form action="/api/web/user/register" method="post">
+<form action="/api/web/user/register" method="post" enctype="multipart/form-data">
     <div class="container">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -18,6 +18,12 @@
                         <div class="col-md-2">邮箱</div>
                         <div class="col-md-2">
                             <input type="email" name="email" title=""><br>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">头像</div>
+                        <div class="col-md-2">
+                            <input type="file" name="img" title=""><br>
                         </div>
                     </div>
                     <div class="row">

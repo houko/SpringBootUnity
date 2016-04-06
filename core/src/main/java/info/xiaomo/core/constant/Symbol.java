@@ -15,4 +15,5 @@ public class Symbol {
     public static final String ZHENGXIEXIAN = "/";
     public static final String DENGHAO = "=";
     public static final String SPACE = " ";
+    public static final String AT = "@";
 }

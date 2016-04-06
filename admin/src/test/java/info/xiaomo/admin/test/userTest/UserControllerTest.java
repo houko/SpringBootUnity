@@ -1,4 +1,4 @@
-package info.xiaomo.admin.test;
+package info.xiaomo.admin.test.userTest;
 
 import info.xiaomo.admin.base.BaseTest;
 import info.xiaomo.core.model.UserModel;
@@ -41,5 +41,13 @@ public class UserControllerTest extends BaseTest {
         for (UserModel userModel : all) {
             System.out.println(userModel.getNickName());
         }
+    }
+
+    @Test
+    public void testUpdate() {
+        UserModel userModel = new UserModel();
+
+
+
     }
 }

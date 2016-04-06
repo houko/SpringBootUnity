@@ -8,17 +8,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class Base64Util {
-	private static final int END_OF_INPUT = -1;
-
-	private static final int NON_BASE_64 = -1;
-
-	private static final int NON_BASE_64_WHITESPACE = -2;
-
-	private static final int NON_BASE_64_PADDING = -3;
-
-	private Base64Util(){
-	}
-
+	public static final String version = "1.2";
 	/**
 	 * Table of the sixty-four characters that are used as
 	 * the Base64Util alphabet: [A-Za-z0-9+/]
@@ -35,8 +25,19 @@ public class Base64Util {
 		'w','x','y','z','0','1','2','3',
 		'4','5','6','7','8','9','+','/',
 	};
-
 	protected static final byte[] reverseBase64Chars = new byte[0x100];
+	private static final int END_OF_INPUT = -1;
+	private static final int NON_BASE_64 = -1;
+	private static final int NON_BASE_64_WHITESPACE = -2;
+	private static final int NON_BASE_64_PADDING = -3;
+	private static final int ACTION_GUESS = 0;
+	private static final int ACTION_ENCODE = 1;
+	private static final int ACTION_DECODE = 2;
+	private static final int ARGUMENT_GUESS = 0;
+	private static final int ARGUMENT_STRING = 1;
+	private static final int ARGUMENT_FILE = 2;
+	protected static ResourceBundle labels = ResourceBundle.getBundle("info.xiaomo.core.utils.Base64Util", Locale.getDefault());
+
 	static {
 		for (int i=0; i<reverseBase64Chars.length; i++){
 			reverseBase64Chars[i] = NON_BASE_64;
@@ -52,17 +53,8 @@ public class Base64Util {
 		reverseBase64Chars['='] = NON_BASE_64_PADDING;
 	}
 
-	public static final String version = "1.2";
-
-	protected static ResourceBundle labels = ResourceBundle.getBundle("info.xiaomo.core.utils.Base64Util",  Locale.getDefault());
-
-	private static final int ACTION_GUESS = 0;
-	private static final int ACTION_ENCODE = 1;
-	private static final int ACTION_DECODE = 2;
-
-	private static final int ARGUMENT_GUESS = 0;
-	private static final int ARGUMENT_STRING = 1;
-	private static final int ARGUMENT_FILE = 2;
+	private Base64Util() {
+	}
 
 	public static String encode(String string){
 		return new String(encode(string.getBytes()));
@@ -176,7 +168,6 @@ public class Base64Util {
 			out.flush();
 			out.close();
 			out = null;
-			FileUtil.move(temp, fOut, true);
 		} finally {
 			if (in != null){
 				in.close();
@@ -403,7 +394,7 @@ public class Base64Util {
 	 *
 	 * @since ostermillerutils 1.02.16
 	 */
-	public static void decodeToStream(String string, String enc, OutputStream out) throws UnsupportedEncodingException, IOException {
+	public static void decodeToStream(String string, String enc, OutputStream out) throws IOException {
 		decode(new ByteArrayInputStream(string.getBytes(enc)), out);
 	}
 
@@ -630,7 +621,6 @@ public class Base64Util {
 			out.flush();
 			out.close();
 			out = null;
-			FileUtil.move(temp, fOut, true);
 		} finally {
 			if (in != null){
 				try {
@@ -974,8 +964,7 @@ public class Base64Util {
 			}
 		}
 		if (numBase64Chars == 0) return false;
-		if (numBase64Chars % 4 != 0) return false;
-		return true;
+		return numBase64Chars % 4 == 0;
 	}
 }
 

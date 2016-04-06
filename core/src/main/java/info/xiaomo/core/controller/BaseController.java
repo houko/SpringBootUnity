@@ -3,8 +3,6 @@ package info.xiaomo.core.controller;
 import info.xiaomo.core.model.base.BaseModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletResponse;
@@ -91,7 +89,6 @@ public abstract class BaseController<E extends BaseModel> {
      * @param id id
      * @return return
      */
-    @RequestMapping(value = "findById", method = RequestMethod.GET)
     public HashMap<String, Object> findById(@RequestParam("id") Long id) {
         return result;
     }
@@ -103,8 +100,7 @@ public abstract class BaseController<E extends BaseModel> {
      * @param pageSize pageSize
      * @return result
      */
-    @RequestMapping(value = "findAll", method = RequestMethod.GET)
-    public HashMap<String, Object> RequestParam(@RequestParam("start") int start, @RequestParam("pageSize") int pageSize) {
+    public HashMap<String, Object> getAll(@RequestParam("start") int start, @RequestParam("pageSize") int pageSize) {
         return result;
     }
 
@@ -114,7 +110,6 @@ public abstract class BaseController<E extends BaseModel> {
      * @param params params
      * @return result
      */
-    @RequestMapping(value = "update", method = RequestMethod.GET)
     public HashMap<String, Object> update(@RequestParam String params) {
         return result;
     }
@@ -125,7 +120,6 @@ public abstract class BaseController<E extends BaseModel> {
      * @param params params
      * @return result
      */
-    @RequestMapping(value = "add", method = RequestMethod.GET)
     public HashMap<String, Object> add(@RequestParam String params) {
         return result;
     }
@@ -136,7 +130,6 @@ public abstract class BaseController<E extends BaseModel> {
      * @param id id
      * @return result
      */
-    @RequestMapping(value = "deleteById/", method = RequestMethod.GET)
     public HashMap<String, Object> deleteById(@RequestParam("id") Long id) {
         return result;
     }

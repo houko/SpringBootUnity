@@ -113,7 +113,7 @@ public class UserServiceImpl implements UserService {
         sb.append("&validateCode=");
         sb.append(model.getValidateCode());
         sb.append("</a><br/>");
-        sb.append("<span style='float:right;padding-right:50px'>小莫</span></br>");
+        sb.append("<span style='float:right;padding-right:6%'>小莫</span></br>");
         sb.append("<span style='float:right'>");
         sb.append(TimeUtil.getFormatDate());
         sb.append("</span></br>");

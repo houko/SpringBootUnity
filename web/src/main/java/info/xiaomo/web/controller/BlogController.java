@@ -63,7 +63,7 @@ public class BlogController extends BaseController {
      * @return result
      */
     @RequestMapping(value = "findAll", method = RequestMethod.GET)
-    public HashMap<String, Object> findAll(@RequestParam("start") int start, @RequestParam("pageSize") int pageSize) {
+    public HashMap<String, Object> getAll(@RequestParam("start") int start, @RequestParam("pageSize") int pageSize) {
         Page<BlogModel> models = service.findAll(new PageRequest(start, pageSize));
         result.put(code, success);
         result.put("blogs", models);

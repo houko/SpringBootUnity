@@ -9,11 +9,6 @@ import java.util.regex.Pattern;
 
 /**
  * Token 帮助类
- *
- * @author L.cm
- *         email: 596392912@qq.com
- *         site:  http://www.dreamlu.net
- * @date Jun 24, 2013 9:58:25 PM
  */
 public class TokenUtil {
 
@@ -70,12 +65,5 @@ public class TokenUtil {
     public static String getUid(String string) {
         JSONObject json = JSONObject.parseObject(string);
         return json.getString("uid");
-    }
-
-    /**
-     * 生成一个随机数
-     */
-    public static String randomState() {
-        return RandomStringUtils.random(24, STR_S);
     }
 }

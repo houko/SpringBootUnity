@@ -114,8 +114,6 @@ public class StringUtil extends StringUtils {
 
     /**
      * 百度获ip获取到的城市处理 供大众点评
-     * 暂用，以后会用类是分词的技术，好吧完全没有算法的概念
-     *
      * @return String    返回类型
      */
     public static String cityMatcher(String city) {
@@ -131,11 +129,10 @@ public class StringUtil extends StringUtils {
 
     /**
      * 字符串全角转半角
-     *
      * @return String    返回类型
      */
     public static String togglecase(String string) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < string.length(); i++) {
             sb.append(CharUtil.regularize(string.charAt(i)));
         }
@@ -323,7 +320,7 @@ public class StringUtil extends StringUtils {
         StringTokenizer Tokenizer = new StringTokenizer(sql, "|");
 
         // 标记本身等于分隔符的特殊情况
-        delSql += Tokenizer.nextToken().toString();
+        delSql += Tokenizer.nextToken();
         while (Tokenizer.hasMoreTokens()) {
             delSql += Tokenizer.nextToken() + ",";
         }
@@ -331,11 +328,6 @@ public class StringUtil extends StringUtils {
         return delSql;
     }
 
-    /*
-     * format selectedIDs to sql language
-     * in (...)
-     * second of methods bt own idea
-     */
     private String delNewSQlString(String sql) {
         return "in (" + sql.replace('|', ',') + ")";
     }
@@ -354,7 +346,7 @@ public class StringUtil extends StringUtils {
      * @return the input string with the characters '&lt;' and '&gt;' replaced
      * with their HTML escape sequences.
      */
-    public static final String escapeHTMLTags(String in) {
+    public static String escapeHTMLTags(String in) {
         if (in == null) {
             return null;
         }
@@ -363,7 +355,7 @@ public class StringUtil extends StringUtils {
         int last = 0;
         char[] input = in.toCharArray();
         int len = input.length;
-        StringBuffer out = new StringBuffer((int) (len * 1.3));
+        StringBuilder out = new StringBuilder((int) (len * 1.3));
         for (; i < len; i++) {
             ch = input[i];
 
@@ -446,7 +438,7 @@ public class StringUtil extends StringUtils {
             char[] arr_cNew = strNew.toCharArray();
 
             int intOldLen = strOld.length();
-            StringBuffer buf = new StringBuffer(arr_cSrc.length);
+            StringBuilder buf = new StringBuilder(arr_cSrc.length);
             buf.append(arr_cSrc, 0, i).append(arr_cNew);
 
             i += intOldLen;
@@ -457,12 +449,9 @@ public class StringUtil extends StringUtils {
                 i += intOldLen;
                 j = i;
             }
-
             buf.append(arr_cSrc, j, arr_cSrc.length - j);
-
             return buf.toString();
         }
-
         return strSrc;
     }
 
@@ -478,13 +467,11 @@ public class StringUtil extends StringUtils {
     public static String htmlEncode(String strSrc) {
         if (strSrc == null)
             return "";
-
         char[] arr_cSrc = strSrc.toCharArray();
-        StringBuffer buf = new StringBuffer(arr_cSrc.length);
+        StringBuilder buf = new StringBuilder(arr_cSrc.length);
         char ch;
-
-        for (int i = 0; i < arr_cSrc.length; i++) {
-            ch = arr_cSrc[i];
+        for (char anArr_cSrc : arr_cSrc) {
+            ch = anArr_cSrc;
 
             if (ch == '<')
                 buf.append("&lt;");
@@ -738,12 +725,12 @@ public class StringUtil extends StringUtils {
     public static float stringToFloat(String floatstr) {
         Float floatee;
         floatee = Float.valueOf(floatstr);
-        return floatee.floatValue();
+        return floatee;
     }
 
     //change the float type to the string type
     public static String floatToString(float value) {
-        Float floatee = new Float(value);
+        Float floatee = value;
         return floatee.toString();
     }
 
@@ -895,13 +882,13 @@ public class StringUtil extends StringUtils {
         char temChr;
         int ascInt;
         int i;
-        String result = new String("");
+        String result = "";
         if (inStr == null) {
             inStr = "";
         }
         for (i = 0; i < inStr.length(); i++) {
             temChr = inStr.charAt(i);
-            ascInt = temChr + 0;
+            ascInt = temChr;
             //System.out.println("1=="+ascInt);
             //System.out.println("1=="+Integer.toBinaryString(ascInt));
             if (Integer.toHexString(ascInt).length() > 2) {
@@ -920,13 +907,11 @@ public class StringUtil extends StringUtils {
      * @param gbString
      * @return
      */
-
-    //代码:--------------------------------------------------------------------------------
     public static String gbEncoding(final String gbString) {
         char[] utfBytes = gbString.toCharArray();
         String unicodeBytes = "";
-        for (int byteIndex = 0; byteIndex < utfBytes.length; byteIndex++) {
-            String hexB = Integer.toHexString(utfBytes[byteIndex]);
+        for (char utfByte : utfBytes) {
+            String hexB = Integer.toHexString(utfByte);
             if (hexB.length() <= 2) {
                 hexB = "00" + hexB;
             }
@@ -1006,7 +991,7 @@ public class StringUtil extends StringUtils {
      * @return
      */
     public static String decode(String s) {
-        StringBuffer sbuf = new StringBuffer();
+        StringBuilder sbuf = new StringBuilder();
         int i = 0;
         int len = s.length();
         while (i < len) {

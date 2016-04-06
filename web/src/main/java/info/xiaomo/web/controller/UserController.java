@@ -6,8 +6,8 @@ import info.xiaomo.core.controller.BaseController;
 import info.xiaomo.core.exception.UserNotFoundException;
 import info.xiaomo.core.model.UserModel;
 import info.xiaomo.core.service.UserService;
+import info.xiaomo.core.untils.DateUtil;
 import info.xiaomo.core.untils.MD5Util;
-import info.xiaomo.core.untils.TimeUtil;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -240,7 +240,7 @@ public class UserController extends BaseController {
             return result;
         }
         //验证码是否过期
-        Date lastDate = TimeUtil.getDateAfter(new Date(), 2);//获取激活码过期时间
+        Date lastDate = DateUtil.getDateAfter(new Date(), 2);//获取激活码过期时间
         if (!lastDate.after(user.getUpdateTime())) {
             LOGGER.info("用户{}使用己过期的激活码{}激活邮箱失败！", user.getEmail(), user.getValidateCode());
             result.put(code, expired);

@@ -31,8 +31,8 @@ public class SerializeUtil {
      */
     public static String serialize(Object object) {
         if (object == null) return null;
-        ObjectOutputStream oos = null;
-        ByteArrayOutputStream baos = null;
+        ObjectOutputStream oos;
+        ByteArrayOutputStream baos;
         try {
             baos = new ByteArrayOutputStream();
             oos = new ObjectOutputStream(baos);

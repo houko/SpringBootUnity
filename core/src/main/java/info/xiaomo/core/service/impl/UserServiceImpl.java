@@ -4,8 +4,8 @@ import info.xiaomo.core.dao.UserDao;
 import info.xiaomo.core.exception.UserNotFoundException;
 import info.xiaomo.core.model.UserModel;
 import info.xiaomo.core.service.UserService;
+import info.xiaomo.core.untils.DateUtil;
 import info.xiaomo.core.untils.MailUtil;
-import info.xiaomo.core.untils.TimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -115,7 +115,7 @@ public class UserServiceImpl implements UserService {
         sb.append("</a><br/>");
         sb.append("<span style='float:right;padding-right:4%'>小莫</span></br>");
         sb.append("<span style='float:right'>");
-        sb.append(TimeUtil.getFormatDate());
+        sb.append(DateUtil.getFormatDate());
         sb.append("</span></br>");
         return sb.toString();
     }

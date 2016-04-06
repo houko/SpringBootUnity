@@ -22,6 +22,6 @@ package info.xiaomo.core.exception;
  * @Description: 找不到用户异常
  * @Copyright(©) 2015 by xiaomo.
  */
-public class UserNotFoundException extends Throwable {
+public class UserNotFoundException extends Exception {
 
 }

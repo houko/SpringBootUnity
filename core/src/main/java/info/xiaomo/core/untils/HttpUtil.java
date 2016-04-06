@@ -11,19 +11,14 @@ import java.net.URLEncoder;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
-import java.security.cert.CertificateException;
-import java.security.cert.X509Certificate;
 import java.util.Map;
 import java.util.Map.Entry;
 
 
 /**
  * https 请求 微信为https的请求
- *
- * @author L.cm
- * @date 2013-10-1 下午2:40:19
  */
-public class HttpKit {
+public class HttpUtil {
 
     private static final String DEFAULT_CHARSET = "UTF-8"; // 默认字符集
 
@@ -33,10 +28,6 @@ public class HttpKit {
     /**
      * 初始化http请求参数
      *
-     * @param url
-     * @param method
-     * @param headers
-     * @return
      * @throws IOException
      */
     private static HttpURLConnection initHttp(String url, String method, Map<String, String> headers) throws IOException {
@@ -63,16 +54,13 @@ public class HttpKit {
     /**
      * 初始化http请求参数
      *
-     * @param url
-     * @param method
-     * @return
      * @throws IOException
      * @throws NoSuchAlgorithmException
      * @throws NoSuchProviderException
      * @throws KeyManagementException
      */
     private static HttpsURLConnection initHttps(String url, String method, Map<String, String> headers) throws IOException, NoSuchAlgorithmException, NoSuchProviderException, KeyManagementException {
-        TrustManager[] tm = {new MyX509TrustManager()};
+        TrustManager[] tm = {new X509TrustManagerUtil()};
         SSLContext sslContext = SSLContext.getInstance("SSL", "SunJSSE");
         sslContext.init(null, tm, new java.security.SecureRandom());
         // 从上述SSLContext对象中得到SSLSocketFactory对象  
@@ -80,7 +68,7 @@ public class HttpKit {
         URL _url = new URL(url);
         HttpsURLConnection http = (HttpsURLConnection) _url.openConnection();
         // 设置域名校验
-        http.setHostnameVerifier(new HttpKit().new TrustAnyHostnameVerifier());
+        http.setHostnameVerifier(new HttpUtil().new TrustAnyHostnameVerifier());
         // 连接超时
         http.setConnectTimeout(25000);
         // 读取超时 --服务器响应比较慢，增大时间
@@ -102,7 +90,6 @@ public class HttpKit {
 
     /**
      * @return 返回类型:
-     * @description 功能描述: get 请求
      */
     public static String get(String url, Map<String, String> params, Map<String, String> headers) {
         StringBuffer bufferRes = null;
@@ -122,9 +109,7 @@ public class HttpKit {
             }
             read.close();
             in.close();
-            if (http != null) {
-                http.disconnect();// 关闭连接
-            }
+            http.disconnect();// 关闭连接
             return bufferRes.toString();
         } catch (Exception e) {
             e.printStackTrace();
@@ -132,27 +117,14 @@ public class HttpKit {
         }
     }
 
-    /**
-     * @return 返回类型:
-     * @description 功能描述: get 请求
-     */
     public static String get(String url) {
         return get(url, null);
     }
 
-    /**
-     * @return 返回类型:
-     * @throws UnsupportedEncodingException
-     * @description 功能描述: get 请求
-     */
     public static String get(String url, Map<String, String> params) {
         return get(url, params, null);
     }
 
-    /**
-     * @return 返回类型:
-     * @description 功能描述: POST 请求
-     */
     public static String post(String url, String params, Map<String, String> headers) {
         StringBuffer bufferRes = null;
         try {
@@ -176,9 +148,7 @@ public class HttpKit {
             }
             read.close();
             in.close();
-            if (http != null) {
-                http.disconnect();// 关闭连接
-            }
+            http.disconnect();// 关闭连接
             return bufferRes.toString();
         } catch (Exception e) {
             e.printStackTrace();
@@ -189,9 +159,6 @@ public class HttpKit {
     /**
      * post map 请求
      *
-     * @param url
-     * @param params
-     * @return
      * @throws UnsupportedEncodingException
      */
     public static String post(String url, Map<String, String> params) throws UnsupportedEncodingException {
@@ -201,9 +168,6 @@ public class HttpKit {
     /**
      * post map 请求,headers请求头
      *
-     * @param url
-     * @param params
-     * @return
      * @throws UnsupportedEncodingException
      */
     public static String post(String url, Map<String, String> params, Map<String, String> headers) throws UnsupportedEncodingException {
@@ -213,14 +177,13 @@ public class HttpKit {
     /**
      * @return 返回类型:
      * @throws UnsupportedEncodingException
-     * @description 功能描述: 构造请求参数
      */
     public static String initParams(String url, Map<String, String> params) throws UnsupportedEncodingException {
         if (null == params || params.isEmpty()) {
             return url;
         }
         StringBuilder sb = new StringBuilder(url);
-        if (url.indexOf("?") == -1) {
+        if (!url.contains("?")) {
             sb.append("?");
         }
         sb.append(map2Url(params));
@@ -232,13 +195,12 @@ public class HttpKit {
      *
      * @return 返回类型:
      * @throws UnsupportedEncodingException
-     * @description 功能描述:
      */
     public static String map2Url(Map<String, String> paramToMap) throws UnsupportedEncodingException {
         if (null == paramToMap || paramToMap.isEmpty()) {
             return null;
         }
-        StringBuffer url = new StringBuffer();
+        StringBuilder url = new StringBuilder();
         boolean isfist = true;
         for (Entry<String, String> entry : paramToMap.entrySet()) {
             if (isfist) {
@@ -257,8 +219,6 @@ public class HttpKit {
 
     /**
      * 检测是否https
-     *
-     * @param url
      */
     private static boolean isHttps(String url) {
         return url.startsWith("https");
@@ -266,8 +226,6 @@ public class HttpKit {
 
     /**
      * https 域名校验
-     *
-     * @return
      */
     public class TrustAnyHostnameVerifier implements HostnameVerifier {
         public boolean verify(String hostname, SSLSession session) {
@@ -276,20 +234,3 @@ public class HttpKit {
     }
 }
 
-// 证书管理
-class MyX509TrustManager implements X509TrustManager {
-
-    public X509Certificate[] getAcceptedIssuers() {
-        return null;
-    }
-
-    @Override
-    public void checkClientTrusted(X509Certificate[] chain, String authType)
-            throws CertificateException {
-    }
-
-    @Override
-    public void checkServerTrusted(X509Certificate[] chain, String authType)
-            throws CertificateException {
-    }
-}

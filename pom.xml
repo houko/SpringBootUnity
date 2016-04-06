@@ -29,7 +29,7 @@
         <commons-codec.version>1.10</commons-codec.version>
         <ehcache-core.version>2.6.6</ehcache-core.version>
         <email.version>1.5.4</email.version>
-        <commons-fileupload.version>fileupload</commons-fileupload.version>
+        <commons-fileupload.version>1.3.1</commons-fileupload.version>
         <zxing.version>3.2.1</zxing.version>
         <json.version>1.2.7</json.version>
         <jsoup.version>1.8.3</jsoup.version>
@@ -44,6 +44,7 @@
         <commons-beanutils.version>20030211.134440</commons-beanutils.version>
         <javax-mail.version>1.4.7</javax-mail.version>
         <javax.activation.version>1.1.1</javax.activation.version>
+        <commons-configuation.version>1.10</commons-configuation.version>
     </properties>
 
     <parent>
@@ -122,6 +123,16 @@
                 <groupId>javax.activation</groupId>
                 <artifactId>activation</artifactId>
                 <version>${javax.activation.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-configuration</groupId>
+                <artifactId>commons-configuration</artifactId>
+                <version>${commons-configuation.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-fileupload</groupId>
+                <artifactId>commons-fileupload</artifactId>
+                <version>${commons-fileupload.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

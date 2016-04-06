@@ -3,7 +3,7 @@ package info.xiaomo.admin.test;
 import info.xiaomo.admin.base.BaseTest;
 import info.xiaomo.core.model.AdminModel;
 import info.xiaomo.core.service.AdminUserService;
-import info.xiaomo.core.untils.MD5;
+import info.xiaomo.core.untils.MD5Util;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -40,7 +40,7 @@ public class AdminControllerTest extends BaseTest {
     public void testAddAdminUser() {
         AdminModel model = new AdminModel();
         model.setUserName("test");
-        model.setPassword(MD5.encode("test"));
+        model.setPassword(MD5Util.encode("test"));
         model.setAuthLevel(1);
         model.setCreateTime(new Date());
         model.setUpdateTime(new Date());

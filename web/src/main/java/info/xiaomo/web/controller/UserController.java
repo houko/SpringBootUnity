@@ -1,11 +1,12 @@
 package info.xiaomo.web.controller;
 
+import info.xiaomo.core.constant.Symbol;
 import info.xiaomo.core.constant.WebDefaultValueConst;
 import info.xiaomo.core.controller.BaseController;
 import info.xiaomo.core.exception.UserNotFoundException;
 import info.xiaomo.core.model.UserModel;
 import info.xiaomo.core.service.UserService;
-import info.xiaomo.core.untils.MD5;
+import info.xiaomo.core.untils.MD5Util;
 import info.xiaomo.core.untils.TimeUtil;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.HashMap;
@@ -62,7 +66,7 @@ public class UserController extends BaseController {
             return result;
         }
         //密码不正确
-        if (!MD5.encode(password).equals(userModel.getPassword())) {
+        if (!MD5Util.encode(password).equals(userModel.getPassword())) {
             result.put(code, error);
             return result;
         }
@@ -103,11 +107,11 @@ public class UserController extends BaseController {
         userModel.setEmail(email);
         userModel.setGender(gender);
         userModel.setValidateStatus(0);//默认未验证
-        userModel.setValidateCode(MD5.encode(email));
+        userModel.setValidateCode(MD5Util.encode(email));
         userModel.setPhone(phone);
         userModel.setImgUrl(WebDefaultValueConst.defaultImage);
         userModel.setAddress(address);
-        userModel.setPassword(MD5.encode(password));
+        userModel.setPassword(MD5Util.encode(password));
         userModel = service.addUser(userModel);
         if (userModel != null) {
             result.put(code, success);
@@ -162,7 +166,7 @@ public class UserController extends BaseController {
      * @param nickName nickName
      * @param password password
      * @param email    email
-     * @param imgUrl   imgUrl
+     * @param img      img
      * @param gender   gender
      * @param phone    phone
      * @param address  address
@@ -174,25 +178,35 @@ public class UserController extends BaseController {
             @RequestParam String nickName,
             @RequestParam String password,
             @RequestParam String email,
-            @RequestParam String imgUrl,
+            @RequestParam(value = "img", required = false) MultipartFile img,
             @RequestParam int gender,
             @RequestParam long phone,
             @RequestParam String address
-    ) throws UserNotFoundException {
+    ) throws UserNotFoundException, IOException {
         UserModel userModel = service.findUserByEmail(email);
         //找不到用户
         if (userModel != null) {
             result.put(code, error);
             return result;
         }
+        String OldFileName = img.getOriginalFilename();
+        String fileType = OldFileName.split(Symbol.DIAN)[1];
+        String newFileName = email + Symbol.DIAN + fileType;
+        File targetFile = new File(WebDefaultValueConst.imgBaseUrl + Symbol.ZHENGXIEXIAN + newFileName, newFileName);
+        if(!targetFile.exists()){
+            targetFile.mkdirs();
+        }
+        if (!targetFile.exists()) {
+            targetFile.createNewFile();
+        }
         userModel = new UserModel();
         userModel.setNickName(nickName);
         userModel.setEmail(email);
         userModel.setGender(gender);
         userModel.setPhone(phone);
-        userModel.setImgUrl(imgUrl);
+        userModel.setImgUrl("");
         userModel.setAddress(address);
-        userModel.setPassword(MD5.encode(password));
+        userModel.setPassword(MD5Util.encode(password));
         userModel = service.updateUser(userModel);
         if (userModel != null) {
             result.put(code, success);
@@ -244,6 +258,4 @@ public class UserController extends BaseController {
         result.put(user, userModel);
         return result;
     }
-
-
 }

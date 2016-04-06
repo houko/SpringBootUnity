@@ -1,7 +1,7 @@
 package info.xiaomo.core.api;
 
 
-import info.xiaomo.core.untils.HttpKit;
+import info.xiaomo.core.untils.HttpUtil;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -24,19 +24,19 @@ public class Oauth {
     }
 
     protected String getAuthorizeUrl(String authorize, Map<String, String> params) throws UnsupportedEncodingException {
-        return HttpKit.initParams(authorize, params);
+        return HttpUtil.initParams(authorize, params);
     }
 
     protected String doPost(String url, Map<String, String> params) throws IOException, KeyManagementException, NoSuchAlgorithmException, NoSuchProviderException {
-        return HttpKit.post(url, params);
+        return HttpUtil.post(url, params);
     }
 
     protected String doGet(String url, Map<String, String> params) throws IOException, KeyManagementException, NoSuchAlgorithmException, NoSuchProviderException {
-        return HttpKit.get(url, params);
+        return HttpUtil.get(url, params);
     }
 
     protected String doGetWithHeaders(String url, Map<String, String> headers) throws IOException, KeyManagementException, NoSuchAlgorithmException, NoSuchProviderException {
-        return HttpKit.get(url, null, headers);
+        return HttpUtil.get(url, null, headers);
     }
 
     public String getClientId() {

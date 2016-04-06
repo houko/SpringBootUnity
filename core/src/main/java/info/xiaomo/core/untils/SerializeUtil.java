@@ -28,9 +28,6 @@ public class SerializeUtil {
 
     /**
      * 序列化
-     *
-     * @param object
-     * @return
      */
     public static String serialize(Object object) {
         if (object == null) return null;
@@ -50,14 +47,10 @@ public class SerializeUtil {
 
     /**
      * 反序列化
-     *
-     * @param s
-     * @return
      */
     public static Object unserialize(String s) throws UnsupportedEncodingException {
         byte[] bytes = s.getBytes("utf-8");
-        if (bytes == null) return null;
-        ByteArrayInputStream bais = null;
+        ByteArrayInputStream bais;
         try {
             //反序列化
             bais = new ByteArrayInputStream(bytes);

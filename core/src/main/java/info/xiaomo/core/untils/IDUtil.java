@@ -9,9 +9,7 @@ public class IDUtil {
     /**
      * 锁
      */
-    private static final Object LOCK = new Object();
     private static final Object ID_LOCK = new Object();
-    private static final int SERVERID = 0;
     /**
      * 计数器
      */
@@ -19,7 +17,6 @@ public class IDUtil {
     /**
      * 当前秒数
      */
-    private static long cursec = System.currentTimeMillis() / 1000L;
     private static long CURRENT_SECOND = System.currentTimeMillis() / 1000L;
     private static int ID = 0;
 

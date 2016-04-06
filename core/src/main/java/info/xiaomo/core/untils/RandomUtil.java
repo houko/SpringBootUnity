@@ -15,24 +15,19 @@ import java.util.concurrent.ThreadLocalRandom;
 /**
  * 随机工具类
  *
- * @author 杨 强
+ * @author xiaomo
  */
 public class RandomUtil {
     private static final Logger LOGGER = LoggerFactory.getLogger(RandomUtil.class);
 
     /**
      * 随机产生min到max之间的一个整数值，包含min和max
-     *
-     * @param min
-     * @param max
-     * @return
      */
     public static int random(int min, int max) {
         if (min > max) {
             throw new IllegalArgumentException("传入的范围不合法!最小值不能大于最大值！");
         }
-        int num = ThreadLocalRandom.current().nextInt(max - min + 1) + min;
-        return num;
+        return ThreadLocalRandom.current().nextInt(max - min + 1) + min;
     }
 
     /**
@@ -43,20 +38,13 @@ public class RandomUtil {
      * @return 成功true失败false
      */
     public static boolean isGenerate(int maxRange, int sucRange) {
-        if (maxRange == sucRange) {
-            return true;
-        }
-        if (sucRange == 0) {
-            return false;
-        }
-        return random(1, maxRange) <= sucRange;
+        return maxRange == sucRange || sucRange != 0 && random(1, maxRange) <= sucRange;
     }
 
     /**
      * 从指定的的元素集中随机一个元素
      *
      * @param collection 元素集
-     * @return
      */
     public static <T> T randomElement(Collection<T> collection) {
         if (collection == null || collection.isEmpty()) {
@@ -77,7 +65,6 @@ public class RandomUtil {
      * 从指定的元素数组中随机出一个元素
      *
      * @param array 元素数组
-     * @return
      */
     public static <T> T randomElement(T[] array) {
         if (array == null || array.length == 0) {
@@ -89,14 +76,13 @@ public class RandomUtil {
     /**
      * 根据每个几率返回随机的一个索引
      *
-     * @param probs
      * @return -1失败or随机的索引
      */
     public static int randomIndexByProb(List<Integer> probs) {
         LinkedList<Integer> newProbs = new LinkedList<Integer>();
         int lastTotalProb = 0;
-        for (int i = 0; i < probs.size(); i++) {
-            int cuttentTotalProb = lastTotalProb + probs.get(i);
+        for (Integer prob : probs) {
+            int cuttentTotalProb = lastTotalProb + prob;
             newProbs.add(cuttentTotalProb);
             lastTotalProb = cuttentTotalProb;
         }
@@ -121,14 +107,14 @@ public class RandomUtil {
     /**
      * 根据每个几率返回随机的一个索引
      *
-     * @param array
      * @return -1失败or随机的索引
      */
     public static int randomIndexByProb(int[] array) {
         if (array == null || array.length == 0) {
             throw new IllegalArgumentException("元素数组不能为空！");
         }
-        List<Integer> list = new ArrayList<Integer>();
+        List<Integer> list;
+        list = new ArrayList<>();
         for (int i : array) {
             list.add(i);
         }

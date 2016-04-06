@@ -16,7 +16,7 @@ import info.xiaomo.core.model.base.BaseModel;
  * @Description:
  * @Copyright(©) 2015 by xiaomo.
  **/
-public abstract class Module<E extends BaseModel> {
+public abstract class Module<E extends BaseModel> extends CConst{
 
     protected static final String code = "code";
 

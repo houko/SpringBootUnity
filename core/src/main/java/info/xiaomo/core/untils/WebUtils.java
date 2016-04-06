@@ -21,18 +21,6 @@ public final class WebUtils {
     private WebUtils() {
     }
 
-//    /**
-//     * 返回当前用户信息
-//     *
-//     * @param c c
-//     * @return UserModel
-//     */
-//    public static User currentUser(Controller c) {
-//        HttpServletRequest request = c.getRequest();
-//        HttpServletResponse response = c.getResponse();
-//        return currentUser(request, response);
-//    }
-
     /**
      * 读取cookie
      *

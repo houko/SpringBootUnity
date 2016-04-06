@@ -11,10 +11,6 @@ public class IDUtil {
      */
     private static final Object ID_LOCK = new Object();
     /**
-     * 计数器
-     */
-    private static int id = 0;
-    /**
      * 当前秒数
      */
     private static long CURRENT_SECOND = System.currentTimeMillis() / 1000L;
@@ -31,7 +27,7 @@ public class IDUtil {
      * @return long
      */
     public static long getId() {
-        int tempId = 0;
+        int tempId;
         long tempCurSec = System.currentTimeMillis() / 1000L;
         synchronized (ID_LOCK) {
             ID += 1;

@@ -17,7 +17,7 @@ import java.util.Properties;
  * @email: hupengbest@163.com
  * @QQ_NO: 83387856
  * @Date: 2016/4/511:00
- * @Description:
+ * @Description: 发送邮件
  * @Copyright(©) 2015 by xiaomo.
  **/
 public class MailUtil {

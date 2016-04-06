@@ -69,7 +69,7 @@ public class MD5Util {
         String resultString = null;
         try {
             resultString = origin;
-            MessageDigest md = MessageDigest.getInstance("MD5Util");
+            MessageDigest md = MessageDigest.getInstance("md5");
             resultString = byteArrayToString(md.digest(resultString.getBytes()));
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -79,7 +79,7 @@ public class MD5Util {
 
     public static void main(String[] args) {
         String s = "xiaomo";
-        System.out.println("原始：" + s);
+        System.out.println("原数据：" + s);
         System.out.println("MD5后：" + encode(s));
     }
 

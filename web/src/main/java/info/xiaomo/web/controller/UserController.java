@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
@@ -89,6 +91,7 @@ public class UserController extends BaseController {
      */
     @RequestMapping(value = "register", method = RequestMethod.POST)
     public HashMap<String, Object> register(
+            HttpServletRequest request,
             @RequestParam String nickName,
             @RequestParam String password,
             @RequestParam String email,
@@ -112,8 +115,7 @@ public class UserController extends BaseController {
         String fileType = FileUtil.getFileType(img.getName());
         String newFileName = FileUtil.getNewFileName(email.split(Symbol.AT)[0], fileType);
         String imgUrl = WebDefaultValueConst.imgBaseUrl + newFileName;
-        FileUtil.upload(img, WebDefaultValueConst.imgBaseUrl, newFileName);
-
+        FileUtil.upload(request, imgUrl);
         userModel = new UserModel();
         userModel.setNickName(nickName);
         userModel.setEmail(email);
@@ -188,10 +190,11 @@ public class UserController extends BaseController {
      */
     @RequestMapping(value = "update", method = RequestMethod.POST)
     public HashMap<String, Object> update(
+            HttpServletRequest request,
             @RequestParam String nickName,
             @RequestParam String password,
             @RequestParam String email,
-            @RequestParam File img,
+            @RequestParam MultipartFile img,
             @RequestParam int gender,
             @RequestParam long phone,
             @RequestParam String address

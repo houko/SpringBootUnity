@@ -96,26 +96,18 @@ public class UserController extends BaseController {
             @RequestParam String password,
             @RequestParam String email,
             @RequestParam int gender,
-            @RequestParam File img,
+            @RequestParam MultipartFile img,
             @RequestParam long phone,
             @RequestParam String address
     ) throws Exception {
         UserModel userModel = service.findUserByEmail(email);
         //邮箱被占用
-        if (userModel != null) {
-            result.put(code, repeat);
-            return result;
-        }
-        //目标目录
-        File targetFile = new File(WebDefaultValueConst.imgBaseUrl);
-        if (!targetFile.exists()) {
-            targetFile.mkdir();
-        }
+//        if (userModel != null) {
+//            result.put(code, repeat);
+//            return result;
+//        }
         //目标文件名
-        String fileType = FileUtil.getFileType(img.getName());
-        String newFileName = FileUtil.getNewFileName(email.split(Symbol.AT)[0], fileType);
-        String imgUrl = WebDefaultValueConst.imgBaseUrl + newFileName;
-        FileUtil.upload(request, imgUrl);
+        String imgUrl = FileUtil.upload(request,img);
         userModel = new UserModel();
         userModel.setNickName(nickName);
         userModel.setEmail(email);

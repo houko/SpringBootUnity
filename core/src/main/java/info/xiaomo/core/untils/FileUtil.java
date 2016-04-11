@@ -2,18 +2,13 @@ package info.xiaomo.core.untils;
 
 import info.xiaomo.core.constant.FileType;
 import info.xiaomo.core.constant.Symbol;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileItemFactory;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import info.xiaomo.core.constant.WebDefaultValueConst;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 此类中封装一些常用的文件操作。
@@ -559,18 +554,6 @@ public class FileUtil {
         return true;
     }
 
-
-    /**
-     * 拼接新的文件名
-     *
-     * @param baseName
-     * @param fileType
-     * @return
-     */
-    public static String getNewFileName(String baseName, String fileType) {
-        return baseName + Symbol.DIAN + fileType;
-    }
-
     /**
      * 获取图片文件的扩展名（发布系统专用）
      *
@@ -694,39 +677,37 @@ public class FileUtil {
 
     /**
      * 文件上传
-     *
-     * @param request
-     * @param response
-     * @param savePath
+     * @param file file
+     * @param email email
+     * @return fileUrl
      */
-    public static String upload(HttpServletRequest request, MultipartFile multipartFile) {
-        try {
-            FileItemFactory factory = new DiskFileItemFactory();
-            ServletFileUpload upload = new ServletFileUpload(factory);
-            upload.setHeaderEncoding("utf8");//支持中文文件名
-            List<FileItem> items = upload.parseRequest(request);
-            for (FileItem item : items) {
-                if (item.isFormField()) {
-                    System.out.println("查找到一个普通文本数据");
-                    System.out.println("该文本数据的name为：" + item.getFieldName());
-                    System.out.println("该文本数据的value为：" + item.getString());
-                    System.out.println();
-                } else {
-                    System.out.println("查找到一个二进制数据");
-                    System.out.println("该文件表单name为：" + item.getFieldName());
-                    System.out.println("该文件文件名为：" + item.getName());
-                    System.out.println("该文件文件类型为：" + item.getContentType());
-                    System.out.println("该文件文件大小为：" + item.getSize());
-                    System.out.println();
-                    File uploadedFile = new File(request.getServletContext().getRealPath("fileupload") + "\\" + item.getName());
-                    item.write(uploadedFile);
+    public static String upload(MultipartFile file, String email) {
+        String savePath = "";
+        if (file != null && !file.isEmpty()) {
+            // 获取图片的文件名
+            String fileName = file.getOriginalFilename();
+            // 重新定义图片名字
+            String filename = FileUtil.getNewFileName(fileName,email);
+            //上传服务器上 新文件路径
+            savePath = WebDefaultValueConst.imgBaseUrl;
+            try {
+                File newFile;
+                // 判断服务器上 文件夹是否存在
+                newFile = new File(savePath);
+                if (!newFile.exists()) {
+                    newFile.mkdirs();
                 }
+                savePath = savePath + filename;
+                FileOutputStream out = new FileOutputStream(savePath);
+                // 写入文件
+                out.write(file.getBytes());
+                out.flush();
+                out.close();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-
-        return null;
+        return savePath;
     }
 
 
@@ -846,8 +827,8 @@ public class FileUtil {
     }
 
     /**
-     * @param filePath
-     * @return
+     * @param filePath filePath
+     * @return FileType
      * @throws IOException
      */
     public static FileType getType(String filePath) throws IOException {
@@ -864,6 +845,13 @@ public class FileUtil {
         }
         return null;
     }
+
+    public static String getNewFileName(String fileName, String email) {
+        String FileType = FileUtil.getFileType(fileName);
+        String newName = email.split(Symbol.AT)[0];
+        return newName + Symbol.DIAN + FileType;
+    }
+
 
     public static void main(String args[]) throws Exception {
         System.out.println(getType("E:\\oscchina\\xiaomoBlogJava\\core\\src\\main\\java\\info\\xiaomo\\core\\constant\\GenderType.java"));

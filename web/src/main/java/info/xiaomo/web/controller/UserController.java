@@ -1,7 +1,5 @@
 package info.xiaomo.web.controller;
 
-import info.xiaomo.core.constant.Symbol;
-import info.xiaomo.core.constant.WebDefaultValueConst;
 import info.xiaomo.core.controller.BaseController;
 import info.xiaomo.core.exception.UserNotFoundException;
 import info.xiaomo.core.model.UserModel;
@@ -17,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
@@ -91,7 +87,6 @@ public class UserController extends BaseController {
      */
     @RequestMapping(value = "register", method = RequestMethod.POST)
     public HashMap<String, Object> register(
-            HttpServletRequest request,
             @RequestParam String nickName,
             @RequestParam String password,
             @RequestParam String email,
@@ -100,15 +95,15 @@ public class UserController extends BaseController {
             @RequestParam long phone,
             @RequestParam String address
     ) throws Exception {
-//        UserModel userModel = service.findUserByEmail(email);
-        //邮箱被占用
-//        if (userModel != null) {
-//            result.put(code, repeat);
-//            return result;
-//        }
+        UserModel userModel = service.findUserByEmail(email);
+//        邮箱被占用
+        if (userModel != null) {
+            result.put(code, repeat);
+            return result;
+        }
         //目标文件名
-        String imgUrl = FileUtil.upload(request,img);
-        UserModel userModel = new UserModel();
+        String imgUrl = FileUtil.upload(img, email);
+        userModel = new UserModel();
         userModel.setNickName(nickName);
         userModel.setEmail(email);
         userModel.setGender(gender);
@@ -116,7 +111,6 @@ public class UserController extends BaseController {
         userModel.setValidateStatus(0);//默认未验证
         userModel.setValidateCode(MD5Util.encode(email));
         userModel.setPhone(phone);
-        userModel.setImgUrl(WebDefaultValueConst.defaultImage);
         userModel.setAddress(address);
         userModel.setPassword(MD5Util.encode(password));
         userModel = service.addUser(userModel);
@@ -182,7 +176,6 @@ public class UserController extends BaseController {
      */
     @RequestMapping(value = "update", method = RequestMethod.POST)
     public HashMap<String, Object> update(
-            HttpServletRequest request,
             @RequestParam String nickName,
             @RequestParam String password,
             @RequestParam String email,
@@ -197,22 +190,14 @@ public class UserController extends BaseController {
             result.put(code, error);
             return result;
         }
-        String OldFileName = img.getName();
-        String fileType = OldFileName.split(Symbol.DIAN)[1];
-        String newFileName = email + Symbol.DIAN + fileType;
-        File targetFile = new File(WebDefaultValueConst.imgBaseUrl + Symbol.ZHENGXIEXIAN + newFileName, newFileName);
-        if (!targetFile.exists()) {
-            targetFile.mkdirs();
-        }
-        if (!targetFile.exists()) {
-            targetFile.createNewFile();
-        }
+        //目标文件名
+        String imgUrl = FileUtil.upload(img, email);
         userModel = new UserModel();
         userModel.setNickName(nickName);
         userModel.setEmail(email);
         userModel.setGender(gender);
         userModel.setPhone(phone);
-        userModel.setImgUrl("");
+        userModel.setImgUrl(imgUrl);
         userModel.setAddress(address);
         userModel.setPassword(MD5Util.encode(password));
         userModel = service.updateUser(userModel);

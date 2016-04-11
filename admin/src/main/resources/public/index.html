@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+
+    .su-toolbar {
+        width: 100%;
+        height: 45px;
+        display: block;
+        background: #f5f5f5;
+        padding: 5px;
+        border: solid 1px;
+        border-color: #cccccc;
+    }
+
+    .su-toolbar .tool-block {
+        cursor: pointer;
+        display: block;
+        width: 35px;
+        margin: 0 1%;
+        height: 35px;
+        float: left;
+        padding: 5px;
+    }
+
+    .su-toolbar .tool-block * {
+        left: 20%;
+        top: 20%;
+    }
+
+    .su-toolbar .tool-block:hover {
+        background: #00ffff;
+    }
+
+    .su-toolbar button {
+        margin-top: 5px;
+    }
+
+    .suEditor {
+        width: 50%;
+        float: left;
+        display: block;
+
+    }
+
+    .suEditor textarea {
+        width: 100%;
+        height: 400px;
+        background: #f5f5f5;
+        tab-size: 4;
+        border: solid 1px;
+        border-top: none;
+        border-color: #cccccc;
+        padding: 20px;
+        resize: none;
+    }
+
+    .suEditor textarea:focus {
+        background: #fff;
+        border-color: #cccccc;
+        outline: none;
+    }
+
+    .suPreview {
+        width: 50%;
+        left: 50%;
+        float: left;
+        background: #f5f5f5;
+        height: 400px;
+        display: block;
+        overflow: auto;
+        padding: 0 20px;
+        border-right: solid 1px;
+        border-bottom: solid 1px;
+        border-color: #cccccc;
+
+    }
+
+</style>
+<body>
+
+
+<div class="su-toolbar">
+    <div class="tool-block su-tool-bold" title="加粗(Ctrl+B)" data-placement="top" data-toggle="tooltip">
+        <span class="glyphicon glyphicon-bold"></span>
+    </div>
+    <div class="tool-block su-tool-italic" title="斜体(Ctrl+I)" data-placement="top" data-toggle="tooltip">
+        <span class="glyphicon glyphicon-italic"></span>
+    </div>
+    <div class="tool-block su-tool-head" title="标题(Ctrl+H)" data-placement="top" data-toggle="tooltip">
+        <span class="glyphicon glyphicon-header"></span>
+    </div>
+    <div class="tool-block su-tool-link" title="链接(Ctrl+L)" data-placement="top" data-toggle="tooltip">
+        <span class="glyphicon glyphicon-link"></span>
+    </div>
+    <div class="tool-block su-tool-img" title="图片(Ctrl+G)" data-placement="top" data-toggle="tooltip">
+        <span class="glyphicon glyphicon-picture"></span>
+    </div>
+    <div class="tool-block su-tool-list" title="无序列表(Ctrl+U)" data-placement="top" data-toggle="tooltip">
+        <span class="glyphicon glyphicon-list"></span>
+    </div>
+    <div class="tool-block su-tool-orderlist" title="有序列表(Ctrl+O)" data-placement="top" data-toggle="tooltip">
+        <span class="glyphicon glyphicon-th-list"></span>
+    </div>
+    <div class="tool-block su-tool-code" title="单行代码(Ctrl+K)" data-placement="top" data-toggle="tooltip">
+        <span class="glyphicon glyphicon-asterisk"></span>
+    </div>
+    <div class="tool-block su-tool-block" title="区块(Ctrl+Q)" data-placement="top" data-toggle="tooltip">
+        <span class="glyphicon glyphicon-comment"></span>
+    </div>
+
+    <button class="btn btn-sm btn-primary pull-right su-tool-preview">
+        <span class="glyphicon glyphicon-search"></span>
+        Preview
+    </button>
+</div>
+
+
+<div class="suEditor">
+
+    <textarea></textarea>
+
+</div>
+
+
+<div class="suPreview">
+
+</div>
+</body>
+</html>

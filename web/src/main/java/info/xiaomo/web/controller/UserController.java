@@ -100,7 +100,7 @@ public class UserController extends BaseController {
             @RequestParam long phone,
             @RequestParam String address
     ) throws Exception {
-        UserModel userModel = service.findUserByEmail(email);
+//        UserModel userModel = service.findUserByEmail(email);
         //邮箱被占用
 //        if (userModel != null) {
 //            result.put(code, repeat);
@@ -108,7 +108,7 @@ public class UserController extends BaseController {
 //        }
         //目标文件名
         String imgUrl = FileUtil.upload(request,img);
-        userModel = new UserModel();
+        UserModel userModel = new UserModel();
         userModel.setNickName(nickName);
         userModel.setEmail(email);
         userModel.setGender(gender);

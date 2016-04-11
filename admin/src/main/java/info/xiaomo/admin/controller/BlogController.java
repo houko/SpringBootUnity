@@ -1,4 +1,4 @@
-package info.xiaomo.web.controller;
+package info.xiaomo.admin.controller;
 
 import info.xiaomo.core.controller.BaseController;
 import info.xiaomo.core.model.BlogModel;
@@ -24,34 +24,34 @@ import java.util.HashMap;
  * @github: https://github.com/qq83387856
  * @email: hupengbest@163.com
  * @QQ_NO: 83387856
- * @Date: 2016/4/517:16
- * @Description:
+ * @Date: 2016/4/1117:40
+ * @Description: 后台博客管理
  * @Copyright(©) 2015 by xiaomo.
  **/
 @RestController
-@RequestMapping("/api/web/blog")
+@RequestMapping("/api/admin/blog")
 public class BlogController extends BaseController {
 
     @Autowired
     private BlogService service;
 
     /**
-     * findById
+     * 通过id查找
      *
      * @param id id
-     * @return result
+     * @return
      */
-    @RequestMapping(value = "findById", method = RequestMethod.GET)
+    @RequestMapping("findById")
     public HashMap<String, Object> findById(@RequestParam Long id) {
-        BlogModel model = service.findBlogById(id);
-        if (model == null) {
+        BlogModel blog = service.findBlogById(id);
+        if (blog == null) {
             result.put(code, notFound);
             return result;
         }
         result.put(code, success);
-        model.setVote(model.getVote() + 1);
-        service.updateBlog(model);
-        result.put(blog, model);
+        blog.setVote(blog.getVote() + 1);
+        service.updateBlog(blog);
+        result.put(blog, blog);
         return result;
     }
 
@@ -75,17 +75,17 @@ public class BlogController extends BaseController {
     }
 
     /**
-     * 分页查询
+     * 分页查询博客
      *
-     * @param start    start
-     * @param pageSize pageSize
-     * @return result
+     * @param start
+     * @param pageSize
+     * @return
      */
-    @RequestMapping(value = "findAll", method = RequestMethod.GET)
-    public HashMap<String, Object> getAll(@RequestParam("start") int start, @RequestParam("pageSize") int pageSize) {
-        Page<BlogModel> models = service.findAll(new PageRequest(start, pageSize));
+    @RequestMapping("findAll")
+    public HashMap<String, Object> findAll(@RequestParam int start, @RequestParam int pageSize) {
+        Page<BlogModel> all = service.findAll(new PageRequest(start, pageSize));
         result.put(code, success);
-        result.put(blogs, models);
+        result.put(blogs, all);
         return result;
     }
 
@@ -176,7 +176,7 @@ public class BlogController extends BaseController {
             return result;
         }
         blogModel.setStatus(1);
-        blogModel = service.deleteBlogById(id);
+        blogModel = service.updateBlog(blogModel);
         result.put(code, success);
         result.put(blog, blogModel);
         return result;

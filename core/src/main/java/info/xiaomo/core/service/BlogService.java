@@ -23,6 +23,8 @@ public interface BlogService {
 
     BlogModel findBlogById(Long id);
 
+    BlogModel findBlogByTitle(String title);
+    
     Page<BlogModel> findAll(Pageable pageable);
 
     BlogModel addBlog(BlogModel model);
@@ -30,8 +32,6 @@ public interface BlogService {
     BlogModel updateBlog(BlogModel model);
 
     BlogModel deleteBlogById(Long id);
-
-    BlogModel findBlogByTitle(String title);
 
 
 }

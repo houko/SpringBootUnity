@@ -20,4 +20,7 @@ import org.springframework.stereotype.Repository;
  **/
 @Repository
 public interface LinkDao extends JpaRepository<LinkModel, Long> {
+
+    LinkModel findLinkByName(String name);
+
 }

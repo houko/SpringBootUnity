@@ -1,5 +1,9 @@
 package info.xiaomo.core.service;
 
+import info.xiaomo.core.model.TagModel;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 /**
  * 把今天最好的表现当作明天最新的起点．．～
  * いま 最高の表現 として 明日最新の始発．．～
@@ -15,4 +19,16 @@ package info.xiaomo.core.service;
  * @Copyright(©) 2015 by xiaomo.
  **/
 public interface TagService {
+
+    TagModel findById(Long id);
+
+    TagModel findByName(String name);
+
+    Page<TagModel> findAll(Pageable pageable);
+
+    TagModel add(TagModel model);
+
+    TagModel update(TagModel model);
+
+    TagModel delete(Long id);
 }

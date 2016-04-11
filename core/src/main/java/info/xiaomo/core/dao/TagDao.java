@@ -21,6 +21,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TagDao extends JpaRepository<TagModel, Long> {
 
-
+    TagModel findByName(String name);
 
 }

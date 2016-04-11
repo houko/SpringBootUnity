@@ -1,5 +1,9 @@
 package info.xiaomo.core.service;
 
+import info.xiaomo.core.model.LinkModel;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 /**
  * 把今天最好的表现当作明天最新的起点．．～
  * いま 最高の表現 として 明日最新の始発．．～
@@ -15,4 +19,17 @@ package info.xiaomo.core.service;
  * @Copyright(©) 2015 by xiaomo.
  **/
 public interface LinkService {
+
+    LinkModel findById(Long id);
+
+    LinkModel findByName(String name);
+
+    Page<LinkModel> findAll(Pageable pageable);
+
+    LinkModel add(LinkModel model);
+
+    LinkModel update(LinkModel model);
+
+    LinkModel delete(Long id);
+
 }

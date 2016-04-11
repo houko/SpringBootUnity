@@ -1,10 +1,12 @@
-package info.xiaomo.admin.test.blogTest;
+package info.xiaomo.admin.test.BlogTest;
 
 import info.xiaomo.admin.test.base.BaseTest;
 import info.xiaomo.core.model.BlogModel;
 import info.xiaomo.core.service.BlogService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.Date;
 
 /**
  * │＼＿＿╭╭╭╭╭＿＿／│
@@ -35,8 +37,35 @@ public class BlogControllerTest extends BaseTest {
 
     @Test
     public void testFindAll() {
-        BlogModel blogModel = service.findBlogById(19L);
+        BlogModel blogModel = service.findBlogById(1L);
         System.out.println(blogModel.getTitle());
+    }
+
+    @Test
+    public void testAdd(){
+        BlogModel model = new BlogModel();
+        model.setTitle("idea15破解方法2");
+        model.setSummary("idea15破解方法 http://idea.lanyus.com");
+        model.setContent("注册时选择 License server ，\n" +
+                "\n" +
+                "填 http://idea.lanyus.com ，然后点击 OK\n" +
+                "\n" +
+                "\n" +
+                "\n" +
+                "14的话，网上可以找到一个，根据你的用户名生成激活码。\n" +
+                "\n" +
+                "\n" +
+                "\n" +
+                "特别说明下个人使用体验：\n" +
+                "\n" +
+                "升级到15的话如果电脑硬件撑不住的话，体验相当不好！用几个小时就特别卡，卡到你想哭（这时你重启idea就好了）");
+        model.setStatus(0);
+        model.setAuthor("xiaomo");
+        model.setVote(5);
+        model.setTagId(4L);
+        model.setCreateTime(new Date());
+        model.setUpdateTime(new Date());
+        service.addBlog(model);
     }
 
 }

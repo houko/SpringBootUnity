@@ -43,15 +43,15 @@ public class BlogController extends BaseController {
      */
     @RequestMapping("findById")
     public HashMap<String, Object> findById(@RequestParam Long id) {
-        BlogModel blog = service.findBlogById(id);
-        if (blog == null) {
+        BlogModel blogModel = service.findBlogById(id);
+        if (blogModel == null) {
             result.put(code, notFound);
             return result;
         }
         result.put(code, success);
-        blog.setVote(blog.getVote() + 1);
-        service.updateBlog(blog);
-        result.put(blog, blog);
+        blogModel.setVote(blogModel.getVote() + 1);
+        service.updateBlog(blogModel);
+        result.put(blog, blogModel);
         return result;
     }
 
@@ -82,8 +82,8 @@ public class BlogController extends BaseController {
      * @return
      */
     @RequestMapping("findAll")
-    public HashMap<String, Object> findAll(@RequestParam int start, @RequestParam int pageSize) {
-        Page<BlogModel> all = service.findAll(new PageRequest(start, pageSize));
+    public HashMap<String, Object> findAll(@RequestParam("start") int start, @RequestParam("pageSize") int pageSize) {
+        Page<BlogModel> all = service.findAll(new PageRequest(start-1, pageSize));
         result.put(code, success);
         result.put(blogs, all);
         return result;

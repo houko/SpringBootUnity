@@ -1,5 +1,6 @@
 package info.xiaomo.web.controller;
 
+import info.xiaomo.core.constant.GenderType;
 import info.xiaomo.core.controller.BaseController;
 import info.xiaomo.core.exception.UserNotFoundException;
 import info.xiaomo.core.model.UserModel;
@@ -77,23 +78,14 @@ public class UserController extends BaseController {
     /**
      * 注册
      *
-     * @param nickName nickName
      * @param password password
      * @param email    email
-     * @param gender   gender
-     * @param phone    phone
-     * @param address  address
      * @return result
      */
     @RequestMapping(value = "register", method = RequestMethod.POST)
     public HashMap<String, Object> register(
-            @RequestParam String nickName,
             @RequestParam String password,
-            @RequestParam String email,
-            @RequestParam int gender,
-            @RequestParam MultipartFile img,
-            @RequestParam long phone,
-            @RequestParam String address
+            @RequestParam String email
     ) throws Exception {
         UserModel userModel = service.findUserByEmail(email);
 //        邮箱被占用
@@ -101,22 +93,16 @@ public class UserController extends BaseController {
             result.put(code, repeat);
             return result;
         }
-        //判断是否是图片
-        if (FileUtil.isImage(img.getOriginalFilename())) {
-            result.put(code, notImg);
-            return result;
-        }
         //目标文件名
-        String imgUrl = FileUtil.upload(img, email);
         userModel = new UserModel();
-        userModel.setNickName(nickName);
+        userModel.setNickName(email);
         userModel.setEmail(email);
-        userModel.setGender(gender);
-        userModel.setImgUrl(imgUrl);
+        userModel.setGender(GenderType.secret);
+        userModel.setImgUrl("");
         userModel.setValidateStatus(0);//默认未验证
         userModel.setValidateCode(MD5Util.encode(email));
-        userModel.setPhone(phone);
-        userModel.setAddress(address);
+        userModel.setPhone(0L);
+        userModel.setAddress("");
         userModel.setPassword(MD5Util.encode(password));
         userModel = service.addUser(userModel);
         if (userModel != null) {

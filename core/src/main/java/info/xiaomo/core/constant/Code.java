@@ -45,6 +45,11 @@ public abstract class Code<E extends BaseModel> extends Module {
     protected static final int error = 205;
 
     /**
+     * 图片格式不对
+     */
+    protected static final int notImg = 205;
+
+    /**
      * 找不到
      */
     protected static final int notFound = 404;

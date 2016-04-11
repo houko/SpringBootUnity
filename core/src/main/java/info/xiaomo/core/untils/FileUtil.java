@@ -677,7 +677,8 @@ public class FileUtil {
 
     /**
      * 文件上传
-     * @param file file
+     *
+     * @param file  file
      * @param email email
      * @return fileUrl
      */
@@ -687,7 +688,7 @@ public class FileUtil {
             // 获取图片的文件名
             String fileName = file.getOriginalFilename();
             // 重新定义图片名字
-            String filename = FileUtil.getNewFileName(fileName,email);
+            String filename = FileUtil.getNewFileName(fileName, email);
             //上传服务器上 新文件路径
             savePath = WebDefaultValueConst.imgBaseUrl;
             try {
@@ -852,6 +853,14 @@ public class FileUtil {
         return newName + Symbol.DIAN + FileType;
     }
 
+    public static boolean isImage(String imageName) {
+        String fileType = FileUtil.getFileType(imageName);
+        return !(fileType.equals("bmp") || fileType.equals("BMP")
+                || fileType.equals("jpg") || fileType.equals("JPG")
+                || fileType.equals("jpeg") || fileType.equals("JPEG")
+                || fileType.equals("git") || fileType.equals("GIF")
+                || fileType.equals("png") || fileType.equals("PNG"));
+    }
 
     public static void main(String args[]) throws Exception {
         System.out.println(getType("E:\\oscchina\\xiaomoBlogJava\\core\\src\\main\\java\\info\\xiaomo\\core\\constant\\GenderType.java"));

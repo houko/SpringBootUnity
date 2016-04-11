@@ -101,6 +101,11 @@ public class UserController extends BaseController {
             result.put(code, repeat);
             return result;
         }
+        //判断是否是图片
+        if (FileUtil.isImage(img.getOriginalFilename())) {
+            result.put(code, notImg);
+            return result;
+        }
         //目标文件名
         String imgUrl = FileUtil.upload(img, email);
         userModel = new UserModel();
@@ -188,6 +193,11 @@ public class UserController extends BaseController {
         //找不到用户
         if (userModel != null) {
             result.put(code, error);
+            return result;
+        }
+        //判断是否是图片
+        if (FileUtil.isImage(img.getOriginalFilename())) {
+            result.put(code, notImg);
             return result;
         }
         //目标文件名

@@ -3,6 +3,13 @@
 a.前台使用markdown编辑，提交后台原样保存。(使用的编辑器:markdown-editor)
     <script type="text/javascript" src="http://static.xiaomo.info/markdown/admin/markdown.js"></script>
     <script type="text/javascript" src="http://static.xiaomo.info/markdown/admin/markDownEditor.js"></script>
+    
+    <script type="text/javascript">
+        $(function () {
+            $("#textarea-1").markDownEditor({});
+        });
+    </script>
+    
 b.前台显示的时候使用showdown.min.js把markdown转成html。
 [showdown](https://github.com/showdownjs/showdown)
 <!-- 显示 -->

@@ -16,6 +16,11 @@ b.前台显示的时候使用showdown.min.js把markdown转成html。
 <link rel="stylesheet" href="http://static.xiaomo.info/markdown/web/basic.css">
 <link rel="stylesheet" href="http://static.xiaomo.info/markdown/web/atelier-dune-dark.css">
 <script src="http://static.xiaomo.info/markdown/web/highlight.min.js"></script>
+
+    <script>
+        hljs.initHighlightingOnLoad();
+    </script>
+
 <!-- 将markdown转成html -->
 <script src="http://static.xiaomo.info/markdown/web/showdown.min.js"></script>
 <script src="http://static.xiaomo.info/markdown/web/markDownUtil.js"></script>
@@ -35,6 +40,19 @@ b.前台显示的时候使用showdown.min.js把markdown转成html。
     b.前端请求后台数据直接显示。
     缺点：编辑的时候还要借助 tomarkdown.js 将html转成markdown,修改完成之后提交再转成html,相当麻烦。
 ### 3.比较结果:明显将markdown内容入库，显示的时候转换成html更加明智。
+
+# 4.鸣谢
+语法高亮：hightlight.js    
+转成markdown:to-markdown.js    
+转成html：showmarkdown.js  
+后端转markdown:    
+    <dependency>    
+        <groupId>org.markdownj</groupId>      
+        <artifactId>markdownj-core</artifactId>     
+    </dependency>    
+其他：jquery bootstrap      
+
+
 
 
     

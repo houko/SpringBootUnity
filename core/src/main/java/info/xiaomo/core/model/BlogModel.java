@@ -1,7 +1,9 @@
 package info.xiaomo.core.model;
 
 import info.xiaomo.core.model.base.BaseModel;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.io.Serializable;
@@ -24,10 +26,13 @@ import java.io.Serializable;
 @Table(name = "blog")
 public class BlogModel extends BaseModel implements Serializable {
 
+    @Column(name = "title", columnDefinition = "text")
     private String title;
 
+    @Column(name = "summary", columnDefinition = "text")
     private String summary;
 
+    @Column(name = "content", columnDefinition = "longtext")
     private String content;
 
     private String author;

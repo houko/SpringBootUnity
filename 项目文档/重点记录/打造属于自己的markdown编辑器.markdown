@@ -1,0 +1,23 @@
+[showdown](https://github.com/showdownjs/showdown)
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <script src="http://static.xiaomo.info/jquery.js"></script>
+        <script src="http://static.xiaomo.info/markdown/web/showdown.min.js"></script>
+        <script>
+          $(document).ready(function () {
+              var converter = new showdown.Converter(),
+                      text      = '[hello, markdown!](http://www.baidu.com)',
+                      htmlText      = converter.makeHtml(text);
+              $("#test").html(htmlText);
+          })
+        </script>
+    </head>
+    <body>
+    <p id="test"></p>
+    </body>
+    </html>
+    

@@ -114,7 +114,7 @@ public class BlogController extends BaseController {
         }
         blogModel = new BlogModel();
         blogModel.setTitle(title);
-        blogModel.setContent(MarkDownUtil.markdown(content));
+        blogModel.setContent(content);
         blogModel.setSummary(summary);
         blogModel.setAuthor(nickName);
         blogModel.setStatus(0);

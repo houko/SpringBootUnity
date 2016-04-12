@@ -69,12 +69,12 @@ public class MarkupFileTester {
 
     @Parameters
     public static Collection<Object[]> testResultPairs() throws IOException {
-        List<TestResultPair> fullResultPairList = new ArrayList<TestResultPair>();
+        List<TestResultPair> fullResultPairList = new ArrayList<>();
         for (String filename : TEST_FILENAMES) {
             fullResultPairList.addAll(newTestResultPairList(filename));
         }
 
-        Collection<Object[]> testResultPairs = new ArrayList<Object[]>();
+        Collection<Object[]> testResultPairs = new ArrayList<>();
         for (TestResultPair p : fullResultPairList) {
             testResultPairs.add(new Object[] { p });
         }

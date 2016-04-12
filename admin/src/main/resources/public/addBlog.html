@@ -21,9 +21,11 @@
     </script>
 </head>
 <body>
-<form action="">
+<form action="/admin/blog/add" method="post">
     标题：<input type="text" name="title" title="" style="width: 100%"><br>
     简介：<textarea name="summary" title="" rows="3" style="width: 100%"></textarea><br>
+    <input type="hidden" value="1" name="tagId">
+    <input type="hidden" value="xiaomo" name="nickName">
 	<textarea name="content" id="textarea-1" rows="22" title="">
     </textarea><br>
     <input type="submit" value="提交">

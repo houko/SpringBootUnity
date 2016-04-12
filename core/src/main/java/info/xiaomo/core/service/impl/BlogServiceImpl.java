@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Objects;
 
@@ -50,6 +51,8 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public BlogModel addBlog(BlogModel model) {
+        model.setCreateTime(new Date());
+        model.setUpdateTime(new Date());
         return dao.save(model);
     }
 

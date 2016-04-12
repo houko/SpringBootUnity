@@ -3,6 +3,7 @@ package info.xiaomo.admin.controller;
 import info.xiaomo.core.controller.BaseController;
 import info.xiaomo.core.model.BlogModel;
 import info.xiaomo.core.service.BlogService;
+import info.xiaomo.core.untils.MarkDownUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -83,7 +84,7 @@ public class BlogController extends BaseController {
      */
     @RequestMapping("findAll")
     public HashMap<String, Object> findAll(@RequestParam("start") int start, @RequestParam("pageSize") int pageSize) {
-        Page<BlogModel> all = service.findAll(new PageRequest(start-1, pageSize));
+        Page<BlogModel> all = service.findAll(new PageRequest(start - 1, pageSize));
         result.put(code, success);
         result.put(blogs, all);
         return result;
@@ -113,7 +114,7 @@ public class BlogController extends BaseController {
         }
         blogModel = new BlogModel();
         blogModel.setTitle(title);
-        blogModel.setContent(content);
+        blogModel.setContent(MarkDownUtil.markdown(content));
         blogModel.setSummary(summary);
         blogModel.setAuthor(nickName);
         blogModel.setStatus(0);

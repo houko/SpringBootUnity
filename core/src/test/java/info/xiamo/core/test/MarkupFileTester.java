@@ -62,7 +62,8 @@ public class MarkupFileTester {
         "/dingus.txt",
         "/paragraphs.txt",
         "/snippets.txt",
-        "/lists.txt"
+        "/lists.txt",
+        "/test.txt"
     };
 
     TestResultPair pair;

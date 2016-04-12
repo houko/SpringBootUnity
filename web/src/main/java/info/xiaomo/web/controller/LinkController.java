@@ -18,6 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
  * @Copyright(©) 2015 by xiaomo.
  **/
 @RestController
-@RequestMapping("/api/web/link")
+@RequestMapping("/web/link")
 public class LinkController {
 }

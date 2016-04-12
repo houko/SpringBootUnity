@@ -103,12 +103,12 @@ public class UserServiceImpl implements UserService {
 
     private String appendEmailContent(UserModel model) {
         StringBuilder sb = new StringBuilder("点击下面链接激活账号，48小时生效，否则重新注册账号，链接只能使用一次，请尽快激活！</br>");
-        sb.append("<a href=\"http://localhost:8888/api/web/user/validateEmail?email=");
+        sb.append("<a href=\"http://localhost:8888/web/user/validateEmail?email=");
         sb.append(model.getEmail());
         sb.append("&validateCode=");
         sb.append(model.getValidateCode());
         sb.append("\">");
-        sb.append("http://localhost:8888/api/web/user/validateEmail?email=");
+        sb.append("http://localhost:8888/web/user/validateEmail?email=");
         sb.append(model.getEmail());
         sb.append("&validateCode=");
         sb.append(model.getValidateCode());

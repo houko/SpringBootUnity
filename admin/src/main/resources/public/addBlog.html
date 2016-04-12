@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>添加博客</title>
+    <script type="text/javascript" src="http://static.xiaomo.info/bootstrap/v3.bootstrap.css"></script>
+    <link rel="stylesheet" href="http://static.xiaomo.info/markdown/web/basic.css">
+    <link rel="stylesheet" href="http://static.xiaomo.info/markdown/web/atelier-dune-dark.css">
+    <script src="http://static.xiaomo.info/jquery.js"></script>
+    <script src="http://static.xiaomo.info/markdown/web/highlight.min.js"></script>
+    <script type="text/javascript" src="http://static.xiaomo.info/bootstrap/v3.bootstrap.js"></script>
+    <script type="text/javascript" src="http://static.xiaomo.info/markdown/admin/markdown.js"></script>
+    <script type="text/javascript" src="http://static.xiaomo.info/markdown/admin/markDownEditor.js"></script>
+    <script>
+        hljs.initHighlightingOnLoad();
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            $("#textarea-1").markDownEditor({});
+        });
+    </script>
+</head>
+<body>
+<form action="">
+    标题：<input type="text" name="title" title="" style="width: 100%"><br>
+    简介：<textarea name="summary" title="" rows="3" style="width: 100%"></textarea><br>
+	<textarea name="content" id="textarea-1" rows="22" title="">
+    </textarea><br>
+    <input type="submit" value="提交">
+</form>
+</body>
+</html>

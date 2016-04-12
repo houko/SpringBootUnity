@@ -22,7 +22,7 @@ import java.util.HashMap;
  * @Copyright(©) 2015 by xiaomo.
  **/
 @RestController
-@RequestMapping("/api/web/tag")
+@RequestMapping("/web/tag")
 public class TagController extends BaseController {
 
     @RequestMapping("findById")

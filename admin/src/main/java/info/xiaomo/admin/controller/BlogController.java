@@ -29,7 +29,7 @@ import java.util.HashMap;
  * @Copyright(©) 2015 by xiaomo.
  **/
 @RestController
-@RequestMapping("/api/admin/blog")
+@RequestMapping("/admin/blog")
 public class BlogController extends BaseController {
 
     @Autowired

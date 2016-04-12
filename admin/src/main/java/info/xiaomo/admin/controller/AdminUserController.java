@@ -39,7 +39,7 @@ import java.util.Map;
  * @Copyright(©) 2015 by xiaomo.
  */
 @RestController
-@RequestMapping("api/admin/adminUser")
+@RequestMapping("/admin/adminUser")
 public class AdminUserController extends BaseController {
 
     @Autowired

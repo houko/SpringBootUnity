@@ -37,7 +37,7 @@ import java.util.Map;
  * @Copyright(©) 2015 by xiaomo.
  **/
 @RestController
-@RequestMapping("/api/web/user")
+@RequestMapping("/web/user")
 public class UserController extends BaseController {
 
     @Autowired

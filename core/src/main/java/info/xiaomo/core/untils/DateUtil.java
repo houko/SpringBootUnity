@@ -46,9 +46,10 @@ public class DateUtil {
     private static final String day = "dd";
     private static final String date = month + Symbol.HENGXIAN + day;
 
-    private static final String timePattern = datePatternWithHengXian + " HH:MM:ss";
+    private static final String timePattern = datePatternWithHengXian + " HH:mm:ss";
 
     public static final FastDateFormat DATE_FORMAT = FastDateFormat.getInstance("yyyy-MM-dd");
+    public static final String DATE_FORMAT_STRING = "yyyyMMddHHmmss";
     public static final FastDateFormat DATE_FORMAT_CN = FastDateFormat.getInstance("yyyy年 MM月 dd日");
     public static final FastDateFormat DATE_FORMAT_RSS = FastDateFormat.getInstance("E, d MMM yyyy HH:mm:ss z", Locale.CHINA);
 

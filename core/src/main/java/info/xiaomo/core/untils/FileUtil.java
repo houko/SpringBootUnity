@@ -850,7 +850,7 @@ public class FileUtil {
     public static String getNewFileName(String fileName, String email) {
         String FileType = FileUtil.getFileType(fileName);
         String newName = email.split(Symbol.AT)[0];
-        return newName + Symbol.DIAN + FileType;
+        return DateUtil.getDateNow(DateUtil.DATE_FORMAT_STRING) + newName + Symbol.DIAN + FileType;
     }
 
     public static boolean isImage(String imageName) {
@@ -863,6 +863,7 @@ public class FileUtil {
     }
 
     public static void main(String args[]) throws Exception {
+        System.out.println(DateUtil.getDateNow(DateUtil.DATE_FORMAT_STRING));
         System.out.println(getType("E:\\oscchina\\xiaomoBlogJava\\core\\src\\main\\java\\info\\xiaomo\\core\\constant\\GenderType.java"));
     }
 

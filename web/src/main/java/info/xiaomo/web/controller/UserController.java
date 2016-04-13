@@ -177,7 +177,7 @@ public class UserController extends BaseController {
     ) throws UserNotFoundException, IOException {
         UserModel userModel = service.findUserByEmail(email);
         //找不到用户
-        if (userModel != null) {
+        if (userModel == null) {
             result.put(code, error);
             return result;
         }

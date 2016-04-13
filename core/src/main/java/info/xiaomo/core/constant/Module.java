@@ -16,24 +16,38 @@ import info.xiaomo.core.model.base.BaseModel;
  * @Description:
  * @Copyright(©) 2015 by xiaomo.
  **/
-public abstract class Module<E extends BaseModel> extends CConst{
+public abstract class Module extends CConst{
 
     protected static final String code = "code";
 
+    /**
+     * 用户
+     */
     protected static final String user = "user";
-
     protected static final String users = "users";
 
+    /**
+     * 博客
+     */
     protected static final String blog = "blog";
-
     protected static final String blogs = "blogs";
 
+    /**
+     * 标签
+     */
     protected static final String tag = "tag";
-
     protected static final String tags = "tags";
 
-    protected static final String adminUser = "adminUser";
+    /**
+     * 友情链接
+     */
+    protected static final String link = "link";
+    protected static final String links = "links";
 
+    /**
+     * 后台管理员
+     */
+    protected static final String adminUser = "adminUser";
     protected static final String adminUsers = "adminUsers";
 
 }

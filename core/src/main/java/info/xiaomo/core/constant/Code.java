@@ -16,7 +16,7 @@ import info.xiaomo.core.model.base.BaseModel;
  * @Description: 返回码
  * @Copyright(©) 2015 by xiaomo.
  **/
-public abstract class Code<E extends BaseModel> extends Module {
+public abstract class Code extends Module {
 
     /**
      * 成功

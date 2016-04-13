@@ -1,15 +1,12 @@
 package info.xiaomo.core.controller;
 
 import info.xiaomo.core.constant.Code;
-import info.xiaomo.core.model.base.BaseModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -26,7 +23,7 @@ import java.util.List;
  * @Copyright(©) 2015 by xiaomo.
  **/
 
-public abstract class BaseController<E extends BaseModel> extends Code {
+public abstract class BaseController extends Code {
 
     protected final Logger LOGGER = LoggerFactory.getLogger(getClass());
 

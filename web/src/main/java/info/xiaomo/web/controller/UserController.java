@@ -217,33 +217,33 @@ public class UserController extends BaseController {
             @RequestParam String validateCode
     ) throws ServiceException, ParseException, UserNotFoundException {
         //数据访问层，通过email获取用户信息
-        UserModel user = service.findUserByEmail(email);
+        UserModel userModel = service.findUserByEmail(email);
         //验证用户是否存在
-        if (user == null) {
+        if (userModel == null) {
             result.put(code, notFound);
             return result;
         }
         //验证用户激活状态
-        if (user.getValidateStatus() == 1) {
+        if (userModel.getValidateStatus() == 1) {
             result.put(code, activated);
             return result;
         }
         //验证码是否过期
         Date lastDate = DateUtil.getDateAfter(new Date(), 2);//获取激活码过期时间
-        if (!lastDate.after(user.getUpdateTime())) {
-            LOGGER.info("用户{}使用己过期的激活码{}激活邮箱失败！", user.getEmail(), user.getValidateCode());
+        if (!lastDate.after(userModel.getUpdateTime())) {
+            LOGGER.info("用户{}使用己过期的激活码{}激活邮箱失败！", userModel.getEmail(), userModel.getValidateCode());
             result.put(code, expired);
             return result;
         }
         //验证码是否正确
-        if (!validateCode.equals(user.getValidateCode())) {
+        if (!validateCode.equals(userModel.getValidateCode())) {
             result.put(code, error);
             return result;
         }
         //激活
-        user.setValidateStatus(1);//把状态改为激活
-        UserModel userModel = service.updateUser(user);
-        LOGGER.info("用户{}使用激活码{}激活邮箱成功！", user.getEmail(), user.getValidateCode());
+        userModel.setValidateStatus(1);//把状态改为激活
+        userModel = service.updateUser(userModel);
+        LOGGER.info("用户{}使用激活码{}激活邮箱成功！", userModel.getEmail(), userModel.getValidateCode());
         result.put(user, userModel);
         return result;
     }

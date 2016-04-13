@@ -1,0 +1,14 @@
+# 以阿里云和tomcat例讲述怎么申请二级域名
+
+### 1.去阿里云管理控制台
+添加解析
+记录类型 A   主机记录：二级域名的名字  解析路线 默认 记录值：服务器ip
+A api.xiaomo.info 默认 115.29.137.34
+顺便一提：如果要配置重定向 记录类型选cname
+### 2.服务器tomcat
+ /usr/local/tomcat/conf/server.xml
+copy一个host
+ 设置：name 二级域名的完整url appBase 项目路径 其他默认
+ 例：
+   <Host name="api.xiaomo.info"  appBase="usr/local/tomcat/webapps/api"  unpackWARs="true" autoDeploy="true">
+     </Host>

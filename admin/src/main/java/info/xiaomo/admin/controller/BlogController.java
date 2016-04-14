@@ -105,6 +105,7 @@ public class BlogController extends BaseController {
             @RequestParam String nickName,
             @RequestParam String summary,
             @RequestParam String content,
+            @RequestParam int blogType,
             @RequestParam Long tagId
     ) {
         BlogModel blogModel = service.findBlogByTitle(title);
@@ -118,6 +119,7 @@ public class BlogController extends BaseController {
         blogModel.setSummary(summary);
         blogModel.setAuthor(nickName);
         blogModel.setStatus(0);
+        blogModel.setBlogType(blogType);
         blogModel.setUpdateTime(new Date());
         blogModel.setTagId(tagId);
         blogModel = service.addBlog(blogModel);
@@ -143,6 +145,7 @@ public class BlogController extends BaseController {
             @RequestParam String nickName,
             @RequestParam String summary,
             @RequestParam String content,
+            @RequestParam int blogType,
             @RequestParam Long tagId
     ) {
         BlogModel blogModel = service.findBlogByTitle(title);
@@ -156,6 +159,7 @@ public class BlogController extends BaseController {
         blogModel.setAuthor(nickName);
         blogModel.setSummary(summary);
         blogModel.setTagId(tagId);
+        blogModel.setBlogType(blogType);
         blogModel = service.updateBlog(blogModel);
         result.put(code, success);
         result.put(blog, blogModel);

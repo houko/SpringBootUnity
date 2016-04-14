@@ -37,6 +37,11 @@ public class BlogModel extends BaseModel implements Serializable {
 
     private String author;
 
+    /**
+     * 1 markdown 2 html
+     */
+    private int blogType;
+
     private int vote;
 
     private Long tagId;
@@ -100,5 +105,13 @@ public class BlogModel extends BaseModel implements Serializable {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public int getBlogType() {
+        return blogType;
+    }
+
+    public void setBlogType(int blogType) {
+        this.blogType = blogType;
     }
 }

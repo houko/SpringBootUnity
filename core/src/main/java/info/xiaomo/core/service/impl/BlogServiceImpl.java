@@ -74,6 +74,12 @@ public class BlogServiceImpl implements BlogService {
         if (Objects.equals(model.getTitle(), updateBlog.getTitle())) {
             updateBlog.setTitle(model.getTitle());
         }
+        if (model.getBlogType() != updateBlog.getBlogType()) {
+            updateBlog.setBlogType(model.getBlogType());
+        }
+        if (model.getBlogType() != updateBlog.getBlogType()) {
+            updateBlog.setBlogType(model.getBlogType());
+        }
         return dao.save(model);
     }
 

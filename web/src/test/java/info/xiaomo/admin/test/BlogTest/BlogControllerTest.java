@@ -6,6 +6,7 @@ import info.xiaomo.core.service.BlogService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Arrays;
 import java.util.Date;
 
 /**
@@ -38,7 +39,7 @@ public class BlogControllerTest extends BaseTest {
     @Test
     public void testFindAll() {
         BlogModel blogModel = service.findBlogById(1L);
-        System.out.println(blogModel.getTitle());
+        System.out.println(Arrays.toString(blogModel.getTagIds()));
     }
 
     @Test

@@ -61,7 +61,7 @@ public class UserController extends BaseController {
      * @return result
      */
     @RequestMapping(value = "findAll", method = RequestMethod.GET)
-    public HashMap<String, Object> getAll(@RequestParam("start") int start, @RequestParam("pageSize") int page) {
+    public HashMap<String, Object> getAll(@RequestParam(value = "start",defaultValue = "1") int start, @RequestParam(value = "pageSize",defaultValue = "10") int page) {
         Page<UserModel> pages = service.findAll(new PageRequest(start - 1, page));
         result.put(code, success);
         result.put(users, pages);

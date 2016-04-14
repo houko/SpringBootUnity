@@ -59,7 +59,7 @@ public class LinkController extends BaseController {
 
 
     @RequestMapping("findAll")
-    public HashMap<String, Object> findAll(@RequestParam int start, @RequestParam int pageSize) {
+    public HashMap<String, Object> findAll(@RequestParam(value = "start",defaultValue = "1") int start, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
         Page<LinkModel> models = service.findAll(new PageRequest(start - 1, pageSize));
         result.put(code, success);
         result.put(links, models);

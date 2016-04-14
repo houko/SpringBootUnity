@@ -46,6 +46,11 @@ public class AdminModel extends BaseModel implements Serializable {
      */
     private int authLevel;
 
+    /**
+     * 操作员(谁加的这个帐号)
+     */
+    private String operator;
+
     public String getUserName() {
         return userName;
     }
@@ -76,5 +81,13 @@ public class AdminModel extends BaseModel implements Serializable {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public String getOperator() {
+        return operator;
+    }
+
+    public void setOperator(String operator) {
+        this.operator = operator;
     }
 }

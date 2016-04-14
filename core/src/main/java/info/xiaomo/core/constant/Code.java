@@ -47,7 +47,12 @@ public abstract class Code extends Module {
     /**
      * 图片格式不对
      */
-    protected static final int notImg = 205;
+    protected static final int notImg = 206;
+
+    /**
+     * 权限不够
+     */
+    protected static final int authError = 207;
 
     /**
      * 找不到

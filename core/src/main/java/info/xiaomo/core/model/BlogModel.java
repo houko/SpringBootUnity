@@ -44,7 +44,7 @@ public class BlogModel extends BaseModel implements Serializable {
 
     private int vote;
 
-    private Long tagId;
+    private Long tagIds[];
 
     /**
      * 0正常 1己删除
@@ -83,12 +83,12 @@ public class BlogModel extends BaseModel implements Serializable {
         this.vote = vote;
     }
 
-    public Long getTagId() {
-        return tagId;
+    public Long[] getTagIds() {
+        return tagIds;
     }
 
-    public void setTagId(Long tagId) {
-        this.tagId = tagId;
+    public void setTagIds(Long[] tagIds) {
+        this.tagIds = tagIds;
     }
 
     public int getStatus() {

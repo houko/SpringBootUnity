@@ -62,7 +62,10 @@ public class BlogControllerTest extends BaseTest {
         model.setStatus(0);
         model.setAuthor("xiaomo");
         model.setVote(5);
-        model.setTagId(4L);
+        Long [] tagIds = new Long[2];
+        tagIds[0]= 1L;
+        tagIds[1] = 2L;
+        model.setTagIds(tagIds);
         model.setCreateTime(new Date());
         model.setUpdateTime(new Date());
         service.addBlog(model);

@@ -105,7 +105,7 @@ public class BlogController extends BaseController {
             @RequestParam String summary,
             @RequestParam int blogType,
             @RequestParam String content,
-            @RequestParam Long tagId
+            @RequestParam Long tagIds[]
     ) {
         BlogModel blogModel = service.findBlogByTitle(title);
         if (blogModel != null) {
@@ -120,7 +120,7 @@ public class BlogController extends BaseController {
         blogModel.setBlogType(blogType);
         blogModel.setStatus(0);
         blogModel.setUpdateTime(new Date());
-        blogModel.setTagId(tagId);
+        blogModel.setTagIds(tagIds);
         blogModel = service.addBlog(blogModel);
         result.put(code, success);
         result.put(blog, blogModel);
@@ -145,7 +145,7 @@ public class BlogController extends BaseController {
             @RequestParam String summary,
             @RequestParam String content,
             @RequestParam int blogType,
-            @RequestParam Long tagId
+            @RequestParam Long tagIds[]
     ) {
         BlogModel blogModel = service.findBlogByTitle(title);
         if (blogModel == null) {
@@ -158,7 +158,7 @@ public class BlogController extends BaseController {
         blogModel.setAuthor(nickName);
         blogModel.setBlogType(blogType);
         blogModel.setSummary(summary);
-        blogModel.setTagId(tagId);
+        blogModel.setTagIds(tagIds);
         blogModel = service.updateBlog(blogModel);
         result.put(code, success);
         result.put(blog, blogModel);

@@ -3,7 +3,6 @@ package info.xiaomo.admin.controller;
 import info.xiaomo.core.controller.BaseController;
 import info.xiaomo.core.model.BlogModel;
 import info.xiaomo.core.service.BlogService;
-import info.xiaomo.core.untils.MarkDownUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -83,7 +82,7 @@ public class BlogController extends BaseController {
      * @return
      */
     @RequestMapping("findAll")
-    public HashMap<String, Object> findAll(@RequestParam(value = "start",defaultValue = "1") int start, @RequestParam(value = "pageSize",defaultValue = "10") int pageSize) {
+    public HashMap<String, Object> findAll(@RequestParam(value = "start", defaultValue = "1") int start, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
         Page<BlogModel> all = service.findAll(new PageRequest(start - 1, pageSize));
         result.put(code, success);
         result.put(blogs, all);
@@ -121,7 +120,7 @@ public class BlogController extends BaseController {
         blogModel.setStatus(0);
         blogModel.setBlogType(blogType);
         blogModel.setUpdateTime(new Date());
-        blogModel.setTagId(tagIds);
+        blogModel.setTagIds(tagIds);
         blogModel = service.addBlog(blogModel);
         result.put(code, success);
         result.put(blog, blogModel);
@@ -158,7 +157,7 @@ public class BlogController extends BaseController {
         blogModel.setContent(content);
         blogModel.setAuthor(nickName);
         blogModel.setSummary(summary);
-        blogModel.setTagId(tagIds);
+        blogModel.setTagIds(tagIds);
         blogModel.setBlogType(blogType);
         blogModel = service.updateBlog(blogModel);
         result.put(code, success);

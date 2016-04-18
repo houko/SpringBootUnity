@@ -1,6 +1,6 @@
 package info.xiaomo.core.service;
 
-import info.xiaomo.core.model.ChangeLogModel;
+import info.xiaomo.core.model.QQUserModel;
 import org.springframework.data.domain.Page;
 
 /**
@@ -13,21 +13,22 @@ import org.springframework.data.domain.Page;
  * @github: https://github.com/qq83387856
  * @email: hupengbest@163.com
  * @QQ_NO: 83387856
- * @Date: 2016/4/1119:49
+ * @Date: 2016/4/1810:36
  * @Description:
  * @Copyright(©) 2015 by xiaomo.
  **/
-public interface ChangeLogService {
+public interface QQUserService {
 
-    ChangeLogModel findById(Long id);
+    QQUserModel findById(Long id);
 
-    ChangeLogModel findByName(String name);
+    QQUserModel findByOpenId(String openId);
 
-    Page<ChangeLogModel> findAll(int start ,int pageSize);
+    Page<QQUserModel> findAll(int start, int pageSize);
 
-    ChangeLogModel add(ChangeLogModel model);
+    QQUserModel update(QQUserModel model);
 
-    ChangeLogModel update(ChangeLogModel model);
+    QQUserModel delete(Long id);
 
-    ChangeLogModel delete(Long id);
+    QQUserModel add(QQUserModel model);
+
 }

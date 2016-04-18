@@ -5,7 +5,6 @@ import info.xiaomo.core.model.TagModel;
 import info.xiaomo.core.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -59,8 +58,8 @@ public class TagController extends BaseController {
 
 
     @RequestMapping("findAll")
-    public HashMap<String, Object> findAll(@RequestParam(value = "start",defaultValue = "1") int start, @RequestParam(value = "pageSize",defaultValue = "10") int pageSize) {
-        Page<TagModel> models = service.findAll(new PageRequest(start - 1, pageSize));
+    public HashMap<String, Object> findAll(@RequestParam(value = "start", defaultValue = "1") int start, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+        Page<TagModel> models = service.findAll(start, pageSize);
         result.put(code, success);
         result.put(tags, models);
         return result;

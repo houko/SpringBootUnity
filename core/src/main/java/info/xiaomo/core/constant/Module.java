@@ -25,6 +25,8 @@ public abstract class Module extends CConst{
      */
     protected static final String user = "user";
     protected static final String users = "users";
+    protected static final String qqUser = "qqUser";
+    protected static final String qqUsers = "qqUsers";
 
     /**
      * 博客

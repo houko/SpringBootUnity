@@ -10,7 +10,6 @@ import info.xiaomo.core.untils.MD5Util;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 
 /**
  * │＼＿＿╭╭╭╭╭＿＿／│
@@ -56,7 +55,7 @@ public class UserControllerTest extends BaseTest {
 
     @Test
     public void testFindAll() {
-        Page<UserModel> all = service.findAll(new PageRequest(0, 5));
+        Page<UserModel> all = service.findAll(1, 5);
         for (UserModel userModel : all) {
             System.out.println(JSONObject.toJSON(userModel));
         }

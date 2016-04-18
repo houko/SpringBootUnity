@@ -5,7 +5,7 @@ import info.xiaomo.core.model.LinkModel;
 import info.xiaomo.core.service.LinkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -41,8 +41,8 @@ public class LinkServiceImpl implements LinkService {
     }
 
     @Override
-    public Page<LinkModel> findAll(Pageable pageable) {
-        return dao.findAll(pageable);
+    public Page<LinkModel> findAll(int start ,int pageSize) {
+        return dao.findAll(new PageRequest(start-1,pageSize));
     }
 
     @Override

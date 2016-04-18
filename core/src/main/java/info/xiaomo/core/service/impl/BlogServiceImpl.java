@@ -5,7 +5,7 @@ import info.xiaomo.core.model.BlogModel;
 import info.xiaomo.core.service.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -39,8 +39,8 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public Page<BlogModel> findAll(Pageable pageable) {
-        Page<BlogModel> blogModels = dao.findAll(pageable);
+    public Page<BlogModel> findAll(int start ,int pageSize) {
+        Page<BlogModel> blogModels = dao.findAll(new PageRequest(start-1,pageSize));
         for (Iterator<BlogModel> it = blogModels.iterator(); it.hasNext(); ) {
             if (it.next().getStatus() == 1) {//去掉己删除的博客
                 it.remove();

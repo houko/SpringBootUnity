@@ -1,9 +1,12 @@
 package info.xiaomo.web.controller;
 
 import info.xiaomo.core.constant.GenderType;
+import info.xiaomo.core.constant.Symbol;
 import info.xiaomo.core.controller.BaseController;
 import info.xiaomo.core.exception.UserNotFoundException;
+import info.xiaomo.core.model.QQUserModel;
 import info.xiaomo.core.model.UserModel;
+import info.xiaomo.core.service.QQUserService;
 import info.xiaomo.core.service.UserService;
 import info.xiaomo.core.untils.DateUtil;
 import info.xiaomo.core.untils.FileUtil;
@@ -42,6 +45,9 @@ public class UserController extends BaseController {
 
     @Autowired
     private UserService service;
+
+    @Autowired
+    private QQUserService qqUserService;
 
     /**
      * 登录
@@ -245,6 +251,34 @@ public class UserController extends BaseController {
         userModel = service.updateUser(userModel);
         LOGGER.info("用户{}使用激活码{}激活邮箱成功！", userModel.getEmail(), userModel.getValidateCode());
         result.put(user, userModel);
+        return result;
+    }
+
+
+    @RequestMapping("/qq")
+    public HashMap<String, Object> qqLogin(
+            @RequestParam String openId,
+            @RequestParam String nickName,
+            @RequestParam String imgUrl,
+            @RequestParam String gender,
+            @RequestParam int year,
+            @RequestParam String province,
+            @RequestParam String city
+    ) {
+        QQUserModel user = new QQUserModel();
+        user.setOpenId(openId);
+        user.setNickName(nickName);
+        user.setYear(year);
+        user.setAddress(province + Symbol.SPACE + city);
+        user.setGender(gender);
+        user.setImgUrl(imgUrl);
+        QQUserModel model = qqUserService.add(user);
+        if (model == null) {
+            result.put(code, repeat);
+            return result;
+        }
+        result.put(code, success);
+        result.put(qqUser, model);
         return result;
     }
 }

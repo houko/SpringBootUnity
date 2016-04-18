@@ -8,7 +8,7 @@ import info.xiaomo.core.untils.DateUtil;
 import info.xiaomo.core.untils.MailUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -86,8 +86,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Page<UserModel> findAll(Pageable pageable) {
-        return dao.findAll(pageable);
+    public Page<UserModel> findAll(int start, int pageSize) {
+        return dao.findAll(new PageRequest(start - 1, pageSize));
     }
 
     @Override

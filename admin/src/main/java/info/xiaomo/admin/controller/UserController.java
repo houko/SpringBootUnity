@@ -6,7 +6,6 @@ import info.xiaomo.core.model.UserModel;
 import info.xiaomo.core.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -61,8 +60,8 @@ public class UserController extends BaseController {
      * @return result
      */
     @RequestMapping(value = "findAll", method = RequestMethod.GET)
-    public HashMap<String, Object> getAll(@RequestParam(value = "start",defaultValue = "1") int start, @RequestParam(value = "pageSize",defaultValue = "10") int page) {
-        Page<UserModel> pages = service.findAll(new PageRequest(start - 1, page));
+    public HashMap<String, Object> getAll(@RequestParam(value = "start", defaultValue = "1") int start, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+        Page<UserModel> pages = service.findAll(start, pageSize);
         result.put(code, success);
         result.put(users, pages);
         return result;

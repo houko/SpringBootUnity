@@ -3,8 +3,6 @@ package info.xiaomo.core.service;
 import info.xiaomo.core.model.BlogModel;
 import org.springframework.data.domain.Page;
 
-import org.springframework.data.domain.Pageable;
-
 /**
  * 把今天最好的表现当作明天最新的起点．．～
  * いま 最高の表現 として 明日最新の始発．．～
@@ -25,7 +23,7 @@ public interface BlogService {
 
     BlogModel findBlogByTitle(String title);
     
-    Page<BlogModel> findAll(Pageable pageable);
+    Page<BlogModel> findAll(int start ,int pageSize);
 
     BlogModel addBlog(BlogModel model);
 

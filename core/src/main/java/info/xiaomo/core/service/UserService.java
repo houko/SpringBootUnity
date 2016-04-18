@@ -4,7 +4,6 @@ package info.xiaomo.core.service;
 import info.xiaomo.core.exception.UserNotFoundException;
 import info.xiaomo.core.model.UserModel;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -30,7 +29,7 @@ public interface UserService {
 
     UserModel updateUser(UserModel model) throws UserNotFoundException;
 
-    Page<UserModel> findAll(Pageable pageable);
+    Page<UserModel> findAll(int start ,int pageSize);
 
     UserModel deleteUserById(Long id) throws UserNotFoundException;
 

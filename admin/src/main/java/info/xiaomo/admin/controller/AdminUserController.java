@@ -7,7 +7,6 @@ import info.xiaomo.core.service.AdminUserService;
 import info.xiaomo.core.untils.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -128,7 +127,7 @@ public class AdminUserController extends BaseController {
 
     @RequestMapping(value = "findAll", method = RequestMethod.GET)
     public HashMap<String, Object> getAll(@RequestParam(value = "start", defaultValue = "1") int start, @RequestParam(value = "pageSize", defaultValue = "10") int page) {
-        Page<AdminModel> pages = service.getAdminUsers(new PageRequest(start - 1, page));
+        Page<AdminModel> pages = service.getAdminUsers(start, page);
         result.put(code, success);
         result.put(adminUsers, pages);
         return result;

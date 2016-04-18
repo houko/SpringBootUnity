@@ -5,7 +5,7 @@ import info.xiaomo.core.model.ChangeLogModel;
 import info.xiaomo.core.service.ChangeLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 /**
@@ -39,8 +39,8 @@ public class ChangeLogServiceImpl implements ChangeLogService {
     }
 
     @Override
-    public Page<ChangeLogModel> findAll(Pageable pageable) {
-        return dao.findAll(pageable);
+    public Page<ChangeLogModel> findAll(int start ,int pageSize) {
+        return dao.findAll(new PageRequest(start-1,pageSize));
     }
 
     @Override

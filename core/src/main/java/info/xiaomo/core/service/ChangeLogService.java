@@ -2,7 +2,6 @@ package info.xiaomo.core.service;
 
 import info.xiaomo.core.model.ChangeLogModel;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -24,7 +23,7 @@ public interface ChangeLogService {
 
     ChangeLogModel findByName(String name);
 
-    Page<ChangeLogModel> findAll(Pageable pageable);
+    Page<ChangeLogModel> findAll(int start ,int pageSize);
 
     ChangeLogModel add(ChangeLogModel model);
 

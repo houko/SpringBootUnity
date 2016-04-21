@@ -94,7 +94,7 @@ public class BlogController extends BaseController {
      * @param title   title
      * @param summary summary
      * @param content content
-     * @param tagId   tagId
+     * @param tagIds   tagId
      * @return result
      */
     @RequestMapping(value = "add", method = RequestMethod.POST)
@@ -134,7 +134,7 @@ public class BlogController extends BaseController {
      * @param nickName nickName
      * @param summary  summary
      * @param content  content
-     * @param tagId    tagId
+     * @param tagIds    tagId
      * @return result
      */
     @RequestMapping(value = "update", method = RequestMethod.POST)

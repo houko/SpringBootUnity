@@ -1,6 +1,5 @@
 package info.xiaomo.web.controller;
 
-import info.xiaomo.core.constant.GenderType;
 import info.xiaomo.core.constant.Symbol;
 import info.xiaomo.core.controller.BaseController;
 import info.xiaomo.core.exception.UserNotFoundException;
@@ -11,6 +10,7 @@ import info.xiaomo.core.service.UserService;
 import info.xiaomo.core.untils.DateUtil;
 import info.xiaomo.core.untils.FileUtil;
 import info.xiaomo.core.untils.MD5Util;
+import info.xiaomo.core.untils.MailUtil;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -90,33 +90,17 @@ public class UserController extends BaseController {
      */
     @RequestMapping(value = "register", method = RequestMethod.POST)
     public HashMap<String, Object> register(
-            @RequestParam String password,
             @RequestParam String email
     ) throws Exception {
         UserModel userModel = service.findUserByEmail(email);
-//        邮箱被占用
+        //邮箱被占用
         if (userModel != null) {
             result.put(code, repeat);
             return result;
         }
-        //目标文件名
-        userModel = new UserModel();
-        userModel.setNickName(email);
-        userModel.setEmail(email);
-        userModel.setGender(GenderType.secret);
-        userModel.setImgUrl("");
-        userModel.setValidateStatus(0);//默认未验证
-        userModel.setValidateCode(MD5Util.encode(email));
-        userModel.setPhone(0L);
-        userModel.setAddress("");
-        userModel.setPassword(MD5Util.encode(password));
-        userModel = service.addUser(userModel);
-        if (userModel != null) {
-            result.put(code, success);
-            result.put(user, userModel);
-        } else {
-            result.put(code, error);
-        }
+        String redirectValidateUrl = MailUtil.redirectValidateUrl(email);
+        MailUtil.send(email, redirectValidateUrl);
+        result.put(code, success);
         return result;
     }
 
@@ -247,6 +231,23 @@ public class UserController extends BaseController {
             return result;
         }
         //激活
+//        userModel = new UserModel();
+//        userModel.setNickName(email);
+//        userModel.setEmail(email);
+//        userModel.setGender(GenderType.secret);
+//        userModel.setImgUrl("");
+//        userModel.setValidateStatus(0);//默认未验证
+//        userModel.setValidateCode(MD5Util.encode(email));
+//        userModel.setPhone(0L);
+//        userModel.setAddress("");
+//        userModel.setPassword(MD5Util.encode(password));
+//        userModel = service.addUser(userModel);
+//        if (userModel != null) {
+//            result.put(code, success);
+//            result.put(user, userModel);
+//        } else {
+//            result.put(code, error);
+//        }
         userModel.setValidateStatus(1);//把状态改为激活
         userModel = service.updateUser(userModel);
         LOGGER.info("用户{}使用激活码{}激活邮箱成功！", userModel.getEmail(), userModel.getValidateCode());

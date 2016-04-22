@@ -4,8 +4,6 @@ import info.xiaomo.core.dao.UserDao;
 import info.xiaomo.core.exception.UserNotFoundException;
 import info.xiaomo.core.model.UserModel;
 import info.xiaomo.core.service.UserService;
-import info.xiaomo.core.untils.DateUtil;
-import info.xiaomo.core.untils.MailUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -46,8 +44,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserModel addUser(UserModel model) {
-        String content = this.appendEmailContent(model);
-        MailUtil.send(model.getEmail(), content);
         model.setCreateTime(new Date());
         model.setUpdateTime(new Date());
         return dao.save(model);
@@ -100,23 +96,4 @@ public class UserServiceImpl implements UserService {
         return userModel;
     }
 
-
-    private String appendEmailContent(UserModel model) {
-        StringBuilder sb = new StringBuilder("点击下面链接激活账号，48小时生效，否则重新注册账号，链接只能使用一次，请尽快激活！</br>");
-        sb.append("<a href=\"http://localhost:8888/web/user/validateEmail?email=");
-        sb.append(model.getEmail());
-        sb.append("&validateCode=");
-        sb.append(model.getValidateCode());
-        sb.append("\">");
-        sb.append("http://localhost:8888/web/user/validateEmail?email=");
-        sb.append(model.getEmail());
-        sb.append("&validateCode=");
-        sb.append(model.getValidateCode());
-        sb.append("</a><br/>");
-        sb.append("<span style='float:right;padding-right:4%'>小莫</span></br>");
-        sb.append("<span style='float:right'>");
-        sb.append(DateUtil.getFormatDate());
-        sb.append("</span></br>");
-        return sb.toString();
-    }
 }

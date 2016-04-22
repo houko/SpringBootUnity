@@ -26,11 +26,21 @@ public class TagModel extends BaseModel implements Serializable {
 
     private String name;
 
+    private boolean currentTag = false;
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean isCurrentTag() {
+        return currentTag;
+    }
+
+    public void setCurrentTag(boolean currentTag) {
+        this.currentTag = currentTag;
     }
 }

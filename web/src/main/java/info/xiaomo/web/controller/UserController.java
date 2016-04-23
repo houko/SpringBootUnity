@@ -149,7 +149,7 @@ public class UserController extends BaseController {
      * @param nickName nickName
      * @param password password
      * @param email    email
-     * @param imgUrl      imgUrl
+     * @param imgUrl   imgUrl
      * @param gender   gender
      * @param phone    phone
      * @param address  address
@@ -171,19 +171,19 @@ public class UserController extends BaseController {
             result.put(code, error);
             return result;
         }
-        //判断是否是图片
+        userModel = new UserModel();
+        if (!imgUrl.getOriginalFilename().equals("")) {//判断是否上传的图片
+            String returnUrl = FileUtil.upload(imgUrl, email);
+            userModel.setImgUrl(returnUrl);
+        }
         if (FileUtil.isImage(imgUrl.getOriginalFilename())) {
             result.put(code, notImg);
             return result;
         }
-        //目标文件名
-        String imgUrlUrl = FileUtil.upload(imgUrl, email);
-        userModel = new UserModel();
         userModel.setNickName(nickName);
         userModel.setEmail(email);
         userModel.setGender(gender);
         userModel.setPhone(phone);
-        userModel.setImgUrl(imgUrlUrl);
         userModel.setAddress(address);
         userModel = service.updateUser(userModel);
         if (userModel != null) {

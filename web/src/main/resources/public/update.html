@@ -13,14 +13,16 @@
                 method: 'GET',
                 dataType: 'json',
                 success: function (data) {
-                    console.log(data.user.email);
+                    console.log(data.user);
+                    console.log(data.user.gender);
                     $("#nickName").val(data.user.nickName);
+                    $("#img").attr("src",data.user.imgUrl);
                     $("#email").val(data.user.email);
                     $("#gender").val(data.user.gender);
                     $("#phone").val(data.user.phone);
                     $("#address").val(data.user.address);
                 },
-                error:function (data) {
+                error: function (data) {
                     console.log(data.stack);
                 }
             })
@@ -28,7 +30,7 @@
     </script>
 </head>
 <body>
-<form action="/web/user/update" method="post">
+<form action="/web/user/update" method="post" enctype="multipart/form-data">
     <div class="container">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -36,6 +38,15 @@
             </div>
             <div class="panel panel-default">
                 <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-2">图像</div>
+                        <div class="col-md-2">
+                            <img src="" name="imgUrl" id="img" alt=""><br>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="file" name="imgUrl" id="imgUrl" alt="" title=""><br>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-2">昵称</div>
                         <div class="col-md-2">

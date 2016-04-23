@@ -68,25 +68,35 @@ public class MailUtil {
 
     /**
      * 返回激活链接
+     *
      * @param email
      * @return
      */
     public static String redirectValidateUrl(String email) {
+        Long now = DateUtil.getNowOfMills();
         StringBuilder sb = new StringBuilder("点击下面链接激活账号，48小时生效，否则重新注册账号，链接只能使用一次，请尽快激活！</br>");
-        sb.append("<a href=\"http://localhost:8888/web/user/validateEmail?email=");
+        sb.append("<a href=\"http://xiaomo.info/路由地址?email=");
         sb.append(email);
         sb.append("&validateCode=");
-        sb.append(MD5Util.encode(email));
+        sb.append(MD5Util.encode(email + now));//邮箱加上当前时间戳，以保证每个验证码都是不一样的
+        sb.append("&time=");
+        sb.append(now);
         sb.append("\">");
-        sb.append("http://localhost:8888/web/user/validateEmail?email=");
+        sb.append("http://xiaomo.info/路由地址?email=");
         sb.append(email);
         sb.append("&validateCode=");
-        sb.append(MD5Util.encode(email));
+        sb.append(MD5Util.encode(email + now));//邮箱加上当前时间戳，以保证每个验证码都是不一样的
+        sb.append("&time=");
+        sb.append(now);
         sb.append("</a><br/>");
         sb.append("<span style='float:right;padding-right:4%'>小莫</span></br>");
         sb.append("<span style='float:right'>");
         sb.append(DateUtil.getFormatDate());
         sb.append("</span></br>");
         return sb.toString();
+    }
+
+    public static void main(String[] args) {
+        System.out.println(redirectValidateUrl("83387856@qq.com"));
     }
 }

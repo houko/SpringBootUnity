@@ -1,6 +1,8 @@
 package info.xiaomo.web.controller;
 
+import info.xiaomo.core.constant.GenderType;
 import info.xiaomo.core.constant.Symbol;
+import info.xiaomo.core.constant.WebDefaultValueConst;
 import info.xiaomo.core.controller.BaseController;
 import info.xiaomo.core.exception.UserNotFoundException;
 import info.xiaomo.core.model.QQUserModel;
@@ -21,7 +23,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -204,52 +205,34 @@ public class UserController extends BaseController {
     @RequestMapping(value = "validateEmail", method = RequestMethod.GET)
     public HashMap<String, Object> validateEmail(
             @RequestParam String email,
-            @RequestParam String validateCode
+            @RequestParam String validateCode,
+            @RequestParam String password,
+            @RequestParam Long time
     ) throws ServiceException, ParseException, UserNotFoundException {
         //数据访问层，通过email获取用户信息
         UserModel userModel = service.findUserByEmail(email);
         //验证用户是否存在
-        if (userModel == null) {
-            result.put(code, notFound);
-            return result;
-        }
-        //验证用户激活状态
-        if (userModel.getValidateStatus() == 1) {
-            result.put(code, activated);
-            return result;
+        if (userModel != null) {
+            result.put(code, error);
         }
         //验证码是否过期
-        Date lastDate = DateUtil.getDateAfter(new Date(), 2);//获取激活码过期时间
-        if (!lastDate.after(userModel.getUpdateTime())) {
-            LOGGER.info("用户{}使用己过期的激活码{}激活邮箱失败！", userModel.getEmail(), userModel.getValidateCode());
+        if (time + DateUtil.ONE_DAY_IN_MILLISECONDS * 2 < DateUtil.getNowOfMills()) {
+            LOGGER.info("用户{}使用己过期的激活码{}激活邮箱失败！", email, validateCode);
             result.put(code, expired);
             return result;
         }
-        //验证码是否正确
-        if (!validateCode.equals(userModel.getValidateCode())) {
-            result.put(code, error);
-            return result;
-        }
         //激活
-//        userModel = new UserModel();
-//        userModel.setNickName(email);
-//        userModel.setEmail(email);
-//        userModel.setGender(GenderType.secret);
-//        userModel.setImgUrl("");
-//        userModel.setValidateStatus(0);//默认未验证
-//        userModel.setValidateCode(MD5Util.encode(email));
-//        userModel.setPhone(0L);
-//        userModel.setAddress("");
-//        userModel.setPassword(MD5Util.encode(password));
-//        userModel = service.addUser(userModel);
-//        if (userModel != null) {
-//            result.put(code, success);
-//            result.put(user, userModel);
-//        } else {
-//            result.put(code, error);
-//        }
-        userModel.setValidateStatus(1);//把状态改为激活
-        userModel = service.updateUser(userModel);
+        userModel = new UserModel();
+        userModel.setNickName(email);
+        userModel.setEmail(email);
+        userModel.setGender(GenderType.secret);
+        userModel.setImgUrl(WebDefaultValueConst.defaultImage);//默认是个百度的LOGO，作测试用
+        userModel.setValidateStatus(1);//状态:己激活
+        userModel.setValidateCode(MD5Util.encode(email));
+        userModel.setPhone(0L);
+        userModel.setAddress("");
+        userModel.setPassword(MD5Util.encode(password));
+        userModel = service.addUser(userModel);
         LOGGER.info("用户{}使用激活码{}激活邮箱成功！", userModel.getEmail(), userModel.getValidateCode());
         result.put(user, userModel);
         return result;

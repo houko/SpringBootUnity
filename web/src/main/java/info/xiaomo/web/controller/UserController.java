@@ -159,7 +159,6 @@ public class UserController extends BaseController {
     @RequestMapping(value = "update", method = RequestMethod.POST)
     public HashMap<String, Object> update(
             @RequestParam String nickName,
-            @RequestParam String password,
             @RequestParam String email,
             @RequestParam MultipartFile imgUrl,
             @RequestParam int gender,
@@ -186,7 +185,6 @@ public class UserController extends BaseController {
         userModel.setPhone(phone);
         userModel.setImgUrl(imgUrlUrl);
         userModel.setAddress(address);
-        userModel.setPassword(MD5Util.encode(password));
         userModel = service.updateUser(userModel);
         if (userModel != null) {
             result.put(code, success);

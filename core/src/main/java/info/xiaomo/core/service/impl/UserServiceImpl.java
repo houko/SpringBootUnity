@@ -55,9 +55,6 @@ public class UserServiceImpl implements UserService {
         if (userUpdate == null) {
             throw new UserNotFoundException();
         }
-        if (!Objects.equals(model.getPassword(), userUpdate.getPassword())) {
-            userUpdate.setPassword(model.getPassword());
-        }
         if (!Objects.equals(model.getAddress(), userUpdate.getAddress())) {
             userUpdate.setAddress(model.getAddress());
         }

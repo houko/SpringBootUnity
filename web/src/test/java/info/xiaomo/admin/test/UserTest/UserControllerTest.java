@@ -2,14 +2,18 @@ package info.xiaomo.admin.test.UserTest;
 
 import com.alibaba.fastjson.JSONObject;
 import info.xiaomo.admin.test.base.BaseTest;
+import info.xiaomo.core.constant.GenderType;
 import info.xiaomo.core.constant.WebDefaultValueConst;
 import info.xiaomo.core.exception.UserNotFoundException;
 import info.xiaomo.core.model.UserModel;
 import info.xiaomo.core.service.UserService;
+import info.xiaomo.core.untils.DateUtil;
 import info.xiaomo.core.untils.MD5Util;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+
+import java.util.Date;
 
 /**
  * │＼＿＿╭╭╭╭╭＿＿／│
@@ -92,5 +96,38 @@ public class UserControllerTest extends BaseTest {
     public void testDelete() throws UserNotFoundException {
         UserModel userModel = service.deleteUserById(26L);
         System.out.println(JSONObject.toJSON(userModel));
+    }
+
+    @Test
+    public void testValidateEmail() {
+        String email = "83387856@qq.com";
+        String password = "woshixiaomo";
+        //数据访问层，通过email获取用户信息
+        UserModel userModel = service.findUserByEmail("83387856@qq.com");
+        //验证用户是否存在
+        if (userModel != null) {
+            System.out.println(201);
+            return;
+        }
+        //验证码是否过期
+        if (DateUtil.getNowOfMills() + DateUtil.ONE_DAY_IN_MILLISECONDS * 2 < DateUtil.getNowOfMills()) {
+            System.out.println("己过期");
+            return;
+        }
+        //激活
+        userModel = new UserModel();
+        userModel.setNickName(email);
+        userModel.setEmail(email);
+        userModel.setGender(GenderType.secret);
+        userModel.setImgUrl(WebDefaultValueConst.defaultImage);//默认是个百度的LOGO，作测试用
+        userModel.setValidateStatus(1);//状态:己激活
+        userModel.setValidateCode(MD5Util.encode(email));
+        userModel.setPhone(0L);
+        userModel.setAddress("");
+        userModel.setPassword(MD5Util.encode(password));
+        userModel.setCreateTime(new Date());
+        userModel.setUpdateTime(new Date());
+        userModel = service.addUser(userModel);
+        System.out.println(userModel.getNickName());
     }
 }

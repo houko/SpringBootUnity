@@ -6,11 +6,11 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.css">
 </head>
 <body>
-<form action="/web/user/update" method="post" enctype="multipart/form-data">
+<form action="/web/user/register" method="post">
     <div class="container">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title center">Panel title</h3>
+                <h3 class="panel-title center">用户注册</h3>
             </div>
             <div class="panel panel-default">
                 <div class="panel-body">
@@ -21,53 +21,13 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-2">头像</div>
                         <div class="col-md-2">
-                            <input type="file" name="img" title=""><br>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-2">昵称</div>
-                        <div class="col-md-2">
-                            <input type="text" name="nickName" title=""><br>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-2">密码</div>
-                        <div class="col-md-2">
-                            <input type="password" name="password" title=""><br>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-2">性别</div>
-                        <div class="col-md-2">
-                            <select title="gender" name="gender">
-                                <option value="0">请选择</option>
-                                <option value="1">男</option>
-                                <option value="2">女</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-2">电话</div>
-                        <div class="col-md-2">
-                            <input type="tel" title="" name="phone">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-2">地址</div>
-                        <div class="col-md-2">
-                            <input type="text" title="" name="address">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-2">
-                            <button type="submit">登录</button>
+                            <button type="submit" class="btn btn-success">注册</button>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="panel-footer">Panel footer</div>
+            <div class="panel-footer">小莫</div>
         </div>
     </div>
 </form>

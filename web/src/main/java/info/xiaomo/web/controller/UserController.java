@@ -149,7 +149,7 @@ public class UserController extends BaseController {
      * @param nickName nickName
      * @param password password
      * @param email    email
-     * @param img      img
+     * @param imgUrl      imgUrl
      * @param gender   gender
      * @param phone    phone
      * @param address  address
@@ -161,7 +161,7 @@ public class UserController extends BaseController {
             @RequestParam String nickName,
             @RequestParam String password,
             @RequestParam String email,
-            @RequestParam MultipartFile img,
+            @RequestParam MultipartFile imgUrl,
             @RequestParam int gender,
             @RequestParam long phone,
             @RequestParam String address
@@ -173,18 +173,18 @@ public class UserController extends BaseController {
             return result;
         }
         //判断是否是图片
-        if (FileUtil.isImage(img.getOriginalFilename())) {
+        if (FileUtil.isImage(imgUrl.getOriginalFilename())) {
             result.put(code, notImg);
             return result;
         }
         //目标文件名
-        String imgUrl = FileUtil.upload(img, email);
+        String imgUrlUrl = FileUtil.upload(imgUrl, email);
         userModel = new UserModel();
         userModel.setNickName(nickName);
         userModel.setEmail(email);
         userModel.setGender(gender);
         userModel.setPhone(phone);
-        userModel.setImgUrl(imgUrl);
+        userModel.setImgUrl(imgUrlUrl);
         userModel.setAddress(address);
         userModel.setPassword(MD5Util.encode(password));
         userModel = service.updateUser(userModel);
@@ -243,7 +243,7 @@ public class UserController extends BaseController {
     public HashMap<String, Object> qqLogin(
             @RequestParam String openId,
             @RequestParam String nickName,
-            @RequestParam String imgUrl,
+            @RequestParam String imgUrlUrl,
             @RequestParam String gender,
             @RequestParam int year,
             @RequestParam String province,
@@ -255,7 +255,7 @@ public class UserController extends BaseController {
         user.setYear(year);
         user.setAddress(province + Symbol.SPACE + city);
         user.setGender(gender);
-        user.setImgUrl(imgUrl);
+        user.setImgUrl(imgUrlUrl);
         QQUserModel model = qqUserService.add(user);
         if (model == null) {
             result.put(code, repeat);

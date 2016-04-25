@@ -18,6 +18,7 @@
                     $("#nickName").val(data.user.nickName);
                     $("#img").attr("src",data.user.imgUrl);
                     $("#email").val(data.user.email);
+                    $("#password").val(data.user.password);
                     $("#gender").val(data.user.gender);
                     $("#phone").val(data.user.phone);
                     $("#address").val(data.user.address);
@@ -30,7 +31,7 @@
     </script>
 </head>
 <body>
-<form action="/web/user/update" method="post" enctype="multipart/form-data">
+<form action="http://api.xiaomo.info:8888/web/user/update" method="post" enctype="multipart/form-data">
     <div class="container">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -45,6 +46,12 @@
                         </div>
                         <div class="col-md-2">
                             <input type="file" name="imgUrl" id="imgUrl" alt="" title=""><br>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">密码</div>
+                        <div class="col-md-2">
+                            <input type="password" name="password" id="password" alt="" title=""><br>
                         </div>
                     </div>
                     <div class="row">

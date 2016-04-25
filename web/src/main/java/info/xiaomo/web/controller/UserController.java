@@ -93,6 +93,9 @@ public class UserController extends BaseController {
     public HashMap<String, Object> register(
             @RequestParam String email
     ) throws Exception {
+        if (email.equals("")) {
+            return null;
+        }
         UserModel userModel = service.findUserByEmail(email);
         //邮箱被占用
         if (userModel != null) {

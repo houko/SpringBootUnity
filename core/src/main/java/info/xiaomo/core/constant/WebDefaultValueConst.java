@@ -18,5 +18,7 @@ public interface WebDefaultValueConst {
 
     String defaultImage = "https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/bd_logo1_31bdc765.png";
 
-    String imgBaseUrl = System.getProperty("user.dir") + "/static/images";
+    String imgBaseUrl = "http://static.xiaomo.info/images/";
+
+    String saveBaseUrl = "/data2/xiaomo.info/static/images/";
 }

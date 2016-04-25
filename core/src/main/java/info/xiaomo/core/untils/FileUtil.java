@@ -683,18 +683,18 @@ public class FileUtil {
      * @return fileUrl
      */
     public static String upload(MultipartFile file, String email) {
-        String savePath = "";
+        String savePath;
+        String filename = "";
         if (file != null && !file.isEmpty()) {
             // 获取图片的文件名
             String fileName = file.getOriginalFilename();
             // 重新定义图片名字
-            String filename = FileUtil.getNewFileName(fileName, email);
+            filename = FileUtil.getNewFileName(fileName, email);
             //上传服务器上 新文件路径
-            savePath = WebDefaultValueConst.imgBaseUrl;
+            savePath = WebDefaultValueConst.saveBaseUrl;
             try {
-                File newFile;
                 // 判断服务器上 文件夹是否存在
-                newFile = new File(savePath);
+                File newFile = new File(savePath);
                 if (!newFile.exists()) {
                     newFile.mkdirs();
                 }
@@ -708,7 +708,7 @@ public class FileUtil {
                 e.printStackTrace();
             }
         }
-        return savePath;
+        return WebDefaultValueConst.imgBaseUrl + filename;
     }
 
 

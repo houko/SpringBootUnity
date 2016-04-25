@@ -94,7 +94,8 @@ public class UserController extends BaseController {
             @RequestParam String email
     ) throws Exception {
         if (email.equals("")) {
-            return null;
+            result.put(code, error);
+            return result;
         }
         UserModel userModel = service.findUserByEmail(email);
         //邮箱被占用

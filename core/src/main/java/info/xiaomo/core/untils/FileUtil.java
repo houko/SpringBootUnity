@@ -698,7 +698,7 @@ public class FileUtil {
                 if (!newFile.exists()) {
                     newFile.mkdirs();
                 }
-                savePath = savePath + filename;
+                savePath = savePath + filename.toLowerCase();
                 FileOutputStream out = new FileOutputStream(savePath);
                 // 写入文件
                 out.write(file.getBytes());

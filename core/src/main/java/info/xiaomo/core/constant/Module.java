@@ -50,4 +50,10 @@ public abstract class Module extends CConst{
     protected static final String adminUser = "adminUser";
     protected static final String adminUsers = "adminUsers";
 
+    /**
+     * 更新日志
+     */
+    protected static final String changeLog = "changeLog";
+    protected static final String changeLogs = "changeLogs";
+
 }

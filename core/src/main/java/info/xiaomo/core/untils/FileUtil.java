@@ -698,7 +698,7 @@ public class FileUtil {
                 if (!newFile.exists()) {
                     newFile.mkdirs();
                 }
-                savePath = savePath + filename.toLowerCase();
+                savePath = savePath + filename;
                 FileOutputStream out = new FileOutputStream(savePath);
                 // 写入文件
                 out.write(file.getBytes());
@@ -850,7 +850,7 @@ public class FileUtil {
     public static String getNewFileName(String fileName, String email) {
         String FileType = FileUtil.getFileType(fileName);
         String newName = email.split(Symbol.AT)[0];
-        return DateUtil.getDateNow(DateUtil.DATE_FORMAT_STRING) + Symbol.HENGXIAN + newName + Symbol.DIAN + FileType;
+        return (DateUtil.getDateNow(DateUtil.DATE_FORMAT_STRING) + Symbol.HENGXIAN + newName + Symbol.DIAN + FileType).toLowerCase();
     }
 
     public static boolean isImage(String imageName) {

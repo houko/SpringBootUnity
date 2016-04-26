@@ -56,4 +56,8 @@ public abstract class Module extends CConst{
     protected static final String changeLog = "changeLog";
     protected static final String changeLogs = "changeLogs";
 
+    /**
+     * 系统相关
+     */
+    protected static final String systems = "systems";
 }

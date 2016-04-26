@@ -20,5 +20,7 @@ public interface WebDefaultValueConst {
 
     String imgBaseUrl = "http://static.xiaomo.info/images/";
 
-    String saveBaseUrl = "/data2/xiaomo.info/static/images/";
+    String saveBaseUrl = System.getProperty("user.dir") + "/images/";
+
+    String linuxSaveBaseUrl = "/data2/xiaomo.info/static/images/";
 }

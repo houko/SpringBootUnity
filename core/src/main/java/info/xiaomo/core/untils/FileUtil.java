@@ -691,7 +691,12 @@ public class FileUtil {
             // 重新定义图片名字
             filename = FileUtil.getNewFileName(fileName, email);
             //上传服务器上 新文件路径
-            savePath = WebDefaultValueConst.saveBaseUrl;
+            String os = System.getProperty("os.name").toLowerCase();
+            if (os.contains("win")) {
+                savePath = WebDefaultValueConst.saveBaseUrl;
+            } else {
+                savePath = WebDefaultValueConst.linuxSaveBaseUrl;
+            }
             try {
                 // 判断服务器上 文件夹是否存在
                 File newFile = new File(savePath);

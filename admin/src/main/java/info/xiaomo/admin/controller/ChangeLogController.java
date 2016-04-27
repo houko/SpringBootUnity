@@ -147,6 +147,7 @@ public class ChangeLogController extends BaseController {
             result.put(code, notFound);
             return result;
         }
+        service.delete(id);
         result.put(code, success);
         result.put(changeLog, changeLogModel);
         return result;

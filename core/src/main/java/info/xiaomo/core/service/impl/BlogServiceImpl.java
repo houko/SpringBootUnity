@@ -9,7 +9,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-import java.util.Iterator;
 import java.util.Objects;
 
 
@@ -39,14 +38,13 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public Page<BlogModel> findAll(int start ,int pageSize) {
-        Page<BlogModel> blogModels = dao.findAll(new PageRequest(start-1,pageSize));
-        for (Iterator<BlogModel> it = blogModels.iterator(); it.hasNext(); ) {
-            if (it.next().getStatus() == 1) {//去掉己删除的博客
-                it.remove();
-            }
-        }
-        return blogModels;
+    public Page<BlogModel> findAll(int start, int pageSize) {
+        //        for (Iterator<BlogModel> it = blogModels.iterator(); it.hasNext(); ) {
+//            if (it.next().getStatus() == 1) {//去掉己删除的博客
+//                it.remove();
+//            }
+//        }
+        return dao.findAll(new PageRequest(start - 1, pageSize));
     }
 
     @Override
@@ -87,8 +85,7 @@ public class BlogServiceImpl implements BlogService {
     public BlogModel deleteBlogById(Long id) {
         BlogModel blogModel = dao.findOne(id);
         if (blogModel != null) {
-            blogModel.setStatus(1);
-            dao.save(blogModel);
+            dao.delete(id);
             return blogModel;
         }
         return null;

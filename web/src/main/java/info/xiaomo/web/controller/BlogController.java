@@ -166,7 +166,7 @@ public class BlogController extends BaseController {
 
 
     /**
-     * 删除博客(软删除)
+     * 删除博客
      *
      * @param id id
      * @return result
@@ -178,7 +178,6 @@ public class BlogController extends BaseController {
             result.put(code, notFound);
             return result;
         }
-        blogModel.setStatus(1);
         blogModel = service.deleteBlogById(id);
         result.put(code, success);
         result.put(blog, blogModel);

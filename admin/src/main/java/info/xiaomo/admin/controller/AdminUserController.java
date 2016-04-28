@@ -118,7 +118,19 @@ public class AdminUserController extends BaseController {
         AdminModel adminModel = service.findAdminUserById(id);
         if (adminModel == null) {
             result.put(code, notFound);
-            result.put(code, success);
+            return result;
+        }
+        result.put(code, success);
+        result.put(adminUser, adminModel);
+        return result;
+    }
+
+    @RequestMapping(value = "findByName", method = RequestMethod.GET)
+    public HashMap<String, Object> findByName(@RequestParam("userName") String userName) {
+        AdminModel adminModel = service.findAdminUserByUserName(userName);
+        if (adminModel == null) {
+            result.put(code, notFound);
+            return result;
         }
         result.put(code, success);
         result.put(adminUser, adminModel);

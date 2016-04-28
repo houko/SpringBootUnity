@@ -86,10 +86,6 @@ public class ChangeLogController extends BaseController {
     /**
      * 增加更新日志
      *
-     * @param Name    Name
-     * @param summary summary
-     * @param content content
-     * @param tagId   tagId
      * @return result
      */
     @RequestMapping(value = "add", method = RequestMethod.POST)
@@ -113,11 +109,6 @@ public class ChangeLogController extends BaseController {
     /**
      * 修改更新日志
      *
-     * @param Name     Name
-     * @param nickName nickName
-     * @param summary  summary
-     * @param content  content
-     * @param tagId    tagId
      * @return result
      */
     @RequestMapping(value = "update", method = RequestMethod.POST)

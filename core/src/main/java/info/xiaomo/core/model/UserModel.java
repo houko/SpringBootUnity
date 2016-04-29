@@ -34,9 +34,9 @@ public class UserModel extends BaseModel implements Serializable{
     private String password;
 
     /**
-     *  1己激活 0 未激活
+     * 盐值
      */
-    private int validateStatus=0;//激活状态
+    private String salt;
 
     private String validateCode;//激活码
 
@@ -104,12 +104,12 @@ public class UserModel extends BaseModel implements Serializable{
         this.address = address;
     }
 
-    public int getValidateStatus() {
-        return validateStatus;
+    public String getSalt() {
+        return salt;
     }
 
-    public void setValidateStatus(int validateStatus) {
-        this.validateStatus = validateStatus;
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 
     public String getValidateCode() {

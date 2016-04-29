@@ -65,10 +65,10 @@ public class MD5Util {
         return hexDigits[d1] + hexDigits[d2];
     }
 
-    public static String encode(String origin) {
+    public static String encode(String origin, String salt) {
         String resultString = null;
         try {
-            resultString = origin;
+            resultString = origin + salt;
             MessageDigest md = MessageDigest.getInstance("md5");
             resultString = byteArrayToString(md.digest(resultString.getBytes()));
         } catch (Exception ex) {
@@ -80,7 +80,8 @@ public class MD5Util {
     public static void main(String[] args) {
         String s = "xiaomo";
         System.out.println("原数据：" + s);
-        System.out.println("MD5后：" + encode(s));
+        System.out.println("MD5后：" + encode(s, "123"));
+        System.out.println("MD5后：" + encode(s, ""));
     }
 
 }

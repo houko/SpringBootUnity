@@ -48,7 +48,7 @@ public class UserControllerTest extends BaseTest {
         UserModel userModel = new UserModel();
         userModel.setEmail("hupengbest@163.com");
         userModel.setImgUrl(WebDefaultValueConst.defaultImage);
-        userModel.setValidateCode(MD5Util.encode(userModel.getEmail()));
+        userModel.setValidateCode(MD5Util.encode(userModel.getEmail(), ""));
         userModel.setAddress("万轮科技园");
         userModel.setPhone(15172299114L);
         userModel.setGender(1);
@@ -82,9 +82,9 @@ public class UserControllerTest extends BaseTest {
         UserModel userModel = new UserModel();
         userModel.setEmail("hupengbest@163.com");
         userModel.setNickName("hp");
-        userModel.setPassword(MD5Util.encode("hp"));
+        userModel.setPassword(MD5Util.encode("hp", ""));
         userModel.setImgUrl(WebDefaultValueConst.defaultImage);
-        userModel.setValidateCode(MD5Util.encode(userModel.getEmail()));
+        userModel.setValidateCode(MD5Util.encode(userModel.getEmail(), ""));
         userModel.setAddress("万轮科技园7号楼");
         userModel.setPhone(15172299114L);
         userModel.setGender(0);
@@ -120,11 +120,10 @@ public class UserControllerTest extends BaseTest {
         userModel.setEmail(email);
         userModel.setGender(GenderType.secret);
         userModel.setImgUrl(WebDefaultValueConst.defaultImage);//默认是个百度的LOGO，作测试用
-        userModel.setValidateStatus(1);//状态:己激活
-        userModel.setValidateCode(MD5Util.encode(email));
+        userModel.setValidateCode(MD5Util.encode(email, ""));
         userModel.setPhone(0L);
         userModel.setAddress("");
-        userModel.setPassword(MD5Util.encode(password));
+        userModel.setPassword(MD5Util.encode(password, ""));
         userModel.setCreateTime(new Date());
         userModel.setUpdateTime(new Date());
         userModel = service.addUser(userModel);

@@ -40,7 +40,7 @@ public class AdminControllerTest extends BaseTest {
     public void testAddAdminUser() {
         AdminModel model = new AdminModel();
         model.setUserName("test");
-        model.setPassword(MD5Util.encode("test"));
+        model.setPassword(MD5Util.encode("test","123"));
         model.setAuthLevel(1);
         model.setCreateTime(new Date());
         model.setUpdateTime(new Date());

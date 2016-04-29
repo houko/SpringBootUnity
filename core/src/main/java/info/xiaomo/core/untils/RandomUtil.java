@@ -120,4 +120,23 @@ public class RandomUtil {
         }
         return randomIndexByProb(list);
     }
+
+    public static String createSalt() {
+        String[] str = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+                "a", "b", "c", "d", "e", "f", "g", "h", "i", "j",
+                "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
+        int number = str.length;
+        //接收随机字符
+        String text = "";
+        Random random = new Random();
+        //随机产生4个字符的字符串
+        for (int i = 0; i < 4; i++) {
+            text += str[random.nextInt(number)];
+        }
+        return text;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(createSalt());
+    }
 }

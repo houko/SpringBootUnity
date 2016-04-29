@@ -78,14 +78,14 @@ public class MailUtil {
         sb.append("<a href=\"http://xiaomo.info/路由地址?email=");
         sb.append(email);
         sb.append("&validateCode=");
-        sb.append(MD5Util.encode(email + now));//邮箱加上当前时间戳，以保证每个验证码都是不一样的
+        sb.append(MD5Util.encode(email, String.valueOf(now)));//邮箱加上当前时间戳，以保证每个验证码都是不一样的
         sb.append("&time=");
         sb.append(now);
         sb.append("\">");
         sb.append("http://xiaomo.info/路由地址?email=");
         sb.append(email);
         sb.append("&validateCode=");
-        sb.append(MD5Util.encode(email + now));//邮箱加上当前时间戳，以保证每个验证码都是不一样的
+        sb.append(MD5Util.encode(email, String.valueOf(now)));//邮箱加上当前时间戳，以保证每个验证码都是不一样的
         sb.append("&time=");
         sb.append(now);
         sb.append("</a><br/>");

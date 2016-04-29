@@ -5,6 +5,7 @@ import info.xiaomo.core.exception.UserNotFoundException;
 import info.xiaomo.core.model.AdminModel;
 import info.xiaomo.core.service.AdminUserService;
 import info.xiaomo.core.untils.MD5Util;
+import info.xiaomo.core.untils.RandomUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,7 +59,7 @@ public class AdminUserController extends BaseController {
             result.put(code, notFound);
             return result;
         }
-        if (MD5Util.encode(password).equals(adminModel.getPassword())) {
+        if (MD5Util.encode(password, adminModel.getSalt()).equals(adminModel.getPassword())) {
             result.put(code, success);
             result.put(adminUser, adminModel);
         } else {
@@ -98,9 +99,11 @@ public class AdminUserController extends BaseController {
             result.put(code, error);
             return result;
         }
+        String salt = RandomUtil.createSalt();
         adminModel = new AdminModel();
         adminModel.setUserName(userName);
-        adminModel.setPassword(MD5Util.encode(password));
+        adminModel.setSalt(salt);
+        adminModel.setPassword(MD5Util.encode(password, salt));
         adminModel.setStatus(authLevel);
         adminModel.setOperator(operator);
         AdminModel res = service.addAdminUser(adminModel);

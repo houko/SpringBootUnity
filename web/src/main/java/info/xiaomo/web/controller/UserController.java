@@ -9,10 +9,7 @@ import info.xiaomo.core.model.QQUserModel;
 import info.xiaomo.core.model.UserModel;
 import info.xiaomo.core.service.QQUserService;
 import info.xiaomo.core.service.UserService;
-import info.xiaomo.core.untils.DateUtil;
-import info.xiaomo.core.untils.FileUtil;
-import info.xiaomo.core.untils.MD5Util;
-import info.xiaomo.core.untils.MailUtil;
+import info.xiaomo.core.untils.*;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -65,14 +62,8 @@ public class UserController extends BaseController {
             result.put(code, notFound);
             return result;
         }
-        //邮箱未验证
-        if (userModel.getValidateStatus() == 0) {
-            result.put(code, notActivated);
-            result.put(user, userModel);
-            return result;
-        }
         //密码不正确
-        if (!MD5Util.encode(password).equals(userModel.getPassword())) {
+        if (!MD5Util.encode(password, userModel.getSalt()).equals(userModel.getPassword())) {
             result.put(code, error);
             return result;
         }
@@ -224,16 +215,16 @@ public class UserController extends BaseController {
             return result;
         }
         //激活
+        String salt = RandomUtil.createSalt();
         userModel = new UserModel();
         userModel.setNickName(email);
         userModel.setEmail(email);
         userModel.setGender(GenderType.secret);
         userModel.setImgUrl(WebDefaultValueConst.defaultImage);//默认是个百度的LOGO，作测试用
-        userModel.setValidateStatus(1);//状态:己激活
-        userModel.setValidateCode(MD5Util.encode(email));
+        userModel.setValidateCode(MD5Util.encode(email, ""));
         userModel.setPhone(0L);
         userModel.setAddress("");
-        userModel.setPassword(MD5Util.encode(password));
+        userModel.setPassword(MD5Util.encode(password, salt));
         userModel = service.addUser(userModel);
         LOGGER.info("用户{}使用激活码{}激活邮箱成功！", userModel.getEmail(), userModel.getValidateCode());
         result.put(user, userModel);
@@ -243,6 +234,7 @@ public class UserController extends BaseController {
 
     /**
      * 修改密码
+     *
      * @param email
      * @param password
      * @return
@@ -258,7 +250,8 @@ public class UserController extends BaseController {
             result.put(code, notFound);
             return result;
         }
-        userByEmail.setPassword(MD5Util.encode(password));
+        String salt = RandomUtil.createSalt();
+        userByEmail.setPassword(MD5Util.encode(password, salt));
         UserModel userModel = service.updateUser(userByEmail);
         result.put(code, success);
         result.put(user, userModel);

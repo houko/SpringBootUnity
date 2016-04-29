@@ -41,6 +41,8 @@ public class AdminModel extends BaseModel implements Serializable {
      */
     private int status;
 
+    private String salt;
+
     /**
      * 0(游客用户:默认admin) 1超级管理员
      */
@@ -61,6 +63,14 @@ public class AdminModel extends BaseModel implements Serializable {
 
     public String getPassword() {
         return password;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 
     public void setPassword(String password) {

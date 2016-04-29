@@ -34,6 +34,7 @@ public class LinkController extends BaseController {
 
     @RequestMapping("findById")
     public HashMap<String, Object> findLinkById(@RequestParam Long id) {
+        result = new HashMap<>();
         LinkModel model = service.findById(id);
         if (model == null) {
             result.put(code, notFound);
@@ -46,6 +47,7 @@ public class LinkController extends BaseController {
 
     @RequestMapping("findByName")
     public HashMap<String, Object> findByName(@RequestParam String name) {
+        result = new HashMap<>();
         LinkModel model = service.findByName(name);
         if (model == null) {
             result.put(code, notFound);
@@ -59,6 +61,7 @@ public class LinkController extends BaseController {
 
     @RequestMapping("findAll")
     public HashMap<String, Object> findAll(@RequestParam(value = "start", defaultValue = "1") int start, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+        result = new HashMap<>();
         Page<LinkModel> models = service.findAll(start, pageSize);
         result.put(code, success);
         result.put(links, models);
@@ -68,6 +71,7 @@ public class LinkController extends BaseController {
 
     @RequestMapping("add")
     public HashMap<String, Object> add(@RequestParam String name) {
+        result = new HashMap<>();
         LinkModel linkModel = service.findByName(name);
         if (linkModel != null) {
             result.put(code, repeat);
@@ -83,6 +87,7 @@ public class LinkController extends BaseController {
 
     @RequestMapping("update")
     public HashMap<String, Object> update(@RequestParam String name) {
+        result = new HashMap<>();
         LinkModel LinkModel = service.findByName(name);
         if (LinkModel == null) {
             result.put(code, notFound);
@@ -97,6 +102,7 @@ public class LinkController extends BaseController {
 
     @RequestMapping("delete")
     public HashMap<String, Object> delete(@RequestParam Long id) {
+        result = new HashMap<>();
         LinkModel LinkModel = service.findById(id);
         if (LinkModel == null) {
             result.put(code, notFound);

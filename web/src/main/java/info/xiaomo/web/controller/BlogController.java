@@ -42,6 +42,7 @@ public class BlogController extends BaseController {
      */
     @RequestMapping(value = "findById", method = RequestMethod.GET)
     public HashMap<String, Object> findById(@RequestParam Long id) {
+        result = new HashMap<>();
         BlogModel model = service.findBlogById(id);
         if (model == null) {
             result.put(code, notFound);
@@ -61,6 +62,7 @@ public class BlogController extends BaseController {
      */
     @RequestMapping(value = "findByTitle", method = RequestMethod.GET)
     public HashMap<String, Object> findByTitle(@RequestParam String title) {
+        result = new HashMap<>();
         BlogModel model = service.findBlogByTitle(title);
         if (model == null) {
             result.put(code, notFound);
@@ -82,6 +84,7 @@ public class BlogController extends BaseController {
      */
     @RequestMapping(value = "findAll", method = RequestMethod.GET)
     public HashMap<String, Object> getAll(@RequestParam(value = "start", defaultValue = "1") int start, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+        result = new HashMap<>();
         Page<BlogModel> models = service.findAll(start, pageSize);
         result.put(code, success);
         result.put(blogs, models);
@@ -106,6 +109,7 @@ public class BlogController extends BaseController {
             @RequestParam String content,
             @RequestParam Long tagIds[]
     ) {
+        result = new HashMap<>();
         BlogModel blogModel = service.findBlogByTitle(title);
         if (blogModel != null) {
             result.put(code, repeat);
@@ -146,6 +150,7 @@ public class BlogController extends BaseController {
             @RequestParam int blogType,
             @RequestParam Long tagIds[]
     ) {
+        result = new HashMap<>();
         BlogModel blogModel = service.findBlogByTitle(title);
         if (blogModel == null) {
             result.put(code, notFound);
@@ -173,6 +178,7 @@ public class BlogController extends BaseController {
      */
     @RequestMapping(value = "deleteBlogById", method = RequestMethod.GET)
     public HashMap<String, Object> deleteBlogById(@RequestParam Long id) {
+        result = new HashMap<>();
         BlogModel blogModel = service.findBlogById(id);
         if (blogModel == null) {
             result.put(code, notFound);

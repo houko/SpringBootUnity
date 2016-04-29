@@ -34,6 +34,7 @@ public class TagController extends BaseController {
 
     @RequestMapping("findById")
     public HashMap<String, Object> findTagById(@RequestParam Long id) {
+        result = new HashMap<>();
         TagModel model = service.findById(id);
         if (model == null) {
             result.put(code, notFound);
@@ -46,6 +47,7 @@ public class TagController extends BaseController {
 
     @RequestMapping("findByName")
     public HashMap<String, Object> findByName(@RequestParam String name) {
+        result = new HashMap<>();
         TagModel model = service.findByName(name);
         if (model == null) {
             result.put(code, notFound);
@@ -59,6 +61,7 @@ public class TagController extends BaseController {
 
     @RequestMapping("findAll")
     public HashMap<String, Object> findAll(@RequestParam(value = "start", defaultValue = "1") int start, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+        result = new HashMap<>();
         Page<TagModel> models = service.findAll(start, pageSize);
         result.put(code, success);
         result.put(tags, models);
@@ -68,6 +71,7 @@ public class TagController extends BaseController {
 
     @RequestMapping("add")
     public HashMap<String, Object> add(@RequestParam String name) {
+        result = new HashMap<>();
         TagModel tagModel = service.findByName(name);
         if (tagModel != null) {
             result.put(code, repeat);
@@ -83,6 +87,7 @@ public class TagController extends BaseController {
 
     @RequestMapping("update")
     public HashMap<String, Object> update(@RequestParam String name) {
+        result = new HashMap<>();
         TagModel tagModel = service.findByName(name);
         if (tagModel == null) {
             result.put(code, notFound);
@@ -97,6 +102,7 @@ public class TagController extends BaseController {
 
     @RequestMapping("delete")
     public HashMap<String, Object> delete(@RequestParam Long id) {
+        result = new HashMap<>();
         TagModel tagModel = service.findById(id);
         if (tagModel == null) {
             result.put(code, notFound);

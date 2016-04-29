@@ -56,6 +56,7 @@ public class UserController extends BaseController {
      */
     @RequestMapping(value = "login", method = RequestMethod.POST)
     public HashMap<String, Object> login(@RequestParam String email, @RequestParam String password) {
+        result = new HashMap<>();
         UserModel userModel = service.findUserByEmail(email);
         //找不到用户
         if (userModel == null) {
@@ -84,6 +85,7 @@ public class UserController extends BaseController {
     public HashMap<String, Object> register(
             @RequestParam String email
     ) throws Exception {
+        result = new HashMap<>();
         if (email.equals("")) {
             result.put(code, error);
             return result;
@@ -109,6 +111,7 @@ public class UserController extends BaseController {
      */
     @RequestMapping(value = "findByEmail", method = RequestMethod.GET)
     public Map<String, Object> findUserByEmail(@RequestParam("email") String email) {
+        result = new HashMap<>();
         UserModel userModel = service.findUserByEmail(email);
         if (userModel == null) {
             result.put(code, notFound);
@@ -128,6 +131,7 @@ public class UserController extends BaseController {
      */
     @RequestMapping(value = "findById", method = RequestMethod.GET)
     public HashMap<String, Object> findUserById(@RequestParam("id") Long id) {
+        result = new HashMap<>();
         UserModel userModel = service.findUserById(id);
         if (userModel == null) {
             result.put(code, notFound);
@@ -160,6 +164,7 @@ public class UserController extends BaseController {
             @RequestParam long phone,
             @RequestParam String address
     ) throws UserNotFoundException, IOException {
+        result = new HashMap<>();
         UserModel userModel = service.findUserByEmail(email);
         //找不到用户
         if (userModel == null) {
@@ -202,6 +207,7 @@ public class UserController extends BaseController {
             @RequestParam String password,
             @RequestParam Long time
     ) throws ServiceException, ParseException, UserNotFoundException {
+        result = new HashMap<>();
         //数据访问层，通过email获取用户信息
         UserModel userModel = service.findUserByEmail(email);
         //验证用户是否存在
@@ -245,6 +251,7 @@ public class UserController extends BaseController {
             @RequestParam String email,
             @RequestParam String password
     ) throws UserNotFoundException {
+        result = new HashMap<>();
         UserModel userByEmail = service.findUserByEmail(email);
         if (userByEmail == null) {
             result.put(code, notFound);
@@ -269,6 +276,7 @@ public class UserController extends BaseController {
             @RequestParam String province,
             @RequestParam String city
     ) {
+        result = new HashMap<>();
         QQUserModel user = new QQUserModel();
         user.setOpenId(openId);
         user.setNickName(nickName);

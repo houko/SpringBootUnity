@@ -1,7 +1,6 @@
-package info.xiaomo.admin.test.UserTest;
+package info.xiaomo.web.test.UserTest;
 
 import com.alibaba.fastjson.JSONObject;
-import info.xiaomo.admin.test.base.BaseTest;
 import info.xiaomo.core.constant.GenderType;
 import info.xiaomo.core.constant.WebDefaultValueConst;
 import info.xiaomo.core.exception.UserNotFoundException;
@@ -10,6 +9,7 @@ import info.xiaomo.core.service.UserService;
 import info.xiaomo.core.untils.DateUtil;
 import info.xiaomo.core.untils.MD5Util;
 import info.xiaomo.core.untils.RandomUtil;
+import info.xiaomo.web.test.base.BaseTest;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -62,19 +62,35 @@ public class UserControllerTest extends BaseTest {
     }
 
     @Test
-    public void testSalt(){
+    public void testSalt() {
         // xiaomox8ofli4fbc
         String result = "61f3ba3daa18245941f5cce745282fc8";
-        String encode = MD5Util.encode("xiaomo","bxp8xnolif");
-        if (result.equals(encode)){
+        String encode = MD5Util.encode("xiaomo", "bxp8xnolif");
+        if (result.equals(encode)) {
             System.out.println(true);
-        } else{
+        } else {
             System.out.println(result);
             System.out.println(encode);
             System.out.println(false);
         }
     }
 
+    @Test
+    public void testLogin() {
+        String email = "hupengbest@163.com";
+        String password = "xiaomo";
+        UserModel userModel = service.findUserByEmail(email);
+        if (userModel == null) {
+            System.out.println("没有这个帐号");
+            return;
+        }
+        //密码不正确
+        if (!MD5Util.encode(password, userModel.getSalt()).equals(userModel.getPassword())) {
+            System.out.println("密码错误");
+        } else {
+            System.out.println("登录成功");
+        }
+    }
 
     @Test
     public void testFindAll() {

@@ -1,11 +1,14 @@
-package info.xiaomo.admin.test.userTest;
+package info.xiaomo.web.test.adminTest;
 
 import info.xiaomo.admin.base.BaseTest;
-import info.xiaomo.core.model.UserModel;
-import info.xiaomo.core.service.UserService;
+import info.xiaomo.core.model.AdminModel;
+import info.xiaomo.core.service.AdminUserService;
+import info.xiaomo.core.untils.MD5Util;
+import info.xiaomo.core.untils.RandomUtil;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
+
+import java.util.Date;
 
 /**
  * │＼＿＿╭╭╭╭╭＿＿／│
@@ -29,23 +32,23 @@ import org.springframework.data.domain.Page;
  * @Description: admin测试
  * @Copyright(©) 2015 by xiaomo.
  */
-public class UserControllerTest extends BaseTest {
+public class AdminControllerTest extends BaseTest {
 
     @Autowired
-    private UserService service;
+    private AdminUserService service;
 
     @Test
-    public void testFindAll() {
-        Page<UserModel> all = service.findAll(1, 5);
-        for (UserModel userModel : all) {
-            System.out.println(userModel.getNickName());
-        }
-    }
-
-    @Test
-    public void testUpdate() {
-        UserModel userModel = new UserModel();
-
-
+    public void testAddAdminUser() {
+        AdminModel model = new AdminModel();
+        String salt = RandomUtil.createSalt();
+        String userName = "test";
+        model.setUserName(userName);
+        model.setSalt(salt);
+        model.setOperator("xiaomo");
+        model.setPassword(MD5Util.encode(userName, salt));
+        model.setAuthLevel(1);
+        model.setCreateTime(new Date());
+        model.setUpdateTime(new Date());
+        service.addAdminUser(model);
     }
 }

@@ -1,4 +1,4 @@
-package info.xiaomo.admin.test.base;
+package info.xiaomo.web.test.base;
 
 import info.xiaomo.web.WebMain;
 import org.junit.runner.RunWith;

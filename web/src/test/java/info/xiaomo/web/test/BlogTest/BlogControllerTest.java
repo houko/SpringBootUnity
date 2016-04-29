@@ -1,8 +1,8 @@
-package info.xiaomo.admin.test.BlogTest;
+package info.xiaomo.web.test.BlogTest;
 
-import info.xiaomo.admin.test.base.BaseTest;
 import info.xiaomo.core.model.BlogModel;
 import info.xiaomo.core.service.BlogService;
+import info.xiaomo.web.test.base.BaseTest;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

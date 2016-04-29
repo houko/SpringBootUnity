@@ -130,7 +130,7 @@ public class RandomUtil {
         String text = "";
         Random random = new Random();
         //随机产生4个字符的字符串
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 10; i++) {
             text += str[random.nextInt(number)];
         }
         return text;

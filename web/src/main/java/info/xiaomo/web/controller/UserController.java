@@ -221,7 +221,7 @@ public class UserController extends BaseController {
         userModel.setEmail(email);
         userModel.setGender(GenderType.secret);
         userModel.setImgUrl(WebDefaultValueConst.defaultImage);//默认是个百度的LOGO，作测试用
-        userModel.setValidateCode(MD5Util.encode(email, ""));
+        userModel.setValidateCode(MD5Util.encode(email, salt));
         userModel.setPhone(0L);
         userModel.setAddress("");
         userModel.setPassword(MD5Util.encode(password, salt));

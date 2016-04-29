@@ -9,6 +9,7 @@ import info.xiaomo.core.model.UserModel;
 import info.xiaomo.core.service.UserService;
 import info.xiaomo.core.untils.DateUtil;
 import info.xiaomo.core.untils.MD5Util;
+import info.xiaomo.core.untils.RandomUtil;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -45,15 +46,33 @@ public class UserControllerTest extends BaseTest {
 
     @Test
     public void testRegister() {
+        String salt = RandomUtil.createSalt();
         UserModel userModel = new UserModel();
         userModel.setEmail("hupengbest@163.com");
+        userModel.setSalt(salt);
+        userModel.setNickName("xiaomo");
+        userModel.setPassword(MD5Util.encode("xiaomo", salt));
         userModel.setImgUrl(WebDefaultValueConst.defaultImage);
-        userModel.setValidateCode(MD5Util.encode(userModel.getEmail(), ""));
+        userModel.setValidateCode(MD5Util.encode(userModel.getEmail(), salt));
         userModel.setAddress("万轮科技园");
         userModel.setPhone(15172299114L);
         userModel.setGender(1);
         userModel = service.addUser(userModel);
         System.out.println(JSONObject.toJSON(userModel));
+    }
+
+    @Test
+    public void testSalt(){
+        // xiaomox8ofli4fbc
+        String result = "61f3ba3daa18245941f5cce745282fc8";
+        String encode = MD5Util.encode("xiaomo","bxp8xnolif");
+        if (result.equals(encode)){
+            System.out.println(true);
+        } else{
+            System.out.println(result);
+            System.out.println(encode);
+            System.out.println(false);
+        }
     }
 
 

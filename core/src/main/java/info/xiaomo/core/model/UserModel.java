@@ -52,6 +52,7 @@ public class UserModel extends BaseModel implements Serializable{
         return nickName;
     }
 
+
     public void setNickName(String nickName) {
         this.nickName = nickName;
     }

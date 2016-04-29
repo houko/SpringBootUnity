@@ -195,7 +195,7 @@ public class UserController extends BaseController {
      *
      * @throws ParseException
      */
-    @RequestMapping(value = "validateEmail", method = RequestMethod.GET)
+    @RequestMapping(value = "validateEmail", method = RequestMethod.POST)
     public HashMap<String, Object> validateEmail(
             @RequestParam String email,
             @RequestParam String validateCode,

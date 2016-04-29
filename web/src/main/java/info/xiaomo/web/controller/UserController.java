@@ -241,6 +241,31 @@ public class UserController extends BaseController {
     }
 
 
+    /**
+     * 修改密码
+     * @param email
+     * @param password
+     * @return
+     * @throws UserNotFoundException
+     */
+    @RequestMapping(name = "/changePassword", method = RequestMethod.POST)
+    public HashMap<String, Object> changePassword(
+            @RequestParam String email,
+            @RequestParam String password
+    ) throws UserNotFoundException {
+        UserModel userByEmail = service.findUserByEmail(email);
+        if (userByEmail == null) {
+            result.put(code, notFound);
+            return result;
+        }
+        userByEmail.setPassword(MD5Util.encode(password));
+        UserModel userModel = service.updateUser(userByEmail);
+        result.put(code, success);
+        result.put(user, userModel);
+        return result;
+    }
+
+
     @RequestMapping("/qq")
     public HashMap<String, Object> qqLogin(
             @RequestParam String openId,

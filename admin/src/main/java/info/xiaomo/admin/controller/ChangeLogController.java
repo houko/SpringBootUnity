@@ -41,6 +41,7 @@ public class ChangeLogController extends BaseController {
      */
     @RequestMapping("findById")
     public HashMap<String, Object> findById(@RequestParam Long id) {
+        result = new HashMap<>();
         ChangeLogModel changeLogModel = service.findById(id);
         if (changeLogModel == null) {
             result.put(code, notFound);
@@ -58,6 +59,7 @@ public class ChangeLogController extends BaseController {
      */
     @RequestMapping(value = "findByName", method = RequestMethod.GET)
     public HashMap<String, Object> findByName(@RequestParam String name) {
+        result = new HashMap<>();
         ChangeLogModel model = service.findByName(name);
         if (model == null) {
             result.put(code, notFound);
@@ -77,6 +79,7 @@ public class ChangeLogController extends BaseController {
      */
     @RequestMapping("findAll")
     public HashMap<String, Object> findAll(@RequestParam(value = "start", defaultValue = "1") int start, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+        result = new HashMap<>();
         Page<ChangeLogModel> all = service.findAll(start, pageSize);
         result.put(code, success);
         result.put(changeLogs, all);
@@ -92,6 +95,7 @@ public class ChangeLogController extends BaseController {
     public HashMap<String, Object> add(
             @RequestParam String name
     ) {
+        result = new HashMap<>();
         ChangeLogModel changeLogModel = service.findByName(name);
         if (changeLogModel != null) {
             result.put(code, repeat);
@@ -115,6 +119,7 @@ public class ChangeLogController extends BaseController {
     public HashMap<String, Object> update(
             @RequestParam String name
     ) {
+        result = new HashMap<>();
         ChangeLogModel changeLogModel = service.findByName(name);
         if (changeLogModel == null) {
             result.put(code, notFound);
@@ -133,6 +138,7 @@ public class ChangeLogController extends BaseController {
      */
     @RequestMapping(value = "deleteById", method = RequestMethod.GET)
     public HashMap<String, Object> deleteById(@RequestParam Long id) {
+        result = new HashMap<>();
         ChangeLogModel changeLogModel = service.findById(id);
         if (changeLogModel == null) {
             result.put(code, notFound);

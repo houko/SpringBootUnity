@@ -28,6 +28,7 @@ public class SystemController extends BaseController {
 
     @RequestMapping("getSystem")
     public HashMap<String, Object> getSystem() {
+        result = new HashMap<>();
         Map<String, Object> map = new HashMap<>();
         Properties properties = System.getProperties();
         map.put("javaVersion", properties.getProperty("java.version"));//运行时环境版本

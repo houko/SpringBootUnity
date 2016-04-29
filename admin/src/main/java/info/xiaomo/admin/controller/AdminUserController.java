@@ -54,6 +54,7 @@ public class AdminUserController extends BaseController {
      */
     @RequestMapping(value = "login", method = RequestMethod.POST)
     public Map<String, Object> login(@RequestParam String userName, @RequestParam String password) {
+        result = new HashMap<>();
         AdminModel adminModel = service.findAdminUserByUserName(userName);
         if (adminModel == null) {
             result.put(code, notFound);
@@ -84,6 +85,7 @@ public class AdminUserController extends BaseController {
             @RequestParam String password,
             @RequestParam int authLevel
     ) {
+        result = new HashMap<>();
         AdminModel operatorModel = service.findAdminUserByUserName(operator);
         if (operator == null) {
             result.put(code, notFound);
@@ -118,6 +120,7 @@ public class AdminUserController extends BaseController {
 
     @RequestMapping(value = "findById", method = RequestMethod.GET)
     public HashMap<String, Object> findUserById(@RequestParam("id") Long id) {
+        result = new HashMap<>();
         AdminModel adminModel = service.findAdminUserById(id);
         if (adminModel == null) {
             result.put(code, notFound);
@@ -130,6 +133,7 @@ public class AdminUserController extends BaseController {
 
     @RequestMapping(value = "findByName", method = RequestMethod.GET)
     public HashMap<String, Object> findByName(@RequestParam("userName") String userName) {
+        result = new HashMap<>();
         AdminModel adminModel = service.findAdminUserByUserName(userName);
         if (adminModel == null) {
             result.put(code, notFound);
@@ -143,6 +147,7 @@ public class AdminUserController extends BaseController {
 
     @RequestMapping(value = "findAll", method = RequestMethod.GET)
     public HashMap<String, Object> getAll(@RequestParam(value = "start", defaultValue = "1") int start, @RequestParam(value = "pageSize", defaultValue = "10") int page) {
+        result = new HashMap<>();
         Page<AdminModel> pages = service.getAdminUsers(start, page);
         result.put(code, success);
         result.put(adminUsers, pages);
@@ -151,6 +156,7 @@ public class AdminUserController extends BaseController {
 
     @RequestMapping(value = "deleteById", method = RequestMethod.GET)
     public HashMap<String, Object> deleteUserById(@RequestParam("id") Long id, @RequestParam String operator) throws UserNotFoundException {
+        result = new HashMap<>();
         AdminModel operatorModel = service.findAdminUserByUserName(operator);
         if (operator == null) {
             result.put(code, notFound);
@@ -177,6 +183,7 @@ public class AdminUserController extends BaseController {
             @RequestParam("password") String password,
             @RequestParam("authLevel") int authLevel
     ) throws UserNotFoundException {
+        result = new HashMap<>();
         AdminModel operatorModel = service.findAdminUserByUserName(operator);
         if (operator == null) {
             result.put(code, notFound);
@@ -202,6 +209,7 @@ public class AdminUserController extends BaseController {
 
     @RequestMapping(value = "forbid", method = RequestMethod.GET)
     public HashMap<String, Object> forbid(@RequestParam("id") Long id, @RequestParam("operator") String operator) throws UserNotFoundException {
+        result = new HashMap<>();
         AdminModel operatorModel = service.findAdminUserByUserName(operator);
         if (operator == null) {
             result.put(code, notFound);

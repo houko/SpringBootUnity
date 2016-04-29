@@ -42,6 +42,7 @@ public class UserController extends BaseController {
      */
     @RequestMapping(value = "findById", method = RequestMethod.GET)
     public HashMap<String, Object> findUserById(@RequestParam("id") Long id) {
+        result = new HashMap<>();
         UserModel userModel = service.findUserById(id);
         if (userModel == null) {
             result.put(code, notFound);
@@ -61,6 +62,7 @@ public class UserController extends BaseController {
      */
     @RequestMapping(value = "findAll", method = RequestMethod.GET)
     public HashMap<String, Object> getAll(@RequestParam(value = "start", defaultValue = "1") int start, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+        result = new HashMap<>();
         Page<UserModel> pages = service.findAll(start, pageSize);
         result.put(code, success);
         result.put(users, pages);
@@ -76,6 +78,7 @@ public class UserController extends BaseController {
      */
     @RequestMapping(value = "deleteById", method = RequestMethod.GET)
     public HashMap<String, Object> deleteUserById(@RequestParam("id") Long id) throws UserNotFoundException {
+        result = new HashMap<>();
         UserModel userModel = service.deleteUserById(id);
         if (userModel == null) {
             result.put(code, notFound);

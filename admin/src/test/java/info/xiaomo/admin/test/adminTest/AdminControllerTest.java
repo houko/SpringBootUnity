@@ -4,6 +4,7 @@ import info.xiaomo.admin.base.BaseTest;
 import info.xiaomo.core.model.AdminModel;
 import info.xiaomo.core.service.AdminUserService;
 import info.xiaomo.core.untils.MD5Util;
+import info.xiaomo.core.untils.RandomUtil;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -39,10 +40,12 @@ public class AdminControllerTest extends BaseTest {
     @Test
     public void testAddAdminUser() {
         AdminModel model = new AdminModel();
-        model.setUserName("test");
-        model.setSalt("123");
+        String salt = RandomUtil.createSalt();
+        String userName = "test";
+        model.setUserName(userName);
+        model.setSalt(salt);
         model.setOperator("xiaomo");
-        model.setPassword(MD5Util.encode("test", "123"));
+        model.setPassword(MD5Util.encode(userName, salt));
         model.setAuthLevel(1);
         model.setCreateTime(new Date());
         model.setUpdateTime(new Date());

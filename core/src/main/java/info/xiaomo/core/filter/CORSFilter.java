@@ -22,11 +22,27 @@ import java.io.IOException;
  **/
 @Component
 public class CORSFilter implements Filter {
+
+
+    /**
+     * 初始化
+     *
+     * @param filterConfig filterConfig
+     * @throws ServletException
+     */
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 
     }
 
+    /**
+     * CORS 过滤器
+     * @param req rq
+     * @param res res
+     * @param chain chin
+     * @throws IOException
+     * @throws ServletException
+     */
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
         HttpServletResponse response = (HttpServletResponse) res;
         response.setHeader("Access-Control-Allow-Origin", "*");
@@ -36,6 +52,10 @@ public class CORSFilter implements Filter {
         chain.doFilter(req, res);
     }
 
+
+    /**
+     * 销毁对象
+     */
     public void destroy() {
     }
 }

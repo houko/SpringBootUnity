@@ -144,7 +144,6 @@ public class UserController extends BaseController {
 
     /**
      * 修改个人信息
-     *
      * @param nickName nickName
      * @param password password
      * @param email    email

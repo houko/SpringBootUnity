@@ -1,7 +1,5 @@
 package info.xiaomo.core.constant;
 
-import info.xiaomo.core.model.base.BaseModel;
-
 /**
  * 把今天最好的表现当作明天最新的起点．．～
  * いま 最高の表現 として 明日最新の始発．．～

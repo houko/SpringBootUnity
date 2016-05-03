@@ -157,12 +157,12 @@ public class UserController extends BaseController {
      */
     @RequestMapping(value = "update", method = RequestMethod.POST)
     public HashMap<String, Object> update(
-            @RequestParam(value = "nickName", defaultValue = "新用户") String nickName,
-            @RequestParam(value = "email", defaultValue = "null") String email,
+            @RequestParam(name = "nickName", defaultValue = "新用户") String nickName,
+            @RequestParam(name = "email", defaultValue = "null") String email,
             @RequestParam MultipartFile imgUrl,
-            @RequestParam(value = "gender", defaultValue = "0") int gender,
-            @RequestParam(value = "phone", defaultValue = "0") long phone,
-            @RequestParam(value = "address", defaultValue = "保密") String address
+            @RequestParam(name = "gender", defaultValue = "0") int gender,
+            @RequestParam(name = "phone", defaultValue = "0") long phone,
+            @RequestParam(name = "address", defaultValue = "保密") String address
     ) throws UserNotFoundException, IOException {
         result = new HashMap<>();
         UserModel userModel = service.findUserByEmail(email);
@@ -202,10 +202,10 @@ public class UserController extends BaseController {
      */
     @RequestMapping(value = "validateEmail", method = RequestMethod.POST)
     public HashMap<String, Object> validateEmail(
-            @RequestParam(value = "email", defaultValue = "null") String email,
+            @RequestParam(name = "email", defaultValue = "null") String email,
             @RequestParam String validateCode,
             @RequestParam String password,
-            @RequestParam(value = "time", defaultValue = "0") Long time
+            @RequestParam(name = "time", defaultValue = "0") Long time
     ) throws ServiceException, ParseException, UserNotFoundException {
         result = new HashMap<>();
         //数据访问层，通过email获取用户信息

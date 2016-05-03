@@ -80,10 +80,10 @@ public class AdminUserController extends BaseController {
      */
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public HashMap<String, Object> add(
-            @RequestParam String operator,
-            @RequestParam String userName,
-            @RequestParam String password,
-            @RequestParam int authLevel
+            @RequestParam(name = "operator",defaultValue = "admin") String operator,
+            @RequestParam(name = "userName",defaultValue = "null") String userName,
+            @RequestParam(name = "password",defaultValue = "123456") String password,
+            @RequestParam(name = "authLevel",defaultValue = "0") int authLevel
     ) {
         result = new HashMap<>();
         AdminModel operatorModel = service.findAdminUserByUserName(operator);

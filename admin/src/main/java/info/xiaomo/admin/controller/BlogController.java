@@ -106,7 +106,7 @@ public class BlogController extends BaseController {
             @RequestParam String nickName,
             @RequestParam String summary,
             @RequestParam String content,
-            @RequestParam int blogType,
+            @RequestParam(name = "blogType",defaultValue = "1") int blogType,
             @RequestParam Long tagIds[]
     ) {
         result = new HashMap<>();

@@ -1,5 +1,6 @@
 package info.xiaomo.admin.controller;
 
+import info.xiaomo.core.constant.WebDefaultValueConst;
 import info.xiaomo.core.controller.BaseController;
 import info.xiaomo.core.exception.UserNotFoundException;
 import info.xiaomo.core.model.UserModel;
@@ -50,6 +51,33 @@ public class UserController extends BaseController {
         }
         result.put(code, success);
         result.put(user, userModel);
+        return result;
+    }
+
+    @RequestMapping(value = "addUser", method = RequestMethod.POST)
+    public HashMap<String, Object> addUser(
+            @RequestParam(name = "email", defaultValue = "null") String email,
+            @RequestParam(name = "nickName", defaultValue = "新用户") String nickName,
+            @RequestParam(name = "phone", defaultValue = "0") Long phone,
+            @RequestParam(name = "address", defaultValue = "保密") String address,
+            @RequestParam(name = "gender", defaultValue = "0") int gender
+    ) {
+        UserModel userModel = service.findUserByEmail(email);
+        if (userModel != null) {
+            result.put(code, repeat);
+            return result;
+        }
+        userModel = new UserModel();
+        userModel.setEmail(email);
+        userModel.setNickName(nickName);
+        userModel.setPhone(phone);
+        userModel.setAddress(address);
+        userModel.setGender(gender);
+        userModel.setImgUrl(WebDefaultValueConst.defaultImage);
+        service.addUser(userModel);
+        result = new HashMap<>();
+        result.put(user, userModel);
+        result.put(code, success);
         return result;
     }
 

@@ -5,6 +5,8 @@ import info.xiaomo.core.controller.BaseController;
 import info.xiaomo.core.exception.UserNotFoundException;
 import info.xiaomo.core.model.UserModel;
 import info.xiaomo.core.service.UserService;
+import info.xiaomo.core.untils.MD5Util;
+import info.xiaomo.core.untils.RandomUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -57,6 +59,7 @@ public class UserController extends BaseController {
     @RequestMapping(value = "addUser", method = RequestMethod.POST)
     public HashMap<String, Object> addUser(
             @RequestParam(name = "email", defaultValue = "null") String email,
+            @RequestParam(name = "password", defaultValue = "123456") String password,
             @RequestParam(name = "nickName", defaultValue = "新用户") String nickName,
             @RequestParam(name = "phone", defaultValue = "0") Long phone,
             @RequestParam(name = "address", defaultValue = "保密") String address,
@@ -67,12 +70,16 @@ public class UserController extends BaseController {
             result.put(code, repeat);
             return result;
         }
+        String salt = RandomUtil.createSalt();
         userModel = new UserModel();
         userModel.setEmail(email);
         userModel.setNickName(nickName);
         userModel.setPhone(phone);
         userModel.setAddress(address);
         userModel.setGender(gender);
+        userModel.setPassword(MD5Util.encode(password, salt));
+        userModel.setValidateCode(MD5Util.encode(email, ""));
+        userModel.setSalt(salt);
         userModel.setImgUrl(WebDefaultValueConst.defaultImage);
         service.addUser(userModel);
         result = new HashMap<>();

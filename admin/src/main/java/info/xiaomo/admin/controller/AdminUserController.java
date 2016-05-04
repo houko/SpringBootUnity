@@ -180,7 +180,6 @@ public class AdminUserController extends BaseController {
     public HashMap<String, Object> update(
             @RequestParam("operator") String operator,
             @RequestParam("userName") String userName,
-            @RequestParam("password") String password,
             @RequestParam("authLevel") int authLevel
     ) throws UserNotFoundException {
         result = new HashMap<>();
@@ -199,7 +198,6 @@ public class AdminUserController extends BaseController {
             return result;
         }
         adminModel.setUserName(userName);
-        adminModel.setPassword(password);
         adminModel.setAuthLevel(authLevel);
         service.updateAdminUser(adminModel);
         result.put(code, success);

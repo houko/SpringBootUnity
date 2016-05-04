@@ -78,10 +78,11 @@ public class MD5Util {
     }
 
     public static void main(String[] args) {
-        String s = "xiaomo";
-        System.out.println("原数据：" + s);
-        System.out.println("MD5后：" + encode(s, "123"));
-        System.out.println("MD5后：" + encode(s, ""));
+        String password = "xiaomo";
+        String salt = RandomUtil.createSalt();
+        System.out.println("原数据：" + password);
+        System.out.println("盐值：" + salt);
+        System.out.println("MD5后：" + encode(password, salt));
     }
 
 }

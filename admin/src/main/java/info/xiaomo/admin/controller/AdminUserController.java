@@ -106,7 +106,7 @@ public class AdminUserController extends BaseController {
         adminModel.setUserName(userName);
         adminModel.setSalt(salt);
         adminModel.setPassword(MD5Util.encode(password, salt));
-        adminModel.setStatus(authLevel);
+        adminModel.setAuthLevel(authLevel);
         adminModel.setOperator(operator);
         AdminModel res = service.addAdminUser(adminModel);
         if (res != null) {

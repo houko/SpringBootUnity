@@ -41,8 +41,8 @@ public class LinkServiceImpl implements LinkService {
     }
 
     @Override
-    public Page<LinkModel> findAll(int start ,int pageSize) {
-        return dao.findAll(new PageRequest(start-1,pageSize));
+    public Page<LinkModel> findAll(int start, int pageSize) {
+        return dao.findAll(new PageRequest(start - 1, pageSize));
     }
 
     @Override
@@ -55,10 +55,10 @@ public class LinkServiceImpl implements LinkService {
     @Override
     public LinkModel update(LinkModel model) {
         LinkModel updateModel = dao.findOne(model.getId());
-        if (!model.getName().equals(updateModel.getName())) {
+        if (model.getName() != null) {
             updateModel.setName(model.getName());
         }
-        if (!model.getUrl().equals(updateModel.getUrl())) {
+        if (model.getUrl() != null) {
             updateModel.setUrl(model.getName());
         }
         model.setUpdateTime(new Date());

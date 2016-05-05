@@ -80,10 +80,10 @@ public class AdminUserController extends BaseController {
      */
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public HashMap<String, Object> add(
-            @RequestParam(name = "operator",defaultValue = "admin") String operator,
-            @RequestParam(name = "userName",defaultValue = "null") String userName,
-            @RequestParam(name = "password",defaultValue = "123456") String password,
-            @RequestParam(name = "authLevel",defaultValue = "0") int authLevel
+            @RequestParam(name = "operator", defaultValue = "admin") String operator,
+            @RequestParam(name = "userName", defaultValue = "null") String userName,
+            @RequestParam(name = "password", defaultValue = "123456") String password,
+            @RequestParam(name = "authLevel", defaultValue = "0") int authLevel
     ) {
         result = new HashMap<>();
         AdminModel operatorModel = service.findAdminUserByUserName(operator);
@@ -139,6 +139,23 @@ public class AdminUserController extends BaseController {
             result.put(code, notFound);
             return result;
         }
+        result.put(code, success);
+        result.put(adminUser, adminModel);
+        return result;
+    }
+
+    @RequestMapping(value = "changePassword", method = RequestMethod.POST)
+    public HashMap<String, Object> changePassword(@RequestParam("id") Long id, @RequestParam("password") String password) throws UserNotFoundException {
+        result = new HashMap<>();
+        AdminModel adminModel = service.findAdminUserById(id);
+        if (adminModel == null) {
+            result.put(code, notFound);
+            return result;
+        }
+        String salt = RandomUtil.createSalt();
+        adminModel.setSalt(salt);
+        adminModel.setPassword(MD5Util.encode(password, salt));
+        service.updateAdminUser(adminModel);
         result.put(code, success);
         result.put(adminUser, adminModel);
         return result;

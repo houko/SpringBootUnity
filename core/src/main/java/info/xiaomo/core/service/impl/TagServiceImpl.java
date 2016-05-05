@@ -55,7 +55,7 @@ public class TagServiceImpl implements TagService {
     @Override
     public TagModel update(TagModel model) {
         TagModel updateModel = dao.findOne(model.getId());
-        if (!model.getName().equals(updateModel.getName())) {
+        if (model.getName()!=null) {
             updateModel.setName(model.getName());
         }
         model.setCreateTime(new Date());

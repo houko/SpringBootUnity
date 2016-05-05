@@ -9,7 +9,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-import java.util.Objects;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -55,19 +54,19 @@ public class QQUserServiceImpl implements QQUserService {
         if (userModel == null) {
             return null;
         }
-        if (!Objects.equals(userModel.getNickName(), model.getNickName())) {
+        if (model.getNickName() != null) {
             userModel.setNickName(model.getNickName());
         }
-        if (!Objects.equals(userModel.getImgUrl(), model.getImgUrl())) {
+        if (model.getImgUrl() != null) {
             userModel.setImgUrl(model.getImgUrl());
         }
-        if (!Objects.equals(userModel.getAddress(), model.getAddress())) {
+        if (model.getAddress() != null) {
             userModel.setAddress(model.getAddress());
         }
-        if (!Objects.equals(userModel.getGender(), model.getGender())) {
+        if (model.getGender() != null) {
             userModel.setGender(model.getGender());
         }
-        if (userModel.getYear() != model.getYear()) {
+        if (model.getYear() != 0) {
             userModel.setYear(model.getYear());
         }
         userModel.setUpdateTime(new Date());

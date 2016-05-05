@@ -10,7 +10,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-import java.util.Objects;
 
 /**
  * │＼＿＿╭╭╭╭╭＿＿／│
@@ -65,13 +64,13 @@ public class AdminUserServiceImpl implements AdminUserService {
         if (userUpdate == null) {
             throw new UserNotFoundException();
         }
-        if (!Objects.equals(model.getPassword(), userUpdate.getPassword())) {
+        if (model.getPassword() != null) {
             userUpdate.setPassword(model.getPassword());
         }
-        if (userUpdate.getAuthLevel() != model.getAuthLevel()) {
+        if (model.getAuthLevel() != 0) {
             userUpdate.setAuthLevel(model.getAuthLevel());
         }
-        if (!Objects.equals(model.getUserName(), userUpdate.getUserName())) {
+        if (model.getUserName() != null) {
             userUpdate.setUserName(model.getUserName());
         }
         userUpdate.setUpdateTime(new Date());
@@ -80,8 +79,8 @@ public class AdminUserServiceImpl implements AdminUserService {
     }
 
     @Override
-    public Page<AdminModel> getAdminUsers(int start ,int pageSize) {
-        return dao.findAll(new PageRequest(start-1,pageSize));
+    public Page<AdminModel> getAdminUsers(int start, int pageSize) {
+        return dao.findAll(new PageRequest(start - 1, pageSize));
     }
 
     @Override

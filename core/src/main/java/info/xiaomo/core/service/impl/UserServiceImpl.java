@@ -10,7 +10,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-import java.util.Objects;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -55,22 +54,22 @@ public class UserServiceImpl implements UserService {
         if (userUpdate == null) {
             throw new UserNotFoundException();
         }
-        if (!Objects.equals(model.getAddress(), userUpdate.getAddress())) {
+        if (model.getAddress() != null) {
             userUpdate.setAddress(model.getAddress());
         }
-        if (!Objects.equals(model.getEmail(), userUpdate.getEmail())) {
+        if (model.getEmail() != null) {
             userUpdate.setEmail(model.getEmail());
         }
-        if (model.getGender() != userUpdate.getGender()) {
+        if (model.getGender() != 0) {
             userUpdate.setGender(model.getGender());
         }
-        if (!Objects.equals(model.getImgUrl(), userUpdate.getImgUrl())) {
+        if (model.getImgUrl() != null) {
             userUpdate.setImgUrl(model.getImgUrl());
         }
-        if (!Objects.equals(model.getNickName(), userUpdate.getNickName())) {
+        if (model.getNickName() != null) {
             userUpdate.setNickName(model.getNickName());
         }
-        if (!Objects.equals(model.getPhone(), userUpdate.getPhone())) {
+        if (model.getPhone() != 0) {
             userUpdate.setPhone(model.getPhone());
         }
         userUpdate.setUpdateTime(new Date());

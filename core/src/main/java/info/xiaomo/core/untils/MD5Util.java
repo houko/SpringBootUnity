@@ -65,10 +65,10 @@ public class MD5Util {
         return hexDigits[d1] + hexDigits[d2];
     }
 
-    public static String encode(String origin, String salt) {
+    public static String encode(String password, String salt) {
         String resultString = null;
         try {
-            resultString = origin + salt;
+            resultString = password + salt;
             MessageDigest md = MessageDigest.getInstance("md5");
             resultString = byteArrayToString(md.digest(resultString.getBytes()));
         } catch (Exception ex) {

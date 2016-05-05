@@ -39,8 +39,8 @@ public class ChangeLogServiceImpl implements ChangeLogService {
     }
 
     @Override
-    public Page<ChangeLogModel> findAll(int start ,int pageSize) {
-        return dao.findAll(new PageRequest(start-1,pageSize));
+    public Page<ChangeLogModel> findAll(int start, int pageSize) {
+        return dao.findAll(new PageRequest(start - 1, pageSize));
     }
 
     @Override
@@ -51,7 +51,7 @@ public class ChangeLogServiceImpl implements ChangeLogService {
     @Override
     public ChangeLogModel update(ChangeLogModel model) {
         ChangeLogModel updateModel = dao.findOne(model.getId());
-        if (!model.getName().equals(updateModel.getName())) {
+        if (model.getName() != null) {
             updateModel.setName(model.getName());
         }
         return dao.save(updateModel);

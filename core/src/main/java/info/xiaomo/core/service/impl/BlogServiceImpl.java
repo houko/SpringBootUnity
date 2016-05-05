@@ -9,7 +9,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-import java.util.Objects;
 
 
 /**
@@ -60,23 +59,17 @@ public class BlogServiceImpl implements BlogService {
         if (updateBlog == null) {
             return null;
         }
-        if (!Objects.equals(model.getAuthor(), updateBlog.getAuthor())) {
+        if (model.getAuthor() != null) {
             updateBlog.setAuthor(model.getAuthor());
         }
-        if (Objects.equals(model.getContent(), updateBlog.getContent())) {
+        if (model.getContent() != null) {
             updateBlog.setContent(model.getContent());
         }
-        if (Objects.equals(model.getSummary(), updateBlog.getSummary())) {
+        if (model.getSummary()!=null) {
             updateBlog.setSummary(model.getSummary());
         }
-        if (Objects.equals(model.getTitle(), updateBlog.getTitle())) {
+        if (model.getTitle()!=null) {
             updateBlog.setTitle(model.getTitle());
-        }
-        if (model.getBlogType() != updateBlog.getBlogType()) {
-            updateBlog.setBlogType(model.getBlogType());
-        }
-        if (model.getBlogType() != updateBlog.getBlogType()) {
-            updateBlog.setBlogType(model.getBlogType());
         }
         return dao.save(model);
     }

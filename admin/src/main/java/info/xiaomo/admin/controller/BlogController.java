@@ -147,7 +147,6 @@ public class BlogController extends BaseController {
             @RequestParam String nickName,
             @RequestParam String summary,
             @RequestParam String content,
-            @RequestParam int blogType,
             @RequestParam Long tagIds[]
     ) {
         result = new HashMap<>();
@@ -162,7 +161,6 @@ public class BlogController extends BaseController {
         blogModel.setAuthor(nickName);
         blogModel.setSummary(summary);
         blogModel.setTagIds(tagIds);
-        blogModel.setBlogType(blogType);
         blogModel = service.updateBlog(blogModel);
         result.put(code, success);
         result.put(blog, blogModel);

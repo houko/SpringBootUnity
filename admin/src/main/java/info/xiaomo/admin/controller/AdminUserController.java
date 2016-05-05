@@ -145,9 +145,9 @@ public class AdminUserController extends BaseController {
     }
 
     @RequestMapping(value = "changePassword", method = RequestMethod.POST)
-    public HashMap<String, Object> changePassword(@RequestParam("id") Long id, @RequestParam("password") String password) throws UserNotFoundException {
+    public HashMap<String, Object> changePassword(@RequestParam("userName") String userName, @RequestParam("password") String password) throws UserNotFoundException {
         result = new HashMap<>();
-        AdminModel adminModel = service.findAdminUserById(id);
+        AdminModel adminModel = service.findAdminUserByUserName(userName);
         if (adminModel == null) {
             result.put(code, notFound);
             return result;

@@ -59,7 +59,7 @@ public class LinkServiceImpl implements LinkService {
             updateModel.setName(model.getName());
         }
         if (model.getUrl() != null) {
-            updateModel.setUrl(model.getName());
+            updateModel.setUrl(model.getUrl());
         }
         model.setUpdateTime(new Date());
         return dao.save(updateModel);

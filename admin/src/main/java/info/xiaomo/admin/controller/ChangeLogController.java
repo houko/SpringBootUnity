@@ -93,7 +93,8 @@ public class ChangeLogController extends BaseController {
      */
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public HashMap<String, Object> add(
-            @RequestParam String name
+            @RequestParam String name,
+            @RequestParam String onlineTime
     ) {
         result = new HashMap<>();
         ChangeLogModel changeLogModel = service.findByName(name);
@@ -103,6 +104,7 @@ public class ChangeLogController extends BaseController {
         }
         changeLogModel = new ChangeLogModel();
         changeLogModel.setName(name);
+        changeLogModel.setOnlineTime(onlineTime);
         ChangeLogModel add = service.add(changeLogModel);
         result.put(code, success);
         result.put(changeLog, add);

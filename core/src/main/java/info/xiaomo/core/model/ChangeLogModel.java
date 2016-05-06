@@ -26,11 +26,21 @@ public class ChangeLogModel extends BaseModel implements Serializable {
 
     private String name;
 
+    private String onlineTime;
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getOnlineTime() {
+        return onlineTime;
+    }
+
+    public void setOnlineTime(String onlineTime) {
+        this.onlineTime = onlineTime;
     }
 }

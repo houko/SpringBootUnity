@@ -8,6 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 /**
  * 把今天最好的表现当作明天最新的起点．．～
  * いま 最高の表現 として 明日最新の始発．．～
@@ -45,6 +47,8 @@ public class ChangeLogServiceImpl implements ChangeLogService {
 
     @Override
     public ChangeLogModel add(ChangeLogModel model) {
+        model.setCreateTime(new Date());
+        model.setUpdateTime(new Date());
         return dao.save(model);
     }
 
@@ -54,6 +58,7 @@ public class ChangeLogServiceImpl implements ChangeLogService {
         if (model.getName() != null) {
             updateModel.setName(model.getName());
         }
+        updateModel.setUpdateTime(new Date());
         return dao.save(updateModel);
     }
 

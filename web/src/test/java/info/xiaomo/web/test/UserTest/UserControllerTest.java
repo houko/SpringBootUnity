@@ -77,8 +77,8 @@ public class UserControllerTest extends BaseTest {
 
     @Test
     public void testLogin() {
-        String email = "hupengbest@163.com";
-        String password = "xiaomo";
+        String email = "83387856@qq.com";
+        String password = "xiaomo123";
         UserModel userModel = service.findUserByEmail(email);
         if (userModel == null) {
             System.out.println("没有这个帐号");

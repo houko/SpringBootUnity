@@ -246,7 +246,7 @@ public class UserController extends BaseController {
      * @return
      * @throws UserNotFoundException
      */
-    @RequestMapping(name = "/changePassword", method = RequestMethod.POST)
+    @RequestMapping(value = "/changePassword", method = RequestMethod.POST)
     public HashMap<String, Object> changePassword(
             @RequestParam String email,
             @RequestParam String password
@@ -258,6 +258,7 @@ public class UserController extends BaseController {
             return result;
         }
         String salt = RandomUtil.createSalt();
+        userByEmail.setSalt(salt);
         userByEmail.setPassword(MD5Util.encode(password, salt));
         UserModel userModel = service.updateUser(userByEmail);
         result.put(code, success);

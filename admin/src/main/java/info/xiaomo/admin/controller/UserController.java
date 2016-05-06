@@ -65,6 +65,7 @@ public class UserController extends BaseController {
             @RequestParam(name = "address", defaultValue = "保密") String address,
             @RequestParam(name = "gender", defaultValue = "0") int gender
     ) {
+        result = new HashMap<>();
         UserModel userModel = service.findUserByEmail(email);
         if (userModel != null) {
             result.put(code, repeat);
@@ -82,7 +83,74 @@ public class UserController extends BaseController {
         userModel.setSalt(salt);
         userModel.setImgUrl(WebDefaultValueConst.defaultImage);
         service.addUser(userModel);
+        result.put(user, userModel);
+        result.put(code, success);
+        return result;
+    }
+
+
+    /**
+     * 修改密码
+     *
+     * @param email
+     * @param password
+     * @return
+     * @throws UserNotFoundException
+     */
+    @RequestMapping(value = "changePassword", method = RequestMethod.POST)
+    public HashMap<String, Object> changePassword(
+            @RequestParam String email,
+            @RequestParam String nickName,
+            @RequestParam String password
+    ) throws UserNotFoundException {
         result = new HashMap<>();
+        UserModel userByEmail = service.findUserByEmail(email);
+        if (userByEmail == null) {
+            result.put(code, notFound);
+            return result;
+        }
+        String salt = RandomUtil.createSalt();
+        userByEmail.setPassword(MD5Util.encode(password, salt));
+        userByEmail.setNickName(nickName);
+        userByEmail.setSalt(salt);
+        UserModel userModel = service.updateUser(userByEmail);
+        result.put(code, success);
+        result.put(user, userModel);
+        return result;
+    }
+
+    /**
+     *
+     * @param email
+     * @param nickName
+     * @param phone
+     * @param address
+     * @param gender
+     * @return
+     * @throws UserNotFoundException
+     */
+    @RequestMapping(value = "update", method = RequestMethod.POST)
+    public HashMap<String, Object> update(
+            @RequestParam(name = "email", defaultValue = "null") String email,
+            @RequestParam(name = "nickName", defaultValue = "新用户") String nickName,
+            @RequestParam(name = "phone", defaultValue = "0") Long phone,
+            @RequestParam(name = "address", defaultValue = "保密") String address,
+            @RequestParam(name = "gender", defaultValue = "0") int gender
+    ) throws UserNotFoundException {
+        result = new HashMap<>();
+        UserModel userModel = service.findUserByEmail(email);
+        if (userModel == null) {
+            result.put(code, notFound);
+            return result;
+        }
+        userModel = new UserModel();
+        userModel.setEmail(email);
+        userModel.setNickName(nickName);
+        userModel.setPhone(phone);
+        userModel.setAddress(address);
+        userModel.setGender(gender);
+        userModel.setValidateCode(MD5Util.encode(email, ""));
+        service.updateUser(userModel);
         result.put(user, userModel);
         result.put(code, success);
         return result;

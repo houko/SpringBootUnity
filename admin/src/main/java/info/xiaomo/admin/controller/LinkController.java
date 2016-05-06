@@ -70,7 +70,9 @@ public class LinkController extends BaseController {
 
 
     @RequestMapping("add")
-    public HashMap<String, Object> add(@RequestParam String name) {
+    public HashMap<String, Object> add(
+            @RequestParam String name,
+            @RequestParam String url) {
         result = new HashMap<>();
         LinkModel linkModel = service.findByName(name);
         if (linkModel != null) {
@@ -79,6 +81,7 @@ public class LinkController extends BaseController {
         }
         linkModel = new LinkModel();
         linkModel.setName(name);
+        linkModel.setUrl(url);
         LinkModel add = service.add(linkModel);
         result.put(code, success);
         result.put(link, add);
@@ -86,15 +89,20 @@ public class LinkController extends BaseController {
     }
 
     @RequestMapping("update")
-    public HashMap<String, Object> update(@RequestParam String name) {
+    public HashMap<String, Object> update(
+            @RequestParam String name,
+            @RequestParam String url
+
+    ) {
         result = new HashMap<>();
-        LinkModel LinkModel = service.findByName(name);
-        if (LinkModel == null) {
+        LinkModel linkModel = service.findByName(name);
+        if (linkModel == null) {
             result.put(code, notFound);
             return result;
         }
-        LinkModel.setName(name);
-        LinkModel update = service.update(LinkModel);
+        linkModel.setName(name);
+        linkModel.setUrl(url);
+        LinkModel update = service.update(linkModel);
         result.put(code, success);
         result.put(link, update);
         return result;

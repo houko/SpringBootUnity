@@ -126,7 +126,8 @@ public class ChangeLogController extends BaseController {
      */
     @RequestMapping(value = "update", method = RequestMethod.POST)
     public HashMap<String, Object> update(
-            @RequestParam String name
+            @RequestParam String name,
+            @RequestParam String onlineTime
     ) {
         result = new HashMap<>();
         ChangeLogModel changeLogModel = service.findByName(name);
@@ -135,6 +136,7 @@ public class ChangeLogController extends BaseController {
             return result;
         }
         changeLogModel.setName(name);
+        changeLogModel.setOnlineTime(onlineTime);
         ChangeLogModel update = service.update(changeLogModel);
         result.put(code, success);
         result.put(changeLog, update);

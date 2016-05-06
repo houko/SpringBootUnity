@@ -6,6 +6,7 @@ import info.xiaomo.core.service.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -43,7 +44,8 @@ public class BlogServiceImpl implements BlogService {
 //                it.remove();
 //            }
 //        }
-        return dao.findAll(new PageRequest(start - 1, pageSize));
+        Sort sort = new Sort(Sort.Direction.DESC, "vote");
+        return dao.findAll(new PageRequest(start - 1, pageSize, sort));
     }
 
     @Override
@@ -65,10 +67,10 @@ public class BlogServiceImpl implements BlogService {
         if (model.getContent() != null) {
             updateBlog.setContent(model.getContent());
         }
-        if (model.getSummary()!=null) {
+        if (model.getSummary() != null) {
             updateBlog.setSummary(model.getSummary());
         }
-        if (model.getTitle()!=null) {
+        if (model.getTitle() != null) {
             updateBlog.setTitle(model.getTitle());
         }
         return dao.save(model);

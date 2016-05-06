@@ -7,6 +7,7 @@ import info.xiaomo.core.service.AdminUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -80,7 +81,8 @@ public class AdminUserServiceImpl implements AdminUserService {
 
     @Override
     public Page<AdminModel> getAdminUsers(int start, int pageSize) {
-        return dao.findAll(new PageRequest(start - 1, pageSize));
+        Sort sort = new Sort(Sort.Direction.DESC, "authLevel");
+        return dao.findAll(new PageRequest(start - 1, pageSize, sort));
     }
 
     @Override

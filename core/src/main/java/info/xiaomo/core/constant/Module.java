@@ -60,4 +60,6 @@ public abstract class Module extends CConst{
      * 系统相关
      */
     protected static final String systems = "systems";
+    protected static final String webSets = "webSets";
+    protected static final String webSet = "webSet";
 }

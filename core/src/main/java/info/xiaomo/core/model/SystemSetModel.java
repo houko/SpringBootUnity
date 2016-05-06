@@ -37,12 +37,12 @@ public class SystemSetModel extends BaseModel implements Serializable {
     /**
      * footer 的开始年份
      */
-    private int from;
+    private int fromYear;
 
     /**
      * footer的结束年份
      */
-    private int to;
+    private int toYear;
 
     /**
      * 备案号
@@ -70,20 +70,20 @@ public class SystemSetModel extends BaseModel implements Serializable {
         this.icon = icon;
     }
 
-    public int getFrom() {
-        return from;
+    public int getFromYear() {
+        return fromYear;
     }
 
-    public void setFrom(int from) {
-        this.from = from;
+    public int getToYear() {
+        return toYear;
     }
 
-    public int getTo() {
-        return to;
+    public void setToYear(int toYear) {
+        this.toYear = toYear;
     }
 
-    public void setTo(int to) {
-        this.to = to;
+    public void setFromYear(int fromYear) {
+        this.fromYear = fromYear;
     }
 
     public String getBeianUrl() {

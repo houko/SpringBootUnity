@@ -71,8 +71,8 @@ public class LinkController extends BaseController {
     @RequestMapping("add")
     public HashMap<String, Object> add(
             @RequestParam String name,
-            @RequestParam int level,
-            @RequestParam String url) {
+            @RequestParam String url,
+            @RequestParam int level) {
         result = new HashMap<>();
         LinkModel linkModel = service.findByName(name);
         if (linkModel != null) {
@@ -92,8 +92,8 @@ public class LinkController extends BaseController {
     @RequestMapping("update")
     public HashMap<String, Object> update(
             @RequestParam String name,
-            @RequestParam int level,
-            @RequestParam String url
+            @RequestParam String url,
+            @RequestParam int level
 
     ) {
         result = new HashMap<>();

@@ -68,10 +68,10 @@ public class LinkController extends BaseController {
         return result;
     }
 
-
     @RequestMapping("add")
     public HashMap<String, Object> add(
             @RequestParam String name,
+            @RequestParam int level,
             @RequestParam String url) {
         result = new HashMap<>();
         LinkModel linkModel = service.findByName(name);
@@ -81,6 +81,7 @@ public class LinkController extends BaseController {
         }
         linkModel = new LinkModel();
         linkModel.setName(name);
+        linkModel.setLevel(level);
         linkModel.setUrl(url);
         LinkModel add = service.add(linkModel);
         result.put(code, success);
@@ -91,6 +92,7 @@ public class LinkController extends BaseController {
     @RequestMapping("update")
     public HashMap<String, Object> update(
             @RequestParam String name,
+            @RequestParam int level,
             @RequestParam String url
 
     ) {
@@ -102,6 +104,7 @@ public class LinkController extends BaseController {
         }
         linkModel.setName(name);
         linkModel.setUrl(url);
+        linkModel.setLevel(level);
         LinkModel update = service.update(linkModel);
         result.put(code, success);
         result.put(link, update);

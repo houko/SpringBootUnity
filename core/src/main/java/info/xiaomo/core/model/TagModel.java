@@ -26,8 +26,6 @@ public class TagModel extends BaseModel implements Serializable {
 
     private String name;
 
-    private boolean currentTag = false;
-
     public String getName() {
         return name;
     }
@@ -36,11 +34,4 @@ public class TagModel extends BaseModel implements Serializable {
         this.name = name;
     }
 
-    public boolean isCurrentTag() {
-        return currentTag;
-    }
-
-    public void setCurrentTag(boolean currentTag) {
-        this.currentTag = currentTag;
-    }
 }

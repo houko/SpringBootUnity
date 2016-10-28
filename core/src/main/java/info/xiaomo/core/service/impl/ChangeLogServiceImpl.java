@@ -28,8 +28,12 @@ import java.util.Date;
 @Service
 public class ChangeLogServiceImpl implements ChangeLogService {
 
+    private final ChangeLogDao dao;
+
     @Autowired
-    private ChangeLogDao dao;
+    public ChangeLogServiceImpl(ChangeLogDao dao) {
+        this.dao = dao;
+    }
 
     @Override
     public ChangeLogModel findById(Long id) {

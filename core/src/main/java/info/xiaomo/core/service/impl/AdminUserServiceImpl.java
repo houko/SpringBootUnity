@@ -37,8 +37,12 @@ import java.util.Date;
 @Service
 public class AdminUserServiceImpl implements AdminUserService {
 
+    private final AdminUserDao dao;
+
     @Autowired
-    private AdminUserDao dao;
+    public AdminUserServiceImpl(AdminUserDao dao) {
+        this.dao = dao;
+    }
 
     @Override
     public AdminModel findAdminUserByUserName(String userName) {

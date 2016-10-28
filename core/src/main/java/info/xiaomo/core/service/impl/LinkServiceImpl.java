@@ -28,8 +28,12 @@ import java.util.Date;
 @Service
 public class LinkServiceImpl implements LinkService {
 
+    private final LinkDao dao;
+
     @Autowired
-    private LinkDao dao;
+    public LinkServiceImpl(LinkDao dao) {
+        this.dao = dao;
+    }
 
     @Override
     public LinkModel findById(Long id) {

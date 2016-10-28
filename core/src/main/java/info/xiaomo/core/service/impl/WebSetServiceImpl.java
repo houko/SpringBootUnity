@@ -26,8 +26,12 @@ import java.util.List;
 @Service
 public class WebSetServiceImpl implements WebSetService {
 
+    private final WebSetDao dao;
+
     @Autowired
-    private WebSetDao dao;
+    public WebSetServiceImpl(WebSetDao dao) {
+        this.dao = dao;
+    }
 
     @Override
     public List<SystemSetModel> findAll() {

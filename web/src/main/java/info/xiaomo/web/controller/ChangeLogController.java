@@ -73,8 +73,7 @@ public class ChangeLogController extends BaseController {
      */
     @RequestMapping("findAll")
     public Page<ChangeLogModel> findAll(@RequestParam(value = "start", defaultValue = "1") int start, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
-        Page<ChangeLogModel> all = service.findAll(start, pageSize);
-        return all;
+        return service.findAll(start, pageSize);
     }
 
     /**

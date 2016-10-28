@@ -29,7 +29,7 @@
 最优秀的技术问答社区，没有之一！善用此工具，事半功倍。
 5. @[angular2-webpack-starter](https://github.com/AngularClass/angular2-webpack-starter)
 目前最好的项目seed，一个好的开发环境能够节省很多时间。多亏有了@angularClass，让我可以集中精力开发项目。
-6. @spring boot，微服务框架最好的选择。省去了诸多配置烦恼。
+6. @[spring boot](http://docs.spring.io/spring-boot/docs/current/reference/html/)，微服务框架最好的选择。省去了诸多配置烦恼。
 7. @其他所有对我有帮助的人和事情。
 要感谢的人很多，一一列举相信各位看官也没什么兴趣。总之很感谢，能够在大家的帮助下不断进步。
 

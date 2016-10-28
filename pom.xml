@@ -43,7 +43,7 @@
         <!-- test jar -->
         <junit.version>4.11</junit.version>
         <!-- database connection -->
-        <mysql-connector>6.0.5</mysql-connector>
+        <mysql-connector>5.1.38</mysql-connector>
         <!-- logger -->
         <slf4j.version>1.7.21</slf4j.version>
         <!-- logback -->

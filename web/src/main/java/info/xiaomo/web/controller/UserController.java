@@ -77,7 +77,6 @@ public class UserController extends BaseController {
     /**
      * 注册
      *
-     * @param password password
      * @param email    email
      * @return result
      */
@@ -146,7 +145,6 @@ public class UserController extends BaseController {
      * 修改个人信息
      *
      * @param nickName nickName
-     * @param password password
      * @param email    email
      * @param imgUrl   imgUrl
      * @param gender   gender

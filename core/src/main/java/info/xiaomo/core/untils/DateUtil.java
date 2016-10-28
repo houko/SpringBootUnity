@@ -207,9 +207,8 @@ public class DateUtil {
     /**
      * 得到格式化后的系统当前日期
      *
-     * @param strScheme 格式模式字符串
+     * @param pattern 格式模式字符串
      * @return 格式化后的系统当前时间，如果有异常产生，返回空串""
-     * @see java.util.SimpleDateFormat
      */
     public static String getNowDateTimeWithPattern(String pattern) {
         String strReturn;
@@ -244,7 +243,7 @@ public class DateUtil {
      * 将字符串数组使用指定的分隔符合并成一个字符串。
      *
      * @param array 字符串数组
-     * @param delim 分隔符，为null的时候使用""作为分隔符（即没有分隔符）
+     * @param split 分隔符，为null的时候使用""作为分隔符（即没有分隔符）
      * @return 合并后的字符串
      * @since 0.4
      */
@@ -513,22 +512,6 @@ public class DateUtil {
         Date date = calendar.getTime();
 
         return df.format(date);
-    }
-
-    /**
-     * 计算两个日期间相隔的日子
-     *
-     * @param beforeDate 格式:2005-06-20
-     * @param afterDate  格式:2005-06-21
-     * @return
-     */
-    public static int diffDate(String beforeDate, String afterDate) {
-        String[] tt = beforeDate.split(Symbol.HENGXIAN);
-        Date firstDate = new Date(Integer.parseInt(tt[0]), Integer.parseInt(tt[1]) - 1, Integer.parseInt(tt[2]));
-
-        tt = afterDate.split(Symbol.HENGXIAN);
-        Date nextDate = new Date(Integer.parseInt(tt[0]), Integer.parseInt(tt[1]) - 1, Integer.parseInt(tt[2]));
-        return (int) (nextDate.getTime() - firstDate.getTime()) / (24 * 60 * 60 * 1000);
     }
 
     /**

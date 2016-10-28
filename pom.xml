@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <!-- 基本坐标 -->
     <modelVersion>4.0.0</modelVersion>
-
     <groupId>info.xiaomo</groupId>
     <artifactId>xiaomo</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 
+    <!-- 模块 -->
     <modules>
         <module>admin</module>
         <module>web</module>
@@ -14,46 +15,59 @@
     </modules>
     <packaging>pom</packaging>
 
+    <!-- 基本信息 -->
     <name>xm</name>
     <url>http://xiaomo.info</url>
+    <developers>
+        <developer>
+            <name>Xiaomo</name>
+            <email>83387856@qq.com</email>
+        </developer>
+    </developers>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <common-lang3.version>3.4</common-lang3.version>
-        <junit.version>4.9</junit.version>
-        <mysql-connector>5.1.9</mysql-connector>
-        <slf4j.version>1.7.7</slf4j.version>
-        <logback.version>1.1.3</logback.version>
-        <commons-io.version>2.4</commons-io.version>
-        <commons-codec.version>1.10</commons-codec.version>
-        <ehcache-core.version>2.6.6</ehcache-core.version>
-        <email.version>1.5.4</email.version>
-        <commons-fileupload.version>1.3.1</commons-fileupload.version>
-        <zxing.version>3.2.1</zxing.version>
-        <json.version>1.2.7</json.version>
-        <jsoup.version>1.8.3</jsoup.version>
-        <maven-compiler-plugin.version>2.3.2</maven-compiler-plugin.version>
-        <maven-resources-plugin.version>2.4</maven-resources-plugin.version>
-        <surefire-plugin.version>2.12.4</surefire-plugin.version>
-        <sources.version>1.8</sources.version>
-        <commons-logging.version>1.1.1</commons-logging.version>
-        <commons-digester.version>2.1</commons-digester.version>
-        <spring-context-support.version>4.2.1.RELEASE</spring-context-support.version>
-        <spring-boot.version>1.4.1.RELEASE</spring-boot.version>
-        <commons-beanutils.version>20030211.134440</commons-beanutils.version>
-        <javax-mail.version>1.4.7</javax-mail.version>
-        <javax.activation.version>1.1.1</javax.activation.version>
-        <commons-configuation.version>1.10</commons-configuation.version>
-        <markdownj.version>0.4</markdownj.version>
-    </properties>
-
+    <!-- spring boot start 版本 -->
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>1.4.1.RELEASE</version>
     </parent>
 
+    <!-- 属性 -->
+    <properties>
+        <!-- project encoding -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- sources code version -->
+        <sources.version>1.8</sources.version>
+        <!-- common util method jar -->
+        <common-lang3.version>3.5</common-lang3.version>
+        <!-- test jar -->
+        <junit.version>4.11</junit.version>
+        <!-- database connection -->
+        <mysql-connector>6.0.5</mysql-connector>
+        <!-- logger -->
+        <slf4j.version>1.7.21</slf4j.version>
+        <!-- logback -->
+        <logback.version>1.1.7</logback.version>
+        <!-- io util -->
+        <commons-io.version>2.5</commons-io.version>
+        <!-- upload util -->
+        <commons-fileupload.version>1.3.2</commons-fileupload.version>
+        <!-- json support -->
+        <fastjson.version>1.2.20</fastjson.version>
+        <!-- html  -->
+        <jsoup.version>1.10.1</jsoup.version>
+        <!-- spring-boot version -->
+        <spring-boot.version>1.4.1.RELEASE</spring-boot.version>
+        <!-- compiler-plugin version -->
+        <maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
+        <!-- surefile-plugin test util -->
+        <surefire-plugin.version>2.19.1</surefire-plugin.version>
+        <!-- mail -->
+        <javax-mail.version>1.4.7</javax-mail.version>
+    </properties>
+
+
+    <!-- 相关依赖 -->
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -87,7 +101,7 @@
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
-                <version>${json.version}</version>
+                <version>${fastjson.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.commons</groupId>
@@ -95,45 +109,14 @@
                 <version>${common-lang3.version}</version>
             </dependency>
             <dependency>
-                <groupId>commons-logging</groupId>
-                <artifactId>commons-logging</artifactId>
-                <version>${commons-logging.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>commons-beanutils</groupId>
-                <artifactId>commons-beanutils</artifactId>
-                <version>${commons-beanutils.version}</version>
-                <type>pom</type>
-            </dependency>
-            <dependency>
-                <groupId>commons-digester</groupId>
-                <artifactId>commons-digester</artifactId>
-                <version>${commons-digester.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-context-support</artifactId>
-                <version>${spring-context-support.version}</version>
+                <groupId>commons-fileupload</groupId>
+                <artifactId>commons-fileupload</artifactId>
+                <version>${commons-fileupload.version}</version>
             </dependency>
             <dependency>
                 <groupId>javax.mail</groupId>
                 <artifactId>mail</artifactId>
                 <version>${javax-mail.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>javax.activation</groupId>
-                <artifactId>activation</artifactId>
-                <version>${javax.activation.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>commons-configuration</groupId>
-                <artifactId>commons-configuration</artifactId>
-                <version>${commons-configuation.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>commons-fileupload</groupId>
-                <artifactId>commons-fileupload</artifactId>
-                <version>${commons-fileupload.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

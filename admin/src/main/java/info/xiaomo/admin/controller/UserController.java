@@ -1,6 +1,5 @@
 package info.xiaomo.admin.controller;
 
-import info.xiaomo.core.constant.WebDefaultValueConst;
 import info.xiaomo.core.controller.BaseController;
 import info.xiaomo.core.exception.UserNotFoundException;
 import info.xiaomo.core.model.UserModel;
@@ -81,7 +80,6 @@ public class UserController extends BaseController {
         userModel.setPassword(MD5Util.encode(password, salt));
         userModel.setValidateCode(MD5Util.encode(email, ""));
         userModel.setSalt(salt);
-        userModel.setImgUrl(WebDefaultValueConst.defaultImage);
         service.addUser(userModel);
         result.put(user, userModel);
         result.put(code, success);
@@ -160,7 +158,7 @@ public class UserController extends BaseController {
      * 分页查询用户
      *
      * @param start start
-     * @param page  page
+     * @param pageSize  page
      * @return result
      */
     @RequestMapping(value = "findAll", method = RequestMethod.GET)
@@ -177,7 +175,6 @@ public class UserController extends BaseController {
      *
      * @param id id
      * @return result
-     * @throws UserNotFoundException
      */
     @RequestMapping(value = "deleteById", method = RequestMethod.GET)
     public HashMap<String, Object> deleteUserById(@RequestParam("id") Long id) throws UserNotFoundException {

@@ -1,4 +1,4 @@
-package info.xiaomo.core.constant;
+package info.xiaomo.core.field;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～

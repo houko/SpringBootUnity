@@ -14,7 +14,7 @@ package info.xiaomo.core.constant;
  * @Description:
  * @Copyright(©) 2015 by xiaomo.
  **/
-public abstract class Module extends CConst{
+public abstract class Module{
 
     protected static final String code = "status";
 

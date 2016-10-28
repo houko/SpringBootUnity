@@ -2,7 +2,6 @@ package info.xiaomo.core.untils;
 
 import info.xiaomo.core.constant.FileType;
 import info.xiaomo.core.constant.Symbol;
-import info.xiaomo.core.constant.WebDefaultValueConst;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
@@ -683,7 +682,7 @@ public class FileUtil {
      * @return fileUrl
      */
     public static String upload(MultipartFile file, String email) {
-        String savePath;
+        String savePath = null;
         String filename = "";
         if (file != null && !file.isEmpty()) {
             // 获取图片的文件名
@@ -692,11 +691,6 @@ public class FileUtil {
             filename = FileUtil.getNewFileName(fileName, email);
             //上传服务器上 新文件路径
             String os = System.getProperty("os.name").toLowerCase();
-            if (os.contains("win")) {
-                savePath = WebDefaultValueConst.saveBaseUrl;
-            } else {
-                savePath = WebDefaultValueConst.linuxSaveBaseUrl;
-            }
             try {
                 // 判断服务器上 文件夹是否存在
                 File newFile = new File(savePath);
@@ -713,7 +707,7 @@ public class FileUtil {
                 e.printStackTrace();
             }
         }
-        return WebDefaultValueConst.imgBaseUrl + filename;
+        return filename;
     }
 
 

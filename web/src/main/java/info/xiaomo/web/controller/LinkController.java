@@ -29,8 +29,12 @@ import java.util.HashMap;
 @RequestMapping("/web/link")
 public class LinkController extends BaseController {
 
+    private final LinkService service;
+
     @Autowired
-    private LinkService service;
+    public LinkController(LinkService service) {
+        this.service = service;
+    }
 
     @RequestMapping("findById")
     public HashMap<String, Object> findLinkById(@RequestParam Long id) {

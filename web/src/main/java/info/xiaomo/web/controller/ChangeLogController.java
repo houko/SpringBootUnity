@@ -30,14 +30,18 @@ import java.util.HashMap;
 @RequestMapping("/web/changeLog")
 public class ChangeLogController extends BaseController {
 
+    private final ChangeLogService service;
+
     @Autowired
-    private ChangeLogService service;
+    public ChangeLogController(ChangeLogService service) {
+        this.service = service;
+    }
 
     /**
      * 通过id查找
      *
      * @param id id
-     * @return
+     * @return result
      */
     @RequestMapping("findById")
     public HashMap<String, Object> findById(@RequestParam Long id) {
@@ -73,9 +77,9 @@ public class ChangeLogController extends BaseController {
     /**
      * 分页查询更新日志
      *
-     * @param start
-     * @param pageSize
-     * @return
+     * @param start start
+     * @param pageSize pageSize
+     * @return result
      */
     @RequestMapping("findAll")
     public HashMap<String, Object> findAll(@RequestParam(value = "start", defaultValue = "1") int start, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
@@ -89,10 +93,7 @@ public class ChangeLogController extends BaseController {
     /**
      * 增加更新日志
      *
-     * @param Name    Name
-     * @param summary summary
-     * @param content content
-     * @param tagId   tagId
+     * @param name    Name
      * @return result
      */
     @RequestMapping(value = "add", method = RequestMethod.POST)
@@ -117,11 +118,8 @@ public class ChangeLogController extends BaseController {
     /**
      * 修改更新日志
      *
-     * @param Name     Name
-     * @param nickName nickName
-     * @param summary  summary
-     * @param content  content
-     * @param tagId    tagId
+     * @param name  content
+     * @param onlineTime    tagId
      * @return result
      */
     @RequestMapping(value = "update", method = RequestMethod.POST)

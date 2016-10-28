@@ -2,7 +2,6 @@ package info.xiaomo.web.controller;
 
 import info.xiaomo.core.constant.GenderType;
 import info.xiaomo.core.constant.Symbol;
-import info.xiaomo.core.constant.WebDefaultValueConst;
 import info.xiaomo.core.controller.BaseController;
 import info.xiaomo.core.exception.UserNotFoundException;
 import info.xiaomo.core.model.QQUserModel;
@@ -41,11 +40,15 @@ import java.util.Map;
 @RequestMapping("/web/user")
 public class UserController extends BaseController {
 
-    @Autowired
-    private UserService service;
+    private final UserService service;
+
+    private final QQUserService qqUserService;
 
     @Autowired
-    private QQUserService qqUserService;
+    public UserController(UserService service, QQUserService qqUserService) {
+        this.service = service;
+        this.qqUserService = qqUserService;
+    }
 
     /**
      * 登录
@@ -77,7 +80,7 @@ public class UserController extends BaseController {
     /**
      * 注册
      *
-     * @param email    email
+     * @param email email
      * @return result
      */
     @RequestMapping(value = "register", method = RequestMethod.POST)
@@ -151,7 +154,6 @@ public class UserController extends BaseController {
      * @param phone    phone
      * @param address  address
      * @return result
-     * @throws UserNotFoundException
      */
     @RequestMapping(value = "update", method = RequestMethod.POST)
     public HashMap<String, Object> update(
@@ -195,8 +197,6 @@ public class UserController extends BaseController {
 
     /**
      * 处理激活
-     *
-     * @throws ParseException
      */
     @RequestMapping(value = "validateEmail", method = RequestMethod.POST)
     public HashMap<String, Object> validateEmail(
@@ -224,7 +224,6 @@ public class UserController extends BaseController {
         userModel.setNickName(email);
         userModel.setEmail(email);
         userModel.setGender(GenderType.secret);
-        userModel.setImgUrl(WebDefaultValueConst.defaultImage);//默认是个百度的LOGO，作测试用
         userModel.setValidateCode(MD5Util.encode(email, salt));
         userModel.setPhone(0L);
         userModel.setAddress("");
@@ -239,10 +238,9 @@ public class UserController extends BaseController {
     /**
      * 修改密码
      *
-     * @param email
-     * @param password
-     * @return
-     * @throws UserNotFoundException
+     * @param email    email
+     * @param password password
+     * @return result
      */
     @RequestMapping(value = "/changePassword", method = RequestMethod.POST)
     public HashMap<String, Object> changePassword(

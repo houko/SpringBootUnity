@@ -217,7 +217,7 @@ public enum FileType {
     /**
      * Constructor.
      *
-     * @param type
+     * @param value
      */
     private FileType(String value) {
         this.value = value;

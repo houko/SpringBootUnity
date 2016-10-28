@@ -611,29 +611,6 @@ public class FileUtil {
     }
 
     /**
-     * 计算图片数量
-     */
-    public static int countPics(String id, String dtime, String extensions) {
-        int counts = 0;
-
-        FileFilterUtil mfilter = new FileFilterUtil(extensions.split(","));
-        PropsUtil pu = new PropsUtil();
-        String PICROOT = pu.readSingleProps("DestinationsPICROOT").trim();
-        String path = PICROOT + "/" + dtime.substring(0, 10) + "/";
-        File lfile = new File(path);
-        String filename;
-        if (lfile.isDirectory()) {
-            File[] files = lfile.listFiles(mfilter);
-            for (File file : files) {
-                filename = file.getName();
-                if ((filename.indexOf(id + "_") == 0) && (filename.contains("_small")))
-                    counts++;
-            }
-        }
-        return counts;
-    }
-
-    /**
      * Copy the data from the input stream to the output stream.
      *
      * @param in  data source

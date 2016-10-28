@@ -4,6 +4,9 @@ package info.xiaomo.core.untils;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.net.ssl.*;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -24,6 +27,9 @@ public class HttpUtil {
 
     private static final String _GET = "GET"; // GET
     private static final String _POST = "POST";// POST
+
+    private final static String USER_COOKIE_KEY = "uid";
+    private final static String USER_COOKIE_SECRET = "&#%!&*";
 
     /**
      * 初始化http请求参数
@@ -60,7 +66,7 @@ public class HttpUtil {
      * @throws KeyManagementException
      */
     private static HttpsURLConnection initHttps(String url, String method, Map<String, String> headers) throws IOException, NoSuchAlgorithmException, NoSuchProviderException, KeyManagementException {
-        TrustManager[] tm = {new X509TrustManagerUtil()};
+        TrustManager[] tm = {};
         SSLContext sslContext = SSLContext.getInstance("SSL", "SunJSSE");
         sslContext.init(null, tm, new java.security.SecureRandom());
         // 从上述SSLContext对象中得到SSLSocketFactory对象  
@@ -232,5 +238,63 @@ public class HttpUtil {
             return true;// 直接返回true
         }
     }
+
+
+    /**
+     * 读取cookie
+     *
+     * @param request request
+     * @param key     key
+     */
+    public static String getCookie(HttpServletRequest request, String key) {
+        Cookie[] cookies = request.getCookies();
+        if (null != cookies) {
+            for (Cookie cookie : cookies) {
+                if (key.equals(cookie.getName())) {
+                    return cookie.getValue();
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 清除 某个指定的cookie
+     *
+     * @param response response
+     * @param key      key
+     */
+    public static void removeCookie(HttpServletResponse response, String key) {
+        setCookie(response, key, null, 0);
+    }
+
+    /**
+     * 设置cookie
+     *
+     * @param response        response
+     * @param name            name
+     * @param value           value
+     * @param maxAgeInSeconds maxAgeInSeconds
+     */
+    public static void setCookie(HttpServletResponse response, String name, String value, int maxAgeInSeconds) {
+        Cookie cookie = new Cookie(name, value);
+        cookie.setPath("/");
+        cookie.setMaxAge(maxAgeInSeconds);
+        // 指定为httpOnly保证安全性
+        cookie.setHttpOnly(true);
+        response.addCookie(cookie);
+    }
+
+
+    /**
+     * 获取浏览器信息
+     *
+     * @param request request
+     * @return String
+     */
+    public static String getUserAgent(HttpServletRequest request) {
+        return request.getHeader("User-Agent");
+    }
+
 }
 

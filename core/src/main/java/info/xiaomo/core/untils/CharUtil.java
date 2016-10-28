@@ -5,9 +5,6 @@ import java.util.Objects;
 
 /**
  * <p>Title:字符编码工具类 </p>
- * <p>Description:  </p>
- * <p>Copyright:  Copyright (c) 2007</p>
- * <p>Company:  </p>
  *
  * @version 1.0
  * @author:

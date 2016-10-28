@@ -75,15 +75,15 @@ public class DateUtil {
     /**
      * 获取格式化后的时间或日期
      *
-     * @param aDate
+     * @param date
      * @return string
      */
-    public static String date2Str(Date aDate) {
+    public static String date2Str(Date date) {
         SimpleDateFormat df;
         String returnValue = "";
-        if (aDate != null) {
+        if (date != null) {
             df = new SimpleDateFormat(datePatternWithHengXian);
-            returnValue = df.format(aDate);
+            returnValue = df.format(date);
         }
         return (returnValue);
     }

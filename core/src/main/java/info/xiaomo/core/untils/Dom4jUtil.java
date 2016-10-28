@@ -17,8 +17,6 @@ public class Dom4jUtil {
      * 解析url xml文档
      *
      * @param url
-     * @return
-     * @throws DocumentException
      */
     public Document parse(URL url) throws DocumentException {
         SAXReader reader = new SAXReader();
@@ -48,7 +46,6 @@ public class Dom4jUtil {
     /**
      * 解析文件，获得根元素
      *
-     * @throws Exception
      */
     public static Element parse(String xmlPath, String encoding) throws Exception {
         //文件是否存在
@@ -82,7 +79,7 @@ public class Dom4jUtil {
      *
      * @param inputXml      原xml文件
      * @param nodes         要修改的节点
-     * @param attributename 属性名称
+     * @param attributeName 属性名称
      * @param value         新值
      * @param outXml        输出文件路径及文件名 如果输出文件为null，则默认为原xml文件
      */

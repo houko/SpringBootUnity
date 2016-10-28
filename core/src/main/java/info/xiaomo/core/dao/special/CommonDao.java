@@ -1,4 +1,4 @@
-package info.xiaomo.core.dao;
+package info.xiaomo.core.dao.special;
 
 import info.xiaomo.core.model.base.BaseModel;
 import org.springframework.stereotype.Repository;
@@ -46,7 +46,7 @@ public class CommonDao {
         entityManager.remove(entity);
     }
 
-    public <T extends BaseModel> List<T> getAll(Class<? extends BaseModel> tableClass) {
+    public List getAll(Class<? extends BaseModel> tableClass) {
         Query query = entityManager.createQuery("from " + tableClass.getSimpleName());
         return query.getResultList();
     }

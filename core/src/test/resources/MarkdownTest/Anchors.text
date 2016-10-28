@@ -1,7 +1,0 @@
-An [example][link]
-
-[link]: http://www.martiansoftware.com/some_page_here*is*cool.html  "This_is_title"
-
-An [example](http://www.martiansoftware.com/some_page_here*is*cool.html "This_is_title")
-
-Go to <http://www.martiansoftware.com/some_page_here*has*chars.html>

@@ -93,8 +93,7 @@ public class ChangeLogController extends BaseController {
         changeLogModel = new ChangeLogModel();
         changeLogModel.setName(name);
         changeLogModel.setOnlineTime(onlineTime);
-        ChangeLogModel add = service.add(changeLogModel);
-        return add;
+        return service.add(changeLogModel);
     }
 
 

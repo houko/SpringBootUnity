@@ -12,13 +12,13 @@ import java.util.List;
 /**
  * @author advance
  */
-public class Dom4jUtil {
+public class XmlUtil {
     /**
      * 解析url xml文档
      *
      * @param url
      */
-    public Document parse(URL url) throws DocumentException {
+    public static Document parse(URL url) throws DocumentException {
         SAXReader reader = new SAXReader();
         return reader.read(url);
     }
@@ -26,14 +26,14 @@ public class Dom4jUtil {
     /**
      * 遍历解析文档
      */
-    public void treeWalk(Document document) {
+    public static void treeWalk(Document document) {
         treeWalk(document.getRootElement());
     }
 
     /**
      * 遍历解析元素
      */
-    public void treeWalk(Element element) {
+    public static void treeWalk(Element element) {
         for (int i = 0, size = element.nodeCount(); i < size; i++) {
             Node node = element.node(i);
             if (node instanceof Element) {
@@ -45,7 +45,6 @@ public class Dom4jUtil {
 
     /**
      * 解析文件，获得根元素
-     *
      */
     public static Element parse(String xmlPath, String encoding) throws Exception {
         //文件是否存在

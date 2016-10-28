@@ -52,7 +52,6 @@ public class MailUtil {
     public static void send(String toEmail, String content) {
         Session session = getSession();
         try {
-            System.out.println("--send--" + toEmail);
             Message msg = new MimeMessage(session);
             msg.setFrom(new InternetAddress(FROM));
             InternetAddress[] address = {new InternetAddress(toEmail)};

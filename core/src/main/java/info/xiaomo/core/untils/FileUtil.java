@@ -85,8 +85,8 @@ public class FileUtil {
      * @since 1.0
      */
     public static void touch(File[] files) {
-        for (int i = 0; i < files.length; i++) {
-            touch(files[i]);
+        for (File file : files) {
+            touch(file);
         }
     }
 
@@ -157,8 +157,8 @@ public class FileUtil {
     public static boolean emptyDirectory(File directory) {
         boolean result = true;
         File[] entries = directory.listFiles();
-        for (int i = 0; i < entries.length; i++) {
-            if (!entries[i].delete()) {
+        for (File entry : entries) {
+            if (!entry.delete()) {
                 result = false;
             }
         }
@@ -206,13 +206,13 @@ public class FileUtil {
         File[] entries = dir.listFiles();
         int sz = entries.length;
 
-        for (int i = 0; i < sz; i++) {
-            if (entries[i].isDirectory()) {
-                if (!deleteDirectory(entries[i])) {
+        for (File entry : entries) {
+            if (entry.isDirectory()) {
+                if (!deleteDirectory(entry)) {
                     return false;
                 }
             } else {
-                if (!entries[i].delete()) {
+                if (!entry.delete()) {
                     return false;
                 }
             }
@@ -256,8 +256,7 @@ public class FileUtil {
      */
     public static URL getURL(File file) throws MalformedURLException {
         String fileURL = "file:/" + file.getAbsolutePath();
-        URL url = new URL(fileURL);
-        return url;
+        return new URL(fileURL);
     }
 
     /**

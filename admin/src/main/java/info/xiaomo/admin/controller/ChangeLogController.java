@@ -28,8 +28,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/admin/changeLog")
 public class ChangeLogController extends BaseController {
 
+    private final ChangeLogService service;
+
     @Autowired
-    private ChangeLogService service;
+    public ChangeLogController(ChangeLogService service) {
+        this.service = service;
+    }
 
     /**
      * 通过id查找

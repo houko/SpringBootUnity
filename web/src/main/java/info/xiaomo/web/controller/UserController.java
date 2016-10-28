@@ -69,7 +69,7 @@ public class UserController extends BaseController {
      * @return result
      */
     @RequestMapping(value = "register", method = RequestMethod.POST)
-    public UserModel register(
+    public String register(
             @RequestParam String email
     ) throws Exception {
         if (email.equals("")) {
@@ -82,7 +82,7 @@ public class UserController extends BaseController {
         }
         String redirectValidateUrl = MailUtil.redirectValidateUrl(email);
         MailUtil.send(email, redirectValidateUrl);
-        return userModel;
+        return redirectValidateUrl;
     }
 
 

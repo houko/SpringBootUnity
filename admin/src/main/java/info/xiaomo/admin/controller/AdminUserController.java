@@ -13,9 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * │＼＿＿╭╭╭╭╭＿＿／│
  * │　　　　　　　　　│
@@ -42,8 +39,12 @@ import java.util.Map;
 @RequestMapping("/admin/adminUser")
 public class AdminUserController extends BaseController {
 
+    private final AdminUserService service;
+
     @Autowired
-    AdminUserService service;
+    public AdminUserController(AdminUserService service) {
+        this.service = service;
+    }
 
     /**
      * 后台账户登录
@@ -53,20 +54,15 @@ public class AdminUserController extends BaseController {
      * @return result
      */
     @RequestMapping(value = "login", method = RequestMethod.POST)
-    public Map<String, Object> login(@RequestParam String userName, @RequestParam String password) {
-        result = new HashMap<>();
+    public AdminModel login(@RequestParam String userName, @RequestParam String password) {
         AdminModel adminModel = service.findAdminUserByUserName(userName);
         if (adminModel == null) {
-            result.put(code, notFound);
-            return result;
+            return null;
         }
         if (MD5Util.encode(password, adminModel.getSalt()).equals(adminModel.getPassword())) {
-            result.put(code, success);
-            result.put(adminUser, adminModel);
-        } else {
-            result.put(code, error);
+            return null;
         }
-        return result;
+        return adminModel;
     }
 
     /**
@@ -79,27 +75,23 @@ public class AdminUserController extends BaseController {
      * @return
      */
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public HashMap<String, Object> add(
+    public AdminModel add(
             @RequestParam(name = "operator", defaultValue = "admin") String operator,
             @RequestParam(name = "userName", defaultValue = "null") String userName,
             @RequestParam(name = "password", defaultValue = "123456") String password,
             @RequestParam(name = "authLevel", defaultValue = "0") int authLevel
     ) {
-        result = new HashMap<>();
         AdminModel operatorModel = service.findAdminUserByUserName(operator);
         if (operator == null) {
-            result.put(code, notFound);
-            return result;
+            return null;
         }
         if (operatorModel.getAuthLevel() <= 0) {
-            result.put(code, authError);
-            return result;
+            return null;
         }
 
         AdminModel adminModel = service.findAdminUserByUserName(userName);
         if (adminModel != null) {
-            result.put(code, error);
-            return result;
+            return null;
         }
         String salt = RandomUtil.createSalt();
         adminModel = new AdminModel();
@@ -110,139 +102,102 @@ public class AdminUserController extends BaseController {
         adminModel.setOperator(operator);
         AdminModel res = service.addAdminUser(adminModel);
         if (res != null) {
-            result.put(code, success);
-            result.put("user", adminModel);
-        } else {
-            result.put(code, error);
+            return null;
         }
-        return result;
+        return adminModel;
     }
 
     @RequestMapping(value = "findById", method = RequestMethod.GET)
-    public HashMap<String, Object> findUserById(@RequestParam("id") Long id) {
-        result = new HashMap<>();
+    public AdminModel findUserById(@RequestParam("id") Long id) {
         AdminModel adminModel = service.findAdminUserById(id);
         if (adminModel == null) {
-            result.put(code, notFound);
-            return result;
+            return null;
         }
-        result.put(code, success);
-        result.put(adminUser, adminModel);
-        return result;
+        return adminModel;
     }
 
     @RequestMapping(value = "findByName", method = RequestMethod.GET)
-    public HashMap<String, Object> findByName(@RequestParam("userName") String userName) {
-        result = new HashMap<>();
+    public AdminModel findByName(@RequestParam("userName") String userName) {
         AdminModel adminModel = service.findAdminUserByUserName(userName);
         if (adminModel == null) {
-            result.put(code, notFound);
-            return result;
+            return null;
         }
-        result.put(code, success);
-        result.put(adminUser, adminModel);
-        return result;
+        return adminModel;
     }
 
     @RequestMapping(value = "changePassword", method = RequestMethod.POST)
-    public HashMap<String, Object> changePassword(@RequestParam("userName") String userName, @RequestParam("password") String password) throws UserNotFoundException {
-        result = new HashMap<>();
+    public AdminModel changePassword(@RequestParam("userName") String userName, @RequestParam("password") String password) throws UserNotFoundException {
         AdminModel adminModel = service.findAdminUserByUserName(userName);
         if (adminModel == null) {
-            result.put(code, notFound);
-            return result;
+            return null;
         }
         String salt = RandomUtil.createSalt();
         adminModel.setSalt(salt);
         adminModel.setPassword(MD5Util.encode(password, salt));
         service.updateAdminUser(adminModel);
-        result.put(code, success);
-        result.put(adminUser, adminModel);
-        return result;
+        return adminModel;
     }
 
 
     @RequestMapping(value = "findAll", method = RequestMethod.GET)
-    public HashMap<String, Object> getAll(@RequestParam(value = "start", defaultValue = "1") int start, @RequestParam(value = "pageSize", defaultValue = "10") int page) {
-        result = new HashMap<>();
+    public Page<AdminModel> getAll(@RequestParam(value = "start", defaultValue = "1") int start, @RequestParam(value = "pageSize", defaultValue = "10") int page) {
         Page<AdminModel> pages = service.getAdminUsers(start, page);
-        result.put(code, success);
-        result.put(adminUsers, pages);
-        return result;
+        return pages;
     }
 
     @RequestMapping(value = "deleteById", method = RequestMethod.GET)
-    public HashMap<String, Object> deleteUserById(@RequestParam("id") Long id, @RequestParam String operator) throws UserNotFoundException {
-        result = new HashMap<>();
+    public AdminModel deleteUserById(@RequestParam("id") Long id, @RequestParam String operator) throws UserNotFoundException {
         AdminModel operatorModel = service.findAdminUserByUserName(operator);
         if (operator == null) {
-            result.put(code, notFound);
-            return result;
+            return null;
         }
         if (operatorModel.getAuthLevel() <= 0) {
-            result.put(code, authError);
-            return result;
+            return null;
         }
         AdminModel adminModel = service.deleteAdminUserById(id);
         if (adminModel == null) {
-            result.put(code, notFound);
-            return result;
+            return null;
         }
-        result.put(code, success);
-        result.put(adminUser, adminModel);
-        return result;
+        return adminModel;
     }
 
     @RequestMapping(value = "update", method = RequestMethod.POST)
-    public HashMap<String, Object> update(
+    public AdminModel update(
             @RequestParam("operator") String operator,
             @RequestParam("userName") String userName,
             @RequestParam("authLevel") int authLevel
     ) throws UserNotFoundException {
-        result = new HashMap<>();
         AdminModel operatorModel = service.findAdminUserByUserName(operator);
         if (operator == null) {
-            result.put(code, notFound);
-            return result;
+            return null;
         }
         if (operatorModel.getAuthLevel() <= 0) {
-            result.put(code, authError);
-            return result;
+            return null;
         }
         AdminModel adminModel = service.findAdminUserByUserName(userName);
         if (adminModel == null) {
-            result.put(code, notFound);
-            return result;
+            return null;
         }
         adminModel.setUserName(userName);
         adminModel.setAuthLevel(authLevel);
-        service.updateAdminUser(adminModel);
-        result.put(code, success);
-        result.put(adminUser, adminModel);
-        return result;
+        return service.updateAdminUser(adminModel);
     }
 
     @RequestMapping(value = "forbid", method = RequestMethod.GET)
-    public HashMap<String, Object> forbid(@RequestParam("id") Long id, @RequestParam("operator") String operator) throws UserNotFoundException {
-        result = new HashMap<>();
+    public AdminModel forbid(@RequestParam("id") Long id, @RequestParam("operator") String operator) throws UserNotFoundException {
         AdminModel operatorModel = service.findAdminUserByUserName(operator);
         if (operator == null) {
-            result.put(code, notFound);
-            return result;
+            return null;
         }
         if (operatorModel.getAuthLevel() <= 0) {
-            result.put(code, authError);
-            return result;
+            return null;
         }
         AdminModel model = service.findAdminUserById(id);
         if (model == null) {
-            result.put(code, notFound);
-            return result;
+            return null;
         }
         model = service.forbidAdminUserById(id);
-        result.put(code, success);
-        result.put(adminUser, model);
-        return result;
+        return model;
     }
 }
 

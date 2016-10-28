@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -39,18 +38,14 @@ public class WebSetController extends BaseController {
      * @return
      */
     @RequestMapping(value = "findAll", method = RequestMethod.GET)
-    public HashMap<String, Object> findAll() {
-        result = new HashMap<>();
-        List<SystemSetModel> all = service.findAll();
-        result.put(code, success);
-        result.put(webSets, all);
-        return result;
+    public List<SystemSetModel> findAll() {
+        return service.findAll();
 
     }
 
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public HashMap<String, Object> add(
+    public SystemSetModel add(
             @RequestParam(value = "siteName", defaultValue = "小莫的博客") String siteName,
             @RequestParam(value = "icon", defaultValue = "") String icon,
             @RequestParam(value = "fromYear", defaultValue = "2016") int fromYear,
@@ -58,11 +53,9 @@ public class WebSetController extends BaseController {
             @RequestParam(value = "beianNumber", defaultValue = "浙ICP备15009606号") String beianNumber,
             @RequestParam(value = "beianUrl", defaultValue = "http://www.miitbeian.gov.cn/") String beianUrl
     ) {
-        result = new HashMap<>();
         List<SystemSetModel> all = service.findAll();
         if (all.size() > 1) {
-            result.put(code, error);
-            return result;
+            return null;
         }
         SystemSetModel model = new SystemSetModel();
         model.setSiteName(siteName);
@@ -71,15 +64,12 @@ public class WebSetController extends BaseController {
         model.setToYear(toYear);
         model.setBeianUrl(beianUrl);
         model.setBeianNumber(beianNumber);
-        service.add(model);
-        result.put(code, success);
-        result.put(webSet, model);
-        return result;
+        return service.add(model);
     }
 
 
     @RequestMapping(value = "update", method = RequestMethod.POST)
-    public HashMap<String, Object> update(
+    public SystemSetModel update(
             @RequestParam(value = "id", defaultValue = "") Long id,
             @RequestParam(value = "siteName", defaultValue = "小莫的博客") String siteName,
             @RequestParam(value = "icon", defaultValue = "") String icon,
@@ -88,11 +78,9 @@ public class WebSetController extends BaseController {
             @RequestParam(value = "beianNumber", defaultValue = "浙ICP备15009606号") String beianNumber,
             @RequestParam(value = "beianUrl", defaultValue = "http://www.miitbeian.gov.cn/") String beianUrl
     ) {
-        result = new HashMap<>();
         List<SystemSetModel> all = service.findAll();
         if (all.size() > 1) {
-            result.put(code, error);
-            return result;
+            return null;
         }
         SystemSetModel model = new SystemSetModel();
         model.setId(id);
@@ -102,10 +90,7 @@ public class WebSetController extends BaseController {
         model.setToYear(toYear);
         model.setBeianUrl(beianUrl);
         model.setBeianNumber(beianNumber);
-        service.update(model);
-        result.put(code, success);
-        result.put(webSet, model);
-        return result;
+        return service.update(model);
     }
 
 

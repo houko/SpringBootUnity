@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
-
 /**
  * 把今天最好的表现当作明天最新的起点．．～
  * いま 最高の表現 として 明日最新の始発．．～
@@ -37,95 +35,68 @@ public class LinkController extends BaseController {
     }
 
     @RequestMapping("findById")
-    public HashMap<String, Object> findLinkById(@RequestParam Long id) {
-        result = new HashMap<>();
+    public LinkModel findLinkById(@RequestParam Long id) {
         LinkModel model = service.findById(id);
         if (model == null) {
-            result.put(code, notFound);
-            return result;
+            return null;
         }
-        result.put(code, success);
-        result.put(link, model);
-        return result;
+        return model;
     }
 
     @RequestMapping("findByName")
-    public HashMap<String, Object> findByName(@RequestParam String name) {
-        result = new HashMap<>();
+    public LinkModel findByName(@RequestParam String name) {
         LinkModel model = service.findByName(name);
         if (model == null) {
-            result.put(code, notFound);
-            return result;
+            return null;
         }
-        result.put(code, success);
-        result.put(link, model);
-        return result;
+        return model;
     }
 
 
     @RequestMapping("findAll")
-    public HashMap<String, Object> findAll(@RequestParam(value = "start", defaultValue = "1") int start, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
-        result = new HashMap<>();
-        Page<LinkModel> models = service.findAll(start, pageSize);
-        result.put(code, success);
-        result.put(links, models);
-        return result;
+    public Page<LinkModel> findAll(@RequestParam(value = "start", defaultValue = "1") int start, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+        return service.findAll(start, pageSize);
     }
 
     @RequestMapping("add")
-    public HashMap<String, Object> add(
+    public LinkModel add(
             @RequestParam String name,
             @RequestParam String url,
             @RequestParam int level) {
-        result = new HashMap<>();
         LinkModel linkModel = service.findByName(name);
         if (linkModel != null) {
-            result.put(code, repeat);
-            return result;
+            return null;
         }
         linkModel = new LinkModel();
         linkModel.setName(name);
         linkModel.setLevel(level);
         linkModel.setUrl(url);
-        LinkModel add = service.add(linkModel);
-        result.put(code, success);
-        result.put(link, add);
-        return result;
+        return service.add(linkModel);
     }
 
     @RequestMapping("update")
-    public HashMap<String, Object> update(
+    public LinkModel update(
             @RequestParam String name,
             @RequestParam String url,
             @RequestParam int level
 
     ) {
-        result = new HashMap<>();
         LinkModel linkModel = service.findByName(name);
         if (linkModel == null) {
-            result.put(code, notFound);
-            return result;
+            return null;
         }
         linkModel.setName(name);
         linkModel.setUrl(url);
         linkModel.setLevel(level);
-        LinkModel update = service.update(linkModel);
-        result.put(code, success);
-        result.put(link, update);
-        return result;
+        return service.update(linkModel);
     }
 
     @RequestMapping("delete")
-    public HashMap<String, Object> delete(@RequestParam Long id) {
-        result = new HashMap<>();
+    public LinkModel delete(@RequestParam Long id) {
         LinkModel LinkModel = service.findById(id);
         if (LinkModel == null) {
-            result.put(code, notFound);
-            return result;
+            return null;
         }
-        LinkModel delete = service.delete(id);
-        result.put(code, success);
-        result.put(link, delete);
-        return result;
+        return service.delete(id);
     }
 }

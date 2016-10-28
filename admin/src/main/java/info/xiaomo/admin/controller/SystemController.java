@@ -27,8 +27,7 @@ import java.util.Properties;
 public class SystemController extends BaseController {
 
     @RequestMapping("getSystem")
-    public HashMap<String, Object> getSystem() {
-        result = new HashMap<>();
+    public Map<String, Object> getSystem() {
         Map<String, Object> map = new HashMap<>();
         Properties properties = System.getProperties();
         map.put("javaVersion", properties.getProperty("java.version"));//运行时环境版本
@@ -41,8 +40,6 @@ public class SystemController extends BaseController {
         map.put("userName", properties.getProperty("user.name"));//  用户的账户名称
         map.put("useRHome", properties.getProperty("user.home"));//  用户的主目录
         map.put("userDir", properties.getProperty("user.dir"));//  用户的当前工作目录
-        result.put(systems, map);
-        result.put(code, success);
-        return result;
+        return map;
     }
 }

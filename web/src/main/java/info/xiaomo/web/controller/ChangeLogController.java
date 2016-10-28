@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
-
 /**
  * 把今天最好的表现当作明天最新的起点．．～
  * いま 最高の表現 として 明日最新の始発．．～
@@ -44,16 +42,12 @@ public class ChangeLogController extends BaseController {
      * @return result
      */
     @RequestMapping("findById")
-    public HashMap<String, Object> findById(@RequestParam Long id) {
-        result = new HashMap<>();
+    public ChangeLogModel findById(@RequestParam Long id) {
         ChangeLogModel changeLogModel = service.findById(id);
         if (changeLogModel == null) {
-            result.put(code, notFound);
-            return result;
+            return null;
         }
-        result.put(code, success);
-        result.put(changeLog, changeLogModel);
-        return result;
+        return changeLogModel;
     }
 
     /**
@@ -62,83 +56,66 @@ public class ChangeLogController extends BaseController {
      * @return result
      */
     @RequestMapping(value = "findByName", method = RequestMethod.GET)
-    public HashMap<String, Object> findByName(@RequestParam String name) {
-        result = new HashMap<>();
+    public ChangeLogModel findByName(@RequestParam String name) {
         ChangeLogModel model = service.findByName(name);
         if (model == null) {
-            result.put(code, notFound);
-            return result;
+            return null;
         }
-        result.put(code, success);
-        result.put(changeLog, model);
-        return result;
+        return model;
     }
 
     /**
      * 分页查询更新日志
      *
-     * @param start start
+     * @param start    start
      * @param pageSize pageSize
      * @return result
      */
     @RequestMapping("findAll")
-    public HashMap<String, Object> findAll(@RequestParam(value = "start", defaultValue = "1") int start, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
-        result = new HashMap<>();
+    public Page<ChangeLogModel> findAll(@RequestParam(value = "start", defaultValue = "1") int start, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
         Page<ChangeLogModel> all = service.findAll(start, pageSize);
-        result.put(code, success);
-        result.put(changeLogs, all);
-        return result;
+        return all;
     }
 
     /**
      * 增加更新日志
      *
-     * @param name    Name
+     * @param name Name
      * @return result
      */
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public HashMap<String, Object> add(
+    public ChangeLogModel add(
             @RequestParam String name
     ) {
-        result = new HashMap<>();
         ChangeLogModel changeLogModel = service.findByName(name);
         if (changeLogModel != null) {
-            result.put(code, repeat);
-            return result;
+            return null;
         }
         changeLogModel = new ChangeLogModel();
         changeLogModel.setName(name);
-        ChangeLogModel add = service.add(changeLogModel);
-        result.put(code, success);
-        result.put(changeLog, add);
-        return result;
+        return service.add(changeLogModel);
     }
 
 
     /**
      * 修改更新日志
      *
-     * @param name  content
-     * @param onlineTime    tagId
+     * @param name       content
+     * @param onlineTime tagId
      * @return result
      */
     @RequestMapping(value = "update", method = RequestMethod.POST)
-    public HashMap<String, Object> update(
+    public ChangeLogModel update(
             @RequestParam String name,
             @RequestParam String onlineTime
     ) {
-        result = new HashMap<>();
         ChangeLogModel changeLogModel = service.findByName(name);
         if (changeLogModel == null) {
-            result.put(code, notFound);
-            return result;
+            return null;
         }
         changeLogModel.setName(name);
         changeLogModel.setOnlineTime(onlineTime);
-        ChangeLogModel update = service.update(changeLogModel);
-        result.put(code, success);
-        result.put(changeLog, update);
-        return result;
+        return service.update(changeLogModel);
     }
 
 
@@ -146,17 +123,12 @@ public class ChangeLogController extends BaseController {
      * 删除更新日志
      */
     @RequestMapping(value = "deleteById", method = RequestMethod.GET)
-    public HashMap<String, Object> deleteById(@RequestParam Long id) {
-        result = new HashMap<>();
+    public ChangeLogModel deleteById(@RequestParam Long id) {
         ChangeLogModel changeLogModel = service.findById(id);
         if (changeLogModel == null) {
-            result.put(code, notFound);
-            return result;
+            return null;
         }
-        service.delete(id);
-        result.put(code, success);
-        result.put(changeLog, changeLogModel);
-        return result;
+        return service.delete(id);
     }
 
 

@@ -1,12 +1,7 @@
 package info.xiaomo.core.controller;
 
-import info.xiaomo.core.constant.Code;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -23,13 +18,8 @@ import java.util.HashMap;
  * @Copyright(©) 2015 by xiaomo.
  **/
 
-public abstract class BaseController extends Code {
+public abstract class BaseController {
 
     protected final Logger LOGGER = LoggerFactory.getLogger(getClass());
-
-    /**
-     * result
-     */
-    protected HashMap<String, Object> result = new HashMap<>();
 
 }

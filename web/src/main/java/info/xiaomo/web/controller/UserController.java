@@ -1,16 +1,12 @@
 package info.xiaomo.web.controller;
 
 import info.xiaomo.core.constant.GenderType;
-import info.xiaomo.core.constant.Symbol;
 import info.xiaomo.core.controller.BaseController;
 import info.xiaomo.core.exception.UserNotFoundException;
-import info.xiaomo.core.model.QQUserModel;
 import info.xiaomo.core.model.UserModel;
-import info.xiaomo.core.service.QQUserService;
 import info.xiaomo.core.service.UserService;
 import info.xiaomo.core.untils.*;
 import org.hibernate.service.spi.ServiceException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,8 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -42,12 +36,8 @@ public class UserController extends BaseController {
 
     private final UserService service;
 
-    private final QQUserService qqUserService;
-
-    @Autowired
-    public UserController(UserService service, QQUserService qqUserService) {
+    public UserController(UserService service) {
         this.service = service;
-        this.qqUserService = qqUserService;
     }
 
     /**
@@ -58,22 +48,17 @@ public class UserController extends BaseController {
      * @return result
      */
     @RequestMapping(value = "login", method = RequestMethod.POST)
-    public HashMap<String, Object> login(@RequestParam String email, @RequestParam String password) {
-        result = new HashMap<>();
+    public UserModel login(@RequestParam String email, @RequestParam String password) {
         UserModel userModel = service.findUserByEmail(email);
         //找不到用户
         if (userModel == null) {
-            result.put(code, notFound);
-            return result;
+            return null;
         }
         //密码不正确
         if (!MD5Util.encode(password, userModel.getSalt()).equals(userModel.getPassword())) {
-            result.put(code, error);
-            return result;
+            return null;
         }
-        result.put(code, success);
-        result.put(user, userModel);
-        return result;
+        return userModel;
     }
 
 
@@ -84,24 +69,20 @@ public class UserController extends BaseController {
      * @return result
      */
     @RequestMapping(value = "register", method = RequestMethod.POST)
-    public HashMap<String, Object> register(
+    public UserModel register(
             @RequestParam String email
     ) throws Exception {
-        result = new HashMap<>();
         if (email.equals("")) {
-            result.put(code, error);
-            return result;
+            return null;
         }
         UserModel userModel = service.findUserByEmail(email);
         //邮箱被占用
         if (userModel != null) {
-            result.put(code, repeat);
-            return result;
+            return null;
         }
         String redirectValidateUrl = MailUtil.redirectValidateUrl(email);
         MailUtil.send(email, redirectValidateUrl);
-        result.put(code, success);
-        return result;
+        return userModel;
     }
 
 
@@ -112,16 +93,12 @@ public class UserController extends BaseController {
      * @return result
      */
     @RequestMapping(value = "findByEmail", method = RequestMethod.GET)
-    public Map<String, Object> findUserByEmail(@RequestParam("email") String email) {
-        result = new HashMap<>();
+    public UserModel findUserByEmail(@RequestParam("email") String email) {
         UserModel userModel = service.findUserByEmail(email);
         if (userModel == null) {
-            result.put(code, notFound);
-            return result;
+            return null;
         }
-        result.put(code, success);
-        result.put(user, userModel);
-        return result;
+        return userModel;
     }
 
 
@@ -132,16 +109,12 @@ public class UserController extends BaseController {
      * @return result
      */
     @RequestMapping(value = "findById", method = RequestMethod.GET)
-    public HashMap<String, Object> findUserById(@RequestParam("id") Long id) {
-        result = new HashMap<>();
+    public UserModel findUserById(@RequestParam("id") Long id) {
         UserModel userModel = service.findUserById(id);
         if (userModel == null) {
-            result.put(code, notFound);
-            return result;
+            return null;
         }
-        result.put(code, success);
-        result.put(user, userModel);
-        return result;
+        return userModel;
     }
 
     /**
@@ -156,7 +129,7 @@ public class UserController extends BaseController {
      * @return result
      */
     @RequestMapping(value = "update", method = RequestMethod.POST)
-    public HashMap<String, Object> update(
+    public UserModel update(
             @RequestParam(name = "nickName", defaultValue = "新用户") String nickName,
             @RequestParam(name = "email", defaultValue = "null") String email,
             @RequestParam MultipartFile imgUrl,
@@ -164,12 +137,10 @@ public class UserController extends BaseController {
             @RequestParam(name = "phone", defaultValue = "0") long phone,
             @RequestParam(name = "address", defaultValue = "保密") String address
     ) throws UserNotFoundException, IOException {
-        result = new HashMap<>();
         UserModel userModel = service.findUserByEmail(email);
         //找不到用户
         if (userModel == null) {
-            result.put(code, error);
-            return result;
+            return null;
         }
         userModel = new UserModel();
         if (!imgUrl.getOriginalFilename().equals("")) {//判断是否上传的图片
@@ -177,8 +148,7 @@ public class UserController extends BaseController {
             userModel.setImgUrl(returnUrl);
         }
         if (FileUtil.isImage(imgUrl.getOriginalFilename())) {
-            result.put(code, notImg);
-            return result;
+            return null;
         }
         userModel.setNickName(nickName);
         userModel.setEmail(email);
@@ -186,37 +156,26 @@ public class UserController extends BaseController {
         userModel.setPhone(phone);
         userModel.setAddress(address);
         userModel = service.updateUser(userModel);
-        if (userModel != null) {
-            result.put(code, success);
-            result.put(user, userModel);
-        } else {
-            result.put(code, error);
-        }
-        return result;
+        return userModel;
     }
 
     /**
      * 处理激活
      */
     @RequestMapping(value = "validateEmail", method = RequestMethod.POST)
-    public HashMap<String, Object> validateEmail(
+    public UserModel validateEmail(
             @RequestParam(name = "email", defaultValue = "null") String email,
             @RequestParam String validateCode,
             @RequestParam String password,
             @RequestParam(name = "time", defaultValue = "0") Long time
     ) throws ServiceException, ParseException, UserNotFoundException {
-        result = new HashMap<>();
         //数据访问层，通过email获取用户信息
         UserModel userModel = service.findUserByEmail(email);
-        //验证用户是否存在
-        if (userModel != null) {
-            result.put(code, error);
-        }
+
         //验证码是否过期
         if (time + DateUtil.ONE_DAY_IN_MILLISECONDS * 2 < DateUtil.getNowOfMills()) {
             LOGGER.info("用户{}使用己过期的激活码{}激活邮箱失败！", email, validateCode);
-            result.put(code, expired);
-            return result;
+            return null;
         }
         //激活
         String salt = RandomUtil.createSalt();
@@ -230,8 +189,7 @@ public class UserController extends BaseController {
         userModel.setPassword(MD5Util.encode(password, salt));
         userModel = service.addUser(userModel);
         LOGGER.info("用户{}使用激活码{}激活邮箱成功！", userModel.getEmail(), userModel.getValidateCode());
-        result.put(user, userModel);
-        return result;
+        return userModel;
     }
 
 
@@ -243,51 +201,18 @@ public class UserController extends BaseController {
      * @return result
      */
     @RequestMapping(value = "/changePassword", method = RequestMethod.POST)
-    public HashMap<String, Object> changePassword(
+    public UserModel changePassword(
             @RequestParam String email,
             @RequestParam String password
     ) throws UserNotFoundException {
-        result = new HashMap<>();
         UserModel userByEmail = service.findUserByEmail(email);
         if (userByEmail == null) {
-            result.put(code, notFound);
-            return result;
+            return null;
         }
         String salt = RandomUtil.createSalt();
         userByEmail.setSalt(salt);
         userByEmail.setPassword(MD5Util.encode(password, salt));
-        UserModel userModel = service.updateUser(userByEmail);
-        result.put(code, success);
-        result.put(user, userModel);
-        return result;
+        return userByEmail;
     }
 
-
-    @RequestMapping("/qq")
-    public HashMap<String, Object> qqLogin(
-            @RequestParam String openId,
-            @RequestParam String nickName,
-            @RequestParam String imgUrlUrl,
-            @RequestParam String gender,
-            @RequestParam int year,
-            @RequestParam String province,
-            @RequestParam String city
-    ) {
-        result = new HashMap<>();
-        QQUserModel user = new QQUserModel();
-        user.setOpenId(openId);
-        user.setNickName(nickName);
-        user.setYear(year);
-        user.setAddress(province + Symbol.SPACE + city);
-        user.setGender(gender);
-        user.setImgUrl(imgUrlUrl);
-        QQUserModel model = qqUserService.add(user);
-        if (model == null) {
-            result.put(code, repeat);
-            return result;
-        }
-        result.put(code, success);
-        result.put(qqUser, model);
-        return result;
-    }
 }

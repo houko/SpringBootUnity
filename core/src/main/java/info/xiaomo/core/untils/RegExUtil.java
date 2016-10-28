@@ -10,7 +10,7 @@ import java.util.regex.PatternSyntaxException;
 /**
  * 这是个正则表达式应用类，用来匹配和替换字串用的
  *
- * @author
+ * @author xiaomo
  */
 
 public class RegExUtil {
@@ -141,7 +141,7 @@ public class RegExUtil {
     /**
      * 主要用于模板中模块标记分析函数 把查找到的元素加到vector中
      *
-     * @param pattern为正则表达式模式
+     * @param pattern 为正则表达式模式
      * @param str             原始字串
      * @return vector
      * @since 1.0
@@ -160,7 +160,7 @@ public class RegExUtil {
      * 模块标记分析函数
      * 功能主要是把查找到的元素加到vector中
      *
-     * @param pattern为正则表达式模式
+     * @param pattern 为正则表达式模式
      * @param str             原始字串
      * @since 1.0
      */
@@ -180,7 +180,7 @@ public class RegExUtil {
     /**
      * 匹配所有符合模式要求的字串并加到矢量vector数组中
      *
-     * @param pattern为正则表达式模式
+     * @param pattern 为正则表达式模式
      * @param str             原始字串
      * @return vector
      * @since 1.0
@@ -198,7 +198,7 @@ public class RegExUtil {
     /**
      * 匹配所有符合模式要求的字串并加到字符串数组中
      *
-     * @param pattern为正则表达式模式
+     * @param pattern 为正则表达式模式
      * @param str             原始字串
      * @return array
      * @since 1.0
@@ -218,8 +218,7 @@ public class RegExUtil {
     /**
      * 转义正则表达式字符(之所以需要将\和$字符用escapeDollarBackslash方法的方式是因为用repalceAll是不行的，简单的试试"$".repalceAll("\\$","\\\\$")你会发现这个调用会导致数组越界错误)
      *
-     * @param pattern 为正则表达式模式
-     * @param str 原始字串
+     * @param original 为正则表达式模式
      * @return array
      * @since 1.0
      */

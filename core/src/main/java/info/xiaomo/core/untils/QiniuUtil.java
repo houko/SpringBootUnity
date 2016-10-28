@@ -1,7 +1,6 @@
 package info.xiaomo.core.untils;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.io.File;
 
 /**
  * 七牛云储存的帮助类
@@ -22,6 +21,10 @@ public class QiniuUtil {
         return fileName.substring(fileName.lastIndexOf('.'), fileName.length());
     }
 
+    public static String getFileType(File file) {
+        return getFileType(file.getName());
+    }
+
     /**
      * 检查文件类型
      *
@@ -35,4 +38,5 @@ public class QiniuUtil {
             return !ALL_TYPE.contains(fileType.toLowerCase());
         }
     }
+
 }

@@ -1,4 +1,4 @@
-package info.xiaomo.admin.controller;
+package info.xiaomo.website.controller;
 
 import info.xiaomo.core.controller.BaseController;
 import org.springframework.web.bind.annotation.RequestMapping;

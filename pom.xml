@@ -9,7 +9,7 @@
 
     <!-- 模块 -->
     <modules>
-        <module>admin</module>
+        <module>website</module>
         <module>web</module>
         <module>core</module>
     </modules>

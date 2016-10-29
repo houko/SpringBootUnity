@@ -1,4 +1,4 @@
-package info.xiaomo.admin;
+package info.xiaomo.website;
 
 import info.xiaomo.core.filter.CORSFilter;
 import org.springframework.boot.SpringApplication;
@@ -33,10 +33,10 @@ import org.springframework.web.bind.annotation.RestController;
 @EnableTransactionManagement
 @EnableJpaRepositories("info.xiaomo.*.dao")
 @RestController
-public class AdminMain {
+public class XiaomoMain {
 
     public static void main(String[] args) throws Exception {
-        SpringApplication.run(AdminMain.class, args);
+        SpringApplication.run(XiaomoMain.class, args);
     }
 
     @Bean
@@ -46,6 +46,6 @@ public class AdminMain {
 
     @RequestMapping("/")
     String index() {
-        return "Hello World! this is admin index";
+        return "Hello World! this is website index";
     }
 }

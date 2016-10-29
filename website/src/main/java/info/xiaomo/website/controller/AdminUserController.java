@@ -1,4 +1,4 @@
-package info.xiaomo.admin.controller;
+package info.xiaomo.website.controller;
 
 import info.xiaomo.core.controller.BaseController;
 import info.xiaomo.core.exception.UserNotFoundException;
@@ -76,7 +76,7 @@ public class AdminUserController extends BaseController {
      */
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public AdminModel add(
-            @RequestParam(name = "operator", defaultValue = "admin") String operator,
+            @RequestParam(name = "operator", defaultValue = "website") String operator,
             @RequestParam(name = "userName", defaultValue = "null") String userName,
             @RequestParam(name = "password", defaultValue = "123456") String password,
             @RequestParam(name = "authLevel", defaultValue = "0") int authLevel

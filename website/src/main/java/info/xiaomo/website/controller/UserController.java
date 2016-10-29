@@ -1,4 +1,4 @@
-package info.xiaomo.admin.controller;
+package info.xiaomo.website.controller;
 
 import info.xiaomo.core.constant.ErrorCode;
 import info.xiaomo.core.constant.GenderType;

@@ -1,4 +1,4 @@
-package info.xiaomo.admin.controller;
+package info.xiaomo.website.controller;
 
 import info.xiaomo.core.controller.BaseController;
 import info.xiaomo.core.model.ChangeLogModel;

@@ -24,7 +24,7 @@ public class MailUtil {
     private static final String HOST = "smtp.xiaomo.info";
     private static final String PROTOCOL = "smtp";
     private static final int PORT = 25;
-    private static final String FROM = "admin@xiaomo.info";//发件人的email
+    private static final String FROM = "website@xiaomo.info";//发件人的email
     private static final String PWD = "Xiaomo123";//发件人密码
 
     /**

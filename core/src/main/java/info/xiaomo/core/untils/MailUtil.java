@@ -75,7 +75,7 @@ public class MailUtil {
     public static String redirectValidateUrl(String email,String password) {
         Long now = DateUtil.getNowOfMills();
         StringBuilder sb = new StringBuilder("点击下面链接激活账号，48小时生效，否则重新注册账号，链接只能使用一次，请尽快激活！</br>");
-        sb.append("<a href=\"http://xiaomo.info/valiate.html?email=");
+        sb.append("<a href=\"http://xiaomo.info/validate.html?email=");
         sb.append(email);
         sb.append("&password=");
         sb.append(password);
@@ -84,7 +84,7 @@ public class MailUtil {
         sb.append("&time=");
         sb.append(now);
         sb.append("\">");
-        sb.append("http://xiaomo.info/valiate.html?email=");
+        sb.append("http://xiaomo.info/validate.html?email=");
         sb.append(email);
         sb.append("&password=");
         sb.append(password);

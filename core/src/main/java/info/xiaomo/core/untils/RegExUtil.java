@@ -256,4 +256,9 @@ public class RegExUtil {
             return returnValue;
         }
     }
+
+
+    public static void main(String[] args) {
+        System.out.println(ereg(ID_CARD,"420325199210211911"));
+    }
 }

@@ -19,11 +19,11 @@ import java.util.Properties;
  * @email: hupengbest@163.com
  * @QQ_NO: 83387856
  * @Date: 2016/4/2520:57
- * @Description:
+ * @Description: 系统设置控制器
  * @Copyright(©) 2015 by xiaomo.
  **/
 @RestController
-@RequestMapping("/admin/system")
+@RequestMapping("/api/system")
 public class SystemController extends BaseController {
 
     @RequestMapping("getSystem")

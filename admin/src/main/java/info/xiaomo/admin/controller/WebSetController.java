@@ -22,20 +22,24 @@ import java.util.List;
  * @email: hupengbest@163.com
  * @QQ_NO: 83387856
  * @Date: 2016/5/6 14:21
- * @Description:
+ * @Description: 系统设置控制器
  * @Copyright(©) 2015 by xiaomo.
  **/
 @RestController
-@RequestMapping("/admin/webSet")
+@RequestMapping("/api/webSet")
 public class WebSetController extends BaseController {
 
+    private final WebSetService service;
+
     @Autowired
-    private WebSetService service;
+    public WebSetController(WebSetService service) {
+        this.service = service;
+    }
 
     /**
      * 查找所有
      *
-     * @return
+     * @return list
      */
     @RequestMapping(value = "findAll", method = RequestMethod.GET)
     public List<SystemSetModel> findAll() {
@@ -67,7 +71,17 @@ public class WebSetController extends BaseController {
         return service.add(model);
     }
 
-
+    /**
+     * 更新
+     * @param id id
+     * @param siteName siteName
+     * @param icon icon
+     * @param fromYear fromYear
+     * @param toYear toYear
+     * @param beianNumber beianNumber
+     * @param beianUrl beianUrl
+     * @return SystemSetModel
+     */
     @RequestMapping(value = "update", method = RequestMethod.POST)
     public SystemSetModel update(
             @RequestParam(value = "id", defaultValue = "") Long id,
@@ -92,6 +106,4 @@ public class WebSetController extends BaseController {
         model.setBeianNumber(beianNumber);
         return service.update(model);
     }
-
-
 }

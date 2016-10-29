@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Copyright(©) 2015 by xiaomo.
  **/
 @RestController
-@RequestMapping("/admin/user")
+@RequestMapping("/api/user")
 public class UserController extends BaseController {
 
     private final UserService service;

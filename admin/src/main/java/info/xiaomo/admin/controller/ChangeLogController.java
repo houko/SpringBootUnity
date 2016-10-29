@@ -21,11 +21,11 @@ import org.springframework.web.bind.annotation.RestController;
  * @email: hupengbest@163.com
  * @QQ_NO: 83387856
  * @Date: 2016/4/1117:40
- * @Description: 后台更新日志管理
+ * @Description: 更新日志控制器
  * @Copyright(©) 2015 by xiaomo.
  **/
 @RestController
-@RequestMapping("/admin/changeLog")
+@RequestMapping("/api/changeLog")
 public class ChangeLogController extends BaseController {
 
     private final ChangeLogService service;
@@ -39,7 +39,7 @@ public class ChangeLogController extends BaseController {
      * 通过id查找
      *
      * @param id id
-     * @return
+     * @return model
      */
     @RequestMapping("findById")
     public ChangeLogModel findById(@RequestParam Long id) {
@@ -67,9 +67,9 @@ public class ChangeLogController extends BaseController {
     /**
      * 分页查询更新日志
      *
-     * @param start
-     * @param pageSize
-     * @return
+     * @param start start
+     * @param pageSize pageSize
+     * @return 分页
      */
     @RequestMapping("findAll")
     public Page<ChangeLogModel> findAll(@RequestParam(value = "start", defaultValue = "1") int start, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {

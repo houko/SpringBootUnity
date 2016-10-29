@@ -36,7 +36,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Copyright(©) 2015 by xiaomo.
  */
 @RestController
-@RequestMapping("/admin/adminUser")
+@RequestMapping("/api/adminUser")
 public class AdminUserController extends BaseController {
 
     private final AdminUserService service;
@@ -68,11 +68,11 @@ public class AdminUserController extends BaseController {
     /**
      * 添加用户
      *
-     * @param operator
-     * @param userName
-     * @param password
-     * @param authLevel
-     * @return
+     * @param operator  operator
+     * @param userName  userName
+     * @param password  password
+     * @param authLevel authLevel
+     * @return model
      */
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public AdminModel add(
@@ -107,6 +107,12 @@ public class AdminUserController extends BaseController {
         return adminModel;
     }
 
+    /**
+     * 根据id查找
+     *
+     * @param id id
+     * @return model
+     */
     @RequestMapping(value = "findById", method = RequestMethod.GET)
     public AdminModel findUserById(@RequestParam("id") Long id) {
         AdminModel adminModel = service.findAdminUserById(id);
@@ -116,6 +122,12 @@ public class AdminUserController extends BaseController {
         return adminModel;
     }
 
+    /**
+     * 根据名字查找
+     *
+     * @param userName userName
+     * @return model
+     */
     @RequestMapping(value = "findByName", method = RequestMethod.GET)
     public AdminModel findByName(@RequestParam("userName") String userName) {
         AdminModel adminModel = service.findAdminUserByUserName(userName);
@@ -125,6 +137,14 @@ public class AdminUserController extends BaseController {
         return adminModel;
     }
 
+    /**
+     * 修改密码
+     *
+     * @param userName userName
+     * @param password password
+     * @return model
+     * @throws UserNotFoundException UserNotFoundException
+     */
     @RequestMapping(value = "changePassword", method = RequestMethod.POST)
     public AdminModel changePassword(@RequestParam("userName") String userName, @RequestParam("password") String password) throws UserNotFoundException {
         AdminModel adminModel = service.findAdminUserByUserName(userName);
@@ -141,10 +161,17 @@ public class AdminUserController extends BaseController {
 
     @RequestMapping(value = "findAll", method = RequestMethod.GET)
     public Page<AdminModel> getAll(@RequestParam(value = "start", defaultValue = "1") int start, @RequestParam(value = "pageSize", defaultValue = "10") int page) {
-        Page<AdminModel> pages = service.getAdminUsers(start, page);
-        return pages;
+        return service.getAdminUsers(start, page);
     }
 
+    /**
+     * 根据id删除数据
+     *
+     * @param id       id
+     * @param operator operator
+     * @return model
+     * @throws UserNotFoundException UserNotFoundException
+     */
     @RequestMapping(value = "deleteById", method = RequestMethod.GET)
     public AdminModel deleteUserById(@RequestParam("id") Long id, @RequestParam String operator) throws UserNotFoundException {
         AdminModel operatorModel = service.findAdminUserByUserName(operator);
@@ -161,6 +188,15 @@ public class AdminUserController extends BaseController {
         return adminModel;
     }
 
+    /**
+     * 更新
+     *
+     * @param operator  operator
+     * @param userName  userName
+     * @param authLevel authLevel
+     * @return model
+     * @throws UserNotFoundException UserNotFoundException
+     */
     @RequestMapping(value = "update", method = RequestMethod.POST)
     public AdminModel update(
             @RequestParam("operator") String operator,
@@ -183,6 +219,14 @@ public class AdminUserController extends BaseController {
         return service.updateAdminUser(adminModel);
     }
 
+    /**
+     * 封号
+     *
+     * @param id       id
+     * @param operator operator
+     * @return model
+     * @throws UserNotFoundException UserNotFoundException
+     */
     @RequestMapping(value = "forbid", method = RequestMethod.GET)
     public AdminModel forbid(@RequestParam("id") Long id, @RequestParam("operator") String operator) throws UserNotFoundException {
         AdminModel operatorModel = service.findAdminUserByUserName(operator);

@@ -20,16 +20,25 @@ import org.springframework.web.bind.annotation.RestController;
  * @email: hupengbest@163.com
  * @QQ_NO: 83387856
  * @Date: 2016/4/1119:55
- * @Description:
+ * @Description: 友情连接控制器
  * @Copyright(©) 2015 by xiaomo.
  **/
 @RestController
-@RequestMapping("/admin/link")
+@RequestMapping("/api/link")
 public class LinkController extends BaseController {
 
-    @Autowired
-    private LinkService service;
+    private final LinkService service;
 
+    @Autowired
+    public LinkController(LinkService service) {
+        this.service = service;
+    }
+
+    /**
+     * 根据id查找
+     * @param id id
+     * @return model
+     */
     @RequestMapping("findById")
     public LinkModel findLinkById(@RequestParam Long id) {
         LinkModel model = service.findById(id);
@@ -39,6 +48,11 @@ public class LinkController extends BaseController {
         return model;
     }
 
+    /**
+     * 根据名字查找
+     * @param name name
+     * @return model
+     */
     @RequestMapping("findByName")
     public LinkModel findByName(@RequestParam String name) {
         LinkModel model = service.findByName(name);
@@ -49,13 +63,25 @@ public class LinkController extends BaseController {
     }
 
 
+    /**
+     * 返回所有 带分页
+     * @param start start
+     * @param pageSize pageSize
+     * @return 分页数据
+     */
     @RequestMapping("findAll")
     public Page<LinkModel> findAll(@RequestParam(value = "start", defaultValue = "1") int start, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
-        Page<LinkModel> models = service.findAll(start, pageSize);
-        return models;
+        return service.findAll(start, pageSize);
     }
 
 
+    /**
+     * 添加链接
+     * @param name  name
+     * @param url  url
+     * @param level  level
+     * @return model
+     */
     @RequestMapping("add")
     public LinkModel add(
             @RequestParam String name,
@@ -69,10 +95,16 @@ public class LinkController extends BaseController {
         linkModel.setName(name);
         linkModel.setLevel(level);
         linkModel.setUrl(url);
-        LinkModel add = service.add(linkModel);
-        return add;
+        return service.add(linkModel);
     }
 
+    /**
+     * 更新链接
+     * @param name name
+     * @param url url
+     * @param level level
+     * @return model
+     */
     @RequestMapping("update")
     public LinkModel update(
             @RequestParam String name,
@@ -90,6 +122,11 @@ public class LinkController extends BaseController {
         return service.update(linkModel);
     }
 
+    /**
+     * 删除链接
+     * @param id id
+     * @return model
+     */
     @RequestMapping("delete")
     public LinkModel delete(@RequestParam Long id) {
         LinkModel LinkModel = service.findById(id);

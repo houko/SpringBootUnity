@@ -68,21 +68,26 @@ public class MailUtil {
     /**
      * 返回激活链接
      *
-     * @param email
+     * @param email email
      * @return
+     * 有4个参数 email password validateCode  time
      */
-    public static String redirectValidateUrl(String email) {
+    public static String redirectValidateUrl(String email,String password) {
         Long now = DateUtil.getNowOfMills();
         StringBuilder sb = new StringBuilder("点击下面链接激活账号，48小时生效，否则重新注册账号，链接只能使用一次，请尽快激活！</br>");
-        sb.append("<a href=\"http://xiaomo.info/路由地址?email=");
+        sb.append("<a href=\"http://localhost:8080/test.html?email=");
         sb.append(email);
+        sb.append("&password=");
+        sb.append(password);
         sb.append("&validateCode=");
         sb.append(MD5Util.encode(email, String.valueOf(now)));//邮箱加上当前时间戳，以保证每个验证码都是不一样的
         sb.append("&time=");
         sb.append(now);
         sb.append("\">");
-        sb.append("http://xiaomo.info/路由地址?email=");
+        sb.append("http://localhost:8080/test.html?email=");
         sb.append(email);
+        sb.append("&password=");
+        sb.append(password);
         sb.append("&validateCode=");
         sb.append(MD5Util.encode(email, String.valueOf(now)));//邮箱加上当前时间戳，以保证每个验证码都是不一样的
         sb.append("&time=");
@@ -96,6 +101,6 @@ public class MailUtil {
     }
 
     public static void main(String[] args) {
-        System.out.println(redirectValidateUrl("83387856@qq.com"));
+        System.out.println(redirectValidateUrl("83387856@qq.com","123456"));
     }
 }

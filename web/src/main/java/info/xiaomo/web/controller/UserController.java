@@ -1,5 +1,6 @@
 package info.xiaomo.web.controller;
 
+import info.xiaomo.core.constant.ErrorCode;
 import info.xiaomo.core.constant.GenderType;
 import info.xiaomo.core.controller.BaseController;
 import info.xiaomo.core.exception.UserNotFoundException;
@@ -70,7 +71,8 @@ public class UserController extends BaseController {
      */
     @RequestMapping(value = "register", method = RequestMethod.POST)
     public String register(
-            @RequestParam String email
+            @RequestParam String email,
+            @RequestParam String password
     ) throws Exception {
         if (email.equals("")) {
             return null;
@@ -80,7 +82,7 @@ public class UserController extends BaseController {
         if (userModel != null) {
             return null;
         }
-        String redirectValidateUrl = MailUtil.redirectValidateUrl(email);
+        String redirectValidateUrl = MailUtil.redirectValidateUrl(email,password);
         MailUtil.send(email, redirectValidateUrl);
         return redirectValidateUrl;
     }
@@ -171,11 +173,17 @@ public class UserController extends BaseController {
     ) throws ServiceException, ParseException, UserNotFoundException {
         //数据访问层，通过email获取用户信息
         UserModel userModel = service.findUserByEmail(email);
-
+        if (userModel != null) {
+            userModel = new UserModel();
+            userModel.setErrorCode(ErrorCode.USER_REPEAT);
+            return userModel;
+        }
         //验证码是否过期
         if (time + DateUtil.ONE_DAY_IN_MILLISECONDS * 2 < DateUtil.getNowOfMills()) {
             LOGGER.info("用户{}使用己过期的激活码{}激活邮箱失败！", email, validateCode);
-            return null;
+            userModel = new UserModel();
+            userModel.setErrorCode(ErrorCode.USER_DATA_PASSED);
+            return userModel;
         }
         //激活
         String salt = RandomUtil.createSalt();

@@ -28,6 +28,9 @@ public abstract class BaseModel {
     @Version
     private long version;
 
+    @Column(name = "errorCode")
+    private int errorCode = 0;
+
     @Column(name = "createTime")
     private Date createTime;
 
@@ -64,5 +67,13 @@ public abstract class BaseModel {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public int getErrorCode() {
+        return errorCode;
+    }
+
+    public void setErrorCode(int errorCode) {
+        this.errorCode = errorCode;
     }
 }

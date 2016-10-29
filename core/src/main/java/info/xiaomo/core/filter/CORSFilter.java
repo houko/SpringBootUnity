@@ -28,7 +28,7 @@ public class CORSFilter implements Filter {
      * 初始化
      *
      * @param filterConfig filterConfig
-     * @throws ServletException
+     * @throws ServletException ServletException
      */
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -37,11 +37,12 @@ public class CORSFilter implements Filter {
 
     /**
      * CORS 过滤器
-     * @param req rq
-     * @param res res
+     *
+     * @param req   rq
+     * @param res   res
      * @param chain chin
-     * @throws IOException
-     * @throws ServletException
+     * @throws IOException      IOException
+     * @throws ServletException ServletException
      */
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
         HttpServletResponse response = (HttpServletResponse) res;

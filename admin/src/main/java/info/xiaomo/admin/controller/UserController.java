@@ -1,17 +1,23 @@
 package info.xiaomo.admin.controller;
 
+import info.xiaomo.core.constant.ErrorCode;
+import info.xiaomo.core.constant.GenderType;
 import info.xiaomo.core.controller.BaseController;
 import info.xiaomo.core.exception.UserNotFoundException;
 import info.xiaomo.core.model.UserModel;
 import info.xiaomo.core.service.UserService;
+import info.xiaomo.core.untils.DateUtil;
 import info.xiaomo.core.untils.MD5Util;
 import info.xiaomo.core.untils.RandomUtil;
+import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.text.ParseException;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -103,18 +109,18 @@ public class UserController extends BaseController {
         userByEmail.setPassword(MD5Util.encode(password, salt));
         userByEmail.setNickName(nickName);
         userByEmail.setSalt(salt);
-        UserModel userModel = service.updateUser(userByEmail);
-        return userModel;
+        return service.updateUser(userByEmail);
     }
 
     /**
-     * @param email
-     * @param nickName
-     * @param phone
-     * @param address
-     * @param gender
-     * @return
-     * @throws UserNotFoundException
+     * 更新用户信息
+     * @param email email
+     * @param nickName nickName
+     * @param phone phone
+     * @param address address
+     * @param gender gender
+     * @return model
+     * @throws UserNotFoundException UserNotFoundException
      */
     @RequestMapping(value = "update", method = RequestMethod.POST)
     public UserModel update(
@@ -148,8 +154,7 @@ public class UserController extends BaseController {
      */
     @RequestMapping(value = "findAll", method = RequestMethod.GET)
     public Page<UserModel> getAll(@RequestParam(value = "start", defaultValue = "1") int start, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
-        Page<UserModel> pages = service.findAll(start, pageSize);
-        return pages;
+        return service.findAll(start, pageSize);
     }
 
     /**
@@ -166,4 +171,45 @@ public class UserController extends BaseController {
         }
         return userModel;
     }
+
+    /**
+     * 处理激活
+     */
+    @RequestMapping(value = "validateEmail", method = RequestMethod.POST)
+    public UserModel validateEmail(
+            @RequestParam(name = "email", defaultValue = "null") String email,
+            @RequestParam String validateCode,
+            @RequestParam String password,
+            @RequestParam(name = "time", defaultValue = "0") Long time
+    ) throws ServiceException, ParseException, UserNotFoundException {
+        //数据访问层，通过email获取用户信息
+        UserModel userModel = service.findUserByEmail(email);
+        if (userModel != null) {
+            userModel = new UserModel();
+            userModel.setResultCode(ErrorCode.USER_REPEAT);
+            return userModel;
+        }
+        //验证码是否过期
+        if (time + DateUtil.ONE_DAY_IN_MILLISECONDS * 2 < DateUtil.getNowOfMills()) {
+            LOGGER.info("用户{}使用己过期的激活码{}激活邮箱失败！", email, validateCode);
+            userModel = new UserModel();
+            userModel.setResultCode(ErrorCode.USER_DATA_PASSED);
+            return userModel;
+        }
+        //激活
+        String salt = RandomUtil.createSalt();
+        userModel = new UserModel();
+        userModel.setNickName(email);
+        userModel.setEmail(email);
+        userModel.setGender(GenderType.secret);
+        userModel.setValidateCode(MD5Util.encode(email, salt));
+        userModel.setPhone(0L);
+        userModel.setSalt(salt);
+        userModel.setAddress("");
+        userModel.setPassword(MD5Util.encode(password, salt));
+        userModel = service.addUser(userModel);
+        LOGGER.info("用户{}使用激活码{}激活邮箱成功！", userModel.getEmail(), userModel.getValidateCode());
+        return userModel;
+    }
+
 }

@@ -15,7 +15,7 @@
         var time = getQueryString("time");
         $.ajax({
             type: "POST",
-            url: "/web/user/validateEmail",
+            url: "http://192.168.1.165:8080/api/user/validateEmail",
             data: {email: name, password: password, validateCode: validateCode, time: time},
             success: function (data) {
                 if (data.errorCode != 0) {

@@ -35,7 +35,7 @@ import java.text.ParseException;
  * @Copyright(©) 2015 by xiaomo.
  **/
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/user")
 public class UserController extends BaseController {
 
     private final UserService service;

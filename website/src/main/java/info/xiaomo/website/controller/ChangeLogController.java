@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Copyright(©) 2015 by xiaomo.
  **/
 @RestController
-@RequestMapping("/api/changeLog")
+@RequestMapping("/changeLog")
 public class ChangeLogController extends BaseController {
 
     private final ChangeLogService service;

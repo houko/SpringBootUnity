@@ -23,7 +23,7 @@ import java.util.Properties;
  * @Copyright(©) 2015 by xiaomo.
  **/
 @RestController
-@RequestMapping("/api/system")
+@RequestMapping("/system")
 public class SystemController extends BaseController {
 
     @RequestMapping("getSystem")

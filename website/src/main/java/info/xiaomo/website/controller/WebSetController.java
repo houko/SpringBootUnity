@@ -26,7 +26,7 @@ import java.util.List;
  * @Copyright(©) 2015 by xiaomo.
  **/
 @RestController
-@RequestMapping("/api/webSet")
+@RequestMapping("/webSet")
 public class WebSetController extends BaseController {
 
     private final WebSetService service;

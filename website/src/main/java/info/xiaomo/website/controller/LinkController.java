@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Copyright(©) 2015 by xiaomo.
  **/
 @RestController
-@RequestMapping("/api/link")
+@RequestMapping("/link")
 public class LinkController extends BaseController {
 
     private final LinkService service;

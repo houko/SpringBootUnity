@@ -10,14 +10,10 @@
     <!-- 模块 -->
     <modules>
         <module>website</module>
-        <module>web</module>
         <module>core</module>
     </modules>
     <packaging>pom</packaging>
 
-    <!-- 基本信息 -->
-    <name>xm</name>
-    <url>http://xiaomo.info</url>
     <developers>
         <developer>
             <name>Xiaomo</name>

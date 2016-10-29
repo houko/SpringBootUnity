@@ -2,6 +2,7 @@ package info.xiaomo.core.model;
 
 import info.xiaomo.core.model.base.BaseModel;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.io.Serializable;
@@ -24,10 +25,13 @@ import java.io.Serializable;
 @Table(name = "link")
 public class LinkModel extends BaseModel implements Serializable{
 
+    @Column(name = "Name")
     private String name;
 
+    @Column(name = "Url")
     private String url;
 
+    @Column(name = "Level")
     private int level;
 
     public String getName() {

@@ -2,6 +2,7 @@ package info.xiaomo.core.model;
 
 import info.xiaomo.core.model.base.BaseModel;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.io.Serializable;
@@ -32,25 +33,31 @@ import java.io.Serializable;
 @Table(name = "admin")
 public class AdminModel extends BaseModel implements Serializable {
 
+    @Column(name = "UserName")
     private String userName;
 
+    @Column(name = "Password")
     private String password;
 
     /**
      * 1正常 2异常
      */
+    @Column(name = "Status")
     private int status;
 
+    @Column(name = "Salt")
     private String salt;
 
     /**
      * 0(游客用户:默认admin) 1超级管理员
      */
+    @Column(name = "AuthLevel")
     private int authLevel;
 
     /**
      * 操作员(谁加的这个帐号)
      */
+    @Column(name = "Operator")
     private String operator;
 
     public String getUserName() {

@@ -2,6 +2,7 @@ package info.xiaomo.core.model;
 
 import info.xiaomo.core.model.base.BaseModel;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.io.Serializable;
@@ -27,25 +28,34 @@ public class UserModel extends BaseModel implements Serializable{
     /**
      * 登录用户
      */
+    @Column(name = "Email")
     private String email;
 
+    @Column(name = "NickName")
     private String nickName;
 
+    @Column(name = "Password")
     private String password;
 
     /**
      * 盐值
      */
+    @Column(name = "Salt")
     private String salt;
 
+    @Column(name = "ValidateCode")
     private String validateCode;//激活码
 
+    @Column(name = "Gender")
     private int gender;
 
+    @Column(name = "Phone")
     private Long phone;
 
+    @Column(name = "ImgUrl")
     private String imgUrl;
 
+    @Column(name = "Address")
     private String address;
 
     public String getNickName() {

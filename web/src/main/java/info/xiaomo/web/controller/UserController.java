@@ -175,14 +175,14 @@ public class UserController extends BaseController {
         UserModel userModel = service.findUserByEmail(email);
         if (userModel != null) {
             userModel = new UserModel();
-            userModel.setErrorCode(ErrorCode.USER_REPEAT);
+            userModel.setResultCode(ErrorCode.USER_REPEAT);
             return userModel;
         }
         //验证码是否过期
         if (time + DateUtil.ONE_DAY_IN_MILLISECONDS * 2 < DateUtil.getNowOfMills()) {
             LOGGER.info("用户{}使用己过期的激活码{}激活邮箱失败！", email, validateCode);
             userModel = new UserModel();
-            userModel.setErrorCode(ErrorCode.USER_DATA_PASSED);
+            userModel.setResultCode(ErrorCode.USER_DATA_PASSED);
             return userModel;
         }
         //激活

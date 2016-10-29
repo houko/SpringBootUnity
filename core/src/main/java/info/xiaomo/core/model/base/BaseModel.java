@@ -23,18 +23,20 @@ public abstract class BaseModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "Id")
     private long id;
 
     @Version
+    @Column(name = "Version")
     private long version;
 
-    @Column(name = "errorCode")
-    private int errorCode = 0;
+    @Column(name = "ResultCode")
+    private int resultCode = 0;
 
-    @Column(name = "createTime")
+    @Column(name = "CreateTime")
     private Date createTime;
 
-    @Column(name = "updateTime")
+    @Column(name = "UpdateTime")
     private Date updateTime;
 
     public Date getUpdateTime() {
@@ -69,11 +71,11 @@ public abstract class BaseModel {
         this.createTime = createTime;
     }
 
-    public int getErrorCode() {
-        return errorCode;
+    public int getResultCode() {
+        return resultCode;
     }
 
-    public void setErrorCode(int errorCode) {
-        this.errorCode = errorCode;
+    public void setResultCode(int resultCode) {
+        this.resultCode = resultCode;
     }
 }

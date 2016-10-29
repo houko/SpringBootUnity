@@ -2,6 +2,7 @@ package info.xiaomo.core.model;
 
 import info.xiaomo.core.model.base.BaseModel;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.io.Serializable;
@@ -27,30 +28,36 @@ public class SystemSetModel extends BaseModel implements Serializable {
     /**
      * 站点名字
      */
+    @Column(name = "SiteName")
     private String siteName;
 
     /**
      * 站点图标
      */
+    @Column(name = "Icon")
     private String icon;
 
     /**
      * footer 的开始年份
      */
+    @Column(name = "FromYear")
     private int fromYear;
 
     /**
      * footer的结束年份
      */
+    @Column(name = "ToYear")
     private int toYear;
 
     /**
      * 备案号
      */
+    @Column(name = "BeianNumber")
     private String beianNumber;
     /**
      * 备案地址
      */
+    @Column(name = "BeianUrl")
     private String beianUrl;
 
 

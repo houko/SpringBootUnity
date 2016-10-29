@@ -1,6 +1,6 @@
-package info.xiaomo.core.dao;
+package info.xiaomo.core.dao.website;
 
-import info.xiaomo.core.model.SystemSetModel;
+import info.xiaomo.core.model.website.SystemSetModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

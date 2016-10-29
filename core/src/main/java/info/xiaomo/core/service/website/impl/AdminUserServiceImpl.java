@@ -1,9 +1,9 @@
-package info.xiaomo.core.service.impl;
+package info.xiaomo.core.service.website.impl;
 
-import info.xiaomo.core.dao.AdminUserDao;
+import info.xiaomo.core.dao.website.AdminUserDao;
 import info.xiaomo.core.exception.UserNotFoundException;
-import info.xiaomo.core.model.AdminModel;
-import info.xiaomo.core.service.AdminUserService;
+import info.xiaomo.core.model.website.AdminModel;
+import info.xiaomo.core.service.website.AdminUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

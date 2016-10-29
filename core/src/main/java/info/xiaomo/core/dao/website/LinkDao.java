@@ -1,6 +1,6 @@
-package info.xiaomo.core.dao;
+package info.xiaomo.core.dao.website;
 
-import info.xiaomo.core.model.LinkModel;
+import info.xiaomo.core.model.website.LinkModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

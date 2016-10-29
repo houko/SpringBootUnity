@@ -1,8 +1,8 @@
-package info.xiaomo.core.service.impl;
+package info.xiaomo.core.service.website.impl;
 
-import info.xiaomo.core.dao.WebSetDao;
-import info.xiaomo.core.model.SystemSetModel;
-import info.xiaomo.core.service.WebSetService;
+import info.xiaomo.core.dao.website.WebSetDao;
+import info.xiaomo.core.model.website.SystemSetModel;
+import info.xiaomo.core.service.website.WebSetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

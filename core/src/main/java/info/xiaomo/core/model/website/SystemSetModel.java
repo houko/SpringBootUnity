@@ -1,4 +1,4 @@
-package info.xiaomo.core.model;
+package info.xiaomo.core.model.website;
 
 import info.xiaomo.core.model.base.BaseModel;
 

@@ -2,8 +2,8 @@ package info.xiaomo.website.controller;
 
 import info.xiaomo.core.controller.BaseController;
 import info.xiaomo.core.exception.UserNotFoundException;
-import info.xiaomo.core.model.AdminModel;
-import info.xiaomo.core.service.AdminUserService;
+import info.xiaomo.core.model.website.AdminModel;
+import info.xiaomo.core.service.website.AdminUserService;
 import info.xiaomo.core.untils.MD5Util;
 import info.xiaomo.core.untils.RandomUtil;
 import org.springframework.beans.factory.annotation.Autowired;

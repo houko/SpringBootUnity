@@ -1,6 +1,6 @@
-package info.xiaomo.core.service;
+package info.xiaomo.core.service.website;
 
-import info.xiaomo.core.model.LinkModel;
+import info.xiaomo.core.model.website.LinkModel;
 import org.springframework.data.domain.Page;
 
 /**

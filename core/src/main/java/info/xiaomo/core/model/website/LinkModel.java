@@ -1,4 +1,4 @@
-package info.xiaomo.core.model;
+package info.xiaomo.core.model.website;
 
 import info.xiaomo.core.model.base.BaseModel;
 
@@ -17,19 +17,22 @@ import java.io.Serializable;
  * @github: https://github.com/qq83387856
  * @email: hupengbest@163.com
  * @QQ_NO: 83387856
- * @Date: 2016/4/517:17
+ * @Date: 2016/4/1119:47
  * @Description:
  * @Copyright(©) 2015 by xiaomo.
  **/
 @Entity
-@Table(name = "changeLog")
-public class ChangeLogModel extends BaseModel implements Serializable {
+@Table(name = "link")
+public class LinkModel extends BaseModel implements Serializable{
 
     @Column(name = "Name")
     private String name;
 
-    @Column(name = "OnlineTime")
-    private String onlineTime;
+    @Column(name = "Url")
+    private String url;
+
+    @Column(name = "Level")
+    private int level;
 
     public String getName() {
         return name;
@@ -39,11 +42,19 @@ public class ChangeLogModel extends BaseModel implements Serializable {
         this.name = name;
     }
 
-    public String getOnlineTime() {
-        return onlineTime;
+    public String getUrl() {
+        return url;
     }
 
-    public void setOnlineTime(String onlineTime) {
-        this.onlineTime = onlineTime;
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 }

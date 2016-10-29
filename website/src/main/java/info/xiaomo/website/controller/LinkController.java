@@ -1,8 +1,8 @@
 package info.xiaomo.website.controller;
 
 import info.xiaomo.core.controller.BaseController;
-import info.xiaomo.core.model.LinkModel;
-import info.xiaomo.core.service.LinkService;
+import info.xiaomo.core.model.website.LinkModel;
+import info.xiaomo.core.service.website.LinkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.RequestMapping;

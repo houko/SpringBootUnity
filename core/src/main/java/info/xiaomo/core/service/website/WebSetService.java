@@ -1,6 +1,6 @@
-package info.xiaomo.core.service;
+package info.xiaomo.core.service.website;
 
-import info.xiaomo.core.model.SystemSetModel;
+import info.xiaomo.core.model.website.SystemSetModel;
 
 import java.util.List;
 

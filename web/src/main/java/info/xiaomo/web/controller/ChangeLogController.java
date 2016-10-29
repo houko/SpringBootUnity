@@ -1,8 +1,8 @@
 package info.xiaomo.web.controller;
 
 import info.xiaomo.core.controller.BaseController;
-import info.xiaomo.core.model.ChangeLogModel;
-import info.xiaomo.core.service.ChangeLogService;
+import info.xiaomo.core.model.website.ChangeLogModel;
+import info.xiaomo.core.service.website.ChangeLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.RequestMapping;

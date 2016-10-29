@@ -1,8 +1,8 @@
 package info.xiaomo.website.controller;
 
 import info.xiaomo.core.controller.BaseController;
-import info.xiaomo.core.model.SystemSetModel;
-import info.xiaomo.core.service.WebSetService;
+import info.xiaomo.core.model.website.SystemSetModel;
+import info.xiaomo.core.service.website.WebSetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

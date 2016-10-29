@@ -1,8 +1,7 @@
-package info.xiaomo.core.dao;
+package info.xiaomo.core.service.website;
 
-import info.xiaomo.core.model.ChangeLogModel;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import info.xiaomo.core.model.website.ChangeLogModel;
+import org.springframework.data.domain.Page;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -14,13 +13,21 @@ import org.springframework.stereotype.Repository;
  * @github: https://github.com/qq83387856
  * @email: hupengbest@163.com
  * @QQ_NO: 83387856
- * @Date: 2016/4/1119:52
+ * @Date: 2016/4/1119:49
  * @Description:
  * @Copyright(©) 2015 by xiaomo.
  **/
-@Repository
-public interface ChangeLogDao extends JpaRepository<ChangeLogModel, Long> {
+public interface ChangeLogService {
+
+    ChangeLogModel findById(Long id);
 
     ChangeLogModel findByName(String name);
 
+    Page<ChangeLogModel> findAll(int start ,int pageSize);
+
+    ChangeLogModel add(ChangeLogModel model);
+
+    ChangeLogModel update(ChangeLogModel model);
+
+    ChangeLogModel delete(Long id);
 }

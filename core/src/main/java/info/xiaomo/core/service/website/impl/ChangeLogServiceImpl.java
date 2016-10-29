@@ -1,8 +1,8 @@
-package info.xiaomo.core.service.impl;
+package info.xiaomo.core.service.website.impl;
 
-import info.xiaomo.core.dao.LinkDao;
-import info.xiaomo.core.model.LinkModel;
-import info.xiaomo.core.service.LinkService;
+import info.xiaomo.core.dao.website.ChangeLogDao;
+import info.xiaomo.core.model.website.ChangeLogModel;
+import info.xiaomo.core.service.website.ChangeLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,62 +21,56 @@ import java.util.Date;
  * @github: https://github.com/qq83387856
  * @email: hupengbest@163.com
  * @QQ_NO: 83387856
- * @Date: 2016/4/1119:50
- * @Description: 友情链接
+ * @Date: 2016/4/1119:49
+ * @Description: 标签
  * @Copyright(©) 2015 by xiaomo.
  **/
 @Service
-public class LinkServiceImpl implements LinkService {
+public class ChangeLogServiceImpl implements ChangeLogService {
 
-    private final LinkDao dao;
+    private final ChangeLogDao dao;
 
     @Autowired
-    public LinkServiceImpl(LinkDao dao) {
+    public ChangeLogServiceImpl(ChangeLogDao dao) {
         this.dao = dao;
     }
 
     @Override
-    public LinkModel findById(Long id) {
+    public ChangeLogModel findById(Long id) {
         return dao.findOne(id);
     }
 
     @Override
-    public LinkModel findByName(String name) {
-        return dao.findLinkByName(name);
+    public ChangeLogModel findByName(String name) {
+        return dao.findByName(name);
     }
 
     @Override
-    public Page<LinkModel> findAll(int start, int pageSize) {
-        Sort sort = new Sort(Sort.Direction.DESC, "level");
-        return dao.findAll(new PageRequest(start - 1, pageSize, sort));
+    public Page<ChangeLogModel> findAll(int start, int pageSize) {
+        Sort sort = new Sort(Sort.Direction.DESC, "createTime");
+        return dao.findAll(new PageRequest(start - 1, pageSize,sort));
     }
 
     @Override
-    public LinkModel add(LinkModel model) {
+    public ChangeLogModel add(ChangeLogModel model) {
         model.setCreateTime(new Date());
         model.setUpdateTime(new Date());
         return dao.save(model);
     }
 
     @Override
-    public LinkModel update(LinkModel model) {
-        LinkModel updateModel = dao.findOne(model.getId());
+    public ChangeLogModel update(ChangeLogModel model) {
+        ChangeLogModel updateModel = dao.findOne(model.getId());
         if (model.getName() != null) {
             updateModel.setName(model.getName());
         }
-        if (model.getUrl() != null) {
-            updateModel.setUrl(model.getUrl());
-        }
-        if (model.getLevel() > 0) {
-            updateModel.setLevel(model.getLevel());
-        }
-        model.setUpdateTime(new Date());
+        updateModel.setUpdateTime(new Date());
         return dao.save(updateModel);
     }
 
     @Override
-    public LinkModel delete(Long id) {
-        LinkModel model = dao.findOne(id);
+    public ChangeLogModel delete(Long id) {
+        ChangeLogModel model = dao.findOne(id);
         if (model != null) {
             dao.delete(id);
         }

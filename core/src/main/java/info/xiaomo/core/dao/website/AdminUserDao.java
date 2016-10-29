@@ -1,6 +1,6 @@
-package info.xiaomo.core.dao;
+package info.xiaomo.core.dao.website;
 
-import info.xiaomo.core.model.UserModel;
+import info.xiaomo.core.model.website.AdminModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -22,13 +22,13 @@ import org.springframework.stereotype.Repository;
  * @github: https://github.com/qq83387856
  * @email: hupengbest@163.com
  * @QQ_NO: 83387856
- * @Date: 16/4/3 10:53
- * @Description: 用户dao
+ * @Date: 16/4/2 13:08
+ * @Description: 后台用户查询
  * @Copyright(©) 2015 by xiaomo.
  */
-
 @Repository
-public interface UserDao extends JpaRepository<UserModel, Long> {
+public interface AdminUserDao extends JpaRepository<AdminModel, Long> {
 
-    UserModel findUserByEmail(String email);
+    AdminModel findAdminUserByUserName(String s);
+
 }

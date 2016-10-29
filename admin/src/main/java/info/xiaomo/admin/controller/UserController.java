@@ -8,6 +8,7 @@ import info.xiaomo.core.model.UserModel;
 import info.xiaomo.core.service.UserService;
 import info.xiaomo.core.untils.DateUtil;
 import info.xiaomo.core.untils.MD5Util;
+import info.xiaomo.core.untils.MailUtil;
 import info.xiaomo.core.untils.RandomUtil;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +60,16 @@ public class UserController extends BaseController {
         return userModel;
     }
 
+    /**
+     * 添加用户
+     * @param email email
+     * @param password password
+     * @param nickName nickName
+     * @param phone phone
+     * @param address address
+     * @param gender gender
+     * @return
+     */
     @RequestMapping(value = "addUser", method = RequestMethod.POST)
     public UserModel addUser(
             @RequestParam(name = "email", defaultValue = "null") String email,
@@ -86,14 +97,60 @@ public class UserController extends BaseController {
         return userModel;
     }
 
+    /**
+     * 注册
+     *
+     * @param email email
+     * @return result
+     */
+    @RequestMapping(value = "register", method = RequestMethod.POST)
+    public String register(
+            @RequestParam String email,
+            @RequestParam String password
+    ) throws Exception {
+        if (email.equals("")) {
+            return null;
+        }
+        UserModel userModel = service.findUserByEmail(email);
+        //邮箱被占用
+        if (userModel != null) {
+            return null;
+        }
+        String redirectValidateUrl = MailUtil.redirectValidateUrl(email,password);
+        MailUtil.send(email, redirectValidateUrl);
+        return redirectValidateUrl;
+    }
+
+
+    /**
+     * 登录
+     *
+     * @param email    email
+     * @param password password
+     * @return result
+     */
+    @RequestMapping(value = "login", method = RequestMethod.POST)
+    public UserModel login(@RequestParam String email, @RequestParam String password) {
+        UserModel userModel = service.findUserByEmail(email);
+        //找不到用户
+        if (userModel == null) {
+            return null;
+        }
+        //密码不正确
+        if (!MD5Util.encode(password, userModel.getSalt()).equals(userModel.getPassword())) {
+            return null;
+        }
+        return userModel;
+    }
+
 
     /**
      * 修改密码
      *
-     * @param email
-     * @param password
-     * @return
-     * @throws UserNotFoundException
+     * @param email  email
+     * @param password password
+     * @return model
+     * @throws UserNotFoundException UserNotFoundException
      */
     @RequestMapping(value = "changePassword", method = RequestMethod.POST)
     public UserModel changePassword(

@@ -159,6 +159,12 @@ public class AdminUserController extends BaseController {
     }
 
 
+    /**
+     * 返回所有
+     * @param start start
+     * @param page page
+     * @return 分页
+     */
     @RequestMapping(value = "findAll", method = RequestMethod.GET)
     public Page<AdminModel> getAll(@RequestParam(value = "start", defaultValue = "1") int start, @RequestParam(value = "pageSize", defaultValue = "10") int page) {
         return service.getAdminUsers(start, page);

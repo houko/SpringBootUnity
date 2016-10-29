@@ -85,7 +85,7 @@ public class AdminUserServiceImpl implements AdminUserService {
 
     @Override
     public Page<AdminModel> getAdminUsers(int start, int pageSize) {
-        Sort sort = new Sort(Sort.Direction.DESC, "authLevel");
+        Sort sort = new Sort(Sort.Direction.DESC, "createTime");
         return dao.findAll(new PageRequest(start - 1, pageSize, sort));
     }
 

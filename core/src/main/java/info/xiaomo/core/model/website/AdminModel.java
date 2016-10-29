@@ -30,7 +30,7 @@ import java.io.Serializable;
  * @Copyright(©) 2015 by xiaomo.
  */
 @Entity
-@Table(name = "website")
+@Table(name = "adminUser")
 public class AdminModel extends BaseModel implements Serializable {
 
     @Column(name = "UserName")

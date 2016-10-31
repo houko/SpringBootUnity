@@ -56,7 +56,7 @@ public class AdminUserController extends BaseController {
         if (adminModel == null) {
             return new Result(Error.USER_NOT_FOUND.getErrorCode(), Error.USER_NOT_FOUND.getErrorMsg());
         }
-        if (MD5Util.encode(model.getPassword(), adminModel.getSalt()).equals(adminModel.getPassword())) {
+        if (!MD5Util.encode(model.getPassword(), adminModel.getSalt()).equals(adminModel.getPassword())) {
             return new Result(Error.AUTH_FAILED.getErrorCode(), Error.AUTH_FAILED.getErrorMsg());
         }
         return new Result(adminModel);

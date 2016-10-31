@@ -30,9 +30,6 @@ public abstract class BaseModel {
     @Column(name = "Version")
     private long version;
 
-    @Column(name = "ResultCode")
-    private int resultCode = 0;
-
     @Column(name = "CreateTime")
     private Date createTime;
 
@@ -69,13 +66,5 @@ public abstract class BaseModel {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
-    }
-
-    public int getResultCode() {
-        return resultCode;
-    }
-
-    public void setResultCode(int resultCode) {
-        this.resultCode = resultCode;
     }
 }

@@ -137,6 +137,8 @@ public class RandomUtil {
     }
 
     public static void main(String[] args) {
-        System.out.println(createSalt());
+        String salt = createSalt();
+        System.out.println(salt);
+        System.out.println(MD5Util.encode("123456",salt));
     }
 }

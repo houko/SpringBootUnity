@@ -48,18 +48,6 @@ public class AdminModel extends BaseModel implements Serializable {
     @Column(name = "Salt")
     private String salt;
 
-    /**
-     * 0(游客用户:默认admin) 1超级管理员
-     */
-    @Column(name = "AuthLevel")
-    private int authLevel;
-
-    /**
-     * 操作员(谁加的这个帐号)
-     */
-    @Column(name = "Operator")
-    private String operator;
-
     public String getUserName() {
         return userName;
     }
@@ -84,14 +72,6 @@ public class AdminModel extends BaseModel implements Serializable {
         this.password = password;
     }
 
-    public int getAuthLevel() {
-        return authLevel;
-    }
-
-    public void setAuthLevel(int authLevel) {
-        this.authLevel = authLevel;
-    }
-
     public int getStatus() {
         return status;
     }
@@ -100,11 +80,4 @@ public class AdminModel extends BaseModel implements Serializable {
         this.status = status;
     }
 
-    public String getOperator() {
-        return operator;
-    }
-
-    public void setOperator(String operator) {
-        this.operator = operator;
-    }
 }

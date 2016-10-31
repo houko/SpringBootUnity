@@ -72,9 +72,6 @@ public class AdminUserServiceImpl implements AdminUserService {
         if (model.getPassword() != null) {
             userUpdate.setPassword(model.getPassword());
         }
-        if (model.getAuthLevel() != 0) {
-            userUpdate.setAuthLevel(model.getAuthLevel());
-        }
         if (model.getUserName() != null) {
             userUpdate.setUserName(model.getUserName());
         }

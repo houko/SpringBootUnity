@@ -1,6 +1,5 @@
 package info.xiaomo.website.controller;
 
-import info.xiaomo.core.constant.ErrorCode;
 import info.xiaomo.core.constant.GenderType;
 import info.xiaomo.core.controller.BaseController;
 import info.xiaomo.core.exception.UserNotFoundException;
@@ -62,12 +61,13 @@ public class UserController extends BaseController {
 
     /**
      * 添加用户
-     * @param email email
+     *
+     * @param email    email
      * @param password password
      * @param nickName nickName
-     * @param phone phone
-     * @param address address
-     * @param gender gender
+     * @param phone    phone
+     * @param address  address
+     * @param gender   gender
      * @return
      */
     @RequestMapping(value = "addUser", method = RequestMethod.POST)
@@ -116,7 +116,7 @@ public class UserController extends BaseController {
         if (userModel != null) {
             return null;
         }
-        String redirectValidateUrl = MailUtil.redirectValidateUrl(email,password);
+        String redirectValidateUrl = MailUtil.redirectValidateUrl(email, password);
         MailUtil.send(email, redirectValidateUrl);
         return redirectValidateUrl;
     }
@@ -147,7 +147,7 @@ public class UserController extends BaseController {
     /**
      * 修改密码
      *
-     * @param email  email
+     * @param email    email
      * @param password password
      * @return model
      * @throws UserNotFoundException UserNotFoundException
@@ -171,11 +171,12 @@ public class UserController extends BaseController {
 
     /**
      * 更新用户信息
-     * @param email email
+     *
+     * @param email    email
      * @param nickName nickName
-     * @param phone phone
-     * @param address address
-     * @param gender gender
+     * @param phone    phone
+     * @param address  address
+     * @param gender   gender
      * @return model
      * @throws UserNotFoundException UserNotFoundException
      */
@@ -243,14 +244,12 @@ public class UserController extends BaseController {
         UserModel userModel = service.findUserByEmail(email);
         if (userModel != null) {
             userModel = new UserModel();
-            userModel.setResultCode(ErrorCode.USER_REPEAT);
             return userModel;
         }
         //验证码是否过期
         if (time + DateUtil.ONE_DAY_IN_MILLISECONDS * 2 < DateUtil.getNowOfMills()) {
             LOGGER.info("用户{}使用己过期的激活码{}激活邮箱失败！", email, validateCode);
             userModel = new UserModel();
-            userModel.setResultCode(ErrorCode.USER_DATA_PASSED);
             return userModel;
         }
         //激活

@@ -1,6 +1,8 @@
 package info.xiaomo.website.controller;
 
+import info.xiaomo.core.constant.Error;
 import info.xiaomo.core.controller.BaseController;
+import info.xiaomo.core.controller.Result;
 import info.xiaomo.core.exception.UserNotFoundException;
 import info.xiaomo.core.model.website.AdminModel;
 import info.xiaomo.core.service.website.AdminUserService;
@@ -8,10 +10,7 @@ import info.xiaomo.core.untils.MD5Util;
 import info.xiaomo.core.untils.RandomUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * │＼＿＿╭╭╭╭╭＿＿／│
@@ -49,62 +48,41 @@ public class AdminUserController extends BaseController {
     /**
      * 后台账户登录
      *
-     * @param userName userName
-     * @param password password
      * @return result
      */
     @RequestMapping(value = "login", method = RequestMethod.POST)
-    public AdminModel login(@RequestParam String userName, @RequestParam String password) {
-        AdminModel adminModel = service.findAdminUserByUserName(userName);
+    public Result login(@RequestBody AdminModel model) {
+        AdminModel adminModel = service.findAdminUserByUserName(model.getUserName());
         if (adminModel == null) {
-            return null;
+            return new Result(Error.USER_NOT_FOUND.getErrorCode(), Error.USER_NOT_FOUND.getErrorMsg());
         }
-        if (MD5Util.encode(password, adminModel.getSalt()).equals(adminModel.getPassword())) {
-            return null;
+        if (MD5Util.encode(model.getPassword(), adminModel.getSalt()).equals(adminModel.getPassword())) {
+            return new Result(Error.AUTH_FAILDED.getErrorCode(), Error.AUTH_FAILDED.getErrorMsg());
         }
-        return adminModel;
+        return new Result(adminModel);
     }
+
 
     /**
      * 添加用户
      *
-     * @param operator  operator
-     * @param userName  userName
-     * @param password  password
-     * @param authLevel authLevel
      * @return model
      */
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public AdminModel add(
-            @RequestParam(name = "operator", defaultValue = "website") String operator,
-            @RequestParam(name = "userName", defaultValue = "null") String userName,
-            @RequestParam(name = "password", defaultValue = "123456") String password,
-            @RequestParam(name = "authLevel", defaultValue = "0") int authLevel
+    public AdminModel add(@RequestBody AdminModel model
     ) {
-        AdminModel operatorModel = service.findAdminUserByUserName(operator);
-        if (operator == null) {
-            return null;
-        }
-        if (operatorModel.getAuthLevel() <= 0) {
-            return null;
-        }
-
-        AdminModel adminModel = service.findAdminUserByUserName(userName);
+        AdminModel adminModel = service.findAdminUserByUserName(model.getUserName());
         if (adminModel != null) {
             return null;
         }
         String salt = RandomUtil.createSalt();
-        adminModel = new AdminModel();
-        adminModel.setUserName(userName);
-        adminModel.setSalt(salt);
-        adminModel.setPassword(MD5Util.encode(password, salt));
-        adminModel.setAuthLevel(authLevel);
-        adminModel.setOperator(operator);
-        AdminModel res = service.addAdminUser(adminModel);
+        model.setSalt(salt);
+        model.setPassword(MD5Util.encode(model.getPassword(), salt));
+        AdminModel res = service.addAdminUser(model);
         if (res != null) {
             return null;
         }
-        return adminModel;
+        return res;
     }
 
     /**
@@ -161,8 +139,9 @@ public class AdminUserController extends BaseController {
 
     /**
      * 返回所有
+     *
      * @param start start
-     * @param page page
+     * @param page  page
      * @return 分页
      */
     @RequestMapping(value = "findAll", method = RequestMethod.GET)
@@ -184,9 +163,6 @@ public class AdminUserController extends BaseController {
         if (operator == null) {
             return null;
         }
-        if (operatorModel.getAuthLevel() <= 0) {
-            return null;
-        }
         AdminModel adminModel = service.deleteAdminUserById(id);
         if (adminModel == null) {
             return null;
@@ -197,23 +173,18 @@ public class AdminUserController extends BaseController {
     /**
      * 更新
      *
-     * @param operator  operator
-     * @param userName  userName
-     * @param authLevel authLevel
+     * @param operator operator
+     * @param userName userName
      * @return model
      * @throws UserNotFoundException UserNotFoundException
      */
     @RequestMapping(value = "update", method = RequestMethod.POST)
     public AdminModel update(
             @RequestParam("operator") String operator,
-            @RequestParam("userName") String userName,
-            @RequestParam("authLevel") int authLevel
+            @RequestParam("userName") String userName
     ) throws UserNotFoundException {
         AdminModel operatorModel = service.findAdminUserByUserName(operator);
         if (operator == null) {
-            return null;
-        }
-        if (operatorModel.getAuthLevel() <= 0) {
             return null;
         }
         AdminModel adminModel = service.findAdminUserByUserName(userName);
@@ -221,7 +192,6 @@ public class AdminUserController extends BaseController {
             return null;
         }
         adminModel.setUserName(userName);
-        adminModel.setAuthLevel(authLevel);
         return service.updateAdminUser(adminModel);
     }
 
@@ -237,9 +207,6 @@ public class AdminUserController extends BaseController {
     public AdminModel forbid(@RequestParam("id") Long id, @RequestParam("operator") String operator) throws UserNotFoundException {
         AdminModel operatorModel = service.findAdminUserByUserName(operator);
         if (operator == null) {
-            return null;
-        }
-        if (operatorModel.getAuthLevel() <= 0) {
             return null;
         }
         AdminModel model = service.findAdminUserById(id);

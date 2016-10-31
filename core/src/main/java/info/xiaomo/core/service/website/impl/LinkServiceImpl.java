@@ -47,7 +47,7 @@ public class LinkServiceImpl implements LinkService {
 
     @Override
     public Page<LinkModel> findAll(int start, int pageSize) {
-        Sort sort = new Sort(Sort.Direction.DESC, "level");
+        Sort sort = new Sort(Sort.Direction.DESC, "order");
         return dao.findAll(new PageRequest(start - 1, pageSize, sort));
     }
 
@@ -67,8 +67,8 @@ public class LinkServiceImpl implements LinkService {
         if (model.getUrl() != null) {
             updateModel.setUrl(model.getUrl());
         }
-        if (model.getLevel() > 0) {
-            updateModel.setLevel(model.getLevel());
+        if (model.getOrder() > 0) {
+            updateModel.setOrder(model.getOrder());
         }
         model.setUpdateTime(new Date());
         return dao.save(updateModel);

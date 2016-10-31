@@ -23,7 +23,7 @@ import java.io.Serializable;
  **/
 @Entity
 @Table(name = "link")
-public class LinkModel extends BaseModel implements Serializable{
+public class LinkModel extends BaseModel implements Serializable {
 
     @Column(name = "Name")
     private String name;
@@ -31,8 +31,8 @@ public class LinkModel extends BaseModel implements Serializable{
     @Column(name = "Url")
     private String url;
 
-    @Column(name = "Level")
-    private int level;
+    @Column(name = "`Order`")
+    private int order;
 
     public String getName() {
         return name;
@@ -50,11 +50,11 @@ public class LinkModel extends BaseModel implements Serializable{
         this.url = url;
     }
 
-    public int getLevel() {
-        return level;
+    public int getOrder() {
+        return order;
     }
 
-    public void setLevel(int level) {
-        this.level = level;
+    public void setOrder(int order) {
+        this.order = order;
     }
 }

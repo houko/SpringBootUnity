@@ -1,12 +1,14 @@
 package info.xiaomo.website.controller;
 
+import info.xiaomo.core.constant.Error;
 import info.xiaomo.core.controller.BaseController;
+import info.xiaomo.core.controller.Result;
 import info.xiaomo.core.model.website.SystemSetModel;
 import info.xiaomo.core.service.website.WebSetService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -49,61 +51,43 @@ public class WebSetController extends BaseController {
 
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public SystemSetModel add(
-            @RequestParam(value = "siteName", defaultValue = "小莫的博客") String siteName,
-            @RequestParam(value = "icon", defaultValue = "") String icon,
-            @RequestParam(value = "fromYear", defaultValue = "2016") int fromYear,
-            @RequestParam(value = "toYear", defaultValue = "2016") int toYear,
-            @RequestParam(value = "beianNumber", defaultValue = "浙ICP备15009606号") String beianNumber,
-            @RequestParam(value = "beianUrl", defaultValue = "http://www.miitbeian.gov.cn/") String beianUrl
-    ) {
+    public Result add(@RequestBody SystemSetModel systemSetModel) {
         List<SystemSetModel> all = service.findAll();
         if (all.size() > 1) {
-            return null;
+            return new Result(Error.ERROR.getErrorCode(), Error.ERROR.getErrorMsg());
         }
         SystemSetModel model = new SystemSetModel();
-        model.setSiteName(siteName);
-        model.setIcon(icon);
-        model.setFromYear(fromYear);
-        model.setToYear(toYear);
-        model.setBeianUrl(beianUrl);
-        model.setBeianNumber(beianNumber);
-        return service.add(model);
+        model.setSiteName(systemSetModel.getSiteName());
+        model.setIcon(systemSetModel.getIcon());
+        model.setFromYear(systemSetModel.getFromYear());
+        model.setToYear(systemSetModel.getToYear());
+        model.setBeianUrl(systemSetModel.getBeianUrl());
+        model.setBeianNumber(systemSetModel.getBeianNumber());
+        SystemSetModel add = service.add(model);
+        return new Result(add);
     }
 
     /**
      * 更新
-     * @param id id
-     * @param siteName siteName
-     * @param icon icon
-     * @param fromYear fromYear
-     * @param toYear toYear
-     * @param beianNumber beianNumber
-     * @param beianUrl beianUrl
+     *
      * @return SystemSetModel
      */
     @RequestMapping(value = "update", method = RequestMethod.POST)
-    public SystemSetModel update(
-            @RequestParam(value = "id", defaultValue = "") Long id,
-            @RequestParam(value = "siteName", defaultValue = "小莫的博客") String siteName,
-            @RequestParam(value = "icon", defaultValue = "") String icon,
-            @RequestParam(value = "fromYear", defaultValue = "2016") int fromYear,
-            @RequestParam(value = "toYear", defaultValue = "2016") int toYear,
-            @RequestParam(value = "beianNumber", defaultValue = "浙ICP备15009606号") String beianNumber,
-            @RequestParam(value = "beianUrl", defaultValue = "http://www.miitbeian.gov.cn/") String beianUrl
-    ) {
+    public Result update(@RequestBody SystemSetModel systemSetModel) {
         List<SystemSetModel> all = service.findAll();
         if (all.size() > 1) {
-            return null;
+            return new Result(Error.ERROR.getErrorCode(), Error.ERROR.getErrorMsg());
         }
-        SystemSetModel model = new SystemSetModel();
-        model.setId(id);
-        model.setSiteName(siteName);
-        model.setIcon(icon);
-        model.setFromYear(fromYear);
-        model.setToYear(toYear);
-        model.setBeianUrl(beianUrl);
-        model.setBeianNumber(beianNumber);
-        return service.update(model);
+        for (SystemSetModel setModel : all) {
+            setModel.setSiteName(systemSetModel.getSiteName());
+            setModel.setIcon(systemSetModel.getIcon());
+            setModel.setFromYear(systemSetModel.getFromYear());
+            setModel.setToYear(systemSetModel.getToYear());
+            setModel.setBeianUrl(systemSetModel.getBeianUrl());
+            setModel.setBeianNumber(systemSetModel.getBeianNumber());
+            SystemSetModel add = service.update(setModel);
+            return new Result(add);
+        }
+        return new Result(Error.ERROR.getErrorCode(), Error.ERROR.getErrorMsg());
     }
 }

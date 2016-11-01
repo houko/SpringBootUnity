@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.util.Calendar;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -29,36 +30,36 @@ public class SystemSetModel extends BaseModel implements Serializable {
      * 站点名字
      */
     @Column(name = "SiteName")
-    private String siteName;
+    private String siteName ="小莫-fighting";
 
     /**
      * 站点图标
      */
     @Column(name = "Icon")
-    private String icon;
+    private String icon ="";
 
     /**
      * footer 的开始年份
      */
     @Column(name = "FromYear")
-    private int fromYear;
+    private int fromYear = Calendar.getInstance().get(Calendar.YEAR);
 
     /**
      * footer的结束年份
      */
     @Column(name = "ToYear")
-    private int toYear;
+    private int toYear = Calendar.getInstance().get(Calendar.YEAR);
 
     /**
      * 备案号
      */
     @Column(name = "BeianNumber")
-    private String beianNumber;
+    private String beianNumber = "浙ICP备15009606号";
     /**
      * 备案地址
      */
     @Column(name = "BeianUrl")
-    private String beianUrl;
+    private String beianUrl = "http://www.miitbeian.gov.cn/";
 
 
     public String getSiteName() {

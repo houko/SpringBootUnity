@@ -23,7 +23,7 @@ import java.io.Serializable;
  **/
 @Entity
 @Table(name = "user")
-public class UserModel extends BaseModel implements Serializable{
+public class UserModel extends BaseModel implements Serializable {
 
     /**
      * 登录用户
@@ -47,16 +47,19 @@ public class UserModel extends BaseModel implements Serializable{
     private String validateCode;//激活码
 
     @Column(name = "Gender")
-    private int gender;
+    private int gender = 0;
 
     @Column(name = "Phone")
-    private Long phone;
+    private Long phone = 0L;
 
     @Column(name = "ImgUrl")
-    private String imgUrl;
+    private String imgUrl = "";
 
     @Column(name = "Address")
-    private String address;
+    private String address = "";
+
+    @Column(name = "RegisterTime")
+    private Long RegisterTime = 0L;
 
     public String getNickName() {
         return nickName;
@@ -129,5 +132,13 @@ public class UserModel extends BaseModel implements Serializable{
 
     public void setValidateCode(String validateCode) {
         this.validateCode = validateCode;
+    }
+
+    public Long getRegisterTime() {
+        return RegisterTime;
+    }
+
+    public void setRegisterTime(Long registerTime) {
+        RegisterTime = registerTime;
     }
 }

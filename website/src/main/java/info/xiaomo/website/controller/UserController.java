@@ -1,7 +1,9 @@
 package info.xiaomo.website.controller;
 
+import info.xiaomo.core.constant.Error;
 import info.xiaomo.core.constant.GenderType;
 import info.xiaomo.core.controller.BaseController;
+import info.xiaomo.core.controller.Result;
 import info.xiaomo.core.exception.UserNotFoundException;
 import info.xiaomo.core.model.website.UserModel;
 import info.xiaomo.core.service.website.UserService;
@@ -12,10 +14,7 @@ import info.xiaomo.core.untils.RandomUtil;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 
@@ -51,156 +50,110 @@ public class UserController extends BaseController {
      * @return result
      */
     @RequestMapping(value = "findById", method = RequestMethod.GET)
-    public UserModel findUserById(@RequestParam("id") Long id) {
+    public Result findUserById(@RequestParam("id") Long id) {
         UserModel userModel = service.findUserById(id);
         if (userModel == null) {
-            return null;
+            return new Result(Error.USER_NOT_FOUND.getErrorCode(), Error.USER_NOT_FOUND.getErrorMsg());
         }
-        return userModel;
+        return new Result(userModel);
     }
 
     /**
      * 添加用户
-     *
-     * @param email    email
-     * @param password password
-     * @param nickName nickName
-     * @param phone    phone
-     * @param address  address
-     * @param gender   gender
-     * @return
      */
     @RequestMapping(value = "addUser", method = RequestMethod.POST)
-    public UserModel addUser(
-            @RequestParam(name = "email", defaultValue = "null") String email,
-            @RequestParam(name = "password", defaultValue = "123456") String password,
-            @RequestParam(name = "nickName", defaultValue = "新用户") String nickName,
-            @RequestParam(name = "phone", defaultValue = "0") Long phone,
-            @RequestParam(name = "address", defaultValue = "保密") String address,
-            @RequestParam(name = "gender", defaultValue = "0") int gender
-    ) {
-        UserModel userModel = service.findUserByEmail(email);
+    public Result addUser(@RequestBody UserModel user) {
+        UserModel userModel = service.findUserByEmail(user.getEmail());
         if (userModel != null) {
-            return null;
+            return new Result(Error.USER_REPEAT.getErrorCode(), Error.USER_REPEAT.getErrorMsg());
         }
         String salt = RandomUtil.createSalt();
-        userModel = new UserModel();
-        userModel.setEmail(email);
-        userModel.setNickName(nickName);
-        userModel.setPhone(phone);
-        userModel.setAddress(address);
-        userModel.setGender(gender);
-        userModel.setPassword(MD5Util.encode(password, salt));
-        userModel.setValidateCode(MD5Util.encode(email, ""));
-        userModel.setSalt(salt);
-        service.addUser(userModel);
-        return userModel;
+        user.setPassword(MD5Util.encode(user.getPassword(), salt));
+        user.setValidateCode(MD5Util.encode(user.getEmail(), ""));
+        user.setSalt(salt);
+        service.addUser(user);
+        return new Result(user);
     }
 
     /**
      * 注册
      *
-     * @param email email
      * @return result
      */
     @RequestMapping(value = "register", method = RequestMethod.POST)
-    public String register(
-            @RequestParam String email,
-            @RequestParam String password
-    ) throws Exception {
-        if (email.equals("")) {
-            return null;
-        }
-        UserModel userModel = service.findUserByEmail(email);
+    public Result register(@RequestBody UserModel user) throws Exception {
+        UserModel userModel = service.findUserByEmail(user.getEmail());
         //邮箱被占用
         if (userModel != null) {
-            return null;
+            return new Result(Error.USER_REPEAT.getErrorCode(), Error.USER_REPEAT.getErrorMsg());
         }
-        String redirectValidateUrl = MailUtil.redirectValidateUrl(email, password);
-        MailUtil.send(email, redirectValidateUrl);
-        return redirectValidateUrl;
+        String redirectValidateUrl = MailUtil.redirectValidateUrl(user.getEmail(), user.getPassword());
+        MailUtil.send(user.getEmail(), redirectValidateUrl);
+        return new Result(redirectValidateUrl);
     }
 
 
     /**
      * 登录
      *
-     * @param email    email
-     * @param password password
      * @return result
      */
     @RequestMapping(value = "login", method = RequestMethod.POST)
-    public UserModel login(@RequestParam String email, @RequestParam String password) {
-        UserModel userModel = service.findUserByEmail(email);
+    public Result login(@RequestBody UserModel user) {
+        UserModel userModel = service.findUserByEmail(user.getEmail());
         //找不到用户
         if (userModel == null) {
-            return null;
+            return new Result(Error.USER_NOT_FOUND.getErrorCode(), Error.USER_NOT_FOUND.getErrorMsg());
         }
         //密码不正确
-        if (!MD5Util.encode(password, userModel.getSalt()).equals(userModel.getPassword())) {
-            return null;
+        if (!MD5Util.encode(user.getPassword(), userModel.getSalt()).equals(userModel.getPassword())) {
+            return new Result(Error.AUTH_FAILED.getErrorCode(), Error.AUTH_FAILED.getErrorMsg());
         }
-        return userModel;
+        return new Result(userModel);
     }
 
 
     /**
      * 修改密码
      *
-     * @param email    email
-     * @param password password
      * @return model
      * @throws UserNotFoundException UserNotFoundException
      */
     @RequestMapping(value = "changePassword", method = RequestMethod.POST)
-    public UserModel changePassword(
-            @RequestParam String email,
-            @RequestParam String nickName,
-            @RequestParam String password
-    ) throws UserNotFoundException {
-        UserModel userByEmail = service.findUserByEmail(email);
+    public Result changePassword(@RequestBody UserModel user) throws UserNotFoundException {
+        UserModel userByEmail = service.findUserByEmail(user.getEmail());
         if (userByEmail == null) {
-            return null;
+            return new Result(Error.USER_NOT_FOUND.getErrorCode(), Error.USER_NOT_FOUND.getErrorMsg());
         }
         String salt = RandomUtil.createSalt();
-        userByEmail.setPassword(MD5Util.encode(password, salt));
-        userByEmail.setNickName(nickName);
+        userByEmail.setPassword(MD5Util.encode(user.getPassword(), salt));
+        userByEmail.setNickName(user.getNickName());
         userByEmail.setSalt(salt);
-        return service.updateUser(userByEmail);
+        UserModel updateUser = service.updateUser(userByEmail);
+        return new Result(updateUser);
     }
 
     /**
      * 更新用户信息
      *
-     * @param email    email
-     * @param nickName nickName
-     * @param phone    phone
-     * @param address  address
-     * @param gender   gender
      * @return model
      * @throws UserNotFoundException UserNotFoundException
      */
     @RequestMapping(value = "update", method = RequestMethod.POST)
-    public UserModel update(
-            @RequestParam(name = "email", defaultValue = "null") String email,
-            @RequestParam(name = "nickName", defaultValue = "新用户") String nickName,
-            @RequestParam(name = "phone", defaultValue = "0") Long phone,
-            @RequestParam(name = "address", defaultValue = "保密") String address,
-            @RequestParam(name = "gender", defaultValue = "0") int gender
-    ) throws UserNotFoundException {
-        UserModel userModel = service.findUserByEmail(email);
+    public Result update(@RequestBody UserModel user) throws UserNotFoundException {
+        UserModel userModel = service.findUserByEmail(user.getEmail());
         if (userModel == null) {
-            return null;
+            return new Result(Error.USER_NOT_FOUND.getErrorCode(), Error.USER_NOT_FOUND.getErrorMsg());
         }
         userModel = new UserModel();
-        userModel.setEmail(email);
-        userModel.setNickName(nickName);
-        userModel.setPhone(phone);
-        userModel.setAddress(address);
-        userModel.setGender(gender);
-        userModel.setValidateCode(MD5Util.encode(email, ""));
-        service.updateUser(userModel);
-        return userModel;
+        userModel.setEmail(user.getEmail());
+        userModel.setNickName(user.getNickName());
+        userModel.setPhone(user.getPhone());
+        userModel.setAddress(user.getAddress());
+        userModel.setGender(user.getGender());
+        userModel.setValidateCode(MD5Util.encode(user.getEmail(), ""));
+        UserModel updateUser = service.updateUser(userModel);
+        return new Result(updateUser);
     }
 
     /**
@@ -211,8 +164,12 @@ public class UserController extends BaseController {
      * @return result
      */
     @RequestMapping(value = "findAll", method = RequestMethod.GET)
-    public Page<UserModel> getAll(@RequestParam(value = "start", defaultValue = "1") int start, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
-        return service.findAll(start, pageSize);
+    public Result getAll(@RequestParam(value = "start", defaultValue = "1") int start, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+        Page<UserModel> pages = service.findAll(start, pageSize);
+        if (pages == null || pages.getSize() <= 0) {
+            return new Result(Error.NULL_DATA.getErrorCode(), Error.NULL_DATA.getErrorMsg());
+        }
+        return new Result(pages);
     }
 
     /**
@@ -222,50 +179,44 @@ public class UserController extends BaseController {
      * @return result
      */
     @RequestMapping(value = "deleteById", method = RequestMethod.GET)
-    public UserModel deleteUserById(@RequestParam("id") Long id) throws UserNotFoundException {
+    public Result deleteUserById(@RequestParam("id") Long id) throws UserNotFoundException {
         UserModel userModel = service.deleteUserById(id);
         if (userModel == null) {
-            return null;
+            return new Result(Error.USER_NOT_FOUND.getErrorCode(), Error.USER_NOT_FOUND.getErrorMsg());
         }
-        return userModel;
+        return new Result(userModel);
     }
 
     /**
      * 处理激活
      */
     @RequestMapping(value = "validateEmail", method = RequestMethod.POST)
-    public UserModel validateEmail(
-            @RequestParam(name = "email", defaultValue = "null") String email,
-            @RequestParam String validateCode,
-            @RequestParam String password,
-            @RequestParam(name = "time", defaultValue = "0") Long time
+    public Result validateEmail(@RequestBody UserModel user
     ) throws ServiceException, ParseException, UserNotFoundException {
         //数据访问层，通过email获取用户信息
-        UserModel userModel = service.findUserByEmail(email);
+        UserModel userModel = service.findUserByEmail(user.getEmail());
         if (userModel != null) {
-            userModel = new UserModel();
-            return userModel;
+            return new Result(Error.USER_REPEAT.getErrorCode(), Error.USER_REPEAT.getErrorMsg());
         }
         //验证码是否过期
-        if (time + DateUtil.ONE_DAY_IN_MILLISECONDS * 2 < DateUtil.getNowOfMills()) {
-            LOGGER.info("用户{}使用己过期的激活码{}激活邮箱失败！", email, validateCode);
-            userModel = new UserModel();
-            return userModel;
+        if (user.getRegisterTime() + DateUtil.ONE_DAY_IN_MILLISECONDS * 2 < DateUtil.getNowOfMills()) {
+            LOGGER.info("用户{}使用己过期的激活码{}激活邮箱失败！", user.getEmail(), user.getEmail());
+            return new Result(Error.TIME_PASSED.getErrorCode(), Error.TIME_PASSED.getErrorMsg());
         }
         //激活
         String salt = RandomUtil.createSalt();
         userModel = new UserModel();
-        userModel.setNickName(email);
-        userModel.setEmail(email);
+        userModel.setNickName(user.getNickName());
+        userModel.setEmail(user.getEmail());
         userModel.setGender(GenderType.secret);
-        userModel.setValidateCode(MD5Util.encode(email, salt));
+        userModel.setValidateCode(MD5Util.encode(user.getEmail(), salt));
         userModel.setPhone(0L);
         userModel.setSalt(salt);
         userModel.setAddress("");
-        userModel.setPassword(MD5Util.encode(password, salt));
+        userModel.setPassword(MD5Util.encode(user.getPassword(), salt));
         userModel = service.addUser(userModel);
         LOGGER.info("用户{}使用激活码{}激活邮箱成功！", userModel.getEmail(), userModel.getValidateCode());
-        return userModel;
+        return new Result(userModel);
     }
 
 }

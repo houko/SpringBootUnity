@@ -878,7 +878,12 @@ public class DateUtil {
         return now.getTime();
     }
 
+    public static int getYear(){
+        return Calendar.getInstance().get(Calendar.YEAR);
+    }
+
     public static void main(String args[]) {
+        System.out.println(getYear());
         System.out.println(getYesterday());
         System.out.println(isSeason("2002-03-02"));
         String cc = "100.123.342";

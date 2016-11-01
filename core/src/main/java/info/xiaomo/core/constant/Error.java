@@ -15,9 +15,10 @@ package info.xiaomo.core.constant;
  * @Copyright(©) 2015 by xiaomo.
  */
 public enum Error {
+    ERROR(993, "系统错误"),
     ADMIN_USER_REPEAT(994, "后台用户名重复"),
     NULL_DATA(995, "没有数据"),
-    TIIME_PASSED(996, "时间己过期"),
+    TIME_PASSED(996, "时间己过期"),
     USER_NOT_FOUND(997, "找不到用户"),
     USER_REPEAT(998, "用户重复"),
     AUTH_FAILED(999, "用户名或密码错误");

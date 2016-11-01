@@ -48,7 +48,7 @@ public class AdminUserController extends BaseController {
     /**
      * 后台账户登录
      *
-     * @return result
+     * @return Result
      */
     @RequestMapping(value = "login", method = RequestMethod.POST)
     public Result login(@RequestBody AdminModel model) {
@@ -66,74 +66,68 @@ public class AdminUserController extends BaseController {
     /**
      * 添加用户
      *
-     * @return model
+     * @return Result
      */
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public AdminModel add(@RequestBody AdminModel model
-    ) {
+    public Result add(@RequestBody AdminModel model) {
         AdminModel adminModel = service.findAdminUserByUserName(model.getUserName());
         if (adminModel != null) {
-            return null;
+            return new Result(Error.ADMIN_USER_REPEAT.getErrorCode(), Error.ADMIN_USER_REPEAT.getErrorMsg());
         }
         String salt = RandomUtil.createSalt();
         model.setSalt(salt);
         model.setPassword(MD5Util.encode(model.getPassword(), salt));
-        AdminModel res = service.addAdminUser(model);
-        if (res != null) {
-            return null;
-        }
-        return res;
+        AdminModel saveModel = service.addAdminUser(model);
+        return new Result(saveModel);
     }
 
     /**
      * 根据id查找
      *
      * @param id id
-     * @return model
+     * @return Result
      */
     @RequestMapping(value = "findById", method = RequestMethod.GET)
-    public AdminModel findUserById(@RequestParam("id") Long id) {
+    public Result findUserById(@RequestParam("id") Long id) {
         AdminModel adminModel = service.findAdminUserById(id);
         if (adminModel == null) {
-            return null;
+            return new Result(Error.NULL_DATA.getErrorCode(), Error.NULL_DATA.getErrorMsg());
         }
-        return adminModel;
+        return new Result(adminModel);
     }
 
     /**
      * 根据名字查找
      *
      * @param userName userName
-     * @return model
+     * @return Result
      */
     @RequestMapping(value = "findByName", method = RequestMethod.GET)
-    public AdminModel findByName(@RequestParam("userName") String userName) {
+    public Result findByName(@RequestParam("userName") String userName) {
         AdminModel adminModel = service.findAdminUserByUserName(userName);
         if (adminModel == null) {
-            return null;
+            return new Result(Error.NULL_DATA.getErrorCode(), Error.NULL_DATA.getErrorMsg());
         }
-        return adminModel;
+        return new Result(adminModel);
     }
 
     /**
      * 修改密码
      *
-     * @param userName userName
-     * @param password password
      * @return model
      * @throws UserNotFoundException UserNotFoundException
      */
     @RequestMapping(value = "changePassword", method = RequestMethod.POST)
-    public AdminModel changePassword(@RequestParam("userName") String userName, @RequestParam("password") String password) throws UserNotFoundException {
-        AdminModel adminModel = service.findAdminUserByUserName(userName);
+    public Result changePassword(@RequestBody AdminModel model) throws UserNotFoundException {
+        AdminModel adminModel = service.findAdminUserByUserName(model.getUserName());
         if (adminModel == null) {
-            return null;
+            return new Result(Error.NULL_DATA.getErrorCode(), Error.NULL_DATA.getErrorMsg());
         }
         String salt = RandomUtil.createSalt();
         adminModel.setSalt(salt);
-        adminModel.setPassword(MD5Util.encode(password, salt));
+        adminModel.setPassword(MD5Util.encode(model.getPassword(), salt));
         service.updateAdminUser(adminModel);
-        return adminModel;
+        return new Result(adminModel);
     }
 
 
@@ -145,76 +139,66 @@ public class AdminUserController extends BaseController {
      * @return 分页
      */
     @RequestMapping(value = "findAll", method = RequestMethod.GET)
-    public Page<AdminModel> getAll(@RequestParam(value = "start", defaultValue = "1") int start, @RequestParam(value = "pageSize", defaultValue = "10") int page) {
-        return service.getAdminUsers(start, page);
+    public Result getAll(@RequestParam(value = "start", defaultValue = "1") int start, @RequestParam(value = "pageSize", defaultValue = "10") int page) {
+        Page<AdminModel> pages = service.getAdminUsers(start, page);
+        if (pages == null || pages.getSize() <= 0) {
+            return new Result(pages);
+        }
+        return new Result(pages);
     }
 
     /**
      * 根据id删除数据
      *
-     * @param id       id
-     * @param operator operator
+     * @param id id
      * @return model
      * @throws UserNotFoundException UserNotFoundException
      */
     @RequestMapping(value = "deleteById", method = RequestMethod.GET)
-    public AdminModel deleteUserById(@RequestParam("id") Long id, @RequestParam String operator) throws UserNotFoundException {
-        AdminModel operatorModel = service.findAdminUserByUserName(operator);
-        if (operator == null) {
-            return null;
-        }
-        AdminModel adminModel = service.deleteAdminUserById(id);
+    public Result deleteUserById(@RequestParam("id") Long id) throws UserNotFoundException {
+        AdminModel adminModel = service.findAdminUserById(id);
         if (adminModel == null) {
-            return null;
+            return new Result(Error.NULL_DATA.getErrorCode(), Error.NULL_DATA.getErrorMsg());
         }
-        return adminModel;
+        service.deleteAdminUserById(id);
+        return new Result(adminModel);
     }
 
     /**
      * 更新
      *
-     * @param operator operator
      * @param userName userName
      * @return model
      * @throws UserNotFoundException UserNotFoundException
      */
     @RequestMapping(value = "update", method = RequestMethod.POST)
-    public AdminModel update(
-            @RequestParam("operator") String operator,
+    public Result update(
             @RequestParam("userName") String userName
     ) throws UserNotFoundException {
-        AdminModel operatorModel = service.findAdminUserByUserName(operator);
-        if (operator == null) {
-            return null;
-        }
         AdminModel adminModel = service.findAdminUserByUserName(userName);
         if (adminModel == null) {
             return null;
         }
         adminModel.setUserName(userName);
-        return service.updateAdminUser(adminModel);
+        service.updateAdminUser(adminModel);
+        return new Result(adminModel);
     }
 
     /**
      * 封号
      *
-     * @param id       id
-     * @param operator operator
+     * @param id id
      * @return model
      * @throws UserNotFoundException UserNotFoundException
      */
     @RequestMapping(value = "forbid", method = RequestMethod.GET)
-    public AdminModel forbid(@RequestParam("id") Long id, @RequestParam("operator") String operator) throws UserNotFoundException {
-        AdminModel operatorModel = service.findAdminUserByUserName(operator);
-        if (operator == null) {
-            return null;
-        }
+    public Result forbid(@RequestParam("id") Long id) throws UserNotFoundException {
         AdminModel model = service.findAdminUserById(id);
         if (model == null) {
-            return null;
+            return new Result(Error.NULL_DATA.getErrorCode(), Error.NULL_DATA.getErrorMsg());
         }
         model = service.forbidAdminUserById(id);
-        return model;
+        return new Result(model);
     }
 }
 

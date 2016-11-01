@@ -43,7 +43,7 @@ public class AdminModel extends BaseModel implements Serializable {
      * 1正常 2异常
      */
     @Column(name = "Status")
-    private int status;
+    private int status = 1;
 
     @Column(name = "Salt")
     private String salt;

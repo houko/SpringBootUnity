@@ -16,16 +16,16 @@ package info.xiaomo.core.controller;
  */
 public class Result {
 
-    private int errorCode;
-    private String errorMsg;
+    private int code;
+    private String message;
     private Object data;
 
     /**
      * 只返回错误码
-     * @param errorCode errorCode
+     * @param code code
      */
-    public Result(int errorCode) {
-        this.errorCode = errorCode;
+    public Result(int code) {
+        this.code = code;
     }
 
     /**
@@ -38,42 +38,42 @@ public class Result {
 
     /**
      * 只有错误码和错误信息的
-     * @param errorCode errorCode
-     * @param errorMsg errorMsg
+     * @param code code
+     * @param message message
      */
-    public Result(int errorCode, String errorMsg) {
-        this.errorCode = errorCode;
-        this.errorMsg = errorMsg;
+    public Result(int code, String message) {
+        this.code = code;
+        this.message = message;
     }
 
 
     /**
      * 全部参数
-     * @param errorCode errorCode
-     * @param errorMsg errorMsg
+     * @param code code
+     * @param message message
      * @param data data
      */
-    public Result(int errorCode, String errorMsg, Object data) {
-        this.errorCode = errorCode;
-        this.errorMsg = errorMsg;
+    public Result(int code, String message, Object data) {
+        this.code = code;
+        this.message = message;
         this.data = data;
     }
 
 
-    public int getErrorCode() {
-        return errorCode;
+    public int getCode() {
+        return code;
     }
 
-    public void setErrorCode(int errorCode) {
-        this.errorCode = errorCode;
+    public void setCode(int code) {
+        this.code = code;
     }
 
-    public String getErrorMsg() {
-        return errorMsg;
+    public String getMessage() {
+        return message;
     }
 
-    public void setErrorMsg(String errorMsg) {
-        this.errorMsg = errorMsg;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public Object getData() {

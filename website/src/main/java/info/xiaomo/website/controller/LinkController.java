@@ -127,7 +127,7 @@ public class LinkController extends BaseController {
      */
     @RequestMapping("update")
     public Result update(@RequestBody LinkModel model) {
-        LinkModel linkModel = service.findByName(model.getName());
+        LinkModel linkModel = service.findById(model.getId());
         if (linkModel == null) {
             return new Result(Err.NULL_DATA.getCode(), Err.NULL_DATA.getMessage());
         }

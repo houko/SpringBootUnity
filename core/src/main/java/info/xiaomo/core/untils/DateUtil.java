@@ -38,6 +38,7 @@ public class DateUtil {
      * 2015-02-23 12:12:12格式
      */
     public static final String DEFAULT_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    public static final String DEFAULT_FORMAT2 = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
     private static final Logger LOGGER = LoggerFactory.getLogger(DateUtil.class);
     private static final String datePatternWithHengXian = "yyyy-MM-dd";
     private static final String datePatternWithXieXian = "yyyy/MM/dd";

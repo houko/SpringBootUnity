@@ -1,6 +1,6 @@
 package info.xiaomo.website.controller;
 
-import info.xiaomo.core.constant.Error;
+import info.xiaomo.core.constant.Err;
 import info.xiaomo.core.controller.BaseController;
 import info.xiaomo.core.controller.Result;
 import info.xiaomo.core.model.website.SystemSetModel;
@@ -44,8 +44,12 @@ public class WebSetController extends BaseController {
      * @return list
      */
     @RequestMapping(value = "findAll", method = RequestMethod.GET)
-    public List<SystemSetModel> findAll() {
-        return service.findAll();
+    public Result findAll() {
+        List<SystemSetModel> list = service.findAll();
+        if (list.isEmpty() || list.size() == 0) {
+            return new Result(Err.NULL_DATA.getErrorCode(), Err.NULL_DATA.getErrorMsg());
+        }
+        return new Result(list);
 
     }
 
@@ -54,7 +58,7 @@ public class WebSetController extends BaseController {
     public Result add(@RequestBody SystemSetModel systemSetModel) {
         List<SystemSetModel> all = service.findAll();
         if (all.size() > 1) {
-            return new Result(Error.ERROR.getErrorCode(), Error.ERROR.getErrorMsg());
+            return new Result(Err.ERROR.getErrorCode(), Err.ERROR.getErrorMsg());
         }
         SystemSetModel model = new SystemSetModel();
         model.setSiteName(systemSetModel.getSiteName());
@@ -76,7 +80,7 @@ public class WebSetController extends BaseController {
     public Result update(@RequestBody SystemSetModel systemSetModel) {
         List<SystemSetModel> all = service.findAll();
         if (all.size() > 1) {
-            return new Result(Error.ERROR.getErrorCode(), Error.ERROR.getErrorMsg());
+            return new Result(Err.ERROR.getErrorCode(), Err.ERROR.getErrorMsg());
         }
         for (SystemSetModel setModel : all) {
             setModel.setSiteName(systemSetModel.getSiteName());
@@ -88,6 +92,6 @@ public class WebSetController extends BaseController {
             SystemSetModel add = service.update(setModel);
             return new Result(add);
         }
-        return new Result(Error.ERROR.getErrorCode(), Error.ERROR.getErrorMsg());
+        return new Result(Err.ERROR.getErrorCode(), Err.ERROR.getErrorMsg());
     }
 }

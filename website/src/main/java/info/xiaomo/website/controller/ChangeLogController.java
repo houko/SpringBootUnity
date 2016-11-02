@@ -1,14 +1,13 @@
 package info.xiaomo.website.controller;
 
+import info.xiaomo.core.constant.Err;
 import info.xiaomo.core.controller.BaseController;
+import info.xiaomo.core.controller.Result;
 import info.xiaomo.core.model.website.ChangeLogModel;
 import info.xiaomo.core.service.website.ChangeLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -42,12 +41,12 @@ public class ChangeLogController extends BaseController {
      * @return model
      */
     @RequestMapping("findById")
-    public ChangeLogModel findById(@RequestParam Long id) {
+    public Result findById(@RequestParam Long id) {
         ChangeLogModel changeLogModel = service.findById(id);
         if (changeLogModel == null) {
-            return null;
+            return new Result(Err.NULL_DATA.getErrorCode(), Err.NULL_DATA.getErrorMsg());
         }
-        return changeLogModel;
+        return new Result(changeLogModel);
     }
 
     /**
@@ -56,24 +55,28 @@ public class ChangeLogController extends BaseController {
      * @return result
      */
     @RequestMapping(value = "findByName", method = RequestMethod.GET)
-    public ChangeLogModel findByName(@RequestParam String name) {
+    public Result findByName(@RequestParam String name) {
         ChangeLogModel model = service.findByName(name);
         if (model == null) {
-            return null;
+            return new Result(Err.NULL_DATA.getErrorCode(), Err.NULL_DATA.getErrorMsg());
         }
-        return model;
+        return new Result(model);
     }
 
     /**
      * 分页查询更新日志
      *
-     * @param start start
+     * @param start    start
      * @param pageSize pageSize
      * @return 分页
      */
     @RequestMapping("findAll")
-    public Page<ChangeLogModel> findAll(@RequestParam(value = "start", defaultValue = "1") int start, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
-        return service.findAll(start, pageSize);
+    public Result findAll(@RequestParam(value = "start", defaultValue = "1") int start, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+        Page<ChangeLogModel> pages = service.findAll(start, pageSize);
+        if (pages == null || pages.getSize() <= 0) {
+            return new Result(Err.NULL_DATA.getErrorCode(), Err.NULL_DATA.getErrorMsg());
+        }
+        return new Result(pages);
     }
 
     /**
@@ -82,18 +85,16 @@ public class ChangeLogController extends BaseController {
      * @return result
      */
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public ChangeLogModel add(
-            @RequestParam String name,
-            @RequestParam String onlineTime
-    ) {
-        ChangeLogModel changeLogModel = service.findByName(name);
+    public Result add(@RequestBody ChangeLogModel model) {
+        ChangeLogModel changeLogModel = service.findByName(model.getName());
         if (changeLogModel != null) {
-            return null;
+            return new Result(Err.REPEAT.getErrorCode(), Err.REPEAT.getErrorMsg());
         }
         changeLogModel = new ChangeLogModel();
-        changeLogModel.setName(name);
-        changeLogModel.setOnlineTime(onlineTime);
-        return service.add(changeLogModel);
+        changeLogModel.setName(model.getName());
+        changeLogModel.setOnlineTime(model.getOnlineTime());
+        ChangeLogModel addModel = service.add(changeLogModel);
+        return new Result(addModel);
     }
 
 
@@ -103,18 +104,15 @@ public class ChangeLogController extends BaseController {
      * @return result
      */
     @RequestMapping(value = "update", method = RequestMethod.POST)
-    public ChangeLogModel update(
-            @RequestParam String name,
-            @RequestParam String onlineTime
-
-    ) {
-        ChangeLogModel changeLogModel = service.findByName(name);
+    public Result update(@RequestBody ChangeLogModel model) {
+        ChangeLogModel changeLogModel = service.findByName(model.getName());
         if (changeLogModel == null) {
-            return null;
+            return new Result(Err.NULL_DATA.getErrorCode(), Err.NULL_DATA.getErrorMsg());
         }
-        changeLogModel.setName(name);
-        changeLogModel.setOnlineTime(onlineTime);
-        return service.update(changeLogModel);
+        changeLogModel.setName(model.getName());
+        changeLogModel.setOnlineTime(model.getOnlineTime());
+        ChangeLogModel updateModel = service.update(changeLogModel);
+        return new Result(updateModel);
     }
 
 
@@ -122,12 +120,13 @@ public class ChangeLogController extends BaseController {
      * 删除更新日志
      */
     @RequestMapping(value = "deleteById", method = RequestMethod.GET)
-    public ChangeLogModel deleteById(@RequestParam Long id) {
+    public Result deleteById(@RequestParam Long id) {
         ChangeLogModel changeLogModel = service.findById(id);
         if (changeLogModel == null) {
-            return null;
+            return new Result(Err.NULL_DATA.getErrorCode(), Err.NULL_DATA.getErrorMsg());
         }
-        return service.delete(id);
+        ChangeLogModel delModel = service.delete(id);
+        return new Result(delModel);
     }
 
 

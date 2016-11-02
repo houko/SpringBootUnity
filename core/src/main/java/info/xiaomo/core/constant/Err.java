@@ -14,7 +14,8 @@ package info.xiaomo.core.constant;
  * @Description: 错误码
  * @Copyright(©) 2015 by xiaomo.
  */
-public enum Error {
+public enum Err {
+    REPEAT(992, "数据重复"),
     ERROR(993, "系统错误"),
     ADMIN_USER_REPEAT(994, "后台用户名重复"),
     NULL_DATA(995, "没有数据"),
@@ -27,15 +28,15 @@ public enum Error {
     private int errorCode;
     private String errorMsg;
 
-    Error(int errorCode) {
+    Err(int errorCode) {
         this.errorCode = errorCode;
     }
 
-    Error(String errorMsg) {
+    Err(String errorMsg) {
         this.errorMsg = errorMsg;
     }
 
-    Error(int errorCode, String errorMsg) {
+    Err(int errorCode, String errorMsg) {
         this.errorCode = errorCode;
         this.errorMsg = errorMsg;
     }

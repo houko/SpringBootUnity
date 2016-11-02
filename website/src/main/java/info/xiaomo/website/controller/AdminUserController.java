@@ -1,6 +1,6 @@
 package info.xiaomo.website.controller;
 
-import info.xiaomo.core.constant.Error;
+import info.xiaomo.core.constant.Err;
 import info.xiaomo.core.controller.BaseController;
 import info.xiaomo.core.controller.Result;
 import info.xiaomo.core.exception.UserNotFoundException;
@@ -54,10 +54,10 @@ public class AdminUserController extends BaseController {
     public Result login(@RequestBody AdminModel model) {
         AdminModel adminModel = service.findAdminUserByUserName(model.getUserName());
         if (adminModel == null) {
-            return new Result(Error.USER_NOT_FOUND.getErrorCode(), Error.USER_NOT_FOUND.getErrorMsg());
+            return new Result(Err.USER_NOT_FOUND.getErrorCode(), Err.USER_NOT_FOUND.getErrorMsg());
         }
         if (!MD5Util.encode(model.getPassword(), adminModel.getSalt()).equals(adminModel.getPassword())) {
-            return new Result(Error.AUTH_FAILED.getErrorCode(), Error.AUTH_FAILED.getErrorMsg());
+            return new Result(Err.AUTH_FAILED.getErrorCode(), Err.AUTH_FAILED.getErrorMsg());
         }
         return new Result(adminModel);
     }
@@ -72,7 +72,7 @@ public class AdminUserController extends BaseController {
     public Result add(@RequestBody AdminModel model) {
         AdminModel adminModel = service.findAdminUserByUserName(model.getUserName());
         if (adminModel != null) {
-            return new Result(Error.ADMIN_USER_REPEAT.getErrorCode(), Error.ADMIN_USER_REPEAT.getErrorMsg());
+            return new Result(Err.ADMIN_USER_REPEAT.getErrorCode(), Err.ADMIN_USER_REPEAT.getErrorMsg());
         }
         String salt = RandomUtil.createSalt();
         model.setSalt(salt);
@@ -91,7 +91,7 @@ public class AdminUserController extends BaseController {
     public Result findUserById(@RequestParam("id") Long id) {
         AdminModel adminModel = service.findAdminUserById(id);
         if (adminModel == null) {
-            return new Result(Error.NULL_DATA.getErrorCode(), Error.NULL_DATA.getErrorMsg());
+            return new Result(Err.NULL_DATA.getErrorCode(), Err.NULL_DATA.getErrorMsg());
         }
         return new Result(adminModel);
     }
@@ -106,7 +106,7 @@ public class AdminUserController extends BaseController {
     public Result findByName(@RequestParam("userName") String userName) {
         AdminModel adminModel = service.findAdminUserByUserName(userName);
         if (adminModel == null) {
-            return new Result(Error.NULL_DATA.getErrorCode(), Error.NULL_DATA.getErrorMsg());
+            return new Result(Err.NULL_DATA.getErrorCode(), Err.NULL_DATA.getErrorMsg());
         }
         return new Result(adminModel);
     }
@@ -121,7 +121,7 @@ public class AdminUserController extends BaseController {
     public Result changePassword(@RequestBody AdminModel model) throws UserNotFoundException {
         AdminModel adminModel = service.findAdminUserByUserName(model.getUserName());
         if (adminModel == null) {
-            return new Result(Error.NULL_DATA.getErrorCode(), Error.NULL_DATA.getErrorMsg());
+            return new Result(Err.NULL_DATA.getErrorCode(), Err.NULL_DATA.getErrorMsg());
         }
         String salt = RandomUtil.createSalt();
         adminModel.setSalt(salt);
@@ -158,7 +158,7 @@ public class AdminUserController extends BaseController {
     public Result deleteUserById(@RequestParam("id") Long id) throws UserNotFoundException {
         AdminModel adminModel = service.findAdminUserById(id);
         if (adminModel == null) {
-            return new Result(Error.NULL_DATA.getErrorCode(), Error.NULL_DATA.getErrorMsg());
+            return new Result(Err.NULL_DATA.getErrorCode(), Err.NULL_DATA.getErrorMsg());
         }
         service.deleteAdminUserById(id);
         return new Result(adminModel);
@@ -195,7 +195,7 @@ public class AdminUserController extends BaseController {
     public Result forbid(@RequestParam("id") Long id) throws UserNotFoundException {
         AdminModel model = service.findAdminUserById(id);
         if (model == null) {
-            return new Result(Error.NULL_DATA.getErrorCode(), Error.NULL_DATA.getErrorMsg());
+            return new Result(Err.NULL_DATA.getErrorCode(), Err.NULL_DATA.getErrorMsg());
         }
         model = service.forbidAdminUserById(id);
         return new Result(model);

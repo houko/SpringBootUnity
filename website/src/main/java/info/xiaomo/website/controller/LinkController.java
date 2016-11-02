@@ -1,6 +1,6 @@
 package info.xiaomo.website.controller;
 
-import info.xiaomo.core.constant.Error;
+import info.xiaomo.core.constant.Err;
 import info.xiaomo.core.controller.BaseController;
 import info.xiaomo.core.controller.Result;
 import info.xiaomo.core.model.website.LinkModel;
@@ -43,12 +43,12 @@ public class LinkController extends BaseController {
      * @return model
      */
     @RequestMapping("findById")
-    public LinkModel findLinkById(@RequestParam Long id) {
+    public Result findLinkById(@RequestParam Long id) {
         LinkModel model = service.findById(id);
         if (model == null) {
-            return null;
+            return new Result(Err.NULL_DATA.getErrorCode(), Err.NULL_DATA.getErrorMsg());
         }
-        return model;
+        return new Result(model);
     }
 
     /**
@@ -58,12 +58,12 @@ public class LinkController extends BaseController {
      * @return model
      */
     @RequestMapping("findByName")
-    public LinkModel findByName(@RequestParam String name) {
+    public Result findByName(@RequestParam String name) {
         LinkModel model = service.findByName(name);
         if (model == null) {
-            return null;
+            return new Result(Err.NULL_DATA.getErrorCode(), Err.NULL_DATA.getErrorMsg());
         }
-        return model;
+        return new Result(model);
     }
 
 
@@ -78,7 +78,7 @@ public class LinkController extends BaseController {
     public Result findAll(@RequestParam(value = "start", defaultValue = "1") int start, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
         Page<LinkModel> pages = service.findAll(start, pageSize);
         if (pages == null || pages.getSize() <= 0) {
-            return new Result(Error.NULL_DATA.getErrorCode(), Error.NULL_DATA.getErrorMsg());
+            return new Result(Err.NULL_DATA.getErrorCode(), Err.NULL_DATA.getErrorMsg());
         }
         return new Result(pages);
     }
@@ -140,11 +140,12 @@ public class LinkController extends BaseController {
      * @return model
      */
     @RequestMapping("delete")
-    public LinkModel delete(@RequestParam Long id) {
+    public Result delete(@RequestParam Long id) {
         LinkModel LinkModel = service.findById(id);
         if (LinkModel == null) {
-            return null;
+            return new Result(Err.NULL_DATA.getErrorCode(), Err.NULL_DATA.getErrorMsg());
         }
-        return service.delete(id);
+        LinkModel delModel = service.delete(id);
+        return new Result(delModel);
     }
 }

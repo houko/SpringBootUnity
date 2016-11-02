@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -49,6 +50,11 @@ public class LinkServiceImpl implements LinkService {
     public Page<LinkModel> findAll(int start, int pageSize) {
         Sort sort = new Sort(Sort.Direction.DESC, "order");
         return dao.findAll(new PageRequest(start - 1, pageSize, sort));
+    }
+
+    @Override
+    public List<LinkModel> findAll() {
+        return dao.findAll();
     }
 
     @Override

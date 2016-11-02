@@ -6,10 +6,12 @@ import info.xiaomo.core.controller.Result;
 import info.xiaomo.core.model.website.LinkModel;
 import info.xiaomo.core.service.website.LinkService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -42,8 +44,8 @@ public class LinkController extends BaseController {
      * @param id id
      * @return model
      */
-    @RequestMapping("findById")
-    public Result findLinkById(@RequestParam Long id) {
+    @RequestMapping("findById/{id}")
+    public Result findLinkById(@PathVariable("id") Long id) {
         LinkModel model = service.findById(id);
         if (model == null) {
             return new Result(Err.NULL_DATA.getErrorCode(), Err.NULL_DATA.getErrorMsg());
@@ -57,8 +59,8 @@ public class LinkController extends BaseController {
      * @param name name
      * @return model
      */
-    @RequestMapping("findByName")
-    public Result findByName(@RequestParam String name) {
+    @RequestMapping("findByName/{name}")
+    public Result findByName(@PathVariable("name") String name) {
         LinkModel model = service.findByName(name);
         if (model == null) {
             return new Result(Err.NULL_DATA.getErrorCode(), Err.NULL_DATA.getErrorMsg());
@@ -68,20 +70,35 @@ public class LinkController extends BaseController {
 
 
     /**
-     * 返回所有 带分页
+     * 返回所有数据
      *
-     * @param start    start
-     * @param pageSize pageSize
-     * @return 分页数据
+     * @return 所有
      */
     @RequestMapping("findAll")
-    public Result findAll(@RequestParam(value = "start", defaultValue = "1") int start, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
-        Page<LinkModel> pages = service.findAll(start, pageSize);
-        if (pages == null || pages.getSize() <= 0) {
+    public Result findAll() {
+        List<LinkModel> pages = service.findAll();
+        if (pages == null || pages.size() == 0) {
             return new Result(Err.NULL_DATA.getErrorCode(), Err.NULL_DATA.getErrorMsg());
         }
         return new Result(pages);
     }
+
+
+//    /**
+//     * 返回所有 带分页
+//     *
+//     * @param start    start
+//     * @param pageSize pageSize
+//     * @return 分页数据
+//     */
+//    @RequestMapping("findAll")
+//    public Result findAll(@RequestParam(value = "start", defaultValue = "1") int start, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+//        Page<LinkModel> pages = service.findAll(start, pageSize);
+//        if (pages == null || pages.getSize() <= 0) {
+//            return new Result(Err.NULL_DATA.getErrorCode(), Err.NULL_DATA.getErrorMsg());
+//        }
+//        return new Result(pages);
+//    }
 
 
     /**

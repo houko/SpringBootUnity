@@ -48,7 +48,7 @@ public class LinkController extends BaseController {
     public Result findLinkById(@PathVariable("id") Long id) {
         LinkModel model = service.findById(id);
         if (model == null) {
-            return new Result(Err.NULL_DATA.getErrorCode(), Err.NULL_DATA.getErrorMsg());
+            return new Result(Err.NULL_DATA.getCode(), Err.NULL_DATA.getMessage());
         }
         return new Result(model);
     }
@@ -63,7 +63,7 @@ public class LinkController extends BaseController {
     public Result findByName(@PathVariable("name") String name) {
         LinkModel model = service.findByName(name);
         if (model == null) {
-            return new Result(Err.NULL_DATA.getErrorCode(), Err.NULL_DATA.getErrorMsg());
+            return new Result(Err.NULL_DATA.getCode(), Err.NULL_DATA.getMessage());
         }
         return new Result(model);
     }
@@ -78,7 +78,7 @@ public class LinkController extends BaseController {
     public Result findAll() {
         List<LinkModel> pages = service.findAll();
         if (pages == null || pages.size() == 0) {
-            return new Result(Err.NULL_DATA.getErrorCode(), Err.NULL_DATA.getErrorMsg());
+            return new Result(Err.NULL_DATA.getCode(), Err.NULL_DATA.getMessage());
         }
         return new Result(pages);
     }
@@ -95,7 +95,7 @@ public class LinkController extends BaseController {
 //    public Result findAll(@RequestParam(value = "start", defaultValue = "1") int start, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
 //        Page<LinkModel> pages = service.findAll(start, pageSize);
 //        if (pages == null || pages.getSize() <= 0) {
-//            return new Result(Err.NULL_DATA.getErrorCode(), Err.NULL_DATA.getErrorMsg());
+//            return new Result(Err.NULL_DATA.getCode(), Err.NULL_DATA.getMessage());
 //        }
 //        return new Result(pages);
 //    }
@@ -110,7 +110,7 @@ public class LinkController extends BaseController {
     public Result add(@RequestBody LinkModel model) {
         LinkModel linkModel = service.findByName(model.getName());
         if (linkModel != null) {
-            return new Result(Err.REPEAT.getErrorCode(), Err.REPEAT.getErrorMsg());
+            return new Result(Err.REPEAT.getCode(), Err.REPEAT.getMessage());
         }
         linkModel = new LinkModel();
         linkModel.setName(model.getName());
@@ -129,7 +129,7 @@ public class LinkController extends BaseController {
     public Result update(@RequestBody LinkModel model) {
         LinkModel linkModel = service.findByName(model.getName());
         if (linkModel == null) {
-            return new Result(Err.NULL_DATA.getErrorCode(), Err.NULL_DATA.getErrorMsg());
+            return new Result(Err.NULL_DATA.getCode(), Err.NULL_DATA.getMessage());
         }
         linkModel.setName(model.getName());
         linkModel.setUrl(model.getUrl());
@@ -148,7 +148,7 @@ public class LinkController extends BaseController {
     public Result delete(@PathVariable("id") Long id) {
         LinkModel LinkModel = service.findById(id);
         if (LinkModel == null) {
-            return new Result(Err.NULL_DATA.getErrorCode(), Err.NULL_DATA.getErrorMsg());
+            return new Result(Err.NULL_DATA.getCode(), Err.NULL_DATA.getMessage());
         }
         LinkModel delModel = service.delete(id);
         return new Result(delModel);

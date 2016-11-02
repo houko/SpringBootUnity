@@ -18,8 +18,8 @@
             url: "http://192.168.1.165:8080/user/validateEmail",
             data: {email: name, password: password, validateCode: validateCode, time: time},
             success: function (data) {
-                if (data.errorCode != 0) {
-                    $("#result").html(getResult(data.errorCode));
+                if (data.code != 0) {
+                    $("#result").html(getResult(data.code));
                 } else {
                     $("#result").html("验证成功，请登录！");
                 }

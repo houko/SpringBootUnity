@@ -25,35 +25,35 @@ public enum Err {
     AUTH_FAILED(999, "用户名或密码错误");
 
 
-    private int errorCode;
-    private String errorMsg;
+    private int code;
+    private String message;
 
-    Err(int errorCode) {
-        this.errorCode = errorCode;
+    Err(int code) {
+        this.code = code;
     }
 
-    Err(String errorMsg) {
-        this.errorMsg = errorMsg;
+    Err(String message) {
+        this.message = message;
     }
 
-    Err(int errorCode, String errorMsg) {
-        this.errorCode = errorCode;
-        this.errorMsg = errorMsg;
+    Err(int code, String message) {
+        this.code = code;
+        this.message = message;
     }
 
-    public int getErrorCode() {
-        return errorCode;
+    public int getCode() {
+        return code;
     }
 
-    public void setErrorCode(int errorCode) {
-        this.errorCode = errorCode;
+    public void setCode(int code) {
+        this.code = code;
     }
 
-    public String getErrorMsg() {
-        return errorMsg;
+    public String getMessage() {
+        return message;
     }
 
-    public void setErrorMsg(String errorMsg) {
-        this.errorMsg = errorMsg;
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

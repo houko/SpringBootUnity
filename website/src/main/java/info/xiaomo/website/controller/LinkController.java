@@ -7,8 +7,8 @@ import info.xiaomo.core.model.website.LinkModel;
 import info.xiaomo.core.service.website.LinkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -104,50 +104,38 @@ public class LinkController extends BaseController {
     /**
      * 添加链接
      *
-     * @param name  name
-     * @param url   url
-     * @param order order
      * @return model
      */
     @RequestMapping("add")
-    public LinkModel add(
-            @RequestParam String name,
-            @RequestParam String url,
-            @RequestParam int order) {
-        LinkModel linkModel = service.findByName(name);
+    public Result add(@RequestBody LinkModel model) {
+        LinkModel linkModel = service.findByName(model.getName());
         if (linkModel != null) {
-            return null;
+            return new Result(Err.REPEAT.getErrorCode(), Err.REPEAT.getErrorMsg());
         }
         linkModel = new LinkModel();
-        linkModel.setName(name);
-        linkModel.setOrder(order);
-        linkModel.setUrl(url);
-        return service.add(linkModel);
+        linkModel.setName(model.getName());
+        linkModel.setOrder(model.getOrder());
+        linkModel.setUrl(model.getUrl());
+        LinkModel addModel = service.add(linkModel);
+        return new Result(addModel);
     }
 
     /**
      * 更新链接
      *
-     * @param name  name
-     * @param url   url
-     * @param order order
      * @return model
      */
     @RequestMapping("update")
-    public LinkModel update(
-            @RequestParam String name,
-            @RequestParam String url,
-            @RequestParam int order
-
-    ) {
-        LinkModel linkModel = service.findByName(name);
+    public Result update(@RequestBody LinkModel model) {
+        LinkModel linkModel = service.findByName(model.getName());
         if (linkModel == null) {
-            return null;
+            return new Result(Err.NULL_DATA.getErrorCode(), Err.NULL_DATA.getErrorMsg());
         }
-        linkModel.setName(name);
-        linkModel.setUrl(url);
-        linkModel.setOrder(order);
-        return service.update(linkModel);
+        linkModel.setName(model.getName());
+        linkModel.setUrl(model.getUrl());
+        linkModel.setOrder(model.getOrder());
+        LinkModel updateModel = service.update(linkModel);
+        return new Result(updateModel);
     }
 
     /**
@@ -156,8 +144,8 @@ public class LinkController extends BaseController {
      * @param id id
      * @return model
      */
-    @RequestMapping("delete")
-    public Result delete(@RequestParam Long id) {
+    @RequestMapping("delete/{id}")
+    public Result delete(@PathVariable("id") Long id) {
         LinkModel LinkModel = service.findById(id);
         if (LinkModel == null) {
             return new Result(Err.NULL_DATA.getErrorCode(), Err.NULL_DATA.getErrorMsg());

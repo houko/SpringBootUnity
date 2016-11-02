@@ -1,5 +1,8 @@
 package info.xiaomo.core.model.base;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import info.xiaomo.core.filter.CustomDateSerializer;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -30,9 +33,11 @@ public abstract class BaseModel {
     @Column(name = "Version")
     private long version;
 
+    @JsonSerialize(using = CustomDateSerializer.class)
     @Column(name = "CreateTime")
     private Date createTime;
 
+    @JsonSerialize(using = CustomDateSerializer.class)
     @Column(name = "UpdateTime")
     private Date updateTime;
 

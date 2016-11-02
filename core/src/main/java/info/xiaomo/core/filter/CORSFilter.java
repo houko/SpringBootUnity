@@ -1,5 +1,7 @@
 package info.xiaomo.core.filter;
 
+import org.springframework.stereotype.Component;
+
 import javax.servlet.*;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -18,6 +20,7 @@ import java.io.IOException;
  * @Description:
  * @Copyright(©) 2015 by xiaomo.
  **/
+@Component
 public class CORSFilter implements Filter {
 
 

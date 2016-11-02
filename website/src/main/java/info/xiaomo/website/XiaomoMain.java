@@ -1,10 +1,8 @@
 package info.xiaomo.website;
 
-import info.xiaomo.core.filter.CORSFilter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -37,11 +35,6 @@ public class XiaomoMain {
 
     public static void main(String[] args) throws Exception {
         SpringApplication.run(XiaomoMain.class, args);
-    }
-
-    @Bean
-    public CORSFilter corsFilter() {
-        return new CORSFilter();
     }
 
     @RequestMapping("/")

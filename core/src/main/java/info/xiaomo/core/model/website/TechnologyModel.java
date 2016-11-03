@@ -23,7 +23,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "technology")
-public class TecnologyModel extends BaseModel {
+public class TechnologyModel extends BaseModel {
 
     /**
      * 技术名字

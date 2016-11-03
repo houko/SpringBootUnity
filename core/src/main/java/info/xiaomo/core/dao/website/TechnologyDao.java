@@ -1,6 +1,6 @@
 package info.xiaomo.core.dao.website;
 
-import info.xiaomo.core.model.website.TecnologyModel;
+import info.xiaomo.core.model.website.TechnologyModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -27,6 +27,6 @@ import org.springframework.stereotype.Repository;
  * @Copyright(©) 2015 by xiaomo.
  */
 @Repository
-public interface TechnologyDao extends JpaRepository<TecnologyModel, Long> {
+public interface TechnologyDao extends JpaRepository<TechnologyModel, Long> {
 
 }

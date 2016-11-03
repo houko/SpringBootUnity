@@ -1,5 +1,10 @@
 package info.xiaomo.core.service.website;
 
+import info.xiaomo.core.model.website.TechnologyModel;
+import org.springframework.data.domain.Page;
+
+import java.util.List;
+
 /**
  * 把今天最好的表现当作明天最新的起点．．～
  * いま 最高の表現 として 明日最新の始発．．～
@@ -16,4 +21,19 @@ package info.xiaomo.core.service.website;
  **/
 
 public interface TechnologyService {
+
+    List<TechnologyModel> findAll();
+
+    Page<TechnologyModel> findAll(int start, int pageSize);
+
+    TechnologyModel findById(Long id);
+
+    TechnologyModel findByName(String name);
+
+    TechnologyModel update(TechnologyModel model);
+
+    TechnologyModel add(TechnologyModel model);
+
+    void del(Long id);
+    
 }

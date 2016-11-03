@@ -29,4 +29,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface WorksDao extends JpaRepository<WorksModel, Long> {
 
+    WorksModel findWorkByName(String name);
+
 }

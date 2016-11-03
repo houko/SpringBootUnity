@@ -1,5 +1,10 @@
 package info.xiaomo.core.service.website;
 
+import info.xiaomo.core.model.website.WorksModel;
+import org.springframework.data.domain.Page;
+
+import java.util.List;
+
 /**
  * 把今天最好的表现当作明天最新的起点．．～
  * いま 最高の表現 として 明日最新の始発．．～
@@ -16,4 +21,18 @@ package info.xiaomo.core.service.website;
  **/
 
 public interface WorksService {
+
+    List<WorksModel> findAll();
+
+    Page<WorksModel> findAll(int start, int pageSize);
+
+    WorksModel findById(Long id);
+
+    WorksModel findByName(String name);
+
+    WorksModel update(WorksModel model);
+
+    WorksModel add(WorksModel model);
+
+    void del(Long id);
 }

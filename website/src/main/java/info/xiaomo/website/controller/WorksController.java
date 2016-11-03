@@ -1,10 +1,12 @@
 package info.xiaomo.website.controller;
 
+import info.xiaomo.core.constant.Err;
 import info.xiaomo.core.controller.BaseController;
+import info.xiaomo.core.controller.Result;
+import info.xiaomo.core.model.website.WorksModel;
 import info.xiaomo.core.service.website.WorksService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -33,4 +35,56 @@ public class WorksController extends BaseController {
     public WorksController(WorksService service) {
         this.service = service;
     }
+
+
+    @RequestMapping("/findById/{id}")
+    public Result findById(@PathVariable Long id) {
+        WorksModel model = service.findById(id);
+        if (model == null) {
+            return new Result(Err.NULL_DATA.getCode(), Err.NULL_DATA.getMessage());
+        }
+        return new Result(model);
+    }
+
+
+    @RequestMapping("/findById/{name}")
+    public Result findByName(@PathVariable String name) {
+        WorksModel model = service.findByName(name);
+        if (model == null) {
+            return new Result(Err.NULL_DATA.getCode(), Err.NULL_DATA.getMessage());
+        }
+        return new Result(model);
+    }
+
+    @RequestMapping(name = "/add", method = RequestMethod.POST)
+    public Result add(@RequestBody WorksModel model) {
+        WorksModel addModel = service.findByName(model.getName());
+        if (addModel != null) {
+            return new Result(Err.REPEAT.getCode(), Err.REPEAT.getMessage());
+        }
+        addModel = service.add(model);
+        return new Result(addModel);
+    }
+
+    @RequestMapping(name = "/update", method = RequestMethod.POST)
+    public Result update(@RequestBody WorksModel model) {
+        WorksModel worksModel = service.findById(model.getId());
+        if (worksModel == null) {
+            return new Result(Err.ERROR.getCode(), Err.ERROR.getMessage());
+        }
+        worksModel = service.update(worksModel);
+        return new Result(worksModel);
+    }
+
+
+    @RequestMapping(name = "/delete/{id}")
+    public Result delete(@PathVariable Long id) {
+        WorksModel model = service.findById(id);
+        if (model == null) {
+            return new Result(Err.NULL_DATA.getCode(), Err.NULL_DATA.getMessage());
+        }
+        service.del(id);
+        return new Result(model);
+    }
+
 }

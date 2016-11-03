@@ -29,4 +29,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TechnologyDao extends JpaRepository<TechnologyModel, Long> {
 
+    TechnologyModel findTechnologyByName(String name);
+
+
 }

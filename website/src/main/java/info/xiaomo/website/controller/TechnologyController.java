@@ -3,8 +3,8 @@ package info.xiaomo.website.controller;
 import info.xiaomo.core.constant.Err;
 import info.xiaomo.core.controller.BaseController;
 import info.xiaomo.core.controller.Result;
-import info.xiaomo.core.model.website.TechnologyModel;
-import info.xiaomo.core.service.website.TechnologyService;
+import info.xiaomo.website.model.TechnologyModel;
+import info.xiaomo.website.service.TechnologyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,11 +24,10 @@ import org.springframework.web.bind.annotation.*;
  **/
 
 
-@RequestMapping("/technology")
 @RestController
+@RequestMapping("/technology")
 public class TechnologyController extends BaseController {
-
-    private TechnologyService service;
+    private final TechnologyService service;
 
     @Autowired
     public TechnologyController(TechnologyService service) {
@@ -36,7 +35,7 @@ public class TechnologyController extends BaseController {
     }
 
 
-    @RequestMapping(name = "/findById/{id}")
+    @RequestMapping(value = "/findById/{id}")
     public Result findById(@PathVariable Long id) {
         TechnologyModel model = service.findById(id);
         if (model == null) {
@@ -45,7 +44,7 @@ public class TechnologyController extends BaseController {
         return new Result(model);
     }
 
-    @RequestMapping(name = "/findByName/{name}")
+    @RequestMapping(value = "/findByName/{name}")
     public Result findByName(@PathVariable String name) {
         TechnologyModel model = service.findByName(name);
         if (model == null) {
@@ -55,7 +54,7 @@ public class TechnologyController extends BaseController {
     }
 
 
-    @RequestMapping(name = "/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
     public Result add(@RequestBody TechnologyModel model) {
         TechnologyModel addModel = service.findByName(model.getName());
         if (addModel != null) {
@@ -65,7 +64,7 @@ public class TechnologyController extends BaseController {
         return new Result(addModel);
     }
 
-    @RequestMapping(name = "/update", method = RequestMethod.POST)
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
     public Result update(@RequestBody TechnologyModel model) {
         TechnologyModel update = service.findById(model.getId());
         if (update == null) {
@@ -76,7 +75,7 @@ public class TechnologyController extends BaseController {
     }
 
 
-    @RequestMapping(name = "/delete/{id}")
+    @RequestMapping(value = "/delete/{id}")
     public Result delete(@PathVariable Long id) {
         TechnologyModel model = service.findById(id);
         if (model == null) {

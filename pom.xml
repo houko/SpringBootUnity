@@ -11,6 +11,7 @@
     <modules>
         <module>website</module>
         <module>core</module>
+        <module>chat</module>
     </modules>
     <packaging>pom</packaging>
 

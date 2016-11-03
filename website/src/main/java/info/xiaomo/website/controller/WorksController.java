@@ -3,8 +3,8 @@ package info.xiaomo.website.controller;
 import info.xiaomo.core.constant.Err;
 import info.xiaomo.core.controller.BaseController;
 import info.xiaomo.core.controller.Result;
-import info.xiaomo.core.model.website.WorksModel;
-import info.xiaomo.core.service.website.WorksService;
+import info.xiaomo.website.model.WorksModel;
+import info.xiaomo.website.service.WorksService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,8 +28,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class WorksController extends BaseController {
 
-
-    private WorksService service;
+    private final WorksService service;
 
     @Autowired
     public WorksController(WorksService service) {
@@ -56,7 +55,7 @@ public class WorksController extends BaseController {
         return new Result(model);
     }
 
-    @RequestMapping(name = "/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
     public Result add(@RequestBody WorksModel model) {
         WorksModel addModel = service.findByName(model.getName());
         if (addModel != null) {
@@ -66,7 +65,7 @@ public class WorksController extends BaseController {
         return new Result(addModel);
     }
 
-    @RequestMapping(name = "/update", method = RequestMethod.POST)
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
     public Result update(@RequestBody WorksModel model) {
         WorksModel worksModel = service.findById(model.getId());
         if (worksModel == null) {
@@ -77,7 +76,7 @@ public class WorksController extends BaseController {
     }
 
 
-    @RequestMapping(name = "/delete/{id}")
+    @RequestMapping("/delete/{id}")
     public Result delete(@PathVariable Long id) {
         WorksModel model = service.findById(id);
         if (model == null) {

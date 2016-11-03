@@ -3,8 +3,8 @@ package info.xiaomo.website.controller;
 import info.xiaomo.core.constant.Err;
 import info.xiaomo.core.controller.BaseController;
 import info.xiaomo.core.controller.Result;
-import info.xiaomo.core.model.website.ChangeLogModel;
-import info.xiaomo.core.service.website.ChangeLogService;
+import info.xiaomo.website.model.ChangeLogModel;
+import info.xiaomo.website.service.ChangeLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

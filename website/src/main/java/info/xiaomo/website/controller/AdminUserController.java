@@ -4,10 +4,10 @@ import info.xiaomo.core.constant.Err;
 import info.xiaomo.core.controller.BaseController;
 import info.xiaomo.core.controller.Result;
 import info.xiaomo.core.exception.UserNotFoundException;
-import info.xiaomo.core.model.website.AdminModel;
-import info.xiaomo.core.service.website.AdminUserService;
 import info.xiaomo.core.untils.MD5Util;
 import info.xiaomo.core.untils.RandomUtil;
+import info.xiaomo.website.model.AdminModel;
+import info.xiaomo.website.service.AdminUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

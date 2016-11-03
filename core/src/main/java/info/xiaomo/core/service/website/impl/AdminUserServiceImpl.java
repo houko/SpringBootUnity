@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * │＼＿＿╭╭╭╭╭＿＿／│
@@ -101,7 +102,11 @@ public class AdminUserServiceImpl implements AdminUserService {
             throw new UserNotFoundException();
         }
         model.setStatus(2);
-        AdminModel saveModel = dao.save(model);
-        return saveModel;
+        return dao.save(model);
+    }
+
+    @Override
+    public List<AdminModel> getAdminUsers() {
+        return dao.findAll();
     }
 }

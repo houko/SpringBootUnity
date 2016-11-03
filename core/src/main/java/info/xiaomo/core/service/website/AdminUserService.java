@@ -4,6 +4,8 @@ import info.xiaomo.core.exception.UserNotFoundException;
 import info.xiaomo.core.model.website.AdminModel;
 import org.springframework.data.domain.Page;
 
+import java.util.List;
+
 /**
  * │＼＿＿╭╭╭╭╭＿＿／│
  * │　　　　　　　　　│
@@ -36,7 +38,9 @@ public interface AdminUserService {
 
     AdminModel updateAdminUser(AdminModel model) throws UserNotFoundException;
 
-    Page<AdminModel> getAdminUsers(int start ,int pageSize);
+    Page<AdminModel> getAdminUsers(int start, int pageSize);
+
+    List<AdminModel> getAdminUsers();
 
     AdminModel deleteAdminUserById(Long id) throws UserNotFoundException;
 

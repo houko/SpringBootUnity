@@ -5,6 +5,8 @@ import info.xiaomo.core.exception.UserNotFoundException;
 import info.xiaomo.core.model.website.UserModel;
 import org.springframework.data.domain.Page;
 
+import java.util.List;
+
 /**
  * 把今天最好的表现当作明天最新的起点．．～
  * いま 最高の表現 として 明日最新の始発．．～
@@ -30,6 +32,8 @@ public interface UserService {
     UserModel updateUser(UserModel model) throws UserNotFoundException;
 
     Page<UserModel> findAll(int start ,int pageSize);
+
+    List<UserModel> findAll();
 
     UserModel deleteUserById(Long id) throws UserNotFoundException;
 

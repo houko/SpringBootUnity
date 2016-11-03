@@ -6,8 +6,9 @@ import info.xiaomo.core.controller.Result;
 import info.xiaomo.core.model.website.ChangeLogModel;
 import info.xiaomo.core.service.website.ChangeLogService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -40,8 +41,8 @@ public class ChangeLogController extends BaseController {
      * @param id id
      * @return model
      */
-    @RequestMapping("findById")
-    public Result findById(@RequestParam Long id) {
+    @RequestMapping("findById/{id}")
+    public Result findById(@PathVariable("id") Long id) {
         ChangeLogModel changeLogModel = service.findById(id);
         if (changeLogModel == null) {
             return new Result(Err.NULL_DATA.getCode(), Err.NULL_DATA.getMessage());
@@ -54,8 +55,8 @@ public class ChangeLogController extends BaseController {
      *
      * @return result
      */
-    @RequestMapping(value = "findByName", method = RequestMethod.GET)
-    public Result findByName(@RequestParam String name) {
+    @RequestMapping(value = "findByName/{name}", method = RequestMethod.GET)
+    public Result findByName( @PathVariable("name") String name) {
         ChangeLogModel model = service.findByName(name);
         if (model == null) {
             return new Result(Err.NULL_DATA.getCode(), Err.NULL_DATA.getMessage());
@@ -66,14 +67,12 @@ public class ChangeLogController extends BaseController {
     /**
      * 分页查询更新日志
      *
-     * @param start    start
-     * @param pageSize pageSize
      * @return 分页
      */
     @RequestMapping("findAll")
-    public Result findAll(@RequestParam(value = "start", defaultValue = "1") int start, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
-        Page<ChangeLogModel> pages = service.findAll(start, pageSize);
-        if (pages == null || pages.getSize() <= 0) {
+    public Result findAll() {
+        List<ChangeLogModel> pages = service.findAll();
+        if (pages == null || pages.size() <= 0) {
             return new Result(Err.NULL_DATA.getCode(), Err.NULL_DATA.getMessage());
         }
         return new Result(pages);
@@ -119,8 +118,8 @@ public class ChangeLogController extends BaseController {
     /**
      * 删除更新日志
      */
-    @RequestMapping(value = "deleteById", method = RequestMethod.GET)
-    public Result deleteById(@RequestParam Long id) {
+    @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
+    public Result deleteById(@PathVariable("id") Long id) {
         ChangeLogModel changeLogModel = service.findById(id);
         if (changeLogModel == null) {
             return new Result(Err.NULL_DATA.getCode(), Err.NULL_DATA.getMessage());

@@ -9,8 +9,9 @@ import info.xiaomo.core.service.website.AdminUserService;
 import info.xiaomo.core.untils.MD5Util;
 import info.xiaomo.core.untils.RandomUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * │＼＿＿╭╭╭╭╭＿＿／│
@@ -87,8 +88,8 @@ public class AdminUserController extends BaseController {
      * @param id id
      * @return Result
      */
-    @RequestMapping(value = "findById", method = RequestMethod.GET)
-    public Result findUserById(@RequestParam("id") Long id) {
+    @RequestMapping(value = "findById/{id}", method = RequestMethod.GET)
+    public Result findUserById(@PathVariable("id") Long id) {
         AdminModel adminModel = service.findAdminUserById(id);
         if (adminModel == null) {
             return new Result(Err.NULL_DATA.getCode(), Err.NULL_DATA.getMessage());
@@ -102,8 +103,8 @@ public class AdminUserController extends BaseController {
      * @param userName userName
      * @return Result
      */
-    @RequestMapping(value = "findByName", method = RequestMethod.GET)
-    public Result findByName(@RequestParam("userName") String userName) {
+    @RequestMapping(value = "findByName/{userName}", method = RequestMethod.GET)
+    public Result findByName(@PathVariable("userName") String userName) {
         AdminModel adminModel = service.findAdminUserByUserName(userName);
         if (adminModel == null) {
             return new Result(Err.NULL_DATA.getCode(), Err.NULL_DATA.getMessage());
@@ -134,14 +135,12 @@ public class AdminUserController extends BaseController {
     /**
      * 返回所有
      *
-     * @param start start
-     * @param page  page
      * @return 分页
      */
     @RequestMapping(value = "findAll", method = RequestMethod.GET)
-    public Result getAll(@RequestParam(value = "start", defaultValue = "1") int start, @RequestParam(value = "pageSize", defaultValue = "10") int page) {
-        Page<AdminModel> pages = service.getAdminUsers(start, page);
-        if (pages == null || pages.getSize() <= 0) {
+    public Result getAll() {
+        List<AdminModel> pages = service.getAdminUsers();
+        if (pages == null || pages.size() <= 0) {
             return new Result(pages);
         }
         return new Result(pages);
@@ -154,8 +153,8 @@ public class AdminUserController extends BaseController {
      * @return model
      * @throws UserNotFoundException UserNotFoundException
      */
-    @RequestMapping(value = "deleteById", method = RequestMethod.GET)
-    public Result deleteUserById(@RequestParam("id") Long id) throws UserNotFoundException {
+    @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
+    public Result deleteUserById(@PathVariable("id") Long id) throws UserNotFoundException {
         AdminModel adminModel = service.findAdminUserById(id);
         if (adminModel == null) {
             return new Result(Err.NULL_DATA.getCode(), Err.NULL_DATA.getMessage());
@@ -191,8 +190,8 @@ public class AdminUserController extends BaseController {
      * @return model
      * @throws UserNotFoundException UserNotFoundException
      */
-    @RequestMapping(value = "forbid", method = RequestMethod.GET)
-    public Result forbid(@RequestParam("id") Long id) throws UserNotFoundException {
+    @RequestMapping(value = "forbid/{id}", method = RequestMethod.GET)
+    public Result forbid(@PathVariable("id") Long id) throws UserNotFoundException {
         AdminModel model = service.findAdminUserById(id);
         if (model == null) {
             return new Result(Err.NULL_DATA.getCode(), Err.NULL_DATA.getMessage());

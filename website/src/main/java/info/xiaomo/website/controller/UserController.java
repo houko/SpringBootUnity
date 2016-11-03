@@ -13,10 +13,10 @@ import info.xiaomo.core.untils.MailUtil;
 import info.xiaomo.core.untils.RandomUtil;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
+import java.util.List;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -49,8 +49,8 @@ public class UserController extends BaseController {
      * @param id id
      * @return result
      */
-    @RequestMapping(value = "findById", method = RequestMethod.GET)
-    public Result findUserById(@RequestParam("id") Long id) {
+    @RequestMapping(value = "findById/{id}", method = RequestMethod.GET)
+    public Result findUserById(@PathVariable("id") Long id) {
         UserModel userModel = service.findUserById(id);
         if (userModel == null) {
             return new Result(Err.USER_NOT_FOUND.getCode(), Err.USER_NOT_FOUND.getMessage());
@@ -159,18 +159,17 @@ public class UserController extends BaseController {
     /**
      * 分页查询用户
      *
-     * @param start    start
-     * @param pageSize page
      * @return result
      */
     @RequestMapping(value = "findAll", method = RequestMethod.GET)
-    public Result getAll(@RequestParam(value = "start", defaultValue = "1") int start, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
-        Page<UserModel> pages = service.findAll(start, pageSize);
-        if (pages == null || pages.getSize() <= 0) {
+    public Result getAll() {
+        List<UserModel> pages = service.findAll();
+        if (pages == null || pages.size() <= 0) {
             return new Result(Err.NULL_DATA.getCode(), Err.NULL_DATA.getMessage());
         }
         return new Result(pages);
     }
+
 
     /**
      * 根据id 删除用户
@@ -178,8 +177,8 @@ public class UserController extends BaseController {
      * @param id id
      * @return result
      */
-    @RequestMapping(value = "deleteById", method = RequestMethod.GET)
-    public Result deleteUserById(@RequestParam("id") Long id) throws UserNotFoundException {
+    @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
+    public Result deleteUserById(@PathVariable("id") Long id) throws UserNotFoundException {
         UserModel userModel = service.deleteUserById(id);
         if (userModel == null) {
             return new Result(Err.USER_NOT_FOUND.getCode(), Err.USER_NOT_FOUND.getMessage());

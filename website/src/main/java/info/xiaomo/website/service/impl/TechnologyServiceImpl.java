@@ -31,12 +31,10 @@ public class TechnologyServiceImpl implements TechnologyService {
 
     private TechnologyDao dao;
 
+    @Autowired
     public TechnologyServiceImpl(TechnologyDao dao) {
         this.dao = dao;
     }
-
-    @Autowired
-
 
     @Override
     public List<TechnologyModel> findAll() {

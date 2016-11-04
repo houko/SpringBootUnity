@@ -39,15 +39,16 @@ public class DateUtil {
      */
     public static final String DEFAULT_FORMAT = "yyyy-MM-dd HH:mm:ss";
     public static final String DEFAULT_FORMAT2 = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
-    private static final Logger LOGGER = LoggerFactory.getLogger(DateUtil.class);
-    private static final String datePatternWithHengXian = "yyyy-MM-dd";
-    private static final String datePatternWithXieXian = "yyyy/MM/dd";
-    private static final String year = "yyyy";
-    private static final String month = "MM";
-    private static final String day = "dd";
-    private static final String date = month + Symbol.HENGXIAN + day;
+    public static final Logger LOGGER = LoggerFactory.getLogger(DateUtil.class);
+    public static final String datePatternWithHengXian = "yyyy-MM-dd";
+    public static final String datePatternWithXieXian = "yyyy/MM/dd";
+    public static final String year = "yyyy";
+    public static final String month = "MM";
+    public static final String day = "dd";
+    public static final String date = month + Symbol.HENGXIAN + day;
 
-    private static final String timePattern = datePatternWithHengXian + " HH:mm:ss";
+    public static final String timePattern = datePatternWithHengXian + " HH:mm:ss";
+    public static final String datePattern = " HH:mm:ss";
 
     public static final FastDateFormat DATE_FORMAT = FastDateFormat.getInstance("yyyy-MM-dd");
     public static final String DATE_FORMAT_STRING = "yyyyMMddHHmmss";

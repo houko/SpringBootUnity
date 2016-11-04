@@ -1,73 +1,54 @@
-<!DOCTYPE HTML>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-    <base href="localhost://localhost:8081/">
-    <title>My WebSocket</title>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet">
+    <script src="http://static.xiaomo.info/jquery.js"></script>
+    <title>登录</title>
 </head>
+<body>
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <div class="panel panel-primary">
+            <div class="panel-body">
+                <div class="row">
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="col-md-10">
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <div class="">
+                                            <input type="text" style="border: 1px;"  id="userName" name="userName" placeholder="请随便输入一个昵称" onkeyup="keyEnter(event)">
+                                            <a class="btn btn-success btn-sm" onclick="login()" >登录</a>
+                                        </div>
+                                    </div>
+                                </div>
 
-<body onload="getName()">
-<input id="text" type="text" title=""/>
-<button onclick="send()">发送</button>
-<button onclick="closeWebSocket()">离开</button>
-<div id="message">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4"></div>
 </div>
-</body>
-
-<script type="text/javascript">
-    var websocket = null;
-
-    //判断当前浏览器是否支持WebSocket
-    if ('WebSocket' in window) {
-        websocket = new WebSocket("ws://localhost:8081/websocket");
+<script>
+    function login() {
+        var username = $("#userName").val();
+        window.location.href = "http://localhost:8081/chat.html?username=" + username;
     }
-    else {
-        alert('Not support websocket')
+    function keyEnter(event) {
+        if (event.keyCode == "13") {
+            login();
+        }
     }
-
-    //连接发生错误的回调方法
-    websocket.onerror = function () {
-        setMessageInnerHTML("error");
-    };
-
-    //连接成功建立的回调方法
-    websocket.onopen = function (event) {
-        setMessageInnerHTML("己连接");
-    };
-
-    //接收到消息的回调方法
-    websocket.onmessage = function (event) {
-        setMessageInnerHTML(event.data);
-    };
-
-    //连接关闭的回调方法
-    websocket.onclose = function () {
-        setMessageInnerHTML("close");
-    };
-
-    //监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
-    window.onbeforeunload = function () {
-        websocket.close();
-    };
-
-    //将消息显示在网页上
-    function setMessageInnerHTML(innerHTML) {
-        document.getElementById('message').innerHTML += innerHTML + '<br/>';
-    }
-
-    //关闭连接
-    function closeWebSocket() {
-        websocket.close();
-    }
-
-    //发送消息
-    function send() {
-        var message = document.getElementById('text').value;
-        websocket.send(message);
-    }
-
-    function getName() {
-        var str = prompt("请输入昵称", "");
-    }
-
 </script>
+</body>
 </html>

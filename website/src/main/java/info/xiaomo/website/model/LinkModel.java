@@ -32,7 +32,7 @@ public class LinkModel extends BaseModel implements Serializable {
     @Column(name = "Url")
     private String url;
 
-    @Column(name = "`Order`")
+    @Column(name = "Order")
     private int order = 1;
 
     public String getName() {

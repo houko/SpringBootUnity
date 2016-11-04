@@ -8,8 +8,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 
 /**
@@ -32,7 +30,6 @@ import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 @EntityScan("info.xiaomo.*.model")
 @EnableTransactionManagement
 @EnableJpaRepositories("info.xiaomo.*.dao")
-@RestController
 public class ChatMain {
 
     public static void main(String[] args) throws Exception {
@@ -45,8 +42,4 @@ public class ChatMain {
         return new ServerEndpointExporter();
     }
 
-    @RequestMapping("/")
-    String index() {
-        return "Hello World! this is website index";
-    }
 }

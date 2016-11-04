@@ -1,0 +1,122 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <base href="localhost://localhost:8081/">
+    <title>在线聊天</title>
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet">
+    <script src="http://static.xiaomo.info/jquery.js"></script>
+</head>
+<style>
+    .fix-bottom {
+        position: fixed;
+        bottom: 0;
+    }
+
+    .text-size {
+        width: 500px;
+        height: 100px;
+        resize: none;
+    }
+
+    .text-background {
+        border: 2px solid antiquewhite;
+        padding: 5px;
+        margin: 5px;
+        height: 10px;
+        border-radius: 20%;
+        background: lightblue;
+    }
+
+</style>
+<body>
+<h1> 聊天记录</h1>
+<div id="message">
+</div>
+<div class="fix-bottom">
+    <textarea id="text" class="text-size" onkeyup="keyEnter(event)" title=""></textarea><br/>
+    <button onclick="clearMsg()" class="btn btn-default btn-lg" style="float: right;">清屏</button>
+    <button onclick="send()" class="btn btn-success btn-lg" style="float: right;">发送</button>
+</div>
+</body>
+
+<script type="text/javascript">
+    var websocket = null;
+
+    //判断当前浏览器是否支持WebSocket
+    if ('WebSocket' in window) {
+        websocket = new WebSocket("ws://localhost:8081/websocket");
+    }
+    else {
+        alert('Not support websocket')
+    }
+
+    //连接发生错误的回调方法
+    websocket.onerror = function () {
+        setMessageInnerHTML("error");
+    };
+
+    //连接成功建立的回调方法
+    websocket.onopen = function (event) {
+        console.log(JSON.stringify(event));
+    };
+
+    //接收到消息的回调方法
+    websocket.onmessage = function (event) {
+        setMessageInnerHTML(event.data);
+    };
+
+    //连接关闭的回调方法
+    websocket.onclose = function (event) {
+        console.log(JSON.stringify(event));
+    };
+
+    //监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
+    window.onbeforeunload = function () {
+        websocket.close();
+    };
+
+    //将消息显示在网页上
+    function setMessageInnerHTML(innerHTML) {
+        document.getElementById('message').innerHTML += innerHTML + '<br/>';
+    }
+
+    //关闭连接
+    function closeWebSocket() {
+        websocket.close();
+    }
+
+    //发送消息
+    function send() {
+        if (!document.getElementById('text').value || document.getElementById('text').value === " ") {
+            return;
+        }
+        var username = getQueryString("userName");
+        var message = "<span style='background: lightpink'>" + username + "</span>：<span class='text-background'>" + document.getElementById('text').value + "</span><br/>";
+        websocket.send(message);
+        document.getElementById('text').value = "";
+    }
+
+    function keyEnter(event) {
+        if (event.keyCode == "13") {
+            send();
+        }
+    }
+    function clearMsg(){
+        document.getElementById('message').innerHTML='';
+    }
+
+
+    /**
+     * 获取url参数
+     * @param name
+     * @returns {string}
+     */
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return decodeURI(r[2]);
+        return "";
+    }
+
+</script>
+</html>

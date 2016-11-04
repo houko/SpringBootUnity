@@ -1,6 +1,7 @@
 package info.xiaomo.chat.socket;
 
 import info.xiaomo.core.untils.DateUtil;
+import info.xiaomo.core.untils.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -50,7 +51,7 @@ public class MyWebSocket {
         this.session = session;
         webSocketSet.add(this);
         addOnlineCount();
-        LOGGER.info("有新链接加入!当前在线人数为:{}", getOnlineCount());
+        LOGGER.info("有新用户加入!当前在线人数为:{}", getOnlineCount());
     }
 
     /**
@@ -60,7 +61,7 @@ public class MyWebSocket {
     public void onClose() {
         webSocketSet.remove(this);
         subOnlineCount();
-        System.out.println("有一链接关闭!当前在线人数为" + getOnlineCount());
+        System.out.println("有一用户关闭!当前在线人数为" + getOnlineCount());
     }
 
     /**
@@ -71,12 +72,12 @@ public class MyWebSocket {
      */
     @OnMessage
     public void onMessage(String message) throws IOException {
-        String date = DateUtil.getFormatDate();
+        String date = "<font color='green'>" + DateUtil.getDateNow(DateUtil.datePattern) + "</font></br>";
         // 群发消息
         for (MyWebSocket item : webSocketSet) {
-            item.sendMessage(date + " " + message);
+            item.sendMessage(date + message);
         }
-        LOGGER.info("来自客户端的消息::{}", message);
+        LOGGER.info("客户端消息::{}", StringUtil.delHTMLTag(message));
     }
 
 

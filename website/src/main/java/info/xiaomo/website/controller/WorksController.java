@@ -8,6 +8,8 @@ import info.xiaomo.website.service.WorksService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * 把今天最好的表现当作明天最新的起点．．～
  * いま 最高の表現 として 明日最新の始発．．～
@@ -43,6 +45,16 @@ public class WorksController extends BaseController {
             return new Result(Err.NULL_DATA.getCode(), Err.NULL_DATA.getMessage());
         }
         return new Result(model);
+    }
+
+
+    @RequestMapping("/findAll")
+    public Result findAll() {
+        List<WorksModel> all = service.findAll();
+        if (all == null || all.isEmpty()) {
+            return new Result(Err.NULL_DATA.getCode(), Err.NULL_DATA.getMessage());
+        }
+        return new Result(all);
     }
 
 

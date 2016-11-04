@@ -77,7 +77,7 @@ public class MyWebSocket {
         for (MyWebSocket item : webSocketSet) {
             item.sendMessage(date + message);
         }
-        LOGGER.info("客户端消息::{}", StringUtil.delHTMLTag(message));
+        LOGGER.info("客户端消息:{}", StringUtil.delHTMLTag(message));
     }
 
 

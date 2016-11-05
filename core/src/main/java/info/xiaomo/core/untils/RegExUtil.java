@@ -146,8 +146,8 @@ public class RegExUtil {
      * @return vector
      * @since 1.0
      */
-    public static Vector splitTags2Vector(String pattern, String str) throws PatternSyntaxException {
-        Vector vector = new Vector();
+    public static Vector<String> splitTags2Vector(String pattern, String str) throws PatternSyntaxException {
+        Vector<String> vector = new Vector<>();
         Pattern p = Pattern.compile(pattern);
         Matcher m = p.matcher(str);
         while (m.find()) {
@@ -185,8 +185,8 @@ public class RegExUtil {
      * @return vector
      * @since 1.0
      */
-    public static Vector regMatchAll2Vector(String pattern, String str) throws PatternSyntaxException {
-        Vector vector = new Vector();
+    public static Vector<String> regMatchAll2Vector(String pattern, String str) throws PatternSyntaxException {
+        Vector<String> vector = new Vector<>();
         Pattern p = Pattern.compile(pattern);
         Matcher m = p.matcher(str);
         while (m.find()) {

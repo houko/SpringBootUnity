@@ -58,7 +58,7 @@ public class WorksController extends BaseController {
     }
 
 
-    @RequestMapping("/findById/{name}")
+    @RequestMapping("/findByName/{name}")
     public Result findByName(@PathVariable String name) {
         WorksModel model = service.findByName(name);
         if (model == null) {

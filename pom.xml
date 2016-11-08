@@ -61,6 +61,7 @@
         <surefire-plugin.version>2.19.1</surefire-plugin.version>
         <!-- mail -->
         <javax-mail.version>1.4.7</javax-mail.version>
+        <lombak.version>1.16.10</lombak.version>
     </properties>
 
 
@@ -114,6 +115,12 @@
                 <groupId>javax.mail</groupId>
                 <artifactId>mail</artifactId>
                 <version>${javax-mail.version}</version>
+            </dependency>
+            <!-- http://blog.xiaomo.info/2016/11/08/java_lombok/ -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombak.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

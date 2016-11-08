@@ -1,8 +1,6 @@
 package info.xiaomo.core.untils;
 
-/**
- * <p>Title: 时间和日期的工具类</p>
- */
+
 
 import info.xiaomo.core.constant.Symbol;
 import org.apache.commons.lang3.time.DateUtils;
@@ -15,7 +13,9 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-
+/**
+ * <p>Title: 时间和日期的工具类</p>
+ */
 public class DateUtil {
 
     /**

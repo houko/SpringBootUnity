@@ -2,6 +2,9 @@ package info.xiaomo.website.model;
 
 
 import info.xiaomo.core.model.BaseModel;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,6 +35,9 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "adminUser")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class AdminModel extends BaseModel implements Serializable {
 
     @Column(name = "UserName")
@@ -48,37 +54,5 @@ public class AdminModel extends BaseModel implements Serializable {
 
     @Column(name = "Salt")
     private String salt;
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getSalt() {
-        return salt;
-    }
-
-    public void setSalt(String salt) {
-        this.salt = salt;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
 
 }

@@ -2,6 +2,9 @@ package info.xiaomo.core.model;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import info.xiaomo.core.filter.CustomDateSerializer;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -22,6 +25,9 @@ import java.util.Date;
  **/
 
 @MappedSuperclass
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public abstract class BaseModel {
 
     @Id
@@ -40,36 +46,4 @@ public abstract class BaseModel {
     @JsonSerialize(using = CustomDateSerializer.class)
     @Column(name = "UpdateTime")
     private Date updateTime;
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public long getVersion() {
-        return version;
-    }
-
-    public void setVersion(long version) {
-        this.version = version;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
 }

@@ -2,6 +2,9 @@ package info.xiaomo.website.model;
 
 
 import info.xiaomo.core.model.BaseModel;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,6 +27,9 @@ import java.io.Serializable;
  **/
 @Entity
 @Table(name = "changeLog")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ChangeLogModel extends BaseModel implements Serializable {
 
     @Column(name = "Name")
@@ -31,20 +37,4 @@ public class ChangeLogModel extends BaseModel implements Serializable {
 
     @Column(name = "OnlineTime")
     private String onlineTime;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getOnlineTime() {
-        return onlineTime;
-    }
-
-    public void setOnlineTime(String onlineTime) {
-        this.onlineTime = onlineTime;
-    }
 }

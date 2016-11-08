@@ -2,6 +2,9 @@ package info.xiaomo.website.model;
 
 
 import info.xiaomo.core.model.BaseModel;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,6 +27,9 @@ import java.io.Serializable;
  **/
 @Entity
 @Table(name = "link")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class LinkModel extends BaseModel implements Serializable {
 
     @Column(name = "Name")
@@ -34,28 +40,4 @@ public class LinkModel extends BaseModel implements Serializable {
 
     @Column(name = "Order")
     private int order = 1;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public int getOrder() {
-        return order;
-    }
-
-    public void setOrder(int order) {
-        this.order = order;
-    }
 }

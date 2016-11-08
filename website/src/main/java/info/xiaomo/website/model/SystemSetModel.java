@@ -2,6 +2,9 @@ package info.xiaomo.website.model;
 
 
 import info.xiaomo.core.model.BaseModel;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,6 +28,9 @@ import java.util.Calendar;
  **/
 @Entity
 @Table(name = "systemSet")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class SystemSetModel extends BaseModel implements Serializable {
 
     /**
@@ -62,52 +68,4 @@ public class SystemSetModel extends BaseModel implements Serializable {
     @Column(name = "BeianUrl")
     private String beianUrl = "http://www.miitbeian.gov.cn/";
 
-
-    public String getSiteName() {
-        return siteName;
-    }
-
-    public void setSiteName(String siteName) {
-        this.siteName = siteName;
-    }
-
-    public String getIcon() {
-        return icon;
-    }
-
-    public void setIcon(String icon) {
-        this.icon = icon;
-    }
-
-    public int getFromYear() {
-        return fromYear;
-    }
-
-    public int getToYear() {
-        return toYear;
-    }
-
-    public void setToYear(int toYear) {
-        this.toYear = toYear;
-    }
-
-    public void setFromYear(int fromYear) {
-        this.fromYear = fromYear;
-    }
-
-    public String getBeianUrl() {
-        return beianUrl;
-    }
-
-    public void setBeianUrl(String beianUrl) {
-        this.beianUrl = beianUrl;
-    }
-
-    public String getBeianNumber() {
-        return beianNumber;
-    }
-
-    public void setBeianNumber(String beianNumber) {
-        this.beianNumber = beianNumber;
-    }
 }

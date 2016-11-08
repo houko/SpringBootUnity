@@ -2,6 +2,9 @@ package info.xiaomo.website.model;
 
 
 import info.xiaomo.core.model.BaseModel;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,6 +27,9 @@ import java.io.Serializable;
  **/
 @Entity
 @Table(name = "user")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserModel extends BaseModel implements Serializable {
 
     /**
@@ -61,85 +67,4 @@ public class UserModel extends BaseModel implements Serializable {
 
     @Column(name = "RegisterTime")
     private Long RegisterTime = 0L;
-
-    public String getNickName() {
-        return nickName;
-    }
-
-
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public int getGender() {
-        return gender;
-    }
-
-    public void setGender(int gender) {
-        this.gender = gender;
-    }
-
-    public Long getPhone() {
-        return phone;
-    }
-
-    public void setPhone(Long phone) {
-        this.phone = phone;
-    }
-
-    public String getImgUrl() {
-        return imgUrl;
-    }
-
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getSalt() {
-        return salt;
-    }
-
-    public void setSalt(String salt) {
-        this.salt = salt;
-    }
-
-    public String getValidateCode() {
-        return validateCode;
-    }
-
-    public void setValidateCode(String validateCode) {
-        this.validateCode = validateCode;
-    }
-
-    public Long getRegisterTime() {
-        return RegisterTime;
-    }
-
-    public void setRegisterTime(Long registerTime) {
-        RegisterTime = registerTime;
-    }
 }

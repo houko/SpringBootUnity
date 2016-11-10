@@ -5,6 +5,7 @@ import info.xiaomo.core.controller.BaseController;
 import info.xiaomo.core.controller.Result;
 import info.xiaomo.website.model.WorksModel;
 import info.xiaomo.website.service.WorksService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,6 +29,7 @@ import java.util.List;
 
 @RequestMapping("/works")
 @RestController
+@Api("作品相关api")
 public class WorksController extends BaseController {
 
     private final WorksService service;

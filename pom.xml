@@ -62,6 +62,7 @@
         <!-- mail -->
         <javax-mail.version>1.4.7</javax-mail.version>
         <lombak.version>1.16.10</lombak.version>
+        <springfox-swagger-ui.version>2.2.2</springfox-swagger-ui.version>
     </properties>
 
 
@@ -121,6 +122,18 @@
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>${lombak.version}</version>
+            </dependency>
+            <!-- Swagger -->
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger-ui</artifactId>
+                <version>${springfox-swagger-ui.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger2</artifactId>
+                <version>${springfox-swagger-ui.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

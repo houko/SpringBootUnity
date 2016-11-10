@@ -5,6 +5,7 @@ import info.xiaomo.core.controller.BaseController;
 import info.xiaomo.core.controller.Result;
 import info.xiaomo.website.model.SystemSetModel;
 import info.xiaomo.website.service.WebSetService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +30,7 @@ import java.util.List;
  **/
 @RestController
 @RequestMapping("/webSet")
+@Api("网站设置相关api")
 public class WebSetController extends BaseController {
 
     private final WebSetService service;

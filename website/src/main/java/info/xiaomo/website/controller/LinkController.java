@@ -5,6 +5,7 @@ import info.xiaomo.core.controller.BaseController;
 import info.xiaomo.core.controller.Result;
 import info.xiaomo.website.model.LinkModel;
 import info.xiaomo.website.service.LinkService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,6 +30,7 @@ import java.util.List;
  **/
 @RestController
 @RequestMapping("/link")
+@Api("友情链接相关api")
 public class LinkController extends BaseController {
 
     private final LinkService service;

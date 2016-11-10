@@ -11,6 +11,7 @@ import info.xiaomo.core.untils.MailUtil;
 import info.xiaomo.core.untils.RandomUtil;
 import info.xiaomo.website.model.UserModel;
 import info.xiaomo.website.service.UserService;
+import io.swagger.annotations.Api;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +35,7 @@ import java.util.List;
  **/
 @RestController
 @RequestMapping("/user")
+@Api("用户相关api")
 public class UserController extends BaseController {
 
     private final UserService service;

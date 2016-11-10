@@ -2,6 +2,8 @@ package info.xiaomo.core.model;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import info.xiaomo.core.filter.CustomDateSerializer;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,22 +30,27 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ApiModel("基类")
 public abstract class BaseModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "Id")
+    @ApiModelProperty(value  = "id")
     private long id;
 
     @Version
     @Column(name = "Version")
+    @ApiModelProperty(value  = "版本号")
     private long version;
 
     @JsonSerialize(using = CustomDateSerializer.class)
     @Column(name = "CreateTime")
+    @ApiModelProperty(value  = "创建时间")
     private Date createTime;
 
     @JsonSerialize(using = CustomDateSerializer.class)
     @Column(name = "UpdateTime")
+    @ApiModelProperty(value  = "更新时间")
     private Date updateTime;
 }

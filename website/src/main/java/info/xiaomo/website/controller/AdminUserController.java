@@ -8,7 +8,10 @@ import info.xiaomo.core.untils.MD5Util;
 import info.xiaomo.core.untils.RandomUtil;
 import info.xiaomo.website.model.AdminModel;
 import info.xiaomo.website.service.AdminUserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,6 +40,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/adminUser")
+@Api("后台用户相关api")
 public class AdminUserController extends BaseController {
 
     private final AdminUserService service;
@@ -51,6 +55,7 @@ public class AdminUserController extends BaseController {
      *
      * @return Result
      */
+    @ApiOperation(value = "获取用户信息", notes = "根据用户帐号和密码登录后台",httpMethod = "POST", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "login", method = RequestMethod.POST)
     public Result login(@RequestBody AdminModel model) {
         AdminModel adminModel = service.findAdminUserByUserName(model.getUserName());

@@ -5,6 +5,7 @@ import info.xiaomo.core.controller.BaseController;
 import info.xiaomo.core.controller.Result;
 import info.xiaomo.website.model.ChangeLogModel;
 import info.xiaomo.website.service.ChangeLogService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,6 +27,7 @@ import java.util.List;
  **/
 @RestController
 @RequestMapping("/changeLog")
+@Api("更新日志相关api")
 public class ChangeLogController extends BaseController {
 
     private final ChangeLogService service;

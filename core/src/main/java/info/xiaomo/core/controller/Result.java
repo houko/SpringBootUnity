@@ -1,5 +1,9 @@
 package info.xiaomo.core.controller;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
 /**
  * 把今天最好的表现当作明天最新的起点．．～
  * いま 最高の表現 として 明日最新の始発．．～
@@ -14,10 +18,17 @@ package info.xiaomo.core.controller;
  * @Description: 返回结果
  * @Copyright(©) 2015 by xiaomo.
  */
+@Data
+@ApiModel("返回结果")
 public class Result {
 
+    @ApiModelProperty(value  = "返回码")
     private int code;
+
+    @ApiModelProperty(value  = "返回消息")
     private String message;
+
+    @ApiModelProperty(value  = "返回数据")
     private Object data;
 
     /**
@@ -56,31 +67,6 @@ public class Result {
     public Result(int code, String message, Object data) {
         this.code = code;
         this.message = message;
-        this.data = data;
-    }
-
-
-    public int getCode() {
-        return code;
-    }
-
-    public void setCode(int code) {
-        this.code = code;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public Object getData() {
-        return data;
-    }
-
-    public void setData(Object data) {
         this.data = data;
     }
 }

@@ -2,6 +2,8 @@ package info.xiaomo.website.model;
 
 
 import info.xiaomo.core.model.BaseModel;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -38,20 +40,25 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ApiModel(value = "后台用户实体类")
 public class AdminModel extends BaseModel implements Serializable {
 
+    @ApiModelProperty(value  = "用户名",required = true)
     @Column(name = "UserName")
     private String userName;
 
+    @ApiModelProperty(value  = "密码",required = true)
     @Column(name = "Password")
     private String password;
 
     /**
      * 1正常 2异常
      */
+    @ApiModelProperty(value  = "状态")
     @Column(name = "Status")
     private int status = 1;
 
+    @ApiModelProperty(value  = "盐值")
     @Column(name = "Salt")
     private String salt;
 

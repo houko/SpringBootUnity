@@ -5,6 +5,7 @@ import info.xiaomo.core.controller.BaseController;
 import info.xiaomo.core.controller.Result;
 import info.xiaomo.website.model.TechnologyModel;
 import info.xiaomo.website.service.TechnologyService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,6 +29,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/technology")
+@Api("技术中心相关api")
 public class TechnologyController extends BaseController {
     private final TechnologyService service;
 

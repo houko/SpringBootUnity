@@ -7,6 +7,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -28,6 +31,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EntityScan("info.xiaomo.*.model")
 @EnableTransactionManagement
 @EnableJpaRepositories("info.xiaomo.*.dao")
+@RestController
 public class XiaomoMain {
 
     /**
@@ -56,6 +60,12 @@ public class XiaomoMain {
      */
     public static void main(String[] args) throws Exception {
         SpringApplication.run(XiaomoMain.class, args);
+    }
+
+
+    @RequestMapping("/")
+    public ModelAndView index(){
+        return new ModelAndView("redirect:/swagger-ui.html");
     }
 
 }

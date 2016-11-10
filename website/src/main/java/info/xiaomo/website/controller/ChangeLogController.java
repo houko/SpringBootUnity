@@ -6,7 +6,9 @@ import info.xiaomo.core.controller.Result;
 import info.xiaomo.website.model.ChangeLogModel;
 import info.xiaomo.website.service.ChangeLogService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -43,6 +45,7 @@ public class ChangeLogController extends BaseController {
      * @param id id
      * @return model
      */
+    @ApiOperation(value = "通过id查找", notes = "通过id查找",httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "findById/{id}",method = RequestMethod.GET)
     public Result findById(@PathVariable("id") Long id) {
         ChangeLogModel changeLogModel = service.findById(id);
@@ -57,6 +60,7 @@ public class ChangeLogController extends BaseController {
      *
      * @return result
      */
+    @ApiOperation(value = "通过名字查找", notes = "通过名字查找",httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "findByName/{name}", method = RequestMethod.GET)
     public Result findByName( @PathVariable("name") String name) {
         ChangeLogModel model = service.findByName(name);
@@ -71,6 +75,7 @@ public class ChangeLogController extends BaseController {
      *
      * @return 分页
      */
+    @ApiOperation(value = "分页查询更新日志", notes = "分页查询更新日志",httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "findAll", method = RequestMethod.GET)
     public Result findAll() {
         List<ChangeLogModel> pages = service.findAll();
@@ -85,6 +90,7 @@ public class ChangeLogController extends BaseController {
      *
      * @return result
      */
+    @ApiOperation(value = "增加更新日志", notes = "增加更新日志",httpMethod = "POST", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public Result add(@RequestBody ChangeLogModel model) {
         ChangeLogModel changeLogModel = service.findByName(model.getName());
@@ -104,6 +110,7 @@ public class ChangeLogController extends BaseController {
      *
      * @return result
      */
+    @ApiOperation(value = "修改更新日志", notes = "修改更新日志",httpMethod = "POST", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "update", method = RequestMethod.POST)
     public Result update(@RequestBody ChangeLogModel model) {
         ChangeLogModel changeLogModel = service.findByName(model.getName());
@@ -120,6 +127,7 @@ public class ChangeLogController extends BaseController {
     /**
      * 删除更新日志
      */
+    @ApiOperation(value = "删除更新日志", notes = "删除更新日志",httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
     public Result deleteById(@PathVariable("id") Long id) {
         ChangeLogModel changeLogModel = service.findById(id);

@@ -6,7 +6,9 @@ import info.xiaomo.core.controller.Result;
 import info.xiaomo.website.model.WorksModel;
 import info.xiaomo.website.service.WorksService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -40,6 +42,7 @@ public class WorksController extends BaseController {
     }
 
 
+    @ApiOperation(value = "根据id查找作品", notes = "根据id查找作品",httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "/findById/{id}",method = RequestMethod.GET)
     public Result findById(@PathVariable Long id) {
         WorksModel model = service.findById(id);
@@ -49,7 +52,7 @@ public class WorksController extends BaseController {
         return new Result(model);
     }
 
-
+    @ApiOperation(value = "查找所有", notes = "查找所有",httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "/findAll",method = RequestMethod.GET)
     public Result findAll() {
         List<WorksModel> all = service.findAll();
@@ -60,6 +63,7 @@ public class WorksController extends BaseController {
     }
 
 
+    @ApiOperation(value = "根据名字查找作品", notes = "根据名字查找作品",httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "/findByName/{name}",method = RequestMethod.GET)
     public Result findByName(@PathVariable String name) {
         WorksModel model = service.findByName(name);
@@ -69,6 +73,7 @@ public class WorksController extends BaseController {
         return new Result(model);
     }
 
+    @ApiOperation(value = "添加作品", notes = "添加作品",httpMethod = "POST", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public Result add(@RequestBody WorksModel model) {
         WorksModel addModel = service.findByName(model.getName());
@@ -79,6 +84,7 @@ public class WorksController extends BaseController {
         return new Result(addModel);
     }
 
+    @ApiOperation(value = "更新作品", notes = "更新作品",httpMethod = "POST", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public Result update(@RequestBody WorksModel model) {
         WorksModel worksModel = service.findById(model.getId());
@@ -90,6 +96,7 @@ public class WorksController extends BaseController {
     }
 
 
+    @ApiOperation(value = "根据id删除作品", notes = "根据id删除作品",httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "/delete/{id}",method = RequestMethod.GET)
     public Result delete(@PathVariable Long id) {
         WorksModel model = service.findById(id);

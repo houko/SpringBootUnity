@@ -6,7 +6,9 @@ import info.xiaomo.core.controller.Result;
 import info.xiaomo.website.model.LinkModel;
 import info.xiaomo.website.service.LinkService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -43,6 +45,7 @@ public class LinkController extends BaseController {
      * @param id id
      * @return model
      */
+    @ApiOperation(value = "通过id查找", notes = "通过id查找",httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "findById/{id}",method = RequestMethod.GET)
     public Result findLinkById(@PathVariable("id") Long id) {
         LinkModel model = service.findById(id);
@@ -58,6 +61,7 @@ public class LinkController extends BaseController {
      * @param name name
      * @return model
      */
+    @ApiOperation(value = "根据名字查找", notes = "根据名字查找",httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "findByName/{name}",method = RequestMethod.GET)
     public Result findByName(@PathVariable("name") String name) {
         LinkModel model = service.findByName(name);
@@ -73,6 +77,7 @@ public class LinkController extends BaseController {
      *
      * @return 所有
      */
+    @ApiOperation(value = "返回所有数据", notes = "返回所有数据",httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "findAll",method = RequestMethod.GET)
     public Result findAll() {
         List<LinkModel> pages = service.findAll();
@@ -105,6 +110,7 @@ public class LinkController extends BaseController {
      *
      * @return model
      */
+    @ApiOperation(value = "添加链接", notes = "添加链接",httpMethod = "POST", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "add",method = RequestMethod.POST)
     public Result add(@RequestBody LinkModel model) {
         LinkModel linkModel = service.findByName(model.getName());
@@ -124,6 +130,7 @@ public class LinkController extends BaseController {
      *
      * @return model
      */
+    @ApiOperation(value = "更新链接", notes = "更新链接",httpMethod = "POST", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "update",method = RequestMethod.POST)
     public Result update(@RequestBody LinkModel model) {
         LinkModel linkModel = service.findById(model.getId());
@@ -143,7 +150,8 @@ public class LinkController extends BaseController {
      * @param id id
      * @return model
      */
-    @RequestMapping(value = "delete/{id}",method = RequestMethod.POST)
+    @ApiOperation(value = "删除链接", notes = "删除链接",httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value = "delete/{id}",method = RequestMethod.GET)
     public Result delete(@PathVariable("id") Long id) {
         LinkModel LinkModel = service.findById(id);
         if (LinkModel == null) {

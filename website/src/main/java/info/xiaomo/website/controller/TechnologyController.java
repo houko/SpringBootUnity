@@ -6,7 +6,9 @@ import info.xiaomo.core.controller.Result;
 import info.xiaomo.website.model.TechnologyModel;
 import info.xiaomo.website.service.TechnologyService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,6 +41,7 @@ public class TechnologyController extends BaseController {
     }
 
 
+    @ApiOperation(value = "根据id查找技术", notes = "根据id查找技术",httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "/findById/{id}",method = RequestMethod.GET)
     public Result findById(@PathVariable Long id) {
         TechnologyModel model = service.findById(id);
@@ -48,6 +51,7 @@ public class TechnologyController extends BaseController {
         return new Result(model);
     }
 
+    @ApiOperation(value = "根据名字查找技术", notes = "根据名字查找技术",httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "/findByName/{name}",method = RequestMethod.GET)
     public Result findByName(@PathVariable String name) {
         TechnologyModel model = service.findByName(name);
@@ -57,6 +61,7 @@ public class TechnologyController extends BaseController {
         return new Result(model);
     }
 
+    @ApiOperation(value = "查找所有", notes = "查找所有",httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "/findAll",method = RequestMethod.GET)
     public Result findAll() {
         List<TechnologyModel> all = service.findAll();
@@ -67,6 +72,7 @@ public class TechnologyController extends BaseController {
     }
 
 
+    @ApiOperation(value = "添加链接", notes = "添加链接",httpMethod = "POST", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public Result add(@RequestBody TechnologyModel model) {
         TechnologyModel addModel = service.findByName(model.getName());
@@ -77,6 +83,7 @@ public class TechnologyController extends BaseController {
         return new Result(addModel);
     }
 
+    @ApiOperation(value = "更新链接", notes = "更新链接",httpMethod = "POST", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public Result update(@RequestBody TechnologyModel model) {
         TechnologyModel update = service.findById(model.getId());
@@ -88,6 +95,7 @@ public class TechnologyController extends BaseController {
     }
 
 
+    @ApiOperation(value = "删除链接", notes = "删除链接",httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "/delete/{id}",method = RequestMethod.GET)
     public Result delete(@PathVariable Long id) {
         TechnologyModel model = service.findById(id);

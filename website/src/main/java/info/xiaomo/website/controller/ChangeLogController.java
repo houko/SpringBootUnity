@@ -29,7 +29,7 @@ import java.util.List;
  **/
 @RestController
 @RequestMapping("/changeLog")
-@Api(value = "更新日志相关api",description = "ChangeLogController")
+@Api(value = "ChangeLogController",description = "更新日志相关api")
 public class ChangeLogController extends BaseController {
 
     private final ChangeLogService service;

@@ -43,7 +43,7 @@ public class ChangeLogController extends BaseController {
      * @param id id
      * @return model
      */
-    @RequestMapping("findById/{id}")
+    @RequestMapping(value = "findById/{id}",method = RequestMethod.GET)
     public Result findById(@PathVariable("id") Long id) {
         ChangeLogModel changeLogModel = service.findById(id);
         if (changeLogModel == null) {
@@ -71,7 +71,7 @@ public class ChangeLogController extends BaseController {
      *
      * @return 分页
      */
-    @RequestMapping("findAll")
+    @RequestMapping(value = "findAll", method = RequestMethod.GET)
     public Result findAll() {
         List<ChangeLogModel> pages = service.findAll();
         if (pages == null || pages.size() <= 0) {

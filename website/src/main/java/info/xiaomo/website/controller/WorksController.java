@@ -40,7 +40,7 @@ public class WorksController extends BaseController {
     }
 
 
-    @RequestMapping("/findById/{id}")
+    @RequestMapping(value = "/findById/{id}",method = RequestMethod.GET)
     public Result findById(@PathVariable Long id) {
         WorksModel model = service.findById(id);
         if (model == null) {
@@ -50,7 +50,7 @@ public class WorksController extends BaseController {
     }
 
 
-    @RequestMapping("/findAll")
+    @RequestMapping(value = "/findAll",method = RequestMethod.GET)
     public Result findAll() {
         List<WorksModel> all = service.findAll();
         if (all == null || all.isEmpty()) {
@@ -60,7 +60,7 @@ public class WorksController extends BaseController {
     }
 
 
-    @RequestMapping("/findByName/{name}")
+    @RequestMapping(value = "/findByName/{name}",method = RequestMethod.GET)
     public Result findByName(@PathVariable String name) {
         WorksModel model = service.findByName(name);
         if (model == null) {
@@ -90,7 +90,7 @@ public class WorksController extends BaseController {
     }
 
 
-    @RequestMapping("/delete/{id}")
+    @RequestMapping(value = "/delete/{id}",method = RequestMethod.GET)
     public Result delete(@PathVariable Long id) {
         WorksModel model = service.findById(id);
         if (model == null) {

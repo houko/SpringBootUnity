@@ -39,7 +39,7 @@ public class TechnologyController extends BaseController {
     }
 
 
-    @RequestMapping(value = "/findById/{id}")
+    @RequestMapping(value = "/findById/{id}",method = RequestMethod.GET)
     public Result findById(@PathVariable Long id) {
         TechnologyModel model = service.findById(id);
         if (model == null) {
@@ -48,7 +48,7 @@ public class TechnologyController extends BaseController {
         return new Result(model);
     }
 
-    @RequestMapping(value = "/findByName/{name}")
+    @RequestMapping(value = "/findByName/{name}",method = RequestMethod.GET)
     public Result findByName(@PathVariable String name) {
         TechnologyModel model = service.findByName(name);
         if (model == null) {
@@ -57,7 +57,7 @@ public class TechnologyController extends BaseController {
         return new Result(model);
     }
 
-    @RequestMapping("/findAll")
+    @RequestMapping(value = "/findAll",method = RequestMethod.GET)
     public Result findAll() {
         List<TechnologyModel> all = service.findAll();
         if (all == null || all.isEmpty()) {
@@ -88,7 +88,7 @@ public class TechnologyController extends BaseController {
     }
 
 
-    @RequestMapping(value = "/delete/{id}")
+    @RequestMapping(value = "/delete/{id}",method = RequestMethod.GET)
     public Result delete(@PathVariable Long id) {
         TechnologyModel model = service.findById(id);
         if (model == null) {

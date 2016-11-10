@@ -7,10 +7,7 @@ import info.xiaomo.website.model.LinkModel;
 import info.xiaomo.website.service.LinkService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -46,7 +43,7 @@ public class LinkController extends BaseController {
      * @param id id
      * @return model
      */
-    @RequestMapping("findById/{id}")
+    @RequestMapping(value = "findById/{id}",method = RequestMethod.GET)
     public Result findLinkById(@PathVariable("id") Long id) {
         LinkModel model = service.findById(id);
         if (model == null) {
@@ -61,7 +58,7 @@ public class LinkController extends BaseController {
      * @param name name
      * @return model
      */
-    @RequestMapping("findByName/{name}")
+    @RequestMapping(value = "findByName/{name}",method = RequestMethod.GET)
     public Result findByName(@PathVariable("name") String name) {
         LinkModel model = service.findByName(name);
         if (model == null) {
@@ -76,7 +73,7 @@ public class LinkController extends BaseController {
      *
      * @return 所有
      */
-    @RequestMapping("findAll")
+    @RequestMapping(value = "findAll",method = RequestMethod.GET)
     public Result findAll() {
         List<LinkModel> pages = service.findAll();
         if (pages == null || pages.size() == 0) {
@@ -108,7 +105,7 @@ public class LinkController extends BaseController {
      *
      * @return model
      */
-    @RequestMapping("add")
+    @RequestMapping(value = "add",method = RequestMethod.POST)
     public Result add(@RequestBody LinkModel model) {
         LinkModel linkModel = service.findByName(model.getName());
         if (linkModel != null) {
@@ -127,7 +124,7 @@ public class LinkController extends BaseController {
      *
      * @return model
      */
-    @RequestMapping("update")
+    @RequestMapping(value = "update",method = RequestMethod.POST)
     public Result update(@RequestBody LinkModel model) {
         LinkModel linkModel = service.findById(model.getId());
         if (linkModel == null) {
@@ -146,7 +143,7 @@ public class LinkController extends BaseController {
      * @param id id
      * @return model
      */
-    @RequestMapping("delete/{id}")
+    @RequestMapping(value = "delete/{id}",method = RequestMethod.POST)
     public Result delete(@PathVariable("id") Long id) {
         LinkModel LinkModel = service.findById(id);
         if (LinkModel == null) {

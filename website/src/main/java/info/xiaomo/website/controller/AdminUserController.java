@@ -74,6 +74,7 @@ public class AdminUserController extends BaseController {
      *
      * @return Result
      */
+    @ApiOperation(value = "添加后台用户", notes = "传一个管理员用户模型过来然后保存到数据库",httpMethod = "POST", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public Result add(@RequestBody AdminModel model) {
         AdminModel adminModel = service.findAdminUserByUserName(model.getUserName());
@@ -93,6 +94,7 @@ public class AdminUserController extends BaseController {
      * @param id id
      * @return Result
      */
+    @ApiOperation(value = "查找用户", notes = "根据传来的id查找用户并返回",httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "findById/{id}", method = RequestMethod.GET)
     public Result findUserById(@PathVariable("id") Long id) {
         AdminModel adminModel = service.findAdminUserById(id);
@@ -108,6 +110,7 @@ public class AdminUserController extends BaseController {
      * @param userName userName
      * @return Result
      */
+    @ApiOperation(value = "查找用户", notes = "根据传来的用户名查找用户并返回",httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "findByName/{userName}", method = RequestMethod.GET)
     public Result findByName(@PathVariable("userName") String userName) {
         AdminModel adminModel = service.findAdminUserByUserName(userName);
@@ -123,6 +126,7 @@ public class AdminUserController extends BaseController {
      * @return model
      * @throws UserNotFoundException UserNotFoundException
      */
+    @ApiOperation(value = "修改用户密码", notes = "传来模型验证并修改密码",httpMethod = "POST", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "changePassword", method = RequestMethod.POST)
     public Result changePassword(@RequestBody AdminModel model) throws UserNotFoundException {
         AdminModel adminModel = service.findAdminUserByUserName(model.getUserName());
@@ -140,8 +144,9 @@ public class AdminUserController extends BaseController {
     /**
      * 返回所有
      *
-     * @return 分页
+     * @return 不分页
      */
+    @ApiOperation(value = "返回所有用户信息", notes = "不分页",httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "findAll", method = RequestMethod.GET)
     public Result getAll() {
         List<AdminModel> pages = service.getAdminUsers();
@@ -158,6 +163,7 @@ public class AdminUserController extends BaseController {
      * @return model
      * @throws UserNotFoundException UserNotFoundException
      */
+    @ApiOperation(value = "删除用户", notes = "根据传入的id删除对应的用户",httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
     public Result deleteUserById(@PathVariable("id") Long id) throws UserNotFoundException {
         AdminModel adminModel = service.findAdminUserById(id);
@@ -175,6 +181,7 @@ public class AdminUserController extends BaseController {
      * @return model
      * @throws UserNotFoundException UserNotFoundException
      */
+    @ApiOperation(value = "更新用户信息", notes = "根据传入的模型更新用户信息",httpMethod = "POST", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "update", method = RequestMethod.POST)
     public Result update(
             @RequestParam("userName") String userName
@@ -195,6 +202,7 @@ public class AdminUserController extends BaseController {
      * @return model
      * @throws UserNotFoundException UserNotFoundException
      */
+    @ApiOperation(value = "封号", notes = "根据传入的id对修改对应帐号状态",httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "forbid/{id}", method = RequestMethod.GET)
     public Result forbid(@PathVariable("id") Long id) throws UserNotFoundException {
         AdminModel model = service.findAdminUserById(id);

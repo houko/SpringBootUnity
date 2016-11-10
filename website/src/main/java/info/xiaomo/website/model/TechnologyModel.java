@@ -2,9 +2,9 @@ package info.xiaomo.website.model;
 
 
 import info.xiaomo.core.model.BaseModel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,31 +28,26 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "technology")
 @Data
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 @NoArgsConstructor
+@ApiModel(value = "技术中心实体类")
 public class TechnologyModel extends BaseModel {
 
-    /**
-     * 技术名字
-     */
+    @ApiModelProperty(value = "技术名字")
     @Column(name = "Name")
     private String name;
 
-    /**
-     * url
-     */
+    @ApiModelProperty(value = "url")
     @Column(name = "Url")
     private String url;
 
-    /**
-     * 简介
-     */
+    @ApiModelProperty(value = "简介")
     @Column(name = "Summary")
     private String summary;
 
-    /**
-     * 图片链接
-     */
+    @ApiModelProperty(value = "图片链接")
     @Column(name = "ImgUrl")
     private String imgUrl;
 

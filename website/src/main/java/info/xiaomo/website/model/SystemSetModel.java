@@ -2,9 +2,9 @@ package info.xiaomo.website.model;
 
 
 import info.xiaomo.core.model.BaseModel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,42 +29,34 @@ import java.util.Calendar;
 @Entity
 @Table(name = "systemSet")
 @Data
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 @NoArgsConstructor
+@ApiModel(value = "系统设置实体类")
 public class SystemSetModel extends BaseModel implements Serializable {
 
-    /**
-     * 站点名字
-     */
+    @ApiModelProperty(value = "站点名字", required = false)
     @Column(name = "SiteName")
-    private String siteName ="小莫-fighting";
+    private String siteName = "小莫-fighting";
 
-    /**
-     * 站点图标
-     */
+    @ApiModelProperty(value = "站点图标")
     @Column(name = "Icon")
-    private String icon ="";
+    private String icon = "";
 
-    /**
-     * footer 的开始年份
-     */
+    @ApiModelProperty(value = "footer的开始年份")
     @Column(name = "FromYear")
     private int fromYear = Calendar.getInstance().get(Calendar.YEAR);
 
-    /**
-     * footer的结束年份
-     */
+    @ApiModelProperty(value = "footer的结束年份")
     @Column(name = "ToYear")
     private int toYear = Calendar.getInstance().get(Calendar.YEAR);
 
-    /**
-     * 备案号
-     */
+    @ApiModelProperty(value = "备案号")
     @Column(name = "BeianNumber")
     private String beianNumber = "浙ICP备15009606号";
-    /**
-     * 备案地址
-     */
+
+    @ApiModelProperty(value = "备案地址")
     @Column(name = "BeianUrl")
     private String beianUrl = "http://www.miitbeian.gov.cn/";
 

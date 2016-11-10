@@ -4,9 +4,7 @@ package info.xiaomo.website.model;
 import info.xiaomo.core.model.BaseModel;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,33 +30,31 @@ import java.io.Serializable;
  * @email: hupengbest@163.com
  * @QQ_NO: 83387856
  * @Date: 16/4/2 12:39
- * @Description: 后台管理用户实体类
  * @Copyright(©) 2015 by xiaomo.
  */
 @Entity
 @Table(name = "adminUser")
 @Data
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 @NoArgsConstructor
 @ApiModel(value = "后台用户实体类")
 public class AdminModel extends BaseModel implements Serializable {
 
-    @ApiModelProperty(value  = "用户名",required = true)
+    @ApiModelProperty(value = "用户名", required = true)
     @Column(name = "UserName")
     private String userName;
 
-    @ApiModelProperty(value  = "密码",required = true)
+    @ApiModelProperty(value = "密码", required = true)
     @Column(name = "Password")
     private String password;
 
-    /**
-     * 1正常 2异常
-     */
-    @ApiModelProperty(value  = "状态")
+    @ApiModelProperty(value = "状态1正常2异常")
     @Column(name = "Status")
     private int status = 1;
 
-    @ApiModelProperty(value  = "盐值")
+    @ApiModelProperty(value = "盐值")
     @Column(name = "Salt")
     private String salt;
 

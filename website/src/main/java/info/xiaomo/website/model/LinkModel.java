@@ -2,9 +2,9 @@ package info.xiaomo.website.model;
 
 
 import info.xiaomo.core.model.BaseModel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,16 +28,18 @@ import java.io.Serializable;
 @Entity
 @Table(name = "link")
 @Data
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 @NoArgsConstructor
+@ApiModel(value = "友情链接实体类")
 public class LinkModel extends BaseModel implements Serializable {
 
+    @ApiModelProperty(value = "友情链接的名字", required = true)
     @Column(name = "Name")
     private String name;
 
+    @ApiModelProperty(value = "友情链接的URL", required = true)
     @Column(name = "Url")
     private String url;
-
-    @Column(name = "Order")
-    private int order = 1;
 }

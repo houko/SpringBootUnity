@@ -2,9 +2,9 @@ package info.xiaomo.website.model;
 
 
 import info.xiaomo.core.model.BaseModel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,19 +22,23 @@ import java.io.Serializable;
  * @email: hupengbest@163.com
  * @QQ_NO: 83387856
  * @Date: 2016/4/517:17
- * @Description:
  * @Copyright(©) 2015 by xiaomo.
  **/
 @Entity
 @Table(name = "changeLog")
 @Data
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 @NoArgsConstructor
+@ApiModel(value = "更新日志实体类")
 public class ChangeLogModel extends BaseModel implements Serializable {
 
+    @ApiModelProperty(value = "更新日志描述", required = true)
     @Column(name = "Name")
     private String name;
 
+    @ApiModelProperty(value = "上线时间(字符串自己编辑)", required = true)
     @Column(name = "OnlineTime")
     private String onlineTime;
 }

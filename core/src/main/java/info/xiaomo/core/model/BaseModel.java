@@ -22,7 +22,6 @@ import java.util.Date;
  * @email: hupengbest@163.com
  * @QQ_NO: 83387856
  * @Date: 2016/4/1 20:37
- * @Description: model基类
  * @Copyright(©) 2015 by xiaomo.
  **/
 
@@ -53,4 +52,8 @@ public abstract class BaseModel {
     @Column(name = "UpdateTime")
     @ApiModelProperty(value  = "更新时间")
     private Date updateTime;
+
+    @ApiModelProperty(value  = "排序编辑")
+    @Column(name = "Position")
+    private int position = 1;
 }

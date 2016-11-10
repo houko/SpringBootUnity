@@ -32,7 +32,7 @@ import java.util.List;
  **/
 @RestController
 @RequestMapping("/webSet")
-@Api("网站设置相关api")
+@Api(value = "网站设置相关api",description = "WebSetController")
 public class WebSetController extends BaseController {
 
     private final WebSetService service;

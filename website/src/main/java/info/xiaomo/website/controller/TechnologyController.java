@@ -31,7 +31,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/technology")
-@Api("技术中心相关api")
+@Api(value = "技术中心相关api",description = "TechnologyController")
 public class TechnologyController extends BaseController {
     private final TechnologyService service;
 

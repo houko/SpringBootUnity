@@ -37,7 +37,7 @@ import java.util.List;
  **/
 @RestController
 @RequestMapping("/user")
-@Api("用户相关api")
+@Api(value = "用户相关api",description = "UserController")
 public class UserController extends BaseController {
 
     private final UserService service;

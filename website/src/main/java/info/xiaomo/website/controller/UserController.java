@@ -12,6 +12,8 @@ import info.xiaomo.core.untils.RandomUtil;
 import info.xiaomo.website.model.UserModel;
 import info.xiaomo.website.service.UserService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +39,7 @@ import java.util.List;
  **/
 @RestController
 @RequestMapping("/user")
-@Api(value = "UserController",description = "用户相关api")
+@Api(value = "UserController", description = "用户相关api")
 public class UserController extends BaseController {
 
     private final UserService service;
@@ -53,7 +55,7 @@ public class UserController extends BaseController {
      * @param id id
      * @return result
      */
-    @ApiOperation(value = "查找用户", notes = "查找用户",httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "查找用户", notes = "查找用户", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "findById/{id}", method = RequestMethod.GET)
     public Result findUserById(@PathVariable("id") Long id) {
         UserModel userModel = service.findUserById(id);
@@ -66,7 +68,7 @@ public class UserController extends BaseController {
     /**
      * 添加用户
      */
-    @ApiOperation(value = "添加用户", notes = "添加用户",httpMethod = "POST", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "添加用户", notes = "添加用户", httpMethod = "POST", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "addUser", method = RequestMethod.POST)
     public Result addUser(@RequestBody UserModel user) {
         UserModel userModel = service.findUserByEmail(user.getEmail());
@@ -86,16 +88,20 @@ public class UserController extends BaseController {
      *
      * @return result
      */
-    @ApiOperation(value = "注册", notes = "注册",httpMethod = "POST", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    @RequestMapping(value = "register", method = RequestMethod.POST)
-    public Result register(@RequestBody UserModel user) throws Exception {
-        UserModel userModel = service.findUserByEmail(user.getEmail());
+    @ApiOperation(value = "注册", notes = "注册用户并发送验证链接到邮箱", httpMethod = "POST", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "用户名", required = true, dataType = "Result", paramType = "path"),
+            @ApiImplicitParam(name = "密码", required = true, dataType = "Result", paramType = "path")
+    })
+    @RequestMapping(value = "register/{email}/{password}", method = RequestMethod.POST)
+    public Result register(@PathVariable("email") String email, @PathVariable("password") String password) throws Exception {
+        UserModel userModel = service.findUserByEmail(email);
         //邮箱被占用
         if (userModel != null) {
             return new Result(Err.USER_REPEAT.getCode(), Err.USER_REPEAT.getMessage());
         }
-        String redirectValidateUrl = MailUtil.redirectValidateUrl(user.getEmail(), user.getPassword());
-        MailUtil.send(user.getEmail(), redirectValidateUrl);
+        String redirectValidateUrl = MailUtil.redirectValidateUrl(email, password);
+        MailUtil.send(email, redirectValidateUrl);
         return new Result(redirectValidateUrl);
     }
 
@@ -105,16 +111,20 @@ public class UserController extends BaseController {
      *
      * @return result
      */
-    @ApiOperation(value = "登录", notes = "登录",httpMethod = "POST", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    @RequestMapping(value = "login", method = RequestMethod.POST)
-    public Result login(@RequestBody UserModel user) {
-        UserModel userModel = service.findUserByEmail(user.getEmail());
+    @ApiOperation(value = "登录", notes = "登录", httpMethod = "POST", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "用户名", required = true, dataType = "Result", paramType = "path"),
+            @ApiImplicitParam(name = "密码", required = true, dataType = "Result", paramType = "path")
+    })
+    @RequestMapping(value = "login/{email}/{password}", method = RequestMethod.POST)
+    public Result login(@PathVariable("email") String email, @PathVariable("password") String password) {
+        UserModel userModel = service.findUserByEmail(email);
         //找不到用户
         if (userModel == null) {
             return new Result(Err.USER_NOT_FOUND.getCode(), Err.USER_NOT_FOUND.getMessage());
         }
         //密码不正确
-        if (!MD5Util.encode(user.getPassword(), userModel.getSalt()).equals(userModel.getPassword())) {
+        if (!MD5Util.encode(password, userModel.getSalt()).equals(userModel.getPassword())) {
             return new Result(Err.AUTH_FAILED.getCode(), Err.AUTH_FAILED.getMessage());
         }
         return new Result(userModel);
@@ -127,7 +137,7 @@ public class UserController extends BaseController {
      * @return model
      * @throws UserNotFoundException UserNotFoundException
      */
-    @ApiOperation(value = "修改密码", notes = "修改密码",httpMethod = "POST", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "修改密码", notes = "修改密码", httpMethod = "POST", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "changePassword", method = RequestMethod.POST)
     public Result changePassword(@RequestBody UserModel user) throws UserNotFoundException {
         UserModel userByEmail = service.findUserByEmail(user.getEmail());
@@ -148,7 +158,7 @@ public class UserController extends BaseController {
      * @return model
      * @throws UserNotFoundException UserNotFoundException
      */
-    @ApiOperation(value = "更新用户信息", notes = "更新用户信息",httpMethod = "POST", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "更新用户信息", notes = "更新用户信息", httpMethod = "POST", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "update", method = RequestMethod.POST)
     public Result update(@RequestBody UserModel user) throws UserNotFoundException {
         UserModel userModel = service.findUserByEmail(user.getEmail());
@@ -171,7 +181,7 @@ public class UserController extends BaseController {
      *
      * @return result
      */
-    @ApiOperation(value = "返回所有用户数据", notes = "返回所有用户数据",httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "返回所有用户数据", notes = "返回所有用户数据", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "findAll", method = RequestMethod.GET)
     public Result getAll() {
         List<UserModel> pages = service.findAll();
@@ -188,7 +198,7 @@ public class UserController extends BaseController {
      * @param id id
      * @return result
      */
-    @ApiOperation(value = "根据id删除用户", notes = "根据id删除用户",httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "根据id删除用户", notes = "根据id删除用户", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
     public Result deleteUserById(@PathVariable("id") Long id) throws UserNotFoundException {
         UserModel userModel = service.deleteUserById(id);
@@ -201,7 +211,7 @@ public class UserController extends BaseController {
     /**
      * 处理激活
      */
-    @ApiOperation(value = "处理激活", notes = "处理激活",httpMethod = "POST", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "处理激活", notes = "处理激活", httpMethod = "POST", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "validateEmail", method = RequestMethod.POST)
     public Result validateEmail(@RequestBody UserModel user
     ) throws ServiceException, ParseException, UserNotFoundException {

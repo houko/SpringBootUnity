@@ -57,6 +57,9 @@ public class UserController extends BaseController {
      */
     @ApiOperation(value = "查找用户", notes = "查找用户", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "findById/{id}", method = RequestMethod.GET)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "唯一id", required = true, dataType = "Long", paramType = "path"),
+    })
     public Result findUserById(@PathVariable("id") Long id) {
         UserModel userModel = service.findUserById(id);
         if (userModel == null) {
@@ -90,8 +93,8 @@ public class UserController extends BaseController {
      */
     @ApiOperation(value = "注册", notes = "注册用户并发送验证链接到邮箱", httpMethod = "POST", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "用户名", required = true, dataType = "Result", paramType = "path"),
-            @ApiImplicitParam(name = "密码", required = true, dataType = "Result", paramType = "path")
+            @ApiImplicitParam(name = "用户名", required = true, dataType = "String", paramType = "path"),
+            @ApiImplicitParam(name = "密码", required = true, dataType = "String", paramType = "path")
     })
     @RequestMapping(value = "register/{email}/{password}", method = RequestMethod.POST)
     public Result register(@PathVariable("email") String email, @PathVariable("password") String password) throws Exception {
@@ -113,8 +116,8 @@ public class UserController extends BaseController {
      */
     @ApiOperation(value = "登录", notes = "登录", httpMethod = "POST", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "用户名", required = true, dataType = "Result", paramType = "path"),
-            @ApiImplicitParam(name = "密码", required = true, dataType = "Result", paramType = "path")
+            @ApiImplicitParam(name = "email", value = "邮箱", required = true, dataType = "String", paramType = "path"),
+            @ApiImplicitParam(name = "password", value = "密码", required = true, dataType = "String", paramType = "path")
     })
     @RequestMapping(value = "login/{email}/{password}", method = RequestMethod.POST)
     public Result login(@PathVariable("email") String email, @PathVariable("password") String password) {
@@ -198,8 +201,11 @@ public class UserController extends BaseController {
      * @param id id
      * @return result
      */
-    @ApiOperation(value = "根据id删除用户", notes = "根据id删除用户", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
+    @ApiOperation(value = "根据id删除用户", notes = "根据id删除用户", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "唯一id", required = true, dataType = "Long", paramType = "path"),
+    })
     public Result deleteUserById(@PathVariable("id") Long id) throws UserNotFoundException {
         UserModel userModel = service.deleteUserById(id);
         if (userModel == null) {

@@ -6,6 +6,8 @@ import info.xiaomo.core.controller.Result;
 import info.xiaomo.website.model.TechnologyModel;
 import info.xiaomo.website.service.TechnologyService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -43,6 +45,9 @@ public class TechnologyController extends BaseController {
 
     @ApiOperation(value = "根据id查找技术", notes = "根据id查找技术",httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "/findById/{id}",method = RequestMethod.GET)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "唯一Id", required = true, dataType = "Long", paramType = "path")
+    })
     public Result findById(@PathVariable Long id) {
         TechnologyModel model = service.findById(id);
         if (model == null) {
@@ -53,6 +58,9 @@ public class TechnologyController extends BaseController {
 
     @ApiOperation(value = "根据名字查找技术", notes = "根据名字查找技术",httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "/findByName/{name}",method = RequestMethod.GET)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "name", value = "技术名字", required = true, dataType = "name", paramType = "path")
+    })
     public Result findByName(@PathVariable String name) {
         TechnologyModel model = service.findByName(name);
         if (model == null) {
@@ -95,8 +103,11 @@ public class TechnologyController extends BaseController {
     }
 
 
-    @ApiOperation(value = "删除链接", notes = "删除链接",httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "/delete/{id}",method = RequestMethod.GET)
+    @ApiOperation(value = "删除链接", notes = "删除链接",httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "唯一id", required = true, dataType = "Long", paramType = "path")
+    })
     public Result delete(@PathVariable Long id) {
         TechnologyModel model = service.findById(id);
         if (model == null) {

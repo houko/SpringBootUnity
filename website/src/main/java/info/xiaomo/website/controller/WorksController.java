@@ -6,6 +6,8 @@ import info.xiaomo.core.controller.Result;
 import info.xiaomo.website.model.WorksModel;
 import info.xiaomo.website.service.WorksService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -42,8 +44,11 @@ public class WorksController extends BaseController {
     }
 
 
-    @ApiOperation(value = "根据id查找作品", notes = "根据id查找作品",httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "/findById/{id}",method = RequestMethod.GET)
+    @ApiOperation(value = "根据id查找作品", notes = "根据id查找作品",httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "唯一id", required = true, dataType = "Long", paramType = "path"),
+    })
     public Result findById(@PathVariable Long id) {
         WorksModel model = service.findById(id);
         if (model == null) {
@@ -52,8 +57,8 @@ public class WorksController extends BaseController {
         return new Result(model);
     }
 
-    @ApiOperation(value = "查找所有", notes = "查找所有",httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "/findAll",method = RequestMethod.GET)
+    @ApiOperation(value = "查找所有", notes = "查找所有",httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public Result findAll() {
         List<WorksModel> all = service.findAll();
         if (all == null || all.isEmpty()) {
@@ -63,8 +68,11 @@ public class WorksController extends BaseController {
     }
 
 
-    @ApiOperation(value = "根据名字查找作品", notes = "根据名字查找作品",httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "/findByName/{name}",method = RequestMethod.GET)
+    @ApiOperation(value = "根据名字查找作品", notes = "根据名字查找作品",httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "name", value = "作品名字", required = true, dataType = "String", paramType = "path"),
+    })
     public Result findByName(@PathVariable String name) {
         WorksModel model = service.findByName(name);
         if (model == null) {
@@ -98,6 +106,9 @@ public class WorksController extends BaseController {
 
     @ApiOperation(value = "根据id删除作品", notes = "根据id删除作品",httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "/delete/{id}",method = RequestMethod.GET)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "唯一id", required = true, dataType = "Long", paramType = "path"),
+    })
     public Result delete(@PathVariable Long id) {
         WorksModel model = service.findById(id);
         if (model == null) {

@@ -1,5 +1,6 @@
 package info.xiaomo.website;
 
+import io.swagger.annotations.ApiOperation;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -8,8 +9,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+import springfox.documentation.annotations.ApiIgnore;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -63,7 +66,9 @@ public class XiaomoMain {
     }
 
 
-    @RequestMapping("/")
+    @RequestMapping(value = "/",method = RequestMethod.GET)
+    @ApiIgnore()
+    @ApiOperation(value = "重定向到api首页")
     public ModelAndView index(){
         return new ModelAndView("redirect:/swagger-ui.html");
     }

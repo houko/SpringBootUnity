@@ -1,6 +1,7 @@
 package info.xiaomo.website.model;
 
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import info.xiaomo.core.model.BaseModel;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -26,11 +27,15 @@ import java.io.Serializable;
  **/
 @Entity
 @Table(name = "changeLog")
+// lomlok
 @Data
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 @NoArgsConstructor
+// fast jackson
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
+// swagger ui
 @ApiModel(value = "更新日志实体类")
 public class ChangeLogModel extends BaseModel implements Serializable {
 

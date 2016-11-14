@@ -42,8 +42,7 @@ public class RedisMain {
     }
 
     @Bean
-    public RedisTemplate<String, String> redisTemplate(
-            RedisConnectionFactory factory) {
+    public RedisTemplate<String, String> redisTemplate(RedisConnectionFactory factory) {
         final StringRedisTemplate template = new StringRedisTemplate(factory);
         template.setValueSerializer(new Jackson2JsonRedisSerializer<>(Object.class)); //请注意这里
         return template;

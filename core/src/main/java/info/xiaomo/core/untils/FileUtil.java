@@ -8,6 +8,7 @@ import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 此类中封装一些常用的文件操作。
@@ -232,14 +233,14 @@ public class FileUtil {
      */
     public static File[] listAll(File file,
                                  javax.swing.filechooser.FileFilter filter) {
-        ArrayList list = new ArrayList();
+        List<File> arrayList = new ArrayList<>();
         File[] files;
         if (!file.exists() || file.isFile()) {
             return null;
         }
-        list(list, file, filter);
-        files = new File[list.size()];
-        list.toArray(files);
+        list(arrayList, file, filter);
+        files = new File[arrayList.size()];
+        arrayList.toArray(files);
         return files;
     }
 
@@ -628,7 +629,7 @@ public class FileUtil {
      * @param filter 过滤器
      * @param file   目录
      */
-    private static void list(ArrayList<File> list, File file,
+    private static void list(List<File> list, File file,
                              javax.swing.filechooser.FileFilter filter) {
         if (filter.accept(file)) {
             list.add(file);

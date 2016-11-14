@@ -40,9 +40,9 @@ public class CommonRedisDaoImpl implements CommonRedisDao {
     /**
      * 前缀
      */
-    public static final String KEY_PREFIX_VALUE = "dg:report:value:";
-    public static final String KEY_PREFIX_SET = "dg:report:set:";
-    public static final String KEY_PREFIX_LIST = "dg:report:list:";
+    private static final String KEY_PREFIX_VALUE = "info:xiaomo:value:";
+    private static final String KEY_PREFIX_SET = "info:xiaomo:set:";
+    private static final String KEY_PREFIX_LIST = "info:xiaomo:list:";
 
     @Autowired
     public CommonRedisDaoImpl(RedisTemplate<String, String> redisTemplate) {

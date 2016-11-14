@@ -19,7 +19,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  * @email: hupengbest@163.com
  * @QQ_NO: 83387856
  * @Date: 2016/4/1 15:38
- * @Description: 后台管理启动器
+ * @Description: RabbitMq启动器
  * @Copyright(©) 2015 by xiaomo.
  **/
 @Configuration
@@ -30,6 +30,7 @@ public class RabbitMqMain {
     public static void main(String[] args) throws Exception {
         SpringApplication.run(RabbitMqMain.class, args);
     }
+
     @Bean
     public Queue helloQueue() {
         return new Queue("hello");

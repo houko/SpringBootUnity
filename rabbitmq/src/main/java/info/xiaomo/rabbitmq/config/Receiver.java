@@ -1,4 +1,4 @@
-package info.xiaomo.core.rabbit;
+package info.xiaomo.rabbitmq.config;
 
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;

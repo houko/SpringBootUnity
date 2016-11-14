@@ -1,4 +1,4 @@
-package info.xiaomo.website.async;
+package info.xiaomo.scheduled.async;
 
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;

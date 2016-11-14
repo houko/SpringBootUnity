@@ -1,6 +1,6 @@
-package info.xiaomo.test;
+package test;
 
-import info.xiaomo.core.rabbit.Sender;
+import info.xiaomo.rabbitmq.config.Sender;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

@@ -1,4 +1,4 @@
-package info.xiaomo.website.task;
+package info.xiaomo.scheduled.task;
 
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;

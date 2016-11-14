@@ -1,4 +1,4 @@
-package info.xiaomo.core.rabbit;
+package info.xiaomo.rabbitmq.config;
 
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;

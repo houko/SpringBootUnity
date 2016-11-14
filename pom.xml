@@ -120,7 +120,6 @@
                 <artifactId>mail</artifactId>
                 <version>${javax-mail.version}</version>
             </dependency>
-            <!-- http://blog.xiaomo.info/2016/11/08/java_lombok/ -->
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>

@@ -38,7 +38,7 @@
         <!-- common util method jar -->
         <common-lang3.version>3.5</common-lang3.version>
         <!-- test jar -->
-        <junit.version>4.11</junit.version>
+        <junit.version>4.12</junit.version>
         <!-- database connection -->
         <mysql-connector>5.1.38</mysql-connector>
         <!-- logger -->

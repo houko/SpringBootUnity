@@ -157,7 +157,7 @@ public class FileUtil {
     public static boolean emptyDirectory(File directory) {
         boolean result = true;
         File[] entries = directory.listFiles();
-        for (File entry : entries) {
+        for (File entry : entries != null ? entries : new File[0]) {
             if (!entry.delete()) {
                 result = false;
             }
@@ -204,9 +204,9 @@ public class FileUtil {
         }
 
         File[] entries = dir.listFiles();
-        int sz = entries.length;
+        int sz = entries != null ? entries.length : 0;
 
-        for (File entry : entries) {
+        for (File entry : entries != null ? entries : new File[0]) {
             if (entry.isDirectory()) {
                 if (!deleteDirectory(entry)) {
                     return false;
@@ -541,14 +541,10 @@ public class FileUtil {
                 return false;
             }
         }
-        try {
-            FileWriter fw = new FileWriter(path); //建立FileWriter对象，并实例化fw
-            //将字符串写入文件
-            fw.write(modulecontent);
-            fw.close();
-        } catch (IOException e) {
-            throw e;
-        }
+        FileWriter fw = new FileWriter(path); //建立FileWriter对象，并实例化fw
+        //将字符串写入文件
+        fw.write(modulecontent);
+        fw.close();
         return true;
     }
 
@@ -632,7 +628,7 @@ public class FileUtil {
      * @param filter 过滤器
      * @param file   目录
      */
-    private static void list(ArrayList list, File file,
+    private static void list(ArrayList<File> list, File file,
                              javax.swing.filechooser.FileFilter filter) {
         if (filter.accept(file)) {
             list.add(file);
@@ -642,7 +638,7 @@ public class FileUtil {
         }
         if (file.isDirectory()) {
             File files[] = file.listFiles();
-            for (File file1 : files) {
+            for (File file1 : files != null ? files : new File[0]) {
                 list(list, file1, filter);
             }
         }
@@ -658,7 +654,7 @@ public class FileUtil {
      * @return fileUrl
      */
     public static String upload(MultipartFile file, String email) {
-        String savePath = null;
+        String savePath = "";
         String filename = "";
         if (file != null && !file.isEmpty()) {
             // 获取图片的文件名
@@ -671,7 +667,8 @@ public class FileUtil {
                 // 判断服务器上 文件夹是否存在
                 File newFile = new File(savePath);
                 if (!newFile.exists()) {
-                    newFile.mkdirs();
+                    boolean result = newFile.mkdirs();
+                    System.out.println(result);
                 }
                 savePath = savePath + filename;
                 FileOutputStream out = new FileOutputStream(savePath);

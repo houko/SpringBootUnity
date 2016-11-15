@@ -26,6 +26,8 @@
         <module>mongodb</module>
         <!-- spring安全设置 -->
         <module>security</module>
+        <module>mybatis</module>
+        <module>jsp</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -77,6 +79,7 @@
         <javax-mail.version>1.4.7</javax-mail.version>
         <lombak.version>1.16.10</lombak.version>
         <springfox-swagger-ui.version>2.2.2</springfox-swagger-ui.version>
+        <jsper.version>8.0.9.M3</jsper.version>
     </properties>
 
 
@@ -147,6 +150,11 @@
                 <groupId>io.springfox</groupId>
                 <artifactId>springfox-swagger2</artifactId>
                 <version>${springfox-swagger-ui.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mortbay.jasper</groupId>
+                <artifactId>jasper-jsp</artifactId>
+                <version>${jsper.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

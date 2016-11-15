@@ -28,8 +28,6 @@
         <module>security</module>
         <!-- mybatis -->
         <module>mybatis</module>
-        <!-- jsp -->
-        <module>jsp</module>
     </modules>
     <packaging>pom</packaging>
 

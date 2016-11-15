@@ -297,7 +297,7 @@ public class CommonRedisDaoImpl implements CommonRedisDao {
         String key = KEY_PREFIX_LIST + k;
         try {
             ListOperations<String, String> listOps = redisTemplate.opsForList();
-            long l = listOps.rightPushAll(key, v);
+            listOps.rightPushAll(key, v);
             if (time > 0) redisTemplate.expire(key, time, TimeUnit.SECONDS);
             return true;
         } catch (Throwable t) {

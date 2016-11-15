@@ -28,6 +28,8 @@
         <module>security</module>
         <!-- mybatis -->
         <module>mybatis</module>
+        <module>freemarker</module>
+        <module>velocity</module>
     </modules>
     <packaging>pom</packaging>
 

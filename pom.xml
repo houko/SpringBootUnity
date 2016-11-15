@@ -9,14 +9,23 @@
 
     <!-- 模块 -->
     <modules>
+        <!-- xiaomo.info api接口 -->
         <module>website</module>
+        <!-- 核心包 -->
         <module>core</module>
+        <!-- 在线聊天 -->
         <module>socket</module>
+        <!-- 定时任务 -->
         <module>scheduled</module>
+        <!-- 消息队列 -->
         <module>rabbitmq</module>
         <module>redis</module>
+        <!-- redis缓存 -->
         <module>async</module>
+        <!-- mongodb数据库 -->
         <module>mongodb</module>
+        <!-- spring安全设置 -->
+        <module>security</module>
     </modules>
     <packaging>pom</packaging>
 

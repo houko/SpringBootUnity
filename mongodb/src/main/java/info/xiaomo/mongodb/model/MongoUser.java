@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.data.annotation.Id;
 
-import javax.persistence.Column;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -46,7 +45,6 @@ public class MongoUser {
     private String salt;
 
     @ApiModelProperty(value = "激活码")
-    @Column(name = "ValidateCode")
     private String validateCode;
 
     @ApiModelProperty(value = "性别：1男2女0保密")

@@ -1,4 +1,4 @@
-package info.xiaomo.core.model;
+package info.xiaomo.website.model.base;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import info.xiaomo.core.filter.CustomDateSerializer;

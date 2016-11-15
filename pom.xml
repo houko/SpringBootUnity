@@ -26,7 +26,9 @@
         <module>mongodb</module>
         <!-- spring安全设置 -->
         <module>security</module>
+        <!-- mybatis -->
         <module>mybatis</module>
+        <!-- jsp -->
         <module>jsp</module>
     </modules>
     <packaging>pom</packaging>
@@ -77,8 +79,11 @@
         <surefire-plugin.version>2.19.1</surefire-plugin.version>
         <!-- mail -->
         <javax-mail.version>1.4.7</javax-mail.version>
+        <!-- lomlok -->
         <lombak.version>1.16.10</lombak.version>
+        <!-- api文档 -->
         <springfox-swagger-ui.version>2.2.2</springfox-swagger-ui.version>
+        <!-- jsp -->
         <jsper.version>8.0.9.M3</jsper.version>
     </properties>
 

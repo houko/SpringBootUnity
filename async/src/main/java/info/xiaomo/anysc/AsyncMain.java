@@ -6,7 +6,6 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -26,7 +25,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableAutoConfiguration
 @ComponentScan("info.xiaomo")
 @EntityScan("info.xiaomo.*.model")
-@EnableJpaRepositories("info.xiaomo.*.dao")
 public class AsyncMain {
     public static void main(String[] args) throws Exception {
         SpringApplication.run(AsyncMain.class, args);

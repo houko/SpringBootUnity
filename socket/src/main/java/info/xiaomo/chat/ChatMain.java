@@ -6,8 +6,6 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 
 /**
@@ -28,8 +26,6 @@ import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 @EnableAutoConfiguration
 @ComponentScan("info.xiaomo")
 @EntityScan("info.xiaomo.*.model")
-@EnableTransactionManagement
-@EnableJpaRepositories("info.xiaomo.*.dao")
 public class ChatMain {
 
     public static void main(String[] args) throws Exception {

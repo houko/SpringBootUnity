@@ -57,6 +57,7 @@ public class CommonRedisDaoImpl implements CommonRedisDao {
      * @param time time
      * @return boolean
      */
+    @Override
     public boolean cacheValue(String k, String v, long time) {
         String key = KEY_PREFIX_VALUE + k;
         try {
@@ -77,6 +78,7 @@ public class CommonRedisDaoImpl implements CommonRedisDao {
      * @param v value
      * @return boolean
      */
+    @Override
     public boolean cacheValue(String k, String v) {
         return cacheValue(k, v, -1);
     }
@@ -87,6 +89,7 @@ public class CommonRedisDaoImpl implements CommonRedisDao {
      * @param k key
      * @return boolean
      */
+    @Override
     public boolean containsValueKey(String k) {
         return containsKey(KEY_PREFIX_VALUE + k);
     }
@@ -97,6 +100,7 @@ public class CommonRedisDaoImpl implements CommonRedisDao {
      * @param k key
      * @return boolean
      */
+    @Override
     public boolean containsSetKey(String k) {
         return containsKey(KEY_PREFIX_SET + k);
     }
@@ -107,10 +111,12 @@ public class CommonRedisDaoImpl implements CommonRedisDao {
      * @param k key
      * @return boolean
      */
+    @Override
     public boolean containsListKey(String k) {
         return containsKey(KEY_PREFIX_LIST + k);
     }
 
+    @Override
     public boolean containsKey(String key) {
         try {
             return redisTemplate.hasKey(key);
@@ -126,6 +132,7 @@ public class CommonRedisDaoImpl implements CommonRedisDao {
      * @param k key
      * @return string
      */
+    @Override
     public String getValue(String k) {
         try {
             ValueOperations<String, String> valueOps = redisTemplate.opsForValue();
@@ -142,14 +149,17 @@ public class CommonRedisDaoImpl implements CommonRedisDao {
      * @param k key
      * @return boolean
      */
+    @Override
     public boolean removeValue(String k) {
         return remove(KEY_PREFIX_VALUE + k);
     }
 
+    @Override
     public boolean removeSet(String k) {
         return remove(KEY_PREFIX_SET + k);
     }
 
+    @Override
     public boolean removeList(String k) {
         return remove(KEY_PREFIX_LIST + k);
     }
@@ -163,6 +173,7 @@ public class CommonRedisDaoImpl implements CommonRedisDao {
      * @param time time
      * @return boolean
      */
+    @Override
     public boolean cacheSet(String k, String v, long time) {
         String key = KEY_PREFIX_SET + k;
         try {
@@ -183,6 +194,7 @@ public class CommonRedisDaoImpl implements CommonRedisDao {
      * @param v value
      * @return boolean
      */
+    @Override
     public boolean cacheSet(String k, String v) {
         return cacheSet(k, v, -1);
     }
@@ -195,6 +207,7 @@ public class CommonRedisDaoImpl implements CommonRedisDao {
      * @param time time
      * @return boolean
      */
+    @Override
     public boolean cacheSet(String k, Set<String> v, long time) {
         String key = KEY_PREFIX_SET + k;
         try {
@@ -215,6 +228,7 @@ public class CommonRedisDaoImpl implements CommonRedisDao {
      * @param v value
      * @return boolean
      */
+    @Override
     public boolean cacheSet(String k, Set<String> v) {
         return cacheSet(k, v, -1);
     }
@@ -225,6 +239,7 @@ public class CommonRedisDaoImpl implements CommonRedisDao {
      * @param k key
      * @return set
      */
+    @Override
     public Set<String> getSet(String k) {
         try {
             SetOperations<String, String> setOps = redisTemplate.opsForSet();
@@ -243,6 +258,7 @@ public class CommonRedisDaoImpl implements CommonRedisDao {
      * @param time time
      * @return boolean
      */
+    @Override
     public boolean cacheList(String k, String v, long time) {
         String key = KEY_PREFIX_LIST + k;
         try {
@@ -263,6 +279,7 @@ public class CommonRedisDaoImpl implements CommonRedisDao {
      * @param v value
      * @return boolean
      */
+    @Override
     public boolean cacheList(String k, String v) {
         return cacheList(k, v, -1);
     }
@@ -275,6 +292,7 @@ public class CommonRedisDaoImpl implements CommonRedisDao {
      * @param time time
      * @return boolean
      */
+    @Override
     public boolean cacheList(String k, List<String> v, long time) {
         String key = KEY_PREFIX_LIST + k;
         try {
@@ -295,6 +313,7 @@ public class CommonRedisDaoImpl implements CommonRedisDao {
      * @param v value
      * @return boolean
      */
+    @Override
     public boolean cacheList(String k, List<String> v) {
         return cacheList(k, v, -1);
     }
@@ -307,6 +326,7 @@ public class CommonRedisDaoImpl implements CommonRedisDao {
      * @param end   end
      * @return list
      */
+    @Override
     public List<String> getList(String k, long start, long end) {
         try {
             ListOperations<String, String> listOps = redisTemplate.opsForList();
@@ -323,6 +343,7 @@ public class CommonRedisDaoImpl implements CommonRedisDao {
      * @param k key
      * @return long
      */
+    @Override
     public long getListSize(String k) {
         try {
             ListOperations<String, String> listOps = redisTemplate.opsForList();
@@ -340,6 +361,7 @@ public class CommonRedisDaoImpl implements CommonRedisDao {
      * @param k       k
      * @return long
      */
+    @Override
     public long getListSize(ListOperations<String, String> listOps, String k) {
         try {
             return listOps.size(KEY_PREFIX_LIST + k);
@@ -355,6 +377,7 @@ public class CommonRedisDaoImpl implements CommonRedisDao {
      * @param k k
      * @return boolean
      */
+    @Override
     public boolean removeOneOfList(String k) {
         String key = KEY_PREFIX_LIST + k;
         try {

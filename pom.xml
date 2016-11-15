@@ -11,7 +11,7 @@
     <modules>
         <module>website</module>
         <module>core</module>
-        <module>chat</module>
+        <module>socket</module>
         <module>scheduled</module>
         <module>rabbitmq</module>
         <module>redis</module>

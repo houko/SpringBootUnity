@@ -15,6 +15,7 @@
         <module>scheduled</module>
         <module>rabbitmq</module>
         <module>redis</module>
+        <module>async</module>
     </modules>
     <packaging>pom</packaging>
 

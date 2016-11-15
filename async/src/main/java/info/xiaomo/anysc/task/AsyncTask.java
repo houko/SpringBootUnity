@@ -1,4 +1,4 @@
-package info.xiaomo.scheduled.async;
+package info.xiaomo.anysc.task;
 
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
@@ -10,7 +10,7 @@ import java.util.concurrent.Future;
 @Component
 public class AsyncTask {
 
-    public static Random random =new Random();
+    private static Random random =new Random();
 
     @Async
     public Future<String> doTaskOne() throws Exception {

@@ -16,6 +16,7 @@
         <module>rabbitmq</module>
         <module>redis</module>
         <module>async</module>
+        <module>mongodb</module>
     </modules>
     <packaging>pom</packaging>
 

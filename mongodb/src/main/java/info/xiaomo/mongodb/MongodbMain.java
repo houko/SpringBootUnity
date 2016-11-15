@@ -1,7 +1,19 @@
-package info.xiaomo.website.config;
+package info.xiaomo.mongodb;
 
+
+import io.swagger.annotations.ApiOperation;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+import springfox.documentation.annotations.ApiIgnore;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -20,21 +32,35 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * @github: https://github.com/qq83387856
  * @email: hupengbest@163.com
  * @QQ_NO: 83387856
- * @Date: 2016/11/10 10:42
- * @Description: 用户实体类
+ * @Date: 2016/4/1 15:38
+ * @Description: RabbitMq启动器
  * @Copyright(©) 2015 by xiaomo.
  **/
-
 @Configuration
+@EnableAutoConfiguration
+@ComponentScan("info.xiaomo")
+@EntityScan("info.xiaomo.*.model")
+@EnableJpaRepositories("info.xiaomo.*.dao")
+@RestController
 @EnableSwagger2
-public class Swagger2Config {
+public class MongodbMain {
+    public static void main(String[] args) throws Exception {
+        SpringApplication.run(MongodbMain.class, args);
+    }
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @ApiIgnore()
+    @ApiOperation(value = "重定向到api首页")
+    public ModelAndView index() {
+        return new ModelAndView("redirect:/swagger-ui.html");
+    }
 
     @Bean
     public Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("info.xiaomo.website"))
+                .apis(RequestHandlerSelectors.basePackage("info.xiaomo.mongodb"))
                 .paths(PathSelectors.any())
                 .build();
     }
@@ -42,7 +68,7 @@ public class Swagger2Config {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("Spring Boot中使用Swagger2构建RESTful APIs")
-                .description("api根地址：http://api.xiaomo.info:8080/")
+                .description("使用mongodb构建api接口")
                 .termsOfServiceUrl("http://blog.xiaomo.info/")
                 .contact("小莫")
                 .version("1.0")

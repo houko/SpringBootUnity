@@ -42,7 +42,7 @@ public class MultipleSourceController {
     public Result index() {
         // 往第一个数据源中插入两条数据
         jdbcTemplate1.update(Sql.addUser1, "xiaomo", 20);
-        jdbcTemplate2.update(Sql.addUser1, "xiaoming", 30);
+        jdbcTemplate2.update(Sql.addUser2, "xiaoming", 30);
 
         int count1 = jdbcTemplate1.queryForObject(Sql.selectUser1, Integer.class);
         int count2 = jdbcTemplate2.queryForObject(Sql.selectUser2, Integer.class);

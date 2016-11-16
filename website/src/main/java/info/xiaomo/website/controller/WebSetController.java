@@ -6,10 +6,10 @@ import info.xiaomo.core.controller.Result;
 import info.xiaomo.website.model.SystemSetModel;
 import info.xiaomo.website.service.WebSetService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -27,7 +27,7 @@ import java.util.List;
  * @Description: 系统设置控制器
  * @Copyright(©) 2015 by xiaomo.
  **/
-@RestController
+@Controller
 @RequestMapping("/webSet")
 public class WebSetController extends BaseController {
 

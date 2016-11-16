@@ -6,7 +6,11 @@ import info.xiaomo.core.controller.Result;
 import info.xiaomo.website.model.TechnologyModel;
 import info.xiaomo.website.service.TechnologyService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
@@ -26,7 +30,7 @@ import java.util.List;
  **/
 
 
-@RestController
+@Controller
 @RequestMapping("/technology")
 public class TechnologyController extends BaseController {
     private final TechnologyService service;

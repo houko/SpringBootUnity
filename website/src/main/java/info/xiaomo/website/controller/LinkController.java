@@ -6,7 +6,11 @@ import info.xiaomo.core.controller.Result;
 import info.xiaomo.website.model.LinkModel;
 import info.xiaomo.website.service.LinkService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
@@ -24,7 +28,7 @@ import java.util.List;
  * @Description: 友情连接控制器
  * @Copyright(©) 2015 by xiaomo.
  **/
-@RestController
+@Controller
 @RequestMapping("/link")
 public class LinkController extends BaseController {
 

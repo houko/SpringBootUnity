@@ -4,9 +4,9 @@ import info.xiaomo.core.controller.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Copyright(©) 2015 by xiaomo.
  **/
 
-@RestController
+@Controller
 @RequestMapping("/mail")
 public class MailController {
 

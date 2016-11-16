@@ -13,7 +13,11 @@ import info.xiaomo.website.model.UserModel;
 import info.xiaomo.website.service.UserService;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.text.ParseException;
 import java.util.List;
@@ -32,7 +36,7 @@ import java.util.List;
  * @Description: 用户控制器
  * @Copyright(©) 2015 by xiaomo.
  **/
-@RestController
+@Controller
 @RequestMapping("/user")
 public class UserController extends BaseController {
 

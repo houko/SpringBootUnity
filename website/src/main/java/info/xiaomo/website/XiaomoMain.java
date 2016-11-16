@@ -11,10 +11,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import springfox.documentation.annotations.ApiIgnore;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -48,7 +48,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableScheduling
 @EnableAsync
 @EnableCaching
-@RestController
+@Controller
 @EnableSwagger2
 public class XiaomoMain {
 
@@ -57,12 +57,40 @@ public class XiaomoMain {
     }
 
 
-    @RequestMapping(value = "/",method = RequestMethod.GET)
+    /**
+     * 接口
+     *
+     * @return 接口
+     */
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     @ApiIgnore()
     @ApiOperation(value = "重定向到api首页")
-    public ModelAndView index(){
+    public ModelAndView index() {
         return new ModelAndView("redirect:/swagger-ui.html");
     }
+
+    /**
+     * 后台
+     *
+     * @return 后台
+     */
+    @RequestMapping(value = "/admin", method = RequestMethod.GET)
+    public String admin() {
+        return "admin/index";
+    }
+
+    /**
+     * 前台
+     *
+     * @return 前台
+     */
+    @RequestMapping(value = "/web", method = RequestMethod.GET)
+    public String web() {
+        return "web/index";
+    }
+
+
+
 
 
     @Bean

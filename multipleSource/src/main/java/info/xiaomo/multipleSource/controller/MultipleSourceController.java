@@ -1,6 +1,7 @@
 package info.xiaomo.multipleSource.controller;
 
 import info.xiaomo.core.controller.Result;
+import info.xiaomo.multipleSource.sql.Sql;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -40,11 +41,11 @@ public class MultipleSourceController {
     @RequestMapping("/")
     public Result index() {
         // 往第一个数据源中插入两条数据
-        jdbcTemplate1.update("insert into user(name,age) values(?, ?)", "xiaomo", 20);
-        jdbcTemplate2.update("insert into user(name,age) values(?, ?)", "xiaoming", 30);
+        jdbcTemplate1.update(Sql.addUser1, "xiaomo", 20);
+        jdbcTemplate2.update(Sql.addUser1, "xiaoming", 30);
 
-        int count1 = jdbcTemplate1.queryForObject("select count(1) from user", Integer.class);
-        int count2 = jdbcTemplate2.queryForObject("select count(1) from user", Integer.class);
+        int count1 = jdbcTemplate1.queryForObject(Sql.selectUser1, Integer.class);
+        int count2 = jdbcTemplate2.queryForObject(Sql.selectUser2, Integer.class);
         return new Result(new Object[]{count1, count2});
     }
 }

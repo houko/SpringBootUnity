@@ -83,8 +83,8 @@
         <lombak.version>1.16.10</lombak.version>
         <!-- api文档 -->
         <springfox-swagger-ui.version>2.2.2</springfox-swagger-ui.version>
-        <!-- jsp -->
-        <jsper.version>8.0.9.M3</jsper.version>
+        <!-- mybatis -->
+        <mybatis.version>1.1.1</mybatis.version>
     </properties>
 
 
@@ -160,6 +160,11 @@
                 <groupId>org.mortbay.jasper</groupId>
                 <artifactId>jasper-jsp</artifactId>
                 <version>${jsper.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -29,5 +29,4 @@ public class MybatisMain {
         SpringApplication.run(MybatisMain.class, args);
     }
 
-
 }

@@ -5,10 +5,7 @@ import info.xiaomo.core.controller.BaseController;
 import info.xiaomo.core.controller.Result;
 import info.xiaomo.website.model.SystemSetModel;
 import info.xiaomo.website.service.WebSetService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,7 +29,6 @@ import java.util.List;
  **/
 @RestController
 @RequestMapping("/webSet")
-@Api(value = "WebSetController",description = "网站设置相关api")
 public class WebSetController extends BaseController {
 
     private final WebSetService service;
@@ -47,7 +43,6 @@ public class WebSetController extends BaseController {
      *
      * @return list
      */
-    @ApiOperation(value = "查找所有", notes = "查找所有",httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "findAll", method = RequestMethod.GET)
     public Result findAll() {
         List<SystemSetModel> list = service.findAll();
@@ -63,7 +58,6 @@ public class WebSetController extends BaseController {
      *
      * @return SystemSetModel
      */
-    @ApiOperation(value = "更新", notes = "更新",httpMethod = "POST", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "update", method = RequestMethod.POST)
     public Result update(@RequestBody SystemSetModel systemSetModel) {
         List<SystemSetModel> all = service.findAll();

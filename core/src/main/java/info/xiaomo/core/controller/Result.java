@@ -1,8 +1,6 @@
 package info.xiaomo.core.controller;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
@@ -20,17 +18,13 @@ import lombok.Data;
  * @Copyright(©) 2015 by xiaomo.
  */
 @Data
-@ApiModel("返回结果")
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Result {
 
-    @ApiModelProperty(value  = "返回码")
     private int code;
 
-    @ApiModelProperty(value  = "返回消息")
     private String message;
 
-    @ApiModelProperty(value  = "返回数据")
     private Object data;
 
     /**

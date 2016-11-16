@@ -1,10 +1,7 @@
 package info.xiaomo.website.model;
 
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import info.xiaomo.website.model.base.BaseModel;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
 import javax.persistence.Column;
@@ -33,17 +30,11 @@ import java.io.Serializable;
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 @NoArgsConstructor
-// fast jackson
-@JsonInclude(JsonInclude.Include.NON_EMPTY)
-// swagger ui
-@ApiModel(value = "友情链接实体类")
 public class LinkModel extends BaseModel implements Serializable {
 
-    @ApiModelProperty(value = "友情链接的名字", required = true)
     @Column(name = "Name")
     private String name;
 
-    @ApiModelProperty(value = "友情链接的URL", required = true)
     @Column(name = "Url")
     private String url;
 }

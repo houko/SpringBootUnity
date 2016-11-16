@@ -1,10 +1,7 @@
 package info.xiaomo.website.model;
 
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import info.xiaomo.website.model.base.BaseModel;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
 import javax.persistence.Column;
@@ -33,25 +30,17 @@ import javax.persistence.Table;
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 @NoArgsConstructor
-// fast jackson
-@JsonInclude(JsonInclude.Include.NON_EMPTY)
-// swagger ui
-@ApiModel(value = "技术中心实体类")
 public class TechnologyModel extends BaseModel {
 
-    @ApiModelProperty(value = "技术名字")
     @Column(name = "Name")
     private String name;
 
-    @ApiModelProperty(value = "url")
     @Column(name = "Url")
     private String url;
 
-    @ApiModelProperty(value = "简介")
     @Column(name = "Summary")
     private String summary;
 
-    @ApiModelProperty(value = "图片链接")
     @Column(name = "ImgUrl")
     private String imgUrl;
 

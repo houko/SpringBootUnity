@@ -1,10 +1,7 @@
 package info.xiaomo.website.model;
 
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import info.xiaomo.website.model.base.BaseModel;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
 import javax.persistence.Column;
@@ -41,25 +38,18 @@ import java.io.Serializable;
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 @NoArgsConstructor
-// fast jackson
-@JsonInclude(JsonInclude.Include.NON_EMPTY)
 // swagger ui
-@ApiModel(value = "后台用户实体类")
 public class AdminModel extends BaseModel implements Serializable {
 
-    @ApiModelProperty(value = "用户名", required = true)
     @Column(name = "UserName")
     private String userName;
 
-    @ApiModelProperty(value = "密码", required = true)
     @Column(name = "Password")
     private String password;
 
-    @ApiModelProperty(value = "状态1正常2异常")
     @Column(name = "Status")
     private int status = 1;
 
-    @ApiModelProperty(value = "盐值")
     @Column(name = "Salt")
     private String salt;
 

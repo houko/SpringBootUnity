@@ -1,10 +1,7 @@
 package info.xiaomo.website.model;
 
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import info.xiaomo.website.model.base.BaseModel;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
 import javax.persistence.Column;
@@ -33,49 +30,35 @@ import java.io.Serializable;
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 @NoArgsConstructor
-// fast jackson
-@JsonInclude(JsonInclude.Include.NON_EMPTY)
-// swagger ui
-@ApiModel(value = "用户实体类")
 public class UserModel extends BaseModel implements Serializable {
 
-    @ApiModelProperty(value = "登录用户")
     @Column(name = "Email")
     private String email;
 
-    @ApiModelProperty(value = "昵称")
     @Column(name = "NickName")
     private String nickName;
 
-    @ApiModelProperty(value = "密码")
     @Column(name = "Password")
     private String password;
 
-    @ApiModelProperty(value = "盐值")
     @Column(name = "Salt")
     private String salt;
 
-    @ApiModelProperty(value = "激活码")
     @Column(name = "ValidateCode")
     private String validateCode;
 
-    @ApiModelProperty(value = "性别：1男2女0保密")
     @Column(name = "Gender")
     private int gender = 0;
 
-    @ApiModelProperty(value = "电话")
     @Column(name = "Phone")
     private Long phone = 0L;
 
-    @ApiModelProperty(value = "图片地址")
     @Column(name = "ImgUrl")
     private String imgUrl = "";
 
-    @ApiModelProperty(value = "地址")
     @Column(name = "Address")
     private String address = "";
 
-    @ApiModelProperty(value = "注册时间(时间戳)")
     @Column(name = "RegisterTime")
     private Long RegisterTime = 0L;
 }

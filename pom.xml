@@ -30,6 +30,7 @@
         <module>mybatis</module>
         <module>freemarker</module>
         <module>velocity</module>
+        <module>multipleSource</module>
     </modules>
     <packaging>pom</packaging>
 

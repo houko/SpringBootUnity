@@ -1,4 +1,4 @@
-package info.xiaomo.mybatis.domain;
+package info.xiaomo.multipleSource.domain;
 
 
 import lombok.Data;
@@ -13,7 +13,7 @@ public class User {
     private Long id;
 
     private String name;
-    
+
     private Integer age;
 
     public User(Long id, String name, Integer age) {

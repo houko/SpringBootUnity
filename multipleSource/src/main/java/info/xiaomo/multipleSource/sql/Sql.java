@@ -17,10 +17,8 @@ package info.xiaomo.multipleSource.sql;
 
 public class Sql {
 
-    public static String addUser1= "insert into user(name,age) values(?, ?)";
-    public static String addUser2= "insert into user(name,age) values(?, ?)";
-
-    public static String selectUser1 = "select count(1) from user";
-    public static String selectUser2 = "select count(1) from user";
+    public static String dropUser= "DELETE  FROM  user";
+    public static String addUser= "insert into user(name,age) values(?, ?)";
+    public static String selectUser = "select count(1) from user";
 
 }

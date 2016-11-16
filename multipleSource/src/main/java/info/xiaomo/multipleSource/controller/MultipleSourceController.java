@@ -33,19 +33,19 @@ public class MultipleSourceController {
     public MultipleSourceController(@Qualifier("primaryJdbcTemplate") JdbcTemplate jdbcTemplate1, @Qualifier("secondaryJdbcTemplate") JdbcTemplate jdbcTemplate2) {
         this.jdbcTemplate1 = jdbcTemplate1;
         this.jdbcTemplate2 = jdbcTemplate2;
-        this.jdbcTemplate1.update("DELETE  FROM  user ");
-        this.jdbcTemplate2.update("DELETE  FROM  user ");
+        this.jdbcTemplate1.update(Sql.dropUser);
+        this.jdbcTemplate2.update(Sql.dropUser);
     }
 
 
     @RequestMapping("/")
     public Result index() {
         // 往第一个数据源中插入两条数据
-        jdbcTemplate1.update(Sql.addUser1, "xiaomo", 20);
-        jdbcTemplate2.update(Sql.addUser2, "xiaoming", 30);
+        jdbcTemplate1.update(Sql.addUser, "xiaomo", 20);
+        jdbcTemplate2.update(Sql.addUser, "xiaoming", 30);
 
-        int count1 = jdbcTemplate1.queryForObject(Sql.selectUser1, Integer.class);
-        int count2 = jdbcTemplate2.queryForObject(Sql.selectUser2, Integer.class);
+        int count1 = jdbcTemplate1.queryForObject(Sql.selectUser, Integer.class);
+        int count2 = jdbcTemplate2.queryForObject(Sql.selectUser, Integer.class);
         return new Result(new Object[]{count1, count2});
     }
 }

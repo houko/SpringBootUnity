@@ -74,7 +74,7 @@ public class ApiMain {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("info.xiaomo.website"))
+                .apis(RequestHandlerSelectors.basePackage("info.xiaomo.api"))
                 .paths(PathSelectors.any())
                 .build();
     }

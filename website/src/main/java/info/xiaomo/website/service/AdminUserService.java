@@ -25,7 +25,6 @@ import java.util.List;
  * @email: hupengbest@163.com
  * @QQ_NO: 83387856
  * @Date: 16/4/2 13:04
- * @Description: 后台用户查询
  * @Copyright(©) 2015 by xiaomo.
  */
 public interface AdminUserService {

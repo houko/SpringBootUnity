@@ -15,7 +15,6 @@ import org.springframework.stereotype.Repository;
  * @email: hupengbest@163.com
  * @QQ_NO: 83387856
  * @Date: 2016/5/6 14:26
- * @Description:
  * @Copyright(©) 2015 by xiaomo.
  **/
 @Repository

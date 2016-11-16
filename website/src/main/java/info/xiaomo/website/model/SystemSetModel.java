@@ -24,7 +24,6 @@ import java.util.Calendar;
  * @email: hupengbest@163.com
  * @QQ_NO: 83387856
  * @Date: 2016/4/517:17
- * @Description: 网站设置
  * @Copyright(©) 2015 by xiaomo.
  **/
 @Entity

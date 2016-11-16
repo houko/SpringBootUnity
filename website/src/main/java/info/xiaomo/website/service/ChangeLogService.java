@@ -16,7 +16,6 @@ import java.util.List;
  * @email: hupengbest@163.com
  * @QQ_NO: 83387856
  * @Date: 2016/4/1119:49
- * @Description:
  * @Copyright(©) 2015 by xiaomo.
  **/
 public interface ChangeLogService {

@@ -104,7 +104,7 @@ public class UserController extends BaseController {
             return new Result(Err.USER_REPEAT.getCode(), Err.USER_REPEAT.getMessage());
         }
         String redirectValidateUrl = MailUtil.redirectValidateUrl(email, password);
-        MailUtil.send(email, redirectValidateUrl);
+        MailUtil.send(email, "帐号激活邮件", redirectValidateUrl);
         return new Result(redirectValidateUrl);
     }
 

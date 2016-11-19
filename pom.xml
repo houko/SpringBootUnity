@@ -36,6 +36,7 @@
         <module>multipleSource</module>
         <!-- 数据接口 -->
         <module>api</module>
+        <module>crawler</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -91,6 +92,8 @@
         <springfox-swagger-ui.version>2.2.2</springfox-swagger-ui.version>
         <!-- mybatis -->
         <mybatis.version>1.1.1</mybatis.version>
+        <jsoup.version>1.9.2</jsoup.version>
+        <okhttp.version>3.4.1</okhttp.version>
     </properties>
 
 
@@ -171,6 +174,16 @@
                 <groupId>org.mybatis.spring.boot</groupId>
                 <artifactId>mybatis-spring-boot-starter</artifactId>
                 <version>${mybatis.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>okhttp</artifactId>
+                <version>${okhttp.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jsoup</groupId>
+                <artifactId>jsoup</artifactId>
+                <version>${jsoup.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

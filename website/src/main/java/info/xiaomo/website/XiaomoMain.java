@@ -40,23 +40,8 @@ public class XiaomoMain {
         SpringApplication.run(XiaomoMain.class, args);
     }
 
-    /**
-     * 后台
-     *
-     * @return 后台
-     */
-    @RequestMapping(value = "/admin", method = RequestMethod.GET)
-    public String admin() {
-        return "admin/index";
-    }
-
-    /**
-     * 前台
-     *
-     * @return 前台
-     */
     @RequestMapping(value = "/web", method = RequestMethod.GET)
-    public String web() {
+    public String admin() {
         return "web/index";
     }
 

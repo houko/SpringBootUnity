@@ -30,7 +30,7 @@ public class TaskJob {
     /**
      * Job
      */
-    @Scheduled(fixedDelay = 500)
+    @Scheduled(fixedDelay = 5000)
     public void retrieveCountry() {
         int index = new Random().nextInt(list.size());
         String city = find(index);

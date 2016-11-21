@@ -11,14 +11,14 @@ import info.xiaomo.core.untils.MailUtil;
 import info.xiaomo.core.untils.RandomUtil;
 import info.xiaomo.website.model.UserModel;
 import info.xiaomo.website.service.UserService;
+import info.xiaomo.website.view.UserView;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.util.List;
 
@@ -45,6 +45,37 @@ public class UserController extends BaseController {
     @Autowired
     public UserController(UserService service) {
         this.service = service;
+    }
+
+
+    @RequestMapping(value = "toLogin",method = RequestMethod.GET)
+    public String login() {
+        return UserView.LOGIN.getName();
+    }
+
+    /**
+     * 登录
+     *
+     * @return result
+     */
+    @RequestMapping(value = "login", method = RequestMethod.POST)
+    public String login(@RequestParam String email,
+                        @RequestParam String password,
+                        HttpSession session,
+                        ModelMap map) {
+        UserModel userModel = service.findUserByEmail(email);
+        //找不到用户
+        if (userModel == null) {
+            map.put("errMsg","找不到用户");
+            return UserView.LOGIN.getName();
+        }
+        //密码不正确
+        if (!MD5Util.encode(password, userModel.getSalt()).equals(userModel.getPassword())) {
+            map.put("errMsg","密码不正确");
+            return UserView.LOGIN.getName();
+        }
+        session.setAttribute("currentUser", userModel);
+        return UserView.INDEX.getName();
     }
 
     /**
@@ -97,24 +128,6 @@ public class UserController extends BaseController {
     }
 
 
-    /**
-     * 登录
-     *
-     * @return result
-     */
-    @RequestMapping(value = "login/{email}/{password}", method = RequestMethod.POST)
-    public Result login(@PathVariable("email") String email, @PathVariable("password") String password) {
-        UserModel userModel = service.findUserByEmail(email);
-        //找不到用户
-        if (userModel == null) {
-            return new Result(Err.USER_NOT_FOUND.getCode(), Err.USER_NOT_FOUND.getMessage());
-        }
-        //密码不正确
-        if (!MD5Util.encode(password, userModel.getSalt()).equals(userModel.getPassword())) {
-            return new Result(Err.AUTH_FAILED.getCode(), Err.AUTH_FAILED.getMessage());
-        }
-        return new Result(userModel);
-    }
 
 
     /**

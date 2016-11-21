@@ -1,5 +1,6 @@
 package info.xiaomo.website;
 
+import info.xiaomo.website.interceptor.LoginInterceptor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -9,8 +10,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -34,15 +35,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @EnableJpaRepositories("info.xiaomo.*.dao")
 @EnableCaching
 @Controller
-public class XiaomoMain {
+public class XiaomoMain extends WebMvcConfigurerAdapter {
 
     public static void main(String[] args) throws Exception {
         SpringApplication.run(XiaomoMain.class, args);
     }
 
-    @RequestMapping(value = "/web", method = RequestMethod.GET)
-    public String admin() {
-        return "web/index";
+    /**
+     * 配置拦截器
+     */
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/", "/web/**");
+        super.addInterceptors(registry);
     }
 
 }

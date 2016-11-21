@@ -1,16 +1,17 @@
 package info.xiaomo.website.controller;
 
+import freemarker.template.Configuration;
 import info.xiaomo.core.constant.Err;
 import info.xiaomo.core.constant.GenderType;
 import info.xiaomo.core.controller.BaseController;
 import info.xiaomo.core.controller.Result;
 import info.xiaomo.core.exception.UserNotFoundException;
-import info.xiaomo.core.untils.DateUtil;
 import info.xiaomo.core.untils.MD5Util;
-import info.xiaomo.core.untils.MailUtil;
 import info.xiaomo.core.untils.RandomUtil;
+import info.xiaomo.core.untils.TimeUtil;
 import info.xiaomo.website.model.UserModel;
 import info.xiaomo.website.service.UserService;
+import info.xiaomo.website.util.MailUtil;
 import info.xiaomo.website.view.UserView;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,9 +43,12 @@ public class UserController extends BaseController {
 
     private final UserService service;
 
+    private final Configuration configuration;
+
     @Autowired
-    public UserController(UserService service) {
+    public UserController(UserService service, Configuration configuration) {
         this.service = service;
+        this.configuration = configuration;
     }
 
 
@@ -129,8 +133,8 @@ public class UserController extends BaseController {
             map.put("errMsg", "邮箱被占用！");
             return UserView.REGISTER.getName();
         }
-        String redirectValidateUrl = MailUtil.redirectValidateUrl(email, password);
-        MailUtil.send(email, "帐号激活邮件", redirectValidateUrl);
+        String content = MailUtil.getContent(email, password, configuration);
+        MailUtil.send(email, "帐号激活邮件", content);
         return UserView.REGISTER_INFO.getName();
     }
 
@@ -225,7 +229,7 @@ public class UserController extends BaseController {
             return UserView.REGISTER.getName();
         }
         //验证码是否过期
-        if (time + DateUtil.ONE_DAY_IN_MILLISECONDS * 2 < DateUtil.getNowOfMills()) {
+        if (time + TimeUtil.ONE_DAY_IN_MILLISECONDS * 2 < TimeUtil.getNowOfMills()) {
             LOGGER.info("用户{}使用己过期时间{}激活邮箱失败！", email, time);
             map.put("errMsg", "时间己过期，请重新注册");
             return UserView.REGISTER.getName();

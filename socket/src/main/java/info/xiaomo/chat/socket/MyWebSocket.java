@@ -1,7 +1,7 @@
 package info.xiaomo.chat.socket;
 
-import info.xiaomo.core.untils.DateUtil;
 import info.xiaomo.core.untils.StringUtil;
+import info.xiaomo.core.untils.TimeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -33,13 +33,33 @@ import java.util.concurrent.CopyOnWriteArraySet;
 @Component
 public class MyWebSocket {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(MyWebSocket.class);
     private static int onlineCount = 0;
-
     private static CopyOnWriteArraySet<MyWebSocket> webSocketSet = new CopyOnWriteArraySet<>();
-
     private Session session;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MyWebSocket.class);
+    /**
+     * 获取在线人数
+     *
+     * @return 在线人数
+     */
+    private static synchronized int getOnlineCount() {
+        return MyWebSocket.onlineCount;
+    }
+
+    /**
+     * 添加在线人数
+     */
+    private static synchronized void addOnlineCount() {
+        MyWebSocket.onlineCount++;
+    }
+
+    /**
+     * 减少在线人数
+     */
+    private static synchronized void subOnlineCount() {
+        MyWebSocket.onlineCount--;
+    }
 
     /**
      * 有人进入房间
@@ -72,14 +92,13 @@ public class MyWebSocket {
      */
     @OnMessage
     public void onMessage(String message) throws IOException {
-        String date = "<font color='green'>" + DateUtil.getDateNow(DateUtil.datePattern) + "</font></br>";
+        String date = "<font color='green'>" + TimeUtil.getDateNow(TimeUtil.DATE_PATTERN) + "</font></br>";
         // 群发消息
         for (MyWebSocket item : webSocketSet) {
             item.sendMessage(date + message);
         }
         LOGGER.info("客户端消息:{}", StringUtil.delHTMLTag(message));
     }
-
 
     /**
      * 发送消息
@@ -89,30 +108,6 @@ public class MyWebSocket {
      */
     private void sendMessage(String message) throws IOException {
         this.session.getBasicRemote().sendText(message);
-    }
-
-
-    /**
-     * 获取在线人数
-     *
-     * @return 在线人数
-     */
-    private static synchronized int getOnlineCount() {
-        return MyWebSocket.onlineCount;
-    }
-
-    /**
-     * 添加在线人数
-     */
-    private static synchronized void addOnlineCount() {
-        MyWebSocket.onlineCount++;
-    }
-
-    /**
-     * 减少在线人数
-     */
-    private static synchronized void subOnlineCount() {
-        MyWebSocket.onlineCount--;
     }
 
 }

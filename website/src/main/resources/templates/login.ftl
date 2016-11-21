@@ -8,13 +8,17 @@
     <title>login</title>
 </head>
 <body>
-<form action="/user/register"  method="post">
+<form action="/user/login"  method="post">
     <div><label> 用户名 : <input type="text" name="email"/> </label></div>
     <div><label> 密 码 : <input type="password" name="password"/> </label></div>
-    #if($errMsg)
-        <h1>${errMsg}</h1>
-    #end
-    <div><input type="submit" value="注册"/></div>
+    ${errMsg!}
+    <div><input type="submit" value="登录"/></div>
+    <div><input type="button" value="注册" onclick="toRegister()"/></div>
 </form>
+<script>
+    function toRegister() {
+        window.location.href="toRegister";
+    }
+</script>
 </body>
 </html>

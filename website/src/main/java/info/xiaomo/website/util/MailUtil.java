@@ -1,4 +1,9 @@
-package info.xiaomo.core.untils;
+package info.xiaomo.website.util;
+
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+import info.xiaomo.core.untils.TimeUtil;
+import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -6,6 +11,8 @@ import javax.mail.internet.MimeMessage;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 /**
@@ -23,6 +30,7 @@ import java.util.Properties;
  * @Copyright(©) 2015 by xiaomo.
  **/
 public class MailUtil {
+
     private static String USERNAME;
     private static String PASSWORD;
 
@@ -66,29 +74,28 @@ public class MailUtil {
      * 返回激活链接
      *
      * @param email email
-     * @return 有3个参数 email password  time
+     * @return 有3个参数 email password
      */
-    public static String redirectValidateUrl(String email, String password) {
+    public static String getContent(String email, String password, Configuration configuration) {
         Long now = TimeUtil.getNowOfMills();
-        StringBuilder sb = new StringBuilder("点击下面链接激活账号，48小时生效，否则重新注册账号，链接只能使用一次，请尽快激活！</br>");
-        sb.append("<a href=\"http://localhost:8080/user/validate?email=");
+        Map<String, Object> data = new HashMap<>();
+        StringBuilder sb = new StringBuilder("http://localhost:8080/user/validate?email=");
         sb.append(email);
         sb.append("&password=");
         sb.append(password);
         sb.append("&time=");
         sb.append(now);
-        sb.append("\">");
-        sb.append("http://localhost:8080/user/validate?email=");
-        sb.append(email);
-        sb.append("&password=");
-        sb.append(password);
-        sb.append("&time=");
-        sb.append(now);
-        sb.append("</a><br/>");
-        sb.append("<span style='float:right;padding-right:4%'>小莫</span></br>");
-        sb.append("<span style='float:right'>");
-        sb.append(TimeUtil.getFormatDate());
-        sb.append("</span></br>");
-        return sb.toString();
+        data.put("email", email);
+        data.put("url", sb.toString());
+        data.put("now", TimeUtil.getFormatDate(now, TimeUtil.DEFAULT_FORMAT));
+        Template template;
+        String readyParsedTemplate = null;
+        try {
+            template = configuration.getTemplate("email.ftl");
+            readyParsedTemplate = FreeMarkerTemplateUtils.processTemplateIntoString(template, data);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return readyParsedTemplate;
     }
 }

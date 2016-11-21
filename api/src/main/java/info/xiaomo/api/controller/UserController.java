@@ -7,10 +7,10 @@ import info.xiaomo.core.constant.GenderType;
 import info.xiaomo.core.controller.BaseController;
 import info.xiaomo.core.controller.Result;
 import info.xiaomo.core.exception.UserNotFoundException;
-import info.xiaomo.core.untils.DateUtil;
 import info.xiaomo.core.untils.MD5Util;
 import info.xiaomo.core.untils.MailUtil;
 import info.xiaomo.core.untils.RandomUtil;
+import info.xiaomo.core.untils.TimeUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -227,7 +227,7 @@ public class UserController extends BaseController {
             return new Result(Err.USER_REPEAT.getCode(), Err.USER_REPEAT.getMessage());
         }
         //验证码是否过期
-        if (user.getRegisterTime() + DateUtil.ONE_DAY_IN_MILLISECONDS * 2 < DateUtil.getNowOfMills()) {
+        if (user.getRegisterTime() + TimeUtil.ONE_DAY_IN_MILLISECONDS * 2 < TimeUtil.getNowOfMills()) {
             LOGGER.info("用户{}使用己过期的激活码{}激活邮箱失败！", user.getEmail(), user.getEmail());
             return new Result(Err.TIME_PASSED.getCode(), Err.TIME_PASSED.getMessage());
         }

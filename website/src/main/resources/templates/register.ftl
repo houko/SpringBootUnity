@@ -8,11 +8,10 @@
     <title>login</title>
 </head>
 <body>
-<form action="/user/login"  method="post">
-    <div><label> 邮箱 : <input type="text" name="email"/> </label></div>
-    #if($errMsg)
-        <h1>${errMsg}</h1>
-    #end
+<form action="/user/register"  method="post">
+    <div><label> 用户名 : <input type="text" name="email"/> </label></div>
+    <div><label> 密 码 : <input type="password" name="password"/> </label></div>
+    ${errMsg!}
     <div><input type="submit" value="注册"/></div>
 </form>
 </body>

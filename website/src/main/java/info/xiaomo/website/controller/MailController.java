@@ -1,6 +1,6 @@
 package info.xiaomo.website.controller;
 
-import info.xiaomo.core.untils.MailUtil;
+import info.xiaomo.website.util.MailUtil;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;

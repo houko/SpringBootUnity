@@ -3,7 +3,7 @@ package info.xiaomo.core.filter;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import info.xiaomo.core.untils.DateUtil;
+import info.xiaomo.core.untils.TimeUtil;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -13,7 +13,7 @@ public class CustomDateSerializer extends JsonSerializer<Date> {
 
     @Override
     public void serialize(Date value, JsonGenerator jsonGenerator, SerializerProvider provider) throws IOException {
-        SimpleDateFormat sdf = new SimpleDateFormat(DateUtil.DEFAULT_FORMAT2);
+        SimpleDateFormat sdf = new SimpleDateFormat(TimeUtil.DEFAULT_FORMAT2);
         jsonGenerator.writeString(sdf.format(value));
     }
 }

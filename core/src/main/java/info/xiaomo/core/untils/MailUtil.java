@@ -89,7 +89,6 @@ public class MailUtil {
         sb.append("<span style='float:right'>");
         sb.append(DateUtil.getFormatDate());
         sb.append("</span></br>");
-        System.out.println(sb.toString());
         return sb.toString();
     }
 

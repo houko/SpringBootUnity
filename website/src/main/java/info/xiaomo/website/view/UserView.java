@@ -17,6 +17,8 @@ package info.xiaomo.website.view;
 public enum UserView {
 
     LOGIN("login"),
+    REGISTER("register"),
+    REGISTER_INFO("info"),
     INDEX("/web/index");
 
     private String name;

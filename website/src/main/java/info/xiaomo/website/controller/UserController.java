@@ -48,9 +48,14 @@ public class UserController extends BaseController {
     }
 
 
-    @RequestMapping(value = "toLogin",method = RequestMethod.GET)
-    public String login() {
+    @RequestMapping(value = "toLogin", method = RequestMethod.GET)
+    public String toLogin() {
         return UserView.LOGIN.getName();
+    }
+
+    @RequestMapping(value = "toRegister", method = RequestMethod.GET)
+    public String toRegister() {
+        return UserView.REGISTER.getName();
     }
 
     /**
@@ -66,12 +71,12 @@ public class UserController extends BaseController {
         UserModel userModel = service.findUserByEmail(email);
         //找不到用户
         if (userModel == null) {
-            map.put("errMsg","找不到用户");
+            map.put("errMsg", "找不到用户");
             return UserView.LOGIN.getName();
         }
         //密码不正确
         if (!MD5Util.encode(password, userModel.getSalt()).equals(userModel.getPassword())) {
-            map.put("errMsg","密码不正确");
+            map.put("errMsg", "密码不正确");
             return UserView.LOGIN.getName();
         }
         session.setAttribute("currentUser", userModel);
@@ -104,7 +109,6 @@ public class UserController extends BaseController {
         }
         String salt = RandomUtil.createSalt();
         user.setPassword(MD5Util.encode(user.getPassword(), salt));
-        user.setValidateCode(MD5Util.encode(user.getEmail(), ""));
         user.setSalt(salt);
         service.addUser(user);
         return new Result(user);
@@ -115,19 +119,20 @@ public class UserController extends BaseController {
      *
      * @return result
      */
-    @RequestMapping(value = "register/{email}/{password}", method = RequestMethod.POST)
-    public Result register(@PathVariable("email") String email, @PathVariable("password") String password) throws Exception {
+    @RequestMapping(value = "register", method = RequestMethod.POST)
+    public String register(@RequestParam("email") String email,
+                           @RequestParam("password") String password,
+                           ModelMap map) throws Exception {
         UserModel userModel = service.findUserByEmail(email);
         //邮箱被占用
         if (userModel != null) {
-            return new Result(Err.USER_REPEAT.getCode(), Err.USER_REPEAT.getMessage());
+            map.put("errMsg", "邮箱被占用！");
+            return UserView.REGISTER.getName();
         }
         String redirectValidateUrl = MailUtil.redirectValidateUrl(email, password);
         MailUtil.send(email, "帐号激活邮件", redirectValidateUrl);
-        return new Result(redirectValidateUrl);
+        return UserView.REGISTER_INFO.getName();
     }
-
-
 
 
     /**
@@ -168,7 +173,6 @@ public class UserController extends BaseController {
         userModel.setPhone(user.getPhone());
         userModel.setAddress(user.getAddress());
         userModel.setGender(user.getGender());
-        userModel.setValidateCode(MD5Util.encode(user.getEmail(), ""));
         UserModel updateUser = service.updateUser(userModel);
         return new Result(updateUser);
     }
@@ -206,33 +210,39 @@ public class UserController extends BaseController {
     /**
      * 处理激活
      */
-    @RequestMapping(value = "validateEmail", method = RequestMethod.POST)
-    public Result validateEmail(@RequestBody UserModel user
+    @RequestMapping(value = "validate", method = RequestMethod.GET)
+    public String validateEmail(
+            @RequestParam String email,
+            @RequestParam String password,
+            @RequestParam Long time,
+            ModelMap map,
+            HttpSession session
     ) throws ServiceException, ParseException, UserNotFoundException {
         //数据访问层，通过email获取用户信息
-        UserModel userModel = service.findUserByEmail(user.getEmail());
+        UserModel userModel = service.findUserByEmail(email);
         if (userModel != null) {
-            return new Result(Err.USER_REPEAT.getCode(), Err.USER_REPEAT.getMessage());
+            map.put("errMsg", "邮箱己被占用");
+            return UserView.REGISTER.getName();
         }
         //验证码是否过期
-        if (user.getRegisterTime() + DateUtil.ONE_DAY_IN_MILLISECONDS * 2 < DateUtil.getNowOfMills()) {
-            LOGGER.info("用户{}使用己过期的激活码{}激活邮箱失败！", user.getEmail(), user.getEmail());
-            return new Result(Err.TIME_PASSED.getCode(), Err.TIME_PASSED.getMessage());
+        if (time + DateUtil.ONE_DAY_IN_MILLISECONDS * 2 < DateUtil.getNowOfMills()) {
+            LOGGER.info("用户{}使用己过期时间{}激活邮箱失败！", email, time);
+            map.put("errMsg", "时间己过期，请重新注册");
+            return UserView.REGISTER.getName();
         }
         //激活
         String salt = RandomUtil.createSalt();
         userModel = new UserModel();
-        userModel.setNickName(user.getNickName());
-        userModel.setEmail(user.getEmail());
+        userModel.setNickName(email);
+        userModel.setEmail(email);
         userModel.setGender(GenderType.secret);
-        userModel.setValidateCode(MD5Util.encode(user.getEmail(), salt));
         userModel.setPhone(0L);
         userModel.setSalt(salt);
         userModel.setAddress("");
-        userModel.setPassword(MD5Util.encode(user.getPassword(), salt));
+        userModel.setPassword(MD5Util.encode(password, salt));
         userModel = service.addUser(userModel);
-        LOGGER.info("用户{}使用激活码{}激活邮箱成功！", userModel.getEmail(), userModel.getValidateCode());
-        return new Result(userModel);
+        LOGGER.info("用户{}激活邮箱成功！", userModel.getEmail());
+        session.setAttribute("currentUser", userModel);
+        return UserView.INDEX.getName();
     }
-
 }

@@ -44,9 +44,6 @@ public class UserModel extends BaseModel implements Serializable {
     @Column(name = "Salt")
     private String salt;
 
-    @Column(name = "ValidateCode")
-    private String validateCode;
-
     @Column(name = "Gender")
     private int gender = 0;
 

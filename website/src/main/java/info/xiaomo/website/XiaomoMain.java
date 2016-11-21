@@ -1,6 +1,5 @@
 package info.xiaomo.website;
 
-import info.xiaomo.website.interceptor.LoginInterceptor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -10,7 +9,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 /**
@@ -41,12 +39,13 @@ public class XiaomoMain extends WebMvcConfigurerAdapter {
         SpringApplication.run(XiaomoMain.class, args);
     }
 
-    /**
-     * 配置拦截器
-     */
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/", "/web/**");
-        super.addInterceptors(registry);
-    }
+//    /**
+//     *  fixme 不要删
+//     * 配置拦截器(前台暂时用不上拦截器，先注掉)
+//     */
+//    public void addInterceptors(InterceptorRegistry registry) {
+//        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/", "/web/**");
+//        super.addInterceptors(registry);
+//    }
 
 }

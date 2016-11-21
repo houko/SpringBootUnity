@@ -253,4 +253,18 @@ public class UserController extends BaseController {
         session.setAttribute("currentUser", userModel);
         return UserView.INDEX.getName();
     }
+
+    /**
+     * 登出
+     * @param session session
+     * @return index
+     */
+    @RequestMapping(value = "/logout",method = RequestMethod.GET)
+    public String logout(HttpSession session){
+        UserModel userModel = (UserModel)session.getAttribute("currentUser");
+        if (userModel!=null){
+            session.setAttribute("currentUser",null);
+        }
+        return UserView.INDEX.getName();
+    }
 }

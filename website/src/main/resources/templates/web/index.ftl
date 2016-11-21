@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <link rel="icon" href="/images/favicon.ico">
-    <title>xiaomo</title>
+    <link rel="icon" href="${webSet.icon}">
+    <title>${webSet.siteName}</title>
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
 </head>
@@ -104,8 +104,8 @@
 
 <footer>
     <div class="footer">
-        <h5>Copyright © 2015-2016 xiaomo AllRight Reversed</h5>
-        <h6><a href="http://www.miitbeian.gov.cn/" target="_blank">浙ICP备15009606号</a></h6>
+        <h5>Copyright © ${webSet.fromYear!}-${webSet.toYear!} xiaomo AllRight Reversed</h5>
+        <h6><a href="${webSet.beianUrl!}" target="_blank">${webSet.beianNumber!}</a></h6>
     </div>
 </footer>
 

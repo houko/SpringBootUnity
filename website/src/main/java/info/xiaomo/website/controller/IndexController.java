@@ -1,8 +1,15 @@
 package info.xiaomo.website.controller;
 
+import info.xiaomo.website.model.SystemSetModel;
+import info.xiaomo.website.service.WebSetService;
+import info.xiaomo.website.view.UserView;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -21,8 +28,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class IndexController {
 
+    private final WebSetService setService;
+
+    @Autowired
+    public IndexController(WebSetService setService) {
+        this.setService = setService;
+    }
+
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String admin() {
-        return "web/index";
+    public String admin(HttpSession session) {
+        List<SystemSetModel> all = setService.findAll();
+        if (all.size() > 0) {
+            SystemSetModel model = all.get(0);
+            session.setAttribute("webSet", model);
+        }
+        return UserView.INDEX.getName();
     }
 }

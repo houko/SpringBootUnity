@@ -51,7 +51,6 @@ public class UserController extends BaseController {
         this.configuration = configuration;
     }
 
-
     @RequestMapping(value = "toLogin", method = RequestMethod.GET)
     public String toLogin() {
         return UserView.LOGIN.getName();
@@ -87,36 +86,6 @@ public class UserController extends BaseController {
         return UserView.INDEX.getName();
     }
 
-    /**
-     * 根据id 查找用户
-     *
-     * @param id id
-     * @return result
-     */
-    @RequestMapping(value = "findById/{id}", method = RequestMethod.GET)
-    public Result findUserById(@PathVariable("id") Long id) {
-        UserModel userModel = service.findUserById(id);
-        if (userModel == null) {
-            return new Result(Err.USER_NOT_FOUND.getCode(), Err.USER_NOT_FOUND.getMessage());
-        }
-        return new Result(userModel);
-    }
-
-    /**
-     * 添加用户
-     */
-    @RequestMapping(value = "addUser", method = RequestMethod.POST)
-    public Result addUser(@RequestBody UserModel user) {
-        UserModel userModel = service.findUserByEmail(user.getEmail());
-        if (userModel != null) {
-            return new Result(Err.USER_REPEAT.getCode(), Err.USER_REPEAT.getMessage());
-        }
-        String salt = RandomUtil.createSalt();
-        user.setPassword(MD5Util.encode(user.getPassword(), salt));
-        user.setSalt(salt);
-        service.addUser(user);
-        return new Result(user);
-    }
 
     /**
      * 注册
@@ -185,35 +154,7 @@ public class UserController extends BaseController {
         return new Result(updateUser);
     }
 
-    /**
-     * 返回所有用户数据
-     *
-     * @return result
-     */
-    @RequestMapping(value = "findAll", method = RequestMethod.GET)
-    public Result getAll() {
-        List<UserModel> pages = service.findAll();
-        if (pages == null || pages.size() <= 0) {
-            return new Result(Err.NULL_DATA.getCode(), Err.NULL_DATA.getMessage());
-        }
-        return new Result(pages);
-    }
 
-
-    /**
-     * 根据id删除用户
-     *
-     * @param id id
-     * @return result
-     */
-    @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
-    public Result deleteUserById(@PathVariable("id") Long id) throws UserNotFoundException {
-        UserModel userModel = service.deleteUserById(id);
-        if (userModel == null) {
-            return new Result(Err.USER_NOT_FOUND.getCode(), Err.USER_NOT_FOUND.getMessage());
-        }
-        return new Result(userModel);
-    }
 
     /**
      * 处理激活
@@ -266,5 +207,70 @@ public class UserController extends BaseController {
             session.setAttribute("currentUser",null);
         }
         return UserView.INDEX.getName();
+    }
+
+
+//*************************************************后台接口**********************************************************/
+
+    /**
+     * 根据id 查找用户
+     *
+     * @param id id
+     * @return result
+     */
+    @RequestMapping(value = "findById/{id}", method = RequestMethod.GET)
+    public Result findUserById(@PathVariable("id") Long id) {
+        UserModel userModel = service.findUserById(id);
+        if (userModel == null) {
+            return new Result(Err.USER_NOT_FOUND.getCode(), Err.USER_NOT_FOUND.getMessage());
+        }
+        return new Result(userModel);
+    }
+
+    /**
+     * 添加用户
+     */
+    @RequestMapping(value = "addUser", method = RequestMethod.POST)
+    public Result addUser(@RequestBody UserModel user) {
+        UserModel userModel = service.findUserByEmail(user.getEmail());
+        if (userModel != null) {
+            return new Result(Err.USER_REPEAT.getCode(), Err.USER_REPEAT.getMessage());
+        }
+        String salt = RandomUtil.createSalt();
+        user.setPassword(MD5Util.encode(user.getPassword(), salt));
+        user.setSalt(salt);
+        service.addUser(user);
+        return new Result(user);
+    }
+
+
+    /**
+     * 返回所有用户数据
+     *
+     * @return result
+     */
+    @RequestMapping(value = "findAll", method = RequestMethod.GET)
+    public Result getAll() {
+        List<UserModel> pages = service.findAll();
+        if (pages == null || pages.size() <= 0) {
+            return new Result(Err.NULL_DATA.getCode(), Err.NULL_DATA.getMessage());
+        }
+        return new Result(pages);
+    }
+
+
+    /**
+     * 根据id删除用户
+     *
+     * @param id id
+     * @return result
+     */
+    @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
+    public Result deleteUserById(@PathVariable("id") Long id) throws UserNotFoundException {
+        UserModel userModel = service.deleteUserById(id);
+        if (userModel == null) {
+            return new Result(Err.USER_NOT_FOUND.getCode(), Err.USER_NOT_FOUND.getMessage());
+        }
+        return new Result(userModel);
     }
 }

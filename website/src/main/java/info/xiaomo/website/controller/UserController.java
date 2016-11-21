@@ -134,10 +134,8 @@ public class UserController extends BaseController {
             return UserView.REGISTER.getName();
         }
         String content = MailUtil.getContent(email, password, configuration);
-        try {
-            MailUtil.send(email, "帐号激活邮件", content);
-        } catch (Exception e){
-            LOGGER.debug("用户{}注册时邮件发送失败",email);
+        boolean send = MailUtil.send(email, "帐号激活邮件", content);
+        if (!send) {
             map.put("errMsg", "邮件发送失败，请重试！");
             return UserView.REGISTER.getName();
         }

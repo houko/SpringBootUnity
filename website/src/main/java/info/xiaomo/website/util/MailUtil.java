@@ -57,7 +57,7 @@ public class MailUtil {
         return Session.getDefaultInstance(props, authenticator);
     }
 
-    public static void send(String toEmail, String subject, String content) {
+    public static boolean send(String toEmail, String subject, String content) {
         Session session;
         try {
             session = getSession();
@@ -70,9 +70,11 @@ public class MailUtil {
             msg.setContent(content, "text/html;charset=utf-8");
             Transport.send(msg);
             LOGGER.debug("给用户:{}发送注册帐号邮件", toEmail);
-        } catch (Exception mex) {
-            mex.printStackTrace();
+        } catch (Exception e) {
+            LOGGER.debug("给用户:{}发送注册帐号邮件失败", toEmail);
+            return false;
         }
+        return true;
     }
 
     /**

@@ -66,7 +66,7 @@ public class MailUtil {
      * 返回激活链接
      *
      * @param email email
-     * @return 有4个参数 email password validateCode  time
+     * @return 有3个参数 email password  time
      */
     public static String redirectValidateUrl(String email, String password) {
         Long now = DateUtil.getNowOfMills();
@@ -90,9 +90,5 @@ public class MailUtil {
         sb.append(DateUtil.getFormatDate());
         sb.append("</span></br>");
         return sb.toString();
-    }
-
-    public static void main(String[] args) {
-        System.out.println(redirectValidateUrl("83387856@qq.com", "123456"));
     }
 }

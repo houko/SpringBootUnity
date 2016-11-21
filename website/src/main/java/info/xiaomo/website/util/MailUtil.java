@@ -3,6 +3,8 @@ package info.xiaomo.website.util;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import info.xiaomo.core.untils.TimeUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 
 import javax.mail.*;
@@ -30,6 +32,8 @@ import java.util.Properties;
  * @Copyright(©) 2015 by xiaomo.
  **/
 public class MailUtil {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MailUtil.class);
 
     private static String USERNAME;
     private static String PASSWORD;
@@ -65,6 +69,7 @@ public class MailUtil {
             msg.setSentDate(new Date());
             msg.setContent(content, "text/html;charset=utf-8");
             Transport.send(msg);
+            LOGGER.debug("给用户:{}发送注册帐号邮件", toEmail);
         } catch (Exception mex) {
             mex.printStackTrace();
         }

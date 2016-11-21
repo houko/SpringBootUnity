@@ -25,8 +25,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class MailController {
 
     @RequestMapping(value = "/send", method = RequestMethod.GET)
-    public void sendMail() {
-        MailUtil.send("hupengbest@163.com", "测试邮件是否正常", "测试");
+    public boolean sendMail() {
+        return MailUtil.send("hupengbest@163.com", "测试邮件是否正常", "测试");
     }
 
 }

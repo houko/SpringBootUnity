@@ -37,7 +37,7 @@ public class IndexController {
 
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String admin(HttpSession session) {
+    public String index(HttpSession session) {
         List<SystemSetModel> all = setService.findAll();
         if (all.size() > 0) {
             SystemSetModel model = all.get(0);

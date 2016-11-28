@@ -14,6 +14,8 @@ import java.net.URLEncoder;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -66,8 +68,7 @@ public class HttpUtil {
      * @throws KeyManagementException
      */
     private static HttpsURLConnection initHttps(String url, String method, Map<String, String> headers) throws IOException, NoSuchAlgorithmException, NoSuchProviderException, KeyManagementException {
-        TrustManager[] tm = {};
-        SSLContext sslContext = SSLContext.getInstance("SSL", "SunJSSE");
+        TrustManager[] tm = { new MyX509TrustManager()};SSLContext sslContext = SSLContext.getInstance("SSL", "SunJSSE");
         sslContext.init(null, tm, new java.security.SecureRandom());
         // 从上述SSLContext对象中得到SSLSocketFactory对象  
         SSLSocketFactory ssf = sslContext.getSocketFactory();
@@ -231,16 +232,6 @@ public class HttpUtil {
     }
 
     /**
-     * https 域名校验
-     */
-    public class TrustAnyHostnameVerifier implements HostnameVerifier {
-        public boolean verify(String hostname, SSLSession session) {
-            return true;// 直接返回true
-        }
-    }
-
-
-    /**
      * 读取cookie
      *
      * @param request request
@@ -285,7 +276,6 @@ public class HttpUtil {
         response.addCookie(cookie);
     }
 
-
     /**
      * 获取浏览器信息
      *
@@ -296,5 +286,34 @@ public class HttpUtil {
         return request.getHeader("User-Agent");
     }
 
+    /**
+     * https 域名校验
+     */
+    public class TrustAnyHostnameVerifier implements HostnameVerifier {
+        public boolean verify(String hostname, SSLSession session) {
+            return true;// 直接返回true
+        }
+    }
+
+
+
+
 }
 
+// 证书管理
+class MyX509TrustManager implements X509TrustManager {
+
+    public X509Certificate[] getAcceptedIssuers() {
+        return null;
+    }
+
+    @Override
+    public void checkClientTrusted(X509Certificate[] chain, String authType)
+            throws CertificateException {
+    }
+
+    @Override
+    public void checkServerTrusted(X509Certificate[] chain, String authType)
+            throws CertificateException {
+    }
+}

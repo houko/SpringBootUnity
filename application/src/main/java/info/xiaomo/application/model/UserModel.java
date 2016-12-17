@@ -32,7 +32,6 @@ import java.io.Serializable;
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonInclude(JsonInclude.Include.NON_EMPTY)
 @ApiModel(value = "用户实体类")
 public class UserModel extends BaseModel implements Serializable {
 

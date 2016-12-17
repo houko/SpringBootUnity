@@ -15,7 +15,8 @@ package info.xiaomo.core.constant;
  * @Copyright(©) 2015 by xiaomo.
  */
 public enum Err {
-    SUCCESS(0, "成功"),
+    SUCCESS(200, "成功"),
+    NOT_FOUNT(404, "找不到"),
     REPEAT(992, "数据重复"),
     ERROR(993, "系统错误"),
     ADMIN_USER_REPEAT(994, "后台用户名重复"),

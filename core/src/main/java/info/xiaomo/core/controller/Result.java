@@ -1,6 +1,5 @@
 package info.xiaomo.core.controller;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 /**
@@ -18,7 +17,6 @@ import lombok.Data;
  * @Copyright(©) 2015 by xiaomo.
  */
 @Data
-@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Result<T> {
 
     private int resultCode;
@@ -29,6 +27,7 @@ public class Result<T> {
 
     /**
      * 只返回错误码
+     *
      * @param resultCode resultCode
      */
     public Result(int resultCode) {
@@ -37,6 +36,7 @@ public class Result<T> {
 
     /**
      * 只有返回数据的(验证成功)
+     *
      * @param data data
      */
     public Result(T data) {
@@ -45,8 +45,9 @@ public class Result<T> {
 
     /**
      * 只有错误码和错误信息的
+     *
      * @param resultCode resultCode
-     * @param message message
+     * @param message    message
      */
     public Result(int resultCode, String message) {
         this.resultCode = resultCode;
@@ -56,9 +57,10 @@ public class Result<T> {
 
     /**
      * 全部参数
+     *
      * @param resultCode resultCode
-     * @param message message
-     * @param data data
+     * @param message    message
+     * @param data       data
      */
     public Result(int resultCode, String message, T data) {
         this.resultCode = resultCode;

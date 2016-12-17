@@ -9,6 +9,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
+    <description>小莫的APP</description>
+
     <artifactId>application</artifactId>
     <dependencies>
         <dependency>

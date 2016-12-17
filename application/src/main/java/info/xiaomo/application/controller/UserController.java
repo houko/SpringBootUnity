@@ -118,7 +118,7 @@ public class UserController extends BaseController {
             @ApiImplicitParam(name = "email", value = "邮箱", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "password", value = "密码", required = true, dataType = "String", paramType = "path")
     })
-    @RequestMapping(value = "login/{email}/{password}", method = RequestMethod.POST)
+    @RequestMapping(value = "login/{email}/{password}", method = RequestMethod.GET)
     public Result login(@PathVariable("email") String email, @PathVariable("password") String password) {
         UserModel userModel = service.findUserByEmail(email);
         //找不到用户

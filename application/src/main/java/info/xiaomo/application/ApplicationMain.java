@@ -70,7 +70,7 @@ public class ApplicationMain {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("info.xiaomo.xiaomoApp"))
+                .apis(RequestHandlerSelectors.basePackage("info.xiaomo.application"))
                 .paths(PathSelectors.any())
                 .build();
     }
@@ -78,8 +78,8 @@ public class ApplicationMain {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("Spring Boot中使用Swagger2构建RESTful APIs")
-                .description("api根地址：http://xiaomoApp.xiaomo.info:8080/")
-                .termsOfServiceUrl("http://blog.xiaomo.info/")
+                .description("api根地址：http://api.xiaomo.info:8080/")
+                .termsOfServiceUrl("https://xiaomo.info/")
                 .contact("小莫")
                 .version("1.0")
                 .build();

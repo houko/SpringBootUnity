@@ -37,6 +37,7 @@
         <!-- 数据接口 -->
         <module>api</module>
         <module>crawler</module>
+        <module>xiaomoApp</module>
     </modules>
     <packaging>pom</packaging>
 

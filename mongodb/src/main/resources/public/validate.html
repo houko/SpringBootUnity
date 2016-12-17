@@ -18,8 +18,8 @@
             url: "http://192.168.1.165:8080/mongoUser/validateEmail",
             data: {email: name, password: password, validateCode: validateCode, time: time},
             success: function (data) {
-                if (data.code != 0) {
-                    $("#result").html(getResult(data.code));
+                if (data.resultCode != 0) {
+                    $("#result").html(getResult(data.resultCode));
                 } else {
                     $("#result").html("验证成功，请登录！");
                 }

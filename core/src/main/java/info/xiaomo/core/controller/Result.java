@@ -19,49 +19,49 @@ import lombok.Data;
  */
 @Data
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-public class Result {
+public class Result<T> {
 
-    private int code;
+    private int resultCode;
 
     private String message;
 
-    private Object data;
+    private T data;
 
     /**
      * 只返回错误码
-     * @param code code
+     * @param resultCode resultCode
      */
-    public Result(int code) {
-        this.code = code;
+    public Result(int resultCode) {
+        this.resultCode = resultCode;
     }
 
     /**
      * 只有返回数据的(验证成功)
      * @param data data
      */
-    public Result(Object data) {
+    public Result(T data) {
         this.data = data;
     }
 
     /**
      * 只有错误码和错误信息的
-     * @param code code
+     * @param resultCode resultCode
      * @param message message
      */
-    public Result(int code, String message) {
-        this.code = code;
+    public Result(int resultCode, String message) {
+        this.resultCode = resultCode;
         this.message = message;
     }
 
 
     /**
      * 全部参数
-     * @param code code
+     * @param resultCode resultCode
      * @param message message
      * @param data data
      */
-    public Result(int code, String message, Object data) {
-        this.code = code;
+    public Result(int resultCode, String message, T data) {
+        this.resultCode = resultCode;
         this.message = message;
         this.data = data;
     }

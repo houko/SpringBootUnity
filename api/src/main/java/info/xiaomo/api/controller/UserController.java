@@ -63,7 +63,7 @@ public class UserController extends BaseController {
     public Result findUserById(@PathVariable("id") Long id) {
         UserModel userModel = service.findUserById(id);
         if (userModel == null) {
-            return new Result(Err.USER_NOT_FOUND.getCode(), Err.USER_NOT_FOUND.getMessage());
+            return new Result(Err.USER_NOT_FOUND.getResultCode(), Err.USER_NOT_FOUND.getMessage());
         }
         return new Result(userModel);
     }
@@ -76,7 +76,7 @@ public class UserController extends BaseController {
     public Result addUser(@RequestBody UserModel user) {
         UserModel userModel = service.findUserByEmail(user.getEmail());
         if (userModel != null) {
-            return new Result(Err.USER_REPEAT.getCode(), Err.USER_REPEAT.getMessage());
+            return new Result(Err.USER_REPEAT.getResultCode(), Err.USER_REPEAT.getMessage());
         }
         String salt = RandomUtil.createSalt();
         user.setPassword(MD5Util.encode(user.getPassword(), salt));
@@ -101,7 +101,7 @@ public class UserController extends BaseController {
         UserModel userModel = service.findUserByEmail(email);
         //邮箱被占用
         if (userModel != null) {
-            return new Result(Err.USER_REPEAT.getCode(), Err.USER_REPEAT.getMessage());
+            return new Result(Err.USER_REPEAT.getResultCode(), Err.USER_REPEAT.getMessage());
         }
         String redirectValidateUrl = MailUtil.redirectValidateUrl(email, password);
         MailUtil.send(email, "帐号激活邮件", redirectValidateUrl);
@@ -124,11 +124,11 @@ public class UserController extends BaseController {
         UserModel userModel = service.findUserByEmail(email);
         //找不到用户
         if (userModel == null) {
-            return new Result(Err.USER_NOT_FOUND.getCode(), Err.USER_NOT_FOUND.getMessage());
+            return new Result(Err.USER_NOT_FOUND.getResultCode(), Err.USER_NOT_FOUND.getMessage());
         }
         //密码不正确
         if (!MD5Util.encode(password, userModel.getSalt()).equals(userModel.getPassword())) {
-            return new Result(Err.AUTH_FAILED.getCode(), Err.AUTH_FAILED.getMessage());
+            return new Result(Err.AUTH_FAILED.getResultCode(), Err.AUTH_FAILED.getMessage());
         }
         return new Result(userModel);
     }
@@ -145,7 +145,7 @@ public class UserController extends BaseController {
     public Result changePassword(@RequestBody UserModel user) throws UserNotFoundException {
         UserModel userByEmail = service.findUserByEmail(user.getEmail());
         if (userByEmail == null) {
-            return new Result(Err.USER_NOT_FOUND.getCode(), Err.USER_NOT_FOUND.getMessage());
+            return new Result(Err.USER_NOT_FOUND.getResultCode(), Err.USER_NOT_FOUND.getMessage());
         }
         String salt = RandomUtil.createSalt();
         userByEmail.setPassword(MD5Util.encode(user.getPassword(), salt));
@@ -166,7 +166,7 @@ public class UserController extends BaseController {
     public Result update(@RequestBody UserModel user) throws UserNotFoundException {
         UserModel userModel = service.findUserByEmail(user.getEmail());
         if (userModel == null) {
-            return new Result(Err.USER_NOT_FOUND.getCode(), Err.USER_NOT_FOUND.getMessage());
+            return new Result(Err.USER_NOT_FOUND.getResultCode(), Err.USER_NOT_FOUND.getMessage());
         }
         userModel = new UserModel();
         userModel.setEmail(user.getEmail());
@@ -189,7 +189,7 @@ public class UserController extends BaseController {
     public Result getAll() {
         List<UserModel> pages = service.findAll();
         if (pages == null || pages.size() <= 0) {
-            return new Result(Err.NULL_DATA.getCode(), Err.NULL_DATA.getMessage());
+            return new Result(Err.NULL_DATA.getResultCode(), Err.NULL_DATA.getMessage());
         }
         return new Result(pages);
     }
@@ -209,7 +209,7 @@ public class UserController extends BaseController {
     public Result deleteUserById(@PathVariable("id") Long id) throws UserNotFoundException {
         UserModel userModel = service.deleteUserById(id);
         if (userModel == null) {
-            return new Result(Err.USER_NOT_FOUND.getCode(), Err.USER_NOT_FOUND.getMessage());
+            return new Result(Err.USER_NOT_FOUND.getResultCode(), Err.USER_NOT_FOUND.getMessage());
         }
         return new Result(userModel);
     }
@@ -224,12 +224,12 @@ public class UserController extends BaseController {
         //数据访问层，通过email获取用户信息
         UserModel userModel = service.findUserByEmail(user.getEmail());
         if (userModel != null) {
-            return new Result(Err.USER_REPEAT.getCode(), Err.USER_REPEAT.getMessage());
+            return new Result(Err.USER_REPEAT.getResultCode(), Err.USER_REPEAT.getMessage());
         }
         //验证码是否过期
         if (user.getRegisterTime() + TimeUtil.ONE_DAY_IN_MILLISECONDS * 2 < TimeUtil.getNowOfMills()) {
             LOGGER.info("用户{}使用己过期的激活码{}激活邮箱失败！", user.getEmail(), user.getEmail());
-            return new Result(Err.TIME_PASSED.getCode(), Err.TIME_PASSED.getMessage());
+            return new Result(Err.TIME_PASSED.getResultCode(), Err.TIME_PASSED.getMessage());
         }
         //激活
         String salt = RandomUtil.createSalt();

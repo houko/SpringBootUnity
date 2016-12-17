@@ -47,7 +47,7 @@ public class WebSetController extends BaseController {
     public Result findAll() {
         List<SystemSetModel> list = service.findAll();
         if (list.isEmpty() || list.size() == 0) {
-            return new Result(Err.NULL_DATA.getCode(), Err.NULL_DATA.getMessage());
+            return new Result(Err.NULL_DATA.getResultCode(), Err.NULL_DATA.getMessage());
         }
         return new Result(list);
 
@@ -62,7 +62,7 @@ public class WebSetController extends BaseController {
     public Result update(@RequestBody SystemSetModel systemSetModel) {
         List<SystemSetModel> all = service.findAll();
         if (all.size() > 1) {
-            return new Result(Err.ERROR.getCode(), Err.ERROR.getMessage());
+            return new Result(Err.ERROR.getResultCode(), Err.ERROR.getMessage());
         }
         for (SystemSetModel setModel : all) {
             setModel.setSiteName(systemSetModel.getSiteName());
@@ -74,6 +74,6 @@ public class WebSetController extends BaseController {
             SystemSetModel add = service.update(setModel);
             return new Result(add);
         }
-        return new Result(Err.ERROR.getCode(), Err.ERROR.getMessage());
+        return new Result(Err.ERROR.getResultCode(), Err.ERROR.getMessage());
     }
 }

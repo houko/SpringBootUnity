@@ -59,10 +59,10 @@ public class AdminUserController extends BaseController {
     public Result login(@PathVariable("userName") String userName, @PathVariable("password") String password) {
         AdminModel adminModel = service.findAdminUserByUserName(userName);
         if (adminModel == null) {
-            return new Result(Err.USER_NOT_FOUND.getCode(), Err.USER_NOT_FOUND.getMessage());
+            return new Result(Err.USER_NOT_FOUND.getResultCode(), Err.USER_NOT_FOUND.getMessage());
         }
         if (!MD5Util.encode(password, adminModel.getSalt()).equals(adminModel.getPassword())) {
-            return new Result(Err.AUTH_FAILED.getCode(), Err.AUTH_FAILED.getMessage());
+            return new Result(Err.AUTH_FAILED.getResultCode(), Err.AUTH_FAILED.getMessage());
         }
         return new Result(adminModel);
     }
@@ -77,7 +77,7 @@ public class AdminUserController extends BaseController {
     public Result add(@RequestBody AdminModel model) {
         AdminModel adminModel = service.findAdminUserByUserName(model.getUserName());
         if (adminModel != null) {
-            return new Result(Err.ADMIN_USER_REPEAT.getCode(), Err.ADMIN_USER_REPEAT.getMessage());
+            return new Result(Err.ADMIN_USER_REPEAT.getResultCode(), Err.ADMIN_USER_REPEAT.getMessage());
         }
         String salt = RandomUtil.createSalt();
         model.setSalt(salt);
@@ -96,7 +96,7 @@ public class AdminUserController extends BaseController {
     public Result findUserById(@PathVariable("id") Long id) {
         AdminModel adminModel = service.findAdminUserById(id);
         if (adminModel == null) {
-            return new Result(Err.NULL_DATA.getCode(), Err.NULL_DATA.getMessage());
+            return new Result(Err.NULL_DATA.getResultCode(), Err.NULL_DATA.getMessage());
         }
         return new Result(adminModel);
     }
@@ -111,7 +111,7 @@ public class AdminUserController extends BaseController {
     public Result findByName(@PathVariable("userName") String userName) {
         AdminModel adminModel = service.findAdminUserByUserName(userName);
         if (adminModel == null) {
-            return new Result(Err.NULL_DATA.getCode(), Err.NULL_DATA.getMessage());
+            return new Result(Err.NULL_DATA.getResultCode(), Err.NULL_DATA.getMessage());
         }
         return new Result(adminModel);
     }
@@ -126,7 +126,7 @@ public class AdminUserController extends BaseController {
     public Result changePassword(@RequestBody AdminModel model) throws UserNotFoundException {
         AdminModel adminModel = service.findAdminUserByUserName(model.getUserName());
         if (adminModel == null) {
-            return new Result(Err.NULL_DATA.getCode(), Err.NULL_DATA.getMessage());
+            return new Result(Err.NULL_DATA.getResultCode(), Err.NULL_DATA.getMessage());
         }
         String salt = RandomUtil.createSalt();
         adminModel.setSalt(salt);
@@ -161,7 +161,7 @@ public class AdminUserController extends BaseController {
     public Result deleteUserById(@PathVariable("id") Long id) throws UserNotFoundException {
         AdminModel adminModel = service.findAdminUserById(id);
         if (adminModel == null) {
-            return new Result(Err.NULL_DATA.getCode(), Err.NULL_DATA.getMessage());
+            return new Result(Err.NULL_DATA.getResultCode(), Err.NULL_DATA.getMessage());
         }
         service.deleteAdminUserById(id);
         return new Result(adminModel);
@@ -196,7 +196,7 @@ public class AdminUserController extends BaseController {
     public Result forbid(@PathVariable("id") Long id) throws UserNotFoundException {
         AdminModel model = service.findAdminUserById(id);
         if (model == null) {
-            return new Result(Err.NULL_DATA.getCode(), Err.NULL_DATA.getMessage());
+            return new Result(Err.NULL_DATA.getResultCode(), Err.NULL_DATA.getMessage());
         }
         model = service.forbidAdminUserById(id);
         return new Result(model);

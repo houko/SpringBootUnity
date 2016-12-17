@@ -55,7 +55,7 @@ public class ChangeLogController extends BaseController {
     public Result findById(@PathVariable("id") Long id) {
         ChangeLogModel changeLogModel = service.findById(id);
         if (changeLogModel == null) {
-            return new Result(Err.NULL_DATA.getCode(), Err.NULL_DATA.getMessage());
+            return new Result(Err.NULL_DATA.getResultCode(), Err.NULL_DATA.getMessage());
         }
         return new Result(changeLogModel);
     }
@@ -73,7 +73,7 @@ public class ChangeLogController extends BaseController {
     public Result findByName( @PathVariable("name") String name) {
         ChangeLogModel model = service.findByName(name);
         if (model == null) {
-            return new Result(Err.NULL_DATA.getCode(), Err.NULL_DATA.getMessage());
+            return new Result(Err.NULL_DATA.getResultCode(), Err.NULL_DATA.getMessage());
         }
         return new Result(model);
     }
@@ -88,7 +88,7 @@ public class ChangeLogController extends BaseController {
     public Result findAll() {
         List<ChangeLogModel> pages = service.findAll();
         if (pages == null || pages.size() <= 0) {
-            return new Result(Err.NULL_DATA.getCode(), Err.NULL_DATA.getMessage());
+            return new Result(Err.NULL_DATA.getResultCode(), Err.NULL_DATA.getMessage());
         }
         return new Result(pages);
     }
@@ -103,7 +103,7 @@ public class ChangeLogController extends BaseController {
     public Result add(@RequestBody ChangeLogModel model) {
         ChangeLogModel changeLogModel = service.findByName(model.getName());
         if (changeLogModel != null) {
-            return new Result(Err.REPEAT.getCode(), Err.REPEAT.getMessage());
+            return new Result(Err.REPEAT.getResultCode(), Err.REPEAT.getMessage());
         }
         changeLogModel = new ChangeLogModel();
         changeLogModel.setName(model.getName());
@@ -123,7 +123,7 @@ public class ChangeLogController extends BaseController {
     public Result update(@RequestBody ChangeLogModel model) {
         ChangeLogModel changeLogModel = service.findByName(model.getName());
         if (changeLogModel == null) {
-            return new Result(Err.NULL_DATA.getCode(), Err.NULL_DATA.getMessage());
+            return new Result(Err.NULL_DATA.getResultCode(), Err.NULL_DATA.getMessage());
         }
         changeLogModel.setName(model.getName());
         changeLogModel.setOnlineTime(model.getOnlineTime());
@@ -143,7 +143,7 @@ public class ChangeLogController extends BaseController {
     public Result deleteById(@PathVariable("id") Long id) {
         ChangeLogModel changeLogModel = service.findById(id);
         if (changeLogModel == null) {
-            return new Result(Err.NULL_DATA.getCode(), Err.NULL_DATA.getMessage());
+            return new Result(Err.NULL_DATA.getResultCode(), Err.NULL_DATA.getMessage());
         }
         ChangeLogModel delModel = service.delete(id);
         return new Result(delModel);

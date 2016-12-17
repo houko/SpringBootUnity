@@ -19,7 +19,7 @@ import lombok.Data;
 @Data
 public class Result<T> {
 
-    private int resultCode;
+    private int resultCode = 200;
 
     private String message;
 

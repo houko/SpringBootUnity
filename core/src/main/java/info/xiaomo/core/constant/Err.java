@@ -26,28 +26,28 @@ public enum Err {
     AUTH_FAILED(999, "用户名或密码错误");
 
 
-    private int code;
+    private int resultCode;
     private String message;
 
-    Err(int code) {
-        this.code = code;
+    Err(int resultCode) {
+        this.resultCode = resultCode;
     }
 
     Err(String message) {
         this.message = message;
     }
 
-    Err(int code, String message) {
-        this.code = code;
+    Err(int resultCode, String message) {
+        this.resultCode = resultCode;
         this.message = message;
     }
 
-    public int getCode() {
-        return code;
+    public int getResultCode() {
+        return resultCode;
     }
 
-    public void setCode(int code) {
-        this.code = code;
+    public void setResultCode(int resultCode) {
+        this.resultCode = resultCode;
     }
 
     public String getMessage() {

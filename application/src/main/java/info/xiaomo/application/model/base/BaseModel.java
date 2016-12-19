@@ -1,7 +1,5 @@
 package info.xiaomo.application.model.base;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import info.xiaomo.core.filter.CustomDateSerializer;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -9,7 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Date;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -35,6 +32,6 @@ public abstract class BaseModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "Id")
-    @ApiModelProperty(value  = "id")
+    @ApiModelProperty(value = "id")
     private long id;
 }

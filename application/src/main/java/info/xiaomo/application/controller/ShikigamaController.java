@@ -17,6 +17,7 @@ import java.util.List;
  * @created : 2016/12/24 16:23
  */
 @RestController
+@RequestMapping("/shikigami")
 public class ShikigamaController extends BaseController {
 
     private final ShikigamaService shikigamaService;
@@ -28,7 +29,7 @@ public class ShikigamaController extends BaseController {
     }
 
 
-    @RequestMapping(value = "findAll",method = RequestMethod.GET)
+    @RequestMapping(value = "/findAll", method = RequestMethod.GET)
     public Result<List> findAll() {
         List<ShikigamiModel> all = shikigamaService.findAll();
         if (all == null || all.size() == 0) {

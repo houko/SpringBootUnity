@@ -24,16 +24,4 @@ public abstract class BaseModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "Id")
     private long id;
-
-    @Version
-    @Column(name = "Version")
-    private long version;
-
-    @JsonSerialize(using = CustomDateSerializer.class)
-    @Column(name = "CreateTime")
-    private Date createTime;
-
-    @JsonSerialize(using = CustomDateSerializer.class)
-    @Column(name = "UpdateTime")
-    private Date updateTime;
 }

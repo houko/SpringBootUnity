@@ -8,14 +8,14 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
  * @author 小莫 (https://xiaomo.info) (https://github.com/syoubaku)
  * @created : 2016/12/24 15:05
+ * 阴阳师获取数据
  */
-public class Main {
+public class OnnmyoujiSpider {
 
     private static final String url = "http://ng.d.cn/db/yinyangshi/index.html";
 
@@ -72,6 +72,7 @@ public class Main {
      * 获取式神信息
      */
     private static ShikigamiModel getShikigami(String url) {
+        ShikigamiModel a = new ShikigamiModel();
         String html = HttpUtil.get(url);
         Document doc = Jsoup.parse(html);
         Elements selects = doc.select("table").get(1).select("tr").get(2).select("td");
@@ -82,11 +83,9 @@ public class Main {
         String level = selects.get(4).text();
         String getWay = selects.get(5).text();
         String image = doc.select("table").get(0).select("tr").get(0).select("img").attr("src");
-        ShikigamiModel model = new ShikigamiModel(name, image, seiyou, sex, star, getWay, level, "");
-        model.setCreateTime(new Date());
-        model.setUpdateTime(new Date());
-        return model;
-    }
+        return new ShikigamiModel(name, image, seiyou, sex, star, getWay, level, "");
 
+
+    }
 
 }

@@ -65,7 +65,7 @@ public class UserController extends BaseController {
         if (userModel == null) {
             return new Result(Err.USER_NOT_FOUND.getResultCode(), Err.USER_NOT_FOUND.getMessage());
         }
-        return new Result(userModel);
+        return new Result<>(userModel);
     }
 
     /**
@@ -83,7 +83,7 @@ public class UserController extends BaseController {
         user.setValidateCode(MD5Util.encode(user.getEmail(), ""));
         user.setSalt(salt);
         service.addUser(user);
-        return new Result(user);
+        return new Result<>(user);
     }
 
     /**
@@ -105,7 +105,7 @@ public class UserController extends BaseController {
         }
         String redirectValidateUrl = MailUtil.redirectValidateUrl(email, password);
         MailUtil.send(email, "帐号激活邮件", redirectValidateUrl);
-        return new Result(redirectValidateUrl);
+        return new Result<>(redirectValidateUrl);
     }
 
 
@@ -130,7 +130,7 @@ public class UserController extends BaseController {
         if (!MD5Util.encode(password, userModel.getSalt()).equals(userModel.getPassword())) {
             return new Result(Err.AUTH_FAILED.getResultCode(), Err.AUTH_FAILED.getMessage());
         }
-        return new Result(userModel);
+        return new Result<>(userModel);
     }
 
 
@@ -152,7 +152,7 @@ public class UserController extends BaseController {
         userByEmail.setNickName(user.getNickName());
         userByEmail.setSalt(salt);
         UserModel updateUser = service.updateUser(userByEmail);
-        return new Result(updateUser);
+        return new Result<>(updateUser);
     }
 
     /**
@@ -176,7 +176,7 @@ public class UserController extends BaseController {
         userModel.setGender(user.getGender());
         userModel.setValidateCode(MD5Util.encode(user.getEmail(), ""));
         UserModel updateUser = service.updateUser(userModel);
-        return new Result(updateUser);
+        return new Result<>(updateUser);
     }
 
     /**
@@ -191,7 +191,7 @@ public class UserController extends BaseController {
         if (pages == null || pages.size() <= 0) {
             return new Result(Err.NULL_DATA.getResultCode(), Err.NULL_DATA.getMessage());
         }
-        return new Result(pages);
+        return new Result<>(pages);
     }
 
 
@@ -211,7 +211,7 @@ public class UserController extends BaseController {
         if (userModel == null) {
             return new Result(Err.USER_NOT_FOUND.getResultCode(), Err.USER_NOT_FOUND.getMessage());
         }
-        return new Result(userModel);
+        return new Result<>(userModel);
     }
 
     /**
@@ -244,7 +244,7 @@ public class UserController extends BaseController {
         userModel.setPassword(MD5Util.encode(user.getPassword(), salt));
         userModel = service.addUser(userModel);
         LOGGER.info("用户{}使用激活码{}激活邮箱成功！", userModel.getEmail(), userModel.getValidateCode());
-        return new Result(userModel);
+        return new Result<>(userModel);
     }
 
 }

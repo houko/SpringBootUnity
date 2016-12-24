@@ -2,7 +2,7 @@ package info.xiaomo.crawler.schedule;
 
 import info.xiaomo.crawler.model.ShikigamiModel;
 import info.xiaomo.crawler.service.ShikigamaService;
-import info.xiaomo.crawler.spider.Main;
+import info.xiaomo.crawler.spider.OnnmyoujiSpider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +38,7 @@ public class ScheduledTasks {
     //每1分钟执行一次
     @Scheduled(cron = "0 */1 *  * * * ")
     public void reportCurrentByCron() {
-        List<ShikigamiModel> shikigamiModel = Main.getShikigamiModel();
+        List<ShikigamiModel> shikigamiModel = OnnmyoujiSpider.getShikigamiModel();
         shikigamiModel.forEach(shikigamaService::save);
         LOGGER.debug("开始执行任务：");
     }

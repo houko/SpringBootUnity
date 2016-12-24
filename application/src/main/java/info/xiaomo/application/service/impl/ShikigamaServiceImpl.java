@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author 小莫 (https://xiaomo.info) (https://github.com/syoubaku)
  * @created : 2016/12/24 15:54
@@ -24,6 +26,26 @@ public class ShikigamaServiceImpl implements ShikigamaService {
     @Autowired
     public ShikigamaServiceImpl(ShikigamaDao dao) {
         this.dao = dao;
+    }
+
+    @Override
+    public List<ShikigamiModel> findAll() {
+        return dao.findAll();
+    }
+
+    @Override
+    public ShikigamiModel findById(Long id) {
+        return dao.findOne(id);
+    }
+
+    @Override
+    public void del(Long id) {
+        dao.delete(id);
+    }
+
+    @Override
+    public void delByName(String name) {
+        dao.deleteByName(name);
     }
 
     @Override

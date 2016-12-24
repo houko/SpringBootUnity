@@ -21,7 +21,7 @@ public class Result<T> {
 
     private int resultCode = 200;
 
-    private String message;
+    private String message = "SUCCESS";
 
     private T data;
 

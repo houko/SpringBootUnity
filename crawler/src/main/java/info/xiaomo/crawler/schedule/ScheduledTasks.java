@@ -1,5 +1,6 @@
 package info.xiaomo.crawler.schedule;
 
+import info.xiaomo.core.untils.DownUtil;
 import info.xiaomo.crawler.model.ShikigamiModel;
 import info.xiaomo.crawler.service.ShikigamaService;
 import info.xiaomo.crawler.spider.OnnmyoujiSpider;
@@ -38,10 +39,22 @@ public class ScheduledTasks {
     //每1分钟执行一次
     @Scheduled(cron = "0 */1 *  * * * ")
     public void reportCurrentByCron() {
+        LOGGER.debug("开始执行任务：");
         List<ShikigamiModel> shikigamiModel = OnnmyoujiSpider.getShikigamiModel();
         shikigamiModel.forEach(shikigamaService::save);
-        LOGGER.debug("开始执行任务：");
     }
+
+    @Scheduled(fixedRate = 1000)
+    public void downImage() throws Exception {
+        LOGGER.debug("开始执行任务：");
+        List<ShikigamiModel> shikigamiModel = shikigamaService.findAll();
+        for (ShikigamiModel aShikigamiModel : shikigamiModel) {
+            String url = aShikigamiModel.getImage();
+            DownUtil.download(url, "C:\\Users\\xiaomo\\Desktop\\yss\\");
+            LOGGER.debug("开始下载图片:{}", url);
+        }
+    }
+
 
     private SimpleDateFormat dateFormat() {
         return new SimpleDateFormat("HH:mm:ss");

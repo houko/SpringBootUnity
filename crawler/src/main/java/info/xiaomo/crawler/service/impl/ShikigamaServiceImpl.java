@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author 小莫 (https://xiaomo.info) (https://github.com/syoubaku)
  * @created : 2016/12/24 15:54
@@ -38,5 +40,10 @@ public class ShikigamaServiceImpl implements ShikigamaService {
             dao.save(model);
             LOGGER.debug("插入数据:{}", JSON.toJSONString(model));
         }
+    }
+
+    @Override
+    public List<ShikigamiModel> findAll() {
+        return dao.findAll();
     }
 }

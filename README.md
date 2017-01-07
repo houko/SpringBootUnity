@@ -26,7 +26,7 @@
   @[小莫](http://xiaomo.info)：一个普通的技术开发者，技术过得去，还算勤勉！人在杭州，希望进网易和阿里让自己能够更快的进步,为公司贡献自己的力量。
 
 # 八、问题反馈
-1. 欢迎提[issue](https://github.com/xiaomo-info/xiaomo-info-web/issues)
+1. 欢迎提[issue](https://github.com/syoubaku/xiaomo-info-java/issues)
 2. QQ: 83387856
 4. 个人主站: https://xiaomo.info
 

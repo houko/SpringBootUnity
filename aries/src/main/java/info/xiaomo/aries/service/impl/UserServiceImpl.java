@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void delByName(String name) {
-        userDao.findByName(name);
+        userDao.deleteByName(name);
     }
 
     @Override

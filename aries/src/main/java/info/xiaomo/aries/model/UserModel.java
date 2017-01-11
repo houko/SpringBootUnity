@@ -2,7 +2,10 @@ package info.xiaomo.aries.model;
 
 import info.xiaomo.aries.base.BaseModel;
 import io.swagger.annotations.ApiModel;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -18,9 +21,9 @@ import java.io.Serializable;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
-@NoArgsConstructor
 @ApiModel(value = "用户实体类")
 public class UserModel extends BaseModel implements Serializable {
 
+    private String name;
 
 }

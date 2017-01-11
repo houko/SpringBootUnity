@@ -4,9 +4,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import info.xiaomo.core.filter.CustomDateSerializer;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -18,8 +16,6 @@ import java.util.Date;
 
 @MappedSuperclass
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @ApiModel("基类")
 public class BaseModel {
 

@@ -38,6 +38,7 @@
         <module>api</module>
         <module>crawler</module>
         <module>application</module>
+        <module>aries</module>
     </modules>
     <packaging>pom</packaging>
 

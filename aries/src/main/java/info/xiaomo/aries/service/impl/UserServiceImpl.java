@@ -3,8 +3,11 @@ package info.xiaomo.aries.service.impl;
 import info.xiaomo.aries.dao.UserDao;
 import info.xiaomo.aries.model.UserModel;
 import info.xiaomo.aries.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +18,8 @@ import java.util.List;
  */
 @Service
 public class UserServiceImpl implements UserService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
 
     private final UserDao userDao;
 
@@ -35,12 +40,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserModel> findAll() {
-        return null;
+        return userDao.findAll();
     }
 
     @Override
     public Page<UserModel> findAll(int start, int pageSize) {
-        return null;
+        return userDao.findAll(new PageRequest(start, pageSize));
     }
 
     @Override
@@ -55,10 +60,21 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void add(UserModel model) {
-
+        UserModel userModel = userDao.findByName(model.getName());
+        if (userModel != null) {
+            LOGGER.debug("用户{}己经存在", userModel.getName());
+            return;
+        }
+        userDao.save(model);
     }
 
     @Override
     public void update(UserModel model) {
+        UserModel userModel = userDao.findById(model.getId());
+        if (userModel == null) {
+            LOGGER.debug("用户{}不存在", model.getName());
+            return;
+        }
+        userDao.save(model);
     }
 }

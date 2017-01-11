@@ -54,8 +54,8 @@ public class AriesMain {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Spring Boot中使用Swagger2构建RESTful APIs")
-                .description("使用mongodb构建api接口")
+                .title("校园APP项目")
+                .description("api接口文档")
                 .termsOfServiceUrl("http://xiaomo.info/")
                 .contact("小莫")
                 .version("1.0")

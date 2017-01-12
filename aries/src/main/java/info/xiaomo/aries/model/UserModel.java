@@ -2,10 +2,7 @@ package info.xiaomo.aries.model;
 
 import info.xiaomo.aries.base.BaseModel;
 import io.swagger.annotations.ApiModel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -20,7 +17,14 @@ import javax.persistence.Table;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
+@NoArgsConstructor
 @ApiModel(value = "用户实体类")
 public class UserModel extends BaseModel {
+
+    private String school;
+
+    private String password;
+
+    private String salt;
 
 }

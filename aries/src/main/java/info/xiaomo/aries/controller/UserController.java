@@ -3,7 +3,9 @@ package info.xiaomo.aries.controller;
 import info.xiaomo.aries.base.BaseController;
 import info.xiaomo.aries.model.UserModel;
 import info.xiaomo.aries.service.UserService;
+import info.xiaomo.core.constant.Err;
 import info.xiaomo.core.controller.Result;
+import info.xiaomo.core.untils.MD5Util;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +40,7 @@ public class UserController extends BaseController<UserModel> {
         return new Result<>(all);
     }
 
-    @RequestMapping(value = "findAllWithPage", method = RequestMethod.GET)
+    @RequestMapping(value = "findAll/{start}/{pageSize}", method = RequestMethod.GET)
     @ApiOperation(value = "返回所有用户数据,带分页", notes = "返回所有用户数据,传入页码和分页数。", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @Override
     public Result<Page<UserModel>> findAll(@PathVariable int start, @PathVariable int pageSize) {
@@ -46,7 +48,7 @@ public class UserController extends BaseController<UserModel> {
         return new Result<>(all);
     }
 
-    @RequestMapping(value = "findById", method = RequestMethod.GET)
+    @RequestMapping(value = "findById/{id}", method = RequestMethod.GET)
     @ApiOperation(value = "根据Id查找数据", notes = "根据Id查找数据", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @Override
     public Result<UserModel> findById(@PathVariable Long id) {
@@ -54,7 +56,7 @@ public class UserController extends BaseController<UserModel> {
         return new Result<>(model);
     }
 
-    @RequestMapping(value = "findByName", method = RequestMethod.GET)
+    @RequestMapping(value = "findByName/{name}", method = RequestMethod.GET)
     @ApiOperation(value = "根据名字查找数据", notes = "根据名字查找数据", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @Override
     public Result<UserModel> findByName(@PathVariable String name) {
@@ -62,7 +64,7 @@ public class UserController extends BaseController<UserModel> {
         return new Result<>(model);
     }
 
-    @RequestMapping(value = "delByName", method = RequestMethod.GET)
+    @RequestMapping(value = "delByName/{name}", method = RequestMethod.GET)
     @ApiOperation(value = "根据名字删除数据", notes = "根据名字删除数据", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @Override
     public Result<Boolean> delByName(@PathVariable String name) {
@@ -70,7 +72,7 @@ public class UserController extends BaseController<UserModel> {
         return new Result<>(b);
     }
 
-    @RequestMapping(value = "delById", method = RequestMethod.GET)
+    @RequestMapping(value = "delById/{id}", method = RequestMethod.GET)
     @ApiOperation(value = "根据id删除数据", notes = "根据id删除数据", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @Override
     public Result<Boolean> delById(@PathVariable Long id) {
@@ -95,7 +97,7 @@ public class UserController extends BaseController<UserModel> {
         return new Result<>(update);
     }
 
-    @RequestMapping(value = "delByIds", method = RequestMethod.GET)
+    @RequestMapping(value = "delByIds/{ids}", method = RequestMethod.GET)
     @ApiOperation(value = "根据ids批量删除数据", notes = "根据ids批量删除数据", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @Override
     public Result<Boolean> delByIds(@PathVariable List<Long> ids) {
@@ -103,5 +105,16 @@ public class UserController extends BaseController<UserModel> {
         return new Result<>(b);
     }
 
+
+    @RequestMapping(value = "login/{name}/{password}", method = RequestMethod.POST)
+    @ApiOperation(value = "登录", notes = "登录", httpMethod = "POST", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public Result<Boolean> login(@PathVariable String name, @PathVariable String password) {
+        UserModel userModel = service.findByName(name);
+        String md5Password = MD5Util.encode(password, userModel.getSalt());
+        if (!md5Password.equals(userModel.getPassword())) {
+            return new Result<>(Err.AUTH_FAILED.getResultCode(), Err.AUTH_FAILED.getMessage(), false);
+        }
+        return new Result<>(true);
+    }
 
 }

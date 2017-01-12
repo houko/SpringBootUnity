@@ -3,6 +3,8 @@ package info.xiaomo.aries.service.impl;
 import info.xiaomo.aries.dao.UserDao;
 import info.xiaomo.aries.model.UserModel;
 import info.xiaomo.aries.service.UserService;
+import info.xiaomo.core.untils.MD5Util;
+import info.xiaomo.core.untils.RandomUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -70,6 +73,12 @@ public class UserServiceImpl implements UserService {
             LOGGER.debug("用户{}己经存在", userModel.getName());
             return false;
         }
+        model.setCreateTime(new Date());
+        model.setUpdateTime(new Date());
+        String salt = RandomUtil.createSalt();
+        String password = MD5Util.encode(model.getPassword(), salt);
+        model.setPassword(password);
+        model.setSalt(salt);
         userDao.save(model);
         return true;
     }
@@ -81,6 +90,11 @@ public class UserServiceImpl implements UserService {
             LOGGER.debug("用户{}不存在", model.getName());
             return false;
         }
+        String salt = RandomUtil.createSalt();
+        String password = MD5Util.encode(model.getPassword(), salt);
+        model.setPassword(password);
+        model.setSalt(salt);
+        model.setUpdateTime(new Date());
         userDao.save(model);
         return true;
     }

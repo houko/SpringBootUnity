@@ -1,4 +1,4 @@
-package info.xiaomo.core.controller;
+package info.xiaomo.core.base;
 
 import lombok.Data;
 

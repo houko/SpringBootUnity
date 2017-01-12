@@ -1,6 +1,6 @@
 package info.xiaomo.redis.controller;
 
-import info.xiaomo.core.controller.Result;
+import info.xiaomo.core.base.Result;
 import info.xiaomo.redis.dao.CommonRedisDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,24 +34,24 @@ public class TestController {
     }
 
     @RequestMapping(value = "get/{key}", method = RequestMethod.GET)
-    public Result find(@PathVariable("key") String key) {
+    public Result<String> find(@PathVariable("key") String key) {
         String value = dao.getValue(key);
-        return new Result(value);
+        return new Result<>(value);
     }
 
     @RequestMapping(value = "add/{key}/{value}", method = RequestMethod.GET)
-    public Result add(@PathVariable("value") String value, @PathVariable("key") String key) {
-        return new Result(dao.cacheValue(key, value));
+    public Result<Boolean> add(@PathVariable("value") String value, @PathVariable("key") String key) {
+        return new Result<>(dao.cacheValue(key, value));
     }
 
     @RequestMapping(value = "del/{key}", method = RequestMethod.GET)
-    public Result del(@PathVariable("key") String key) {
-        return new Result(dao.removeValue(key));
+    public Result<Boolean> del(@PathVariable("key") String key) {
+        return new Result<>(dao.removeValue(key));
     }
 
     @RequestMapping(value = "count/{key}", method = RequestMethod.GET)
-    public Result count(@PathVariable("key") String key) {
-        return new Result(dao.getListSize(key));
+    public Result<Long> count(@PathVariable("key") String key) {
+        return new Result<>(dao.getListSize(key));
     }
 
 

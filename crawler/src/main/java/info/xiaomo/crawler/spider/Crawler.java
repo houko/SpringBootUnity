@@ -28,7 +28,7 @@
 //        return CrawlerHolder.INSTANCE;
 //    }
 //
-//    public static void main(String[] args) throws ExecutionException, InterruptedException {
+//    public static void main(String[] args) throws ExecutionException, IntCodeuptedException {
 //        String[] urls = {"https://www.baidu.com/"};
 //        List<Future<String>> results = Crawler.getInstance().initUrl(urls).parallelDrainQueue(3);
 //        for (Future<String> future : results) {

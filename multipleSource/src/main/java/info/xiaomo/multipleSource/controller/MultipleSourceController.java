@@ -1,6 +1,6 @@
 package info.xiaomo.multipleSource.controller;
 
-import info.xiaomo.core.controller.Result;
+import info.xiaomo.core.base.Result;
 import info.xiaomo.multipleSource.sql.Sql;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -46,6 +46,6 @@ public class MultipleSourceController {
 
         int count1 = jdbcTemplate1.queryForObject(Sql.selectUser, Integer.class);
         int count2 = jdbcTemplate2.queryForObject(Sql.selectUser, Integer.class);
-        return new Result(new Object[]{count1, count2});
+        return new Result<>(new Object[]{count1, count2});
     }
 }

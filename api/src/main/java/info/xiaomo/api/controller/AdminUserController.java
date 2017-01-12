@@ -2,14 +2,15 @@ package info.xiaomo.api.controller;
 
 import info.xiaomo.api.model.AdminModel;
 import info.xiaomo.api.service.AdminUserService;
-import info.xiaomo.core.constant.Err;
-import info.xiaomo.core.controller.BaseController;
-import info.xiaomo.core.controller.Result;
+import info.xiaomo.core.constant.Code;
+import info.xiaomo.core.base.BaseController;
+import info.xiaomo.core.base.Result;
 import info.xiaomo.core.exception.UserNotFoundException;
 import info.xiaomo.core.untils.MD5Util;
 import info.xiaomo.core.untils.RandomUtil;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -67,10 +68,10 @@ public class AdminUserController extends BaseController {
     public Result login(@PathVariable("userName") String userName, @PathVariable("password") String password) {
         AdminModel adminModel = service.findAdminUserByUserName(userName);
         if (adminModel == null) {
-            return new Result(Err.USER_NOT_FOUND.getResultCode(), Err.USER_NOT_FOUND.getMessage());
+            return new Result(Code.USER_NOT_FOUND.getResultCode(), Code.USER_NOT_FOUND.getMessage());
         }
         if (!MD5Util.encode(password, adminModel.getSalt()).equals(adminModel.getPassword())) {
-            return new Result(Err.AUTH_FAILED.getResultCode(), Err.AUTH_FAILED.getMessage());
+            return new Result(Code.AUTH_FAILED.getResultCode(), Code.AUTH_FAILED.getMessage());
         }
         return new Result(adminModel);
     }
@@ -90,13 +91,13 @@ public class AdminUserController extends BaseController {
     public Result add(@RequestBody AdminModel model) {
         AdminModel adminModel = service.findAdminUserByUserName(model.getUserName());
         if (adminModel != null) {
-            return new Result(Err.ADMIN_USER_REPEAT.getResultCode(), Err.ADMIN_USER_REPEAT.getMessage());
+            return new Result(Code.ADMIN_USER_REPEAT.getResultCode(), Code.ADMIN_USER_REPEAT.getMessage());
         }
         String salt = RandomUtil.createSalt();
         model.setSalt(salt);
         model.setPassword(MD5Util.encode(model.getPassword(), salt));
         AdminModel saveModel = service.addAdminUser(model);
-        return new Result(saveModel);
+        return new Result<>(saveModel);
     }
 
     /**
@@ -117,9 +118,42 @@ public class AdminUserController extends BaseController {
     public Result findUserById(@PathVariable("id") Long id) {
         AdminModel adminModel = service.findAdminUserById(id);
         if (adminModel == null) {
-            return new Result(Err.NULL_DATA.getResultCode(), Err.NULL_DATA.getMessage());
+            return new Result(Code.NULL_DATA.getResultCode(), Code.NULL_DATA.getMessage());
         }
-        return new Result(adminModel);
+        return new Result<>(adminModel);
+    }
+
+    /**
+     * 查找所有(不带分页)
+     *
+     * @return result
+     */
+    @Override
+    public Result<List> findAll() {
+        return null;
+    }
+
+    /**
+     * 带分页
+     *
+     * @param start    起始页
+     * @param pageSize 页码数
+     * @return result
+     */
+    @Override
+    public Result<Page> findAll(@PathVariable int start, @PathVariable int pageSize) {
+        return null;
+    }
+
+    /**
+     * 根据id查看模型
+     *
+     * @param id id
+     * @return result
+     */
+    @Override
+    public Result findById(@PathVariable Long id) {
+        return null;
     }
 
     /**
@@ -140,9 +174,64 @@ public class AdminUserController extends BaseController {
     public Result findByName(@PathVariable("userName") String userName) {
         AdminModel adminModel = service.findAdminUserByUserName(userName);
         if (adminModel == null) {
-            return new Result(Err.NULL_DATA.getResultCode(), Err.NULL_DATA.getMessage());
+            return new Result(Code.NULL_DATA.getResultCode(), Code.NULL_DATA.getMessage());
         }
-        return new Result(adminModel);
+        return new Result<>(adminModel);
+    }
+
+    /**
+     * 根据名字删除模型
+     *
+     * @param name name
+     * @return result
+     */
+    @Override
+    public Result<Boolean> delByName(@PathVariable String name) {
+        return null;
+    }
+
+    /**
+     * 根据id删除模型
+     *
+     * @param id id
+     * @return result
+     */
+    @Override
+    public Result<Boolean> delById(@PathVariable Long id) {
+        return null;
+    }
+
+    /**
+     * 添加模型
+     *
+     * @param model model
+     * @return result
+     */
+    @Override
+    public Result<Boolean> add(@RequestBody Object model) {
+        return null;
+    }
+
+    /**
+     * 更新
+     *
+     * @param model model
+     * @return result
+     */
+    @Override
+    public Result<Boolean> update(@RequestBody Object model) {
+        return null;
+    }
+
+    /**
+     * 批量删除
+     *
+     * @param ids ids
+     * @return result
+     */
+    @Override
+    public Result<Boolean> delByIds(@PathVariable List ids) {
+        return null;
     }
 
     /**
@@ -160,13 +249,13 @@ public class AdminUserController extends BaseController {
     public Result changePassword(@RequestBody AdminModel model) throws UserNotFoundException {
         AdminModel adminModel = service.findAdminUserByUserName(model.getUserName());
         if (adminModel == null) {
-            return new Result(Err.NULL_DATA.getResultCode(), Err.NULL_DATA.getMessage());
+            return new Result(Code.NULL_DATA.getResultCode(), Code.NULL_DATA.getMessage());
         }
         String salt = RandomUtil.createSalt();
         adminModel.setSalt(salt);
         adminModel.setPassword(MD5Util.encode(model.getPassword(), salt));
         service.updateAdminUser(adminModel);
-        return new Result(adminModel);
+        return new Result<>(adminModel);
     }
 
 
@@ -184,9 +273,9 @@ public class AdminUserController extends BaseController {
     public Result getAll() {
         List<AdminModel> pages = service.getAdminUsers();
         if (pages == null || pages.size() <= 0) {
-            return new Result(pages);
+            return new Result<>(pages);
         }
-        return new Result(pages);
+        return new Result<>(pages);
     }
 
     /**
@@ -208,10 +297,10 @@ public class AdminUserController extends BaseController {
     public Result deleteUserById(@PathVariable("id") Long id) throws UserNotFoundException {
         AdminModel adminModel = service.findAdminUserById(id);
         if (adminModel == null) {
-            return new Result(Err.NULL_DATA.getResultCode(), Err.NULL_DATA.getMessage());
+            return new Result(Code.NULL_DATA.getResultCode(), Code.NULL_DATA.getMessage());
         }
         service.deleteAdminUserById(id);
-        return new Result(adminModel);
+        return new Result<>(adminModel);
     }
 
     /**
@@ -237,7 +326,7 @@ public class AdminUserController extends BaseController {
         }
         adminModel.setUserName(userName);
         service.updateAdminUser(adminModel);
-        return new Result(adminModel);
+        return new Result<>(adminModel);
     }
 
     /**
@@ -259,10 +348,10 @@ public class AdminUserController extends BaseController {
     public Result forbid(@PathVariable("id") Long id) throws UserNotFoundException {
         AdminModel model = service.findAdminUserById(id);
         if (model == null) {
-            return new Result(Err.NULL_DATA.getResultCode(), Err.NULL_DATA.getMessage());
+            return new Result(Code.NULL_DATA.getResultCode(), Code.NULL_DATA.getMessage());
         }
         model = service.forbidAdminUserById(id);
-        return new Result(model);
+        return new Result<>(model);
     }
 }
 

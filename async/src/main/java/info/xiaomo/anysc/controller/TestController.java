@@ -1,13 +1,13 @@
 package info.xiaomo.anysc.controller;
 
 import info.xiaomo.anysc.task.AsyncTask;
-import info.xiaomo.core.controller.BaseController;
-import info.xiaomo.core.controller.Result;
+import info.xiaomo.core.base.BaseController;
+import info.xiaomo.core.base.Result;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.concurrent.Future;
 
 /**
@@ -27,7 +27,7 @@ import java.util.concurrent.Future;
 
 @RestController
 @RequestMapping("/async")
-public class TestController extends BaseController{
+public class TestController extends BaseController {
 
     private final AsyncTask task;
 
@@ -55,8 +55,106 @@ public class TestController extends BaseController{
         long end = System.currentTimeMillis();
 
         System.out.println("任务全部完成，总耗时：" + (end - start) + "毫秒");
-        return new Result(end - start);
+        return new Result<>(end - start);
     }
 
 
+    /**
+     * 查找所有(不带分页)
+     *
+     * @return result
+     */
+    @Override
+    public Result<List> findAll() {
+        return null;
+    }
+
+    /**
+     * 带分页
+     *
+     * @param start    起始页
+     * @param pageSize 页码数
+     * @return result
+     */
+    @Override
+    public Result<Page> findAll(@PathVariable int start, @PathVariable int pageSize) {
+        return null;
+    }
+
+    /**
+     * 根据id查看模型
+     *
+     * @param id id
+     * @return result
+     */
+    @Override
+    public Result findById(@PathVariable Long id) {
+        return null;
+    }
+
+    /**
+     * 根据名字查找模型
+     *
+     * @param name name
+     * @return result
+     */
+    @Override
+    public Result findByName(@PathVariable String name) {
+        return null;
+    }
+
+    /**
+     * 根据名字删除模型
+     *
+     * @param name name
+     * @return result
+     */
+    @Override
+    public Result<Boolean> delByName(@PathVariable String name) {
+        return null;
+    }
+
+    /**
+     * 根据id删除模型
+     *
+     * @param id id
+     * @return result
+     */
+    @Override
+    public Result<Boolean> delById(@PathVariable Long id) {
+        return null;
+    }
+
+    /**
+     * 添加模型
+     *
+     * @param model model
+     * @return result
+     */
+    @Override
+    public Result<Boolean> add(@RequestBody Object model) {
+        return null;
+    }
+
+    /**
+     * 更新
+     *
+     * @param model model
+     * @return result
+     */
+    @Override
+    public Result<Boolean> update(@RequestBody Object model) {
+        return null;
+    }
+
+    /**
+     * 批量删除
+     *
+     * @param ids ids
+     * @return result
+     */
+    @Override
+    public Result<Boolean> delByIds(@PathVariable List ids) {
+        return null;
+    }
 }

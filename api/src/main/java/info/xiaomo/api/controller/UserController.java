@@ -2,10 +2,10 @@ package info.xiaomo.api.controller;
 
 import info.xiaomo.api.model.UserModel;
 import info.xiaomo.api.service.UserService;
-import info.xiaomo.core.constant.Err;
+import info.xiaomo.core.constant.Code;
 import info.xiaomo.core.constant.GenderType;
-import info.xiaomo.core.controller.BaseController;
-import info.xiaomo.core.controller.Result;
+import info.xiaomo.core.base.BaseController;
+import info.xiaomo.core.base.Result;
 import info.xiaomo.core.exception.UserNotFoundException;
 import info.xiaomo.core.untils.MD5Util;
 import info.xiaomo.core.untils.MailUtil;
@@ -17,6 +17,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -63,7 +64,7 @@ public class UserController extends BaseController {
     public Result findUserById(@PathVariable("id") Long id) {
         UserModel userModel = service.findUserById(id);
         if (userModel == null) {
-            return new Result(Err.USER_NOT_FOUND.getResultCode(), Err.USER_NOT_FOUND.getMessage());
+            return new Result(Code.USER_NOT_FOUND.getResultCode(), Code.USER_NOT_FOUND.getMessage());
         }
         return new Result<>(userModel);
     }
@@ -76,7 +77,7 @@ public class UserController extends BaseController {
     public Result addUser(@RequestBody UserModel user) {
         UserModel userModel = service.findUserByEmail(user.getEmail());
         if (userModel != null) {
-            return new Result(Err.USER_REPEAT.getResultCode(), Err.USER_REPEAT.getMessage());
+            return new Result(Code.USER_REPEAT.getResultCode(), Code.USER_REPEAT.getMessage());
         }
         String salt = RandomUtil.createSalt();
         user.setPassword(MD5Util.encode(user.getPassword(), salt));
@@ -101,7 +102,7 @@ public class UserController extends BaseController {
         UserModel userModel = service.findUserByEmail(email);
         //邮箱被占用
         if (userModel != null) {
-            return new Result(Err.USER_REPEAT.getResultCode(), Err.USER_REPEAT.getMessage());
+            return new Result(Code.USER_REPEAT.getResultCode(), Code.USER_REPEAT.getMessage());
         }
         String redirectValidateUrl = MailUtil.redirectValidateUrl(email, password);
         MailUtil.send(email, "帐号激活邮件", redirectValidateUrl);
@@ -124,11 +125,11 @@ public class UserController extends BaseController {
         UserModel userModel = service.findUserByEmail(email);
         //找不到用户
         if (userModel == null) {
-            return new Result(Err.USER_NOT_FOUND.getResultCode(), Err.USER_NOT_FOUND.getMessage());
+            return new Result(Code.USER_NOT_FOUND.getResultCode(), Code.USER_NOT_FOUND.getMessage());
         }
         //密码不正确
         if (!MD5Util.encode(password, userModel.getSalt()).equals(userModel.getPassword())) {
-            return new Result(Err.AUTH_FAILED.getResultCode(), Err.AUTH_FAILED.getMessage());
+            return new Result(Code.AUTH_FAILED.getResultCode(), Code.AUTH_FAILED.getMessage());
         }
         return new Result<>(userModel);
     }
@@ -145,7 +146,7 @@ public class UserController extends BaseController {
     public Result changePassword(@RequestBody UserModel user) throws UserNotFoundException {
         UserModel userByEmail = service.findUserByEmail(user.getEmail());
         if (userByEmail == null) {
-            return new Result(Err.USER_NOT_FOUND.getResultCode(), Err.USER_NOT_FOUND.getMessage());
+            return new Result(Code.USER_NOT_FOUND.getResultCode(), Code.USER_NOT_FOUND.getMessage());
         }
         String salt = RandomUtil.createSalt();
         userByEmail.setPassword(MD5Util.encode(user.getPassword(), salt));
@@ -166,7 +167,7 @@ public class UserController extends BaseController {
     public Result update(@RequestBody UserModel user) throws UserNotFoundException {
         UserModel userModel = service.findUserByEmail(user.getEmail());
         if (userModel == null) {
-            return new Result(Err.USER_NOT_FOUND.getResultCode(), Err.USER_NOT_FOUND.getMessage());
+            return new Result(Code.USER_NOT_FOUND.getResultCode(), Code.USER_NOT_FOUND.getMessage());
         }
         userModel = new UserModel();
         userModel.setEmail(user.getEmail());
@@ -189,7 +190,7 @@ public class UserController extends BaseController {
     public Result getAll() {
         List<UserModel> pages = service.findAll();
         if (pages == null || pages.size() <= 0) {
-            return new Result(Err.NULL_DATA.getResultCode(), Err.NULL_DATA.getMessage());
+            return new Result(Code.NULL_DATA.getResultCode(), Code.NULL_DATA.getMessage());
         }
         return new Result<>(pages);
     }
@@ -209,7 +210,7 @@ public class UserController extends BaseController {
     public Result deleteUserById(@PathVariable("id") Long id) throws UserNotFoundException {
         UserModel userModel = service.deleteUserById(id);
         if (userModel == null) {
-            return new Result(Err.USER_NOT_FOUND.getResultCode(), Err.USER_NOT_FOUND.getMessage());
+            return new Result(Code.USER_NOT_FOUND.getResultCode(), Code.USER_NOT_FOUND.getMessage());
         }
         return new Result<>(userModel);
     }
@@ -224,12 +225,12 @@ public class UserController extends BaseController {
         //数据访问层，通过email获取用户信息
         UserModel userModel = service.findUserByEmail(user.getEmail());
         if (userModel != null) {
-            return new Result(Err.USER_REPEAT.getResultCode(), Err.USER_REPEAT.getMessage());
+            return new Result(Code.USER_REPEAT.getResultCode(), Code.USER_REPEAT.getMessage());
         }
         //验证码是否过期
         if (user.getRegisterTime() + TimeUtil.ONE_DAY_IN_MILLISECONDS * 2 < TimeUtil.getNowOfMills()) {
             LOGGER.info("用户{}使用己过期的激活码{}激活邮箱失败！", user.getEmail(), user.getEmail());
-            return new Result(Err.TIME_PASSED.getResultCode(), Err.TIME_PASSED.getMessage());
+            return new Result(Code.TIME_PASSED.getResultCode(), Code.TIME_PASSED.getMessage());
         }
         //激活
         String salt = RandomUtil.createSalt();
@@ -247,4 +248,102 @@ public class UserController extends BaseController {
         return new Result<>(userModel);
     }
 
+    /**
+     * 查找所有(不带分页)
+     *
+     * @return result
+     */
+    @Override
+    public Result<List> findAll() {
+        return null;
+    }
+
+    /**
+     * 带分页
+     *
+     * @param start    起始页
+     * @param pageSize 页码数
+     * @return result
+     */
+    @Override
+    public Result<Page> findAll(@PathVariable int start, @PathVariable int pageSize) {
+        return null;
+    }
+
+    /**
+     * 根据id查看模型
+     *
+     * @param id id
+     * @return result
+     */
+    @Override
+    public Result findById(@PathVariable Long id) {
+        return null;
+    }
+
+    /**
+     * 根据名字查找模型
+     *
+     * @param name name
+     * @return result
+     */
+    @Override
+    public Result findByName(@PathVariable String name) {
+        return null;
+    }
+
+    /**
+     * 根据名字删除模型
+     *
+     * @param name name
+     * @return result
+     */
+    @Override
+    public Result<Boolean> delByName(@PathVariable String name) {
+        return null;
+    }
+
+    /**
+     * 根据id删除模型
+     *
+     * @param id id
+     * @return result
+     */
+    @Override
+    public Result<Boolean> delById(@PathVariable Long id) {
+        return null;
+    }
+
+    /**
+     * 添加模型
+     *
+     * @param model model
+     * @return result
+     */
+    @Override
+    public Result<Boolean> add(@RequestBody Object model) {
+        return null;
+    }
+
+    /**
+     * 更新
+     *
+     * @param model model
+     * @return result
+     */
+    @Override
+    public Result<Boolean> update(@RequestBody Object model) {
+        return null;
+    }
+
+    /**
+     * 批量删除
+     *
+     * @param ids ids
+     * @return result
+     */
+    @Override
+    public Result<Boolean> delByIds(@PathVariable List ids) {
+        return null;
+    }
 }

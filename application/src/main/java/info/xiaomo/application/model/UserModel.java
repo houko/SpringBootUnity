@@ -1,7 +1,7 @@
 package info.xiaomo.application.model;
 
 
-import info.xiaomo.application.base.BaseModel;
+import info.xiaomo.core.base.BaseModel;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;

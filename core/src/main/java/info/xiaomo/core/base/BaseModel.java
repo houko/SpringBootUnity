@@ -1,12 +1,15 @@
-package info.xiaomo.application.base;
+package info.xiaomo.core.base;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.MappedSuperclass;
+import java.io.Serializable;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -26,12 +29,10 @@ import javax.persistence.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ApiModel("基类")
-public abstract class BaseModel {
+public abstract class BaseModel implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "Id")
-    @ApiModelProperty(value = "id")
     private long id;
 }

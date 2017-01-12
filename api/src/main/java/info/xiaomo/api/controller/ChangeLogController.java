@@ -2,14 +2,15 @@ package info.xiaomo.api.controller;
 
 import info.xiaomo.api.model.ChangeLogModel;
 import info.xiaomo.api.service.ChangeLogService;
-import info.xiaomo.core.constant.Err;
-import info.xiaomo.core.controller.BaseController;
-import info.xiaomo.core.controller.Result;
+import info.xiaomo.core.constant.Code;
+import info.xiaomo.core.base.BaseController;
+import info.xiaomo.core.base.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -55,7 +56,7 @@ public class ChangeLogController extends BaseController {
     public Result findById(@PathVariable("id") Long id) {
         ChangeLogModel changeLogModel = service.findById(id);
         if (changeLogModel == null) {
-            return new Result(Err.NULL_DATA.getResultCode(), Err.NULL_DATA.getMessage());
+            return new Result(Code.NULL_DATA.getResultCode(), Code.NULL_DATA.getMessage());
         }
         return new Result(changeLogModel);
     }
@@ -73,9 +74,64 @@ public class ChangeLogController extends BaseController {
     public Result findByName( @PathVariable("name") String name) {
         ChangeLogModel model = service.findByName(name);
         if (model == null) {
-            return new Result(Err.NULL_DATA.getResultCode(), Err.NULL_DATA.getMessage());
+            return new Result(Code.NULL_DATA.getResultCode(), Code.NULL_DATA.getMessage());
         }
         return new Result(model);
+    }
+
+    /**
+     * 根据名字删除模型
+     *
+     * @param name name
+     * @return result
+     */
+    @Override
+    public Result<Boolean> delByName(@PathVariable String name) {
+        return null;
+    }
+
+    /**
+     * 根据id删除模型
+     *
+     * @param id id
+     * @return result
+     */
+    @Override
+    public Result<Boolean> delById(@PathVariable Long id) {
+        return null;
+    }
+
+    /**
+     * 添加模型
+     *
+     * @param model model
+     * @return result
+     */
+    @Override
+    public Result<Boolean> add(@RequestBody Object model) {
+        return null;
+    }
+
+    /**
+     * 更新
+     *
+     * @param model model
+     * @return result
+     */
+    @Override
+    public Result<Boolean> update(@RequestBody Object model) {
+        return null;
+    }
+
+    /**
+     * 批量删除
+     *
+     * @param ids ids
+     * @return result
+     */
+    @Override
+    public Result<Boolean> delByIds(@PathVariable List ids) {
+        return null;
     }
 
     /**
@@ -88,9 +144,21 @@ public class ChangeLogController extends BaseController {
     public Result findAll() {
         List<ChangeLogModel> pages = service.findAll();
         if (pages == null || pages.size() <= 0) {
-            return new Result(Err.NULL_DATA.getResultCode(), Err.NULL_DATA.getMessage());
+            return new Result(Code.NULL_DATA.getResultCode(), Code.NULL_DATA.getMessage());
         }
-        return new Result(pages);
+        return new Result<>(pages);
+    }
+
+    /**
+     * 带分页
+     *
+     * @param start    起始页
+     * @param pageSize 页码数
+     * @return result
+     */
+    @Override
+    public Result<Page> findAll(@PathVariable int start, @PathVariable int pageSize) {
+        return null;
     }
 
     /**
@@ -103,13 +171,13 @@ public class ChangeLogController extends BaseController {
     public Result add(@RequestBody ChangeLogModel model) {
         ChangeLogModel changeLogModel = service.findByName(model.getName());
         if (changeLogModel != null) {
-            return new Result(Err.REPEAT.getResultCode(), Err.REPEAT.getMessage());
+            return new Result(Code.REPEAT.getResultCode(), Code.REPEAT.getMessage());
         }
         changeLogModel = new ChangeLogModel();
         changeLogModel.setName(model.getName());
         changeLogModel.setOnlineTime(model.getOnlineTime());
         ChangeLogModel addModel = service.add(changeLogModel);
-        return new Result(addModel);
+        return new Result<>(addModel);
     }
 
 
@@ -123,12 +191,12 @@ public class ChangeLogController extends BaseController {
     public Result update(@RequestBody ChangeLogModel model) {
         ChangeLogModel changeLogModel = service.findByName(model.getName());
         if (changeLogModel == null) {
-            return new Result(Err.NULL_DATA.getResultCode(), Err.NULL_DATA.getMessage());
+            return new Result(Code.NULL_DATA.getResultCode(), Code.NULL_DATA.getMessage());
         }
         changeLogModel.setName(model.getName());
         changeLogModel.setOnlineTime(model.getOnlineTime());
         ChangeLogModel updateModel = service.update(changeLogModel);
-        return new Result(updateModel);
+        return new Result<>(updateModel);
     }
 
 
@@ -143,10 +211,10 @@ public class ChangeLogController extends BaseController {
     public Result deleteById(@PathVariable("id") Long id) {
         ChangeLogModel changeLogModel = service.findById(id);
         if (changeLogModel == null) {
-            return new Result(Err.NULL_DATA.getResultCode(), Err.NULL_DATA.getMessage());
+            return new Result(Code.NULL_DATA.getResultCode(), Code.NULL_DATA.getMessage());
         }
         ChangeLogModel delModel = service.delete(id);
-        return new Result(delModel);
+        return new Result<>(delModel);
     }
 
 

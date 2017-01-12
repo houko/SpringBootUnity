@@ -36,7 +36,7 @@ public class CommonRedisDaoImpl implements CommonRedisDao {
     /**
      * 日志记录
      */
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    private Logger LOGGER = LoggerFactory.getLogger(this.getClass());
     /**
      * 前缀
      */
@@ -66,7 +66,7 @@ public class CommonRedisDaoImpl implements CommonRedisDao {
             if (time > 0) redisTemplate.expire(key, time, TimeUnit.SECONDS);
             return true;
         } catch (Throwable t) {
-            logger.error("缓存[" + key + "]失败, value[" + v + "]", t);
+            LOGGER.error("缓存[" + key + "]失败, value[" + v + "]", t);
         }
         return false;
     }
@@ -121,7 +121,7 @@ public class CommonRedisDaoImpl implements CommonRedisDao {
         try {
             return redisTemplate.hasKey(key);
         } catch (Throwable t) {
-            logger.error("判断缓存存在失败key[" + key + ", error[" + t + "]");
+            LOGGER.error("判断缓存存在失败key[" + key + ", Codeor[" + t + "]");
         }
         return false;
     }
@@ -138,7 +138,7 @@ public class CommonRedisDaoImpl implements CommonRedisDao {
             ValueOperations<String, String> valueOps = redisTemplate.opsForValue();
             return valueOps.get(KEY_PREFIX_VALUE + k);
         } catch (Throwable t) {
-            logger.error("获取缓存失败key[" + KEY_PREFIX_VALUE + k + ", error[" + t + "]");
+            LOGGER.error("获取缓存失败key[" + KEY_PREFIX_VALUE + k + ", Codeor[" + t + "]");
         }
         return null;
     }
@@ -182,7 +182,7 @@ public class CommonRedisDaoImpl implements CommonRedisDao {
             if (time > 0) redisTemplate.expire(key, time, TimeUnit.SECONDS);
             return true;
         } catch (Throwable t) {
-            logger.error("缓存[" + key + "]失败, value[" + v + "]", t);
+            LOGGER.error("缓存[" + key + "]失败, value[" + v + "]", t);
         }
         return false;
     }
@@ -216,7 +216,7 @@ public class CommonRedisDaoImpl implements CommonRedisDao {
             if (time > 0) redisTemplate.expire(key, time, TimeUnit.SECONDS);
             return true;
         } catch (Throwable t) {
-            logger.error("缓存[" + key + "]失败, value[" + v + "]", t);
+            LOGGER.error("缓存[" + key + "]失败, value[" + v + "]", t);
         }
         return false;
     }
@@ -245,7 +245,7 @@ public class CommonRedisDaoImpl implements CommonRedisDao {
             SetOperations<String, String> setOps = redisTemplate.opsForSet();
             return setOps.members(KEY_PREFIX_SET + k);
         } catch (Throwable t) {
-            logger.error("获取set缓存失败key[" + KEY_PREFIX_SET + k + ", error[" + t + "]");
+            LOGGER.error("获取set缓存失败key[" + KEY_PREFIX_SET + k + ", Codeor[" + t + "]");
         }
         return null;
     }
@@ -267,7 +267,7 @@ public class CommonRedisDaoImpl implements CommonRedisDao {
             if (time > 0) redisTemplate.expire(key, time, TimeUnit.SECONDS);
             return true;
         } catch (Throwable t) {
-            logger.error("缓存[" + key + "]失败, value[" + v + "]", t);
+            LOGGER.error("缓存[" + key + "]失败, value[" + v + "]", t);
         }
         return false;
     }
@@ -301,7 +301,7 @@ public class CommonRedisDaoImpl implements CommonRedisDao {
             if (time > 0) redisTemplate.expire(key, time, TimeUnit.SECONDS);
             return true;
         } catch (Throwable t) {
-            logger.error("缓存[" + key + "]失败, value[" + v + "]", t);
+            LOGGER.error("缓存[" + key + "]失败, value[" + v + "]", t);
         }
         return false;
     }
@@ -332,7 +332,7 @@ public class CommonRedisDaoImpl implements CommonRedisDao {
             ListOperations<String, String> listOps = redisTemplate.opsForList();
             return listOps.range(KEY_PREFIX_LIST + k, start, end);
         } catch (Throwable t) {
-            logger.error("获取list缓存失败key[" + KEY_PREFIX_LIST + k + ", error[" + t + "]");
+            LOGGER.error("获取list缓存失败key[" + KEY_PREFIX_LIST + k + ", Codeor[" + t + "]");
         }
         return null;
     }
@@ -349,7 +349,7 @@ public class CommonRedisDaoImpl implements CommonRedisDao {
             ListOperations<String, String> listOps = redisTemplate.opsForList();
             return listOps.size(KEY_PREFIX_LIST + k);
         } catch (Throwable t) {
-            logger.error("获取list长度失败key[" + KEY_PREFIX_LIST + k + "], error[" + t + "]");
+            LOGGER.error("获取list长度失败key[" + KEY_PREFIX_LIST + k + "], Codeor[" + t + "]");
         }
         return 0;
     }
@@ -366,7 +366,7 @@ public class CommonRedisDaoImpl implements CommonRedisDao {
         try {
             return listOps.size(KEY_PREFIX_LIST + k);
         } catch (Throwable t) {
-            logger.error("获取list长度失败key[" + KEY_PREFIX_LIST + k + "], error[" + t + "]");
+            LOGGER.error("获取list长度失败key[" + KEY_PREFIX_LIST + k + "], Codeor[" + t + "]");
         }
         return 0;
     }
@@ -385,7 +385,7 @@ public class CommonRedisDaoImpl implements CommonRedisDao {
             listOps.rightPop(key);
             return true;
         } catch (Throwable t) {
-            logger.error("移除list缓存失败key[" + KEY_PREFIX_LIST + k + ", error[" + t + "]");
+            LOGGER.error("移除list缓存失败key[" + KEY_PREFIX_LIST + k + ", Codeor[" + t + "]");
         }
         return false;
     }
@@ -401,7 +401,7 @@ public class CommonRedisDaoImpl implements CommonRedisDao {
             redisTemplate.delete(key);
             return true;
         } catch (Throwable t) {
-            logger.error("获取缓存失败key[" + key + ", error[" + t + "]");
+            LOGGER.error("获取缓存失败key[" + key + ", Codeor[" + t + "]");
         }
         return false;
     }

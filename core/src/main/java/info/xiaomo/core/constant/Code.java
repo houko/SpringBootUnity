@@ -14,11 +14,11 @@ package info.xiaomo.core.constant;
  * @Description: 错误码
  * @Copyright(©) 2015 by xiaomo.
  */
-public enum Err {
+public enum Code {
     SUCCESS(200, "成功"),
     NOT_FOUNT(404, "找不到"),
     REPEAT(992, "数据重复"),
-    ERROR(993, "系统错误"),
+    CodeOR(993, "系统错误"),
     ADMIN_USER_REPEAT(994, "后台用户名重复"),
     NULL_DATA(995, "没有数据"),
     TIME_PASSED(996, "时间己过期"),
@@ -30,15 +30,15 @@ public enum Err {
     private int resultCode;
     private String message;
 
-    Err(int resultCode) {
+    Code(int resultCode) {
         this.resultCode = resultCode;
     }
 
-    Err(String message) {
+    Code(String message) {
         this.message = message;
     }
 
-    Err(int resultCode, String message) {
+    Code(int resultCode, String message) {
         this.resultCode = resultCode;
         this.message = message;
     }

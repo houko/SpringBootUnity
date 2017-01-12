@@ -1,7 +1,7 @@
 package info.xiaomo.mongodb.controller;
 
-import info.xiaomo.core.constant.Err;
-import info.xiaomo.core.controller.Result;
+import info.xiaomo.core.constant.Code;
+import info.xiaomo.core.base.Result;
 import info.xiaomo.mongodb.model.MongoUser;
 import info.xiaomo.mongodb.service.MongoUserService;
 import io.swagger.annotations.Api;
@@ -37,24 +37,24 @@ public class MongoUserController {
     @RequestMapping(value = "get/{id}", method = RequestMethod.GET)
     public Result get(@PathVariable("id") Long id) {
         MongoUser mongoUser = service.findById(id);
-        return new Result(mongoUser);
+        return new Result<>(mongoUser);
     }
 
     @RequestMapping(value = "findAll", method = RequestMethod.GET)
     public Result findAll() {
-        return new Result(service.findAll());
+        return new Result<>(service.findAll());
     }
 
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public Result add(@RequestBody MongoUser user) {
-        return new Result(service.add(user));
+        return new Result<>(service.add(user));
     }
 
     @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
     public Result delete(@PathVariable("id") Long id) {
         service.delete(id);
-        return new Result(Err.SUCCESS.getResultCode(), Err.SUCCESS.getMessage());
+        return new Result(Code.SUCCESS.getResultCode(), Code.SUCCESS.getMessage());
     }
 
 }

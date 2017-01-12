@@ -1,10 +1,10 @@
 package info.xiaomo.website.controller;
 
 import freemarker.template.Configuration;
-import info.xiaomo.core.constant.Err;
+import info.xiaomo.core.base.BaseController;
+import info.xiaomo.core.base.Result;
+import info.xiaomo.core.constant.Code;
 import info.xiaomo.core.constant.GenderType;
-import info.xiaomo.core.controller.BaseController;
-import info.xiaomo.core.controller.Result;
 import info.xiaomo.core.exception.UserNotFoundException;
 import info.xiaomo.core.untils.MD5Util;
 import info.xiaomo.core.untils.RandomUtil;
@@ -15,6 +15,7 @@ import info.xiaomo.website.util.MailUtil;
 import info.xiaomo.website.view.UserView;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -64,7 +65,7 @@ public class UserController extends BaseController {
     /**
      * 登录
      *
-     * @return result
+     * @return Result<>
      */
     @RequestMapping(value = "login", method = RequestMethod.POST)
     public String login(@RequestParam String email,
@@ -74,12 +75,12 @@ public class UserController extends BaseController {
         UserModel userModel = service.findUserByEmail(email);
         //找不到用户
         if (userModel == null) {
-            map.put("errMsg", "找不到用户");
+            map.put("CodeMsg", "找不到用户");
             return UserView.LOGIN.getName();
         }
         //密码不正确
         if (!MD5Util.encode(password, userModel.getSalt()).equals(userModel.getPassword())) {
-            map.put("errMsg", "密码不正确");
+            map.put("CodeMsg", "密码不正确");
             return UserView.LOGIN.getName();
         }
         session.setAttribute("currentUser", userModel);
@@ -90,7 +91,7 @@ public class UserController extends BaseController {
     /**
      * 注册
      *
-     * @return result
+     * @return Result<>
      */
     @RequestMapping(value = "register", method = RequestMethod.POST)
     public String register(@RequestParam("email") String email,
@@ -99,13 +100,13 @@ public class UserController extends BaseController {
         UserModel userModel = service.findUserByEmail(email);
         //邮箱被占用
         if (userModel != null) {
-            map.put("errMsg", "邮箱被占用！");
+            map.put("CodeMsg", "邮箱被占用！");
             return UserView.REGISTER.getName();
         }
         String content = MailUtil.getContent(email, password, configuration);
         boolean send = MailUtil.send(email, "帐号激活邮件", content);
         if (!send) {
-            map.put("errMsg", "邮件发送失败，请重试！");
+            map.put("CodeMsg", "邮件发送失败，请重试！");
             return UserView.REGISTER.getName();
         }
         return UserView.REGISTER_INFO.getName();
@@ -119,17 +120,17 @@ public class UserController extends BaseController {
      * @throws UserNotFoundException UserNotFoundException
      */
     @RequestMapping(value = "changePassword", method = RequestMethod.POST)
-    public Result changePassword(@RequestBody UserModel user) throws UserNotFoundException {
+    public Result<UserModel> changePassword(@RequestBody UserModel user) throws UserNotFoundException {
         UserModel userByEmail = service.findUserByEmail(user.getEmail());
         if (userByEmail == null) {
-            return new Result(Err.USER_NOT_FOUND.getResultCode(), Err.USER_NOT_FOUND.getMessage());
+            return new Result<>(Code.USER_NOT_FOUND.getResultCode(), Code.USER_NOT_FOUND.getMessage());
         }
         String salt = RandomUtil.createSalt();
         userByEmail.setPassword(MD5Util.encode(user.getPassword(), salt));
         userByEmail.setNickName(user.getNickName());
         userByEmail.setSalt(salt);
         UserModel updateUser = service.updateUser(userByEmail);
-        return new Result(updateUser);
+        return new Result<>(updateUser);
     }
 
     /**
@@ -139,10 +140,10 @@ public class UserController extends BaseController {
      * @throws UserNotFoundException UserNotFoundException
      */
     @RequestMapping(value = "update", method = RequestMethod.POST)
-    public Result update(@RequestBody UserModel user) throws UserNotFoundException {
+    public Result<UserModel> update(@RequestBody UserModel user) throws UserNotFoundException {
         UserModel userModel = service.findUserByEmail(user.getEmail());
         if (userModel == null) {
-            return new Result(Err.USER_NOT_FOUND.getResultCode(), Err.USER_NOT_FOUND.getMessage());
+            return new Result<>(Code.USER_NOT_FOUND.getResultCode(), Code.USER_NOT_FOUND.getMessage());
         }
         userModel = new UserModel();
         userModel.setEmail(user.getEmail());
@@ -151,7 +152,7 @@ public class UserController extends BaseController {
         userModel.setAddress(user.getAddress());
         userModel.setGender(user.getGender());
         UserModel updateUser = service.updateUser(userModel);
-        return new Result(updateUser);
+        return new Result<>(updateUser);
     }
 
 
@@ -170,13 +171,13 @@ public class UserController extends BaseController {
         //数据访问层，通过email获取用户信息
         UserModel userModel = service.findUserByEmail(email);
         if (userModel != null) {
-            map.put("errMsg", "邮箱己被占用");
+            map.put("CodeMsg", "邮箱己被占用");
             return UserView.REGISTER.getName();
         }
         //验证码是否过期
         if (time + TimeUtil.ONE_DAY_IN_MILLISECONDS * 2 < TimeUtil.getNowOfMills()) {
             LOGGER.info("用户{}使用己过期时间{}激活邮箱失败！", email, time);
-            map.put("errMsg", "时间己过期，请重新注册");
+            map.put("CodeMsg", "时间己过期，请重新注册");
             return UserView.REGISTER.getName();
         }
         //激活
@@ -216,46 +217,46 @@ public class UserController extends BaseController {
      * 根据id 查找用户
      *
      * @param id id
-     * @return result
+     * @return Result<>
      */
     @RequestMapping(value = "findById/{id}", method = RequestMethod.GET)
-    public Result findUserById(@PathVariable("id") Long id) {
+    public Result<UserModel> findUserById(@PathVariable("id") Long id) {
         UserModel userModel = service.findUserById(id);
         if (userModel == null) {
-            return new Result(Err.USER_NOT_FOUND.getResultCode(), Err.USER_NOT_FOUND.getMessage());
+            return new Result<>(Code.USER_NOT_FOUND.getResultCode(), Code.USER_NOT_FOUND.getMessage());
         }
-        return new Result(userModel);
+        return new Result<>(userModel);
     }
 
     /**
      * 添加用户
      */
     @RequestMapping(value = "addUser", method = RequestMethod.POST)
-    public Result addUser(@RequestBody UserModel user) {
+    public Result<UserModel> addUser(@RequestBody UserModel user) {
         UserModel userModel = service.findUserByEmail(user.getEmail());
         if (userModel != null) {
-            return new Result(Err.USER_REPEAT.getResultCode(), Err.USER_REPEAT.getMessage());
+            return new Result<>(Code.USER_REPEAT.getResultCode(), Code.USER_REPEAT.getMessage());
         }
         String salt = RandomUtil.createSalt();
         user.setPassword(MD5Util.encode(user.getPassword(), salt));
         user.setSalt(salt);
         service.addUser(user);
-        return new Result(user);
+        return new Result<>(user);
     }
 
 
     /**
      * 返回所有用户数据
      *
-     * @return result
+     * @return Result<>
      */
     @RequestMapping(value = "findAll", method = RequestMethod.GET)
-    public Result getAll() {
+    public Result<List<UserModel>> getAll() {
         List<UserModel> pages = service.findAll();
         if (pages == null || pages.size() <= 0) {
-            return new Result(Err.NULL_DATA.getResultCode(), Err.NULL_DATA.getMessage());
+            return new Result<>(Code.NULL_DATA.getResultCode(), Code.NULL_DATA.getMessage());
         }
-        return new Result(pages);
+        return new Result<>(pages);
     }
 
 
@@ -263,14 +264,105 @@ public class UserController extends BaseController {
      * 根据id删除用户
      *
      * @param id id
-     * @return result
+     * @return Result<>
      */
     @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
-    public Result deleteUserById(@PathVariable("id") Long id) throws UserNotFoundException {
+    public Result<UserModel> deleteUserById(@PathVariable("id") Long id) throws UserNotFoundException {
         UserModel userModel = service.deleteUserById(id);
         if (userModel == null) {
-            return new Result(Err.USER_NOT_FOUND.getResultCode(), Err.USER_NOT_FOUND.getMessage());
+            return new Result<>(Code.USER_NOT_FOUND.getResultCode(), Code.USER_NOT_FOUND.getMessage());
         }
-        return new Result(userModel);
+        return new Result<>(userModel);
     }
+
+
+
+    /**
+     * 查找所有(不带分页)
+     *
+     * @return result
+     */
+    @Override
+    public Result<List> findAll() {
+        return null;
+    }
+
+    /**
+     * 带分页
+     *
+     * @param start    起始页
+     * @param pageSize 页码数
+     * @return result
+     */
+    @Override
+    public Result<Page> findAll(@PathVariable int start, @PathVariable int pageSize) {
+        return null;
+    }
+
+    @Override
+    public Result<Boolean> findById(@PathVariable Long id) {
+        return null;
+    }
+
+    @Override
+    public Result<Boolean> findByName(@PathVariable String name) {
+        return null;
+    }
+
+    /**
+     * 根据名字删除模型
+     *
+     * @param name name
+     * @return result
+     */
+    @Override
+    public Result<Boolean> delByName(@PathVariable String name) {
+        return null;
+    }
+
+    /**
+     * 根据id删除模型
+     *
+     * @param id id
+     * @return result
+     */
+    @Override
+    public Result<Boolean> delById(@PathVariable Long id) {
+        return null;
+    }
+
+    /**
+     * 添加模型
+     *
+     * @param model model
+     * @return result
+     */
+    @Override
+    public Result<Boolean> add(@RequestBody Object model) {
+        return null;
+    }
+
+    /**
+     * 更新
+     *
+     * @param model model
+     * @return result
+     */
+    @Override
+    public Result<Boolean> update(@RequestBody Object model) {
+        return null;
+    }
+
+    /**
+     * 批量删除
+     *
+     * @param ids ids
+     * @return result
+     */
+    @Override
+    public Result<Boolean> delByIds(@PathVariable List ids) {
+        return null;
+    }
+
+
 }

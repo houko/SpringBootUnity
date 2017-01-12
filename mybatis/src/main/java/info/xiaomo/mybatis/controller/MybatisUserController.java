@@ -1,6 +1,6 @@
 package info.xiaomo.mybatis.controller;
 
-import info.xiaomo.core.controller.Result;
+import info.xiaomo.core.base.Result;
 import info.xiaomo.mybatis.domain.User;
 import info.xiaomo.mybatis.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,9 +36,9 @@ public class MybatisUserController {
 
 
     @RequestMapping("findAll")
-    public Result findAll() {
+    public Result<List<User>> findAll() {
         List<User> all = userMapper.findAll();
-        return new Result(all);
+        return new Result<>(all);
     }
 
 }

@@ -1,11 +1,12 @@
 package info.xiaomo.website.controller;
 
-import info.xiaomo.core.constant.Err;
-import info.xiaomo.core.controller.BaseController;
-import info.xiaomo.core.controller.Result;
+import info.xiaomo.core.constant.Code;
+import info.xiaomo.core.base.BaseController;
+import info.xiaomo.core.base.Result;
 import info.xiaomo.website.model.LinkModel;
 import info.xiaomo.website.service.LinkService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -49,7 +50,7 @@ public class LinkController extends BaseController {
     public Result findLinkById(@PathVariable("id") Long id) {
         LinkModel model = service.findById(id);
         if (model == null) {
-            return new Result(Err.NULL_DATA.getResultCode(), Err.NULL_DATA.getMessage());
+            return new Result(Code.NULL_DATA.getResultCode(), Code.NULL_DATA.getMessage());
         }
         return new Result(model);
     }
@@ -64,9 +65,64 @@ public class LinkController extends BaseController {
     public Result findByName(@PathVariable("name") String name) {
         LinkModel model = service.findByName(name);
         if (model == null) {
-            return new Result(Err.NULL_DATA.getResultCode(), Err.NULL_DATA.getMessage());
+            return new Result(Code.NULL_DATA.getResultCode(), Code.NULL_DATA.getMessage());
         }
         return new Result(model);
+    }
+
+    /**
+     * 根据名字删除模型
+     *
+     * @param name name
+     * @return result
+     */
+    @Override
+    public Result<Boolean> delByName(@PathVariable String name) {
+        return null;
+    }
+
+    /**
+     * 根据id删除模型
+     *
+     * @param id id
+     * @return result
+     */
+    @Override
+    public Result<Boolean> delById(@PathVariable Long id) {
+        return null;
+    }
+
+    /**
+     * 添加模型
+     *
+     * @param model model
+     * @return result
+     */
+    @Override
+    public Result<Boolean> add(@RequestBody Object model) {
+        return null;
+    }
+
+    /**
+     * 更新
+     *
+     * @param model model
+     * @return result
+     */
+    @Override
+    public Result<Boolean> update(@RequestBody Object model) {
+        return null;
+    }
+
+    /**
+     * 批量删除
+     *
+     * @param ids ids
+     * @return result
+     */
+    @Override
+    public Result<Boolean> delByIds(@PathVariable List ids) {
+        return null;
     }
 
 
@@ -79,9 +135,32 @@ public class LinkController extends BaseController {
     public Result findAll() {
         List<LinkModel> pages = service.findAll();
         if (pages == null || pages.size() == 0) {
-            return new Result(Err.NULL_DATA.getResultCode(), Err.NULL_DATA.getMessage());
+            return new Result(Code.NULL_DATA.getResultCode(), Code.NULL_DATA.getMessage());
         }
-        return new Result(pages);
+        return new Result<>(pages);
+    }
+
+    /**
+     * 带分页
+     *
+     * @param start    起始页
+     * @param pageSize 页码数
+     * @return result
+     */
+    @Override
+    public Result<Page> findAll(@PathVariable int start, @PathVariable int pageSize) {
+        return null;
+    }
+
+    /**
+     * 根据id查看模型
+     *
+     * @param id id
+     * @return result
+     */
+    @Override
+    public Result findById(@PathVariable Long id) {
+        return null;
     }
 
     /**
@@ -93,14 +172,14 @@ public class LinkController extends BaseController {
     public Result add(@RequestBody LinkModel model) {
         LinkModel linkModel = service.findByName(model.getName());
         if (linkModel != null) {
-            return new Result(Err.REPEAT.getResultCode(), Err.REPEAT.getMessage());
+            return new Result(Code.REPEAT.getResultCode(), Code.REPEAT.getMessage());
         }
         linkModel = new LinkModel();
         linkModel.setName(model.getName());
         linkModel.setPosition(model.getPosition());
         linkModel.setUrl(model.getUrl());
         LinkModel addModel = service.add(linkModel);
-        return new Result(addModel);
+        return new Result<>(addModel);
     }
 
     /**
@@ -112,13 +191,13 @@ public class LinkController extends BaseController {
     public Result update(@RequestBody LinkModel model) {
         LinkModel linkModel = service.findById(model.getId());
         if (linkModel == null) {
-            return new Result(Err.NULL_DATA.getResultCode(), Err.NULL_DATA.getMessage());
+            return new Result(Code.NULL_DATA.getResultCode(), Code.NULL_DATA.getMessage());
         }
         linkModel.setName(model.getName());
         linkModel.setUrl(model.getUrl());
         linkModel.setPosition(model.getPosition());
         LinkModel updateModel = service.update(linkModel);
-        return new Result(updateModel);
+        return new Result<>(updateModel);
     }
 
     /**
@@ -131,9 +210,9 @@ public class LinkController extends BaseController {
     public Result delete(@PathVariable("id") Long id) {
         LinkModel LinkModel = service.findById(id);
         if (LinkModel == null) {
-            return new Result(Err.NULL_DATA.getResultCode(), Err.NULL_DATA.getMessage());
+            return new Result(Code.NULL_DATA.getResultCode(), Code.NULL_DATA.getMessage());
         }
         LinkModel delModel = service.delete(id);
-        return new Result(delModel);
+        return new Result<>(delModel);
     }
 }

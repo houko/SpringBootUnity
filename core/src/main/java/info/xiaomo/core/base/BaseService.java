@@ -1,4 +1,4 @@
-package info.xiaomo.application.base;
+package info.xiaomo.core.base;
 
 import org.springframework.data.domain.Page;
 

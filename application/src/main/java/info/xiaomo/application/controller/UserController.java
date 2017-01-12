@@ -2,9 +2,9 @@ package info.xiaomo.application.controller;
 
 import info.xiaomo.application.model.UserModel;
 import info.xiaomo.application.service.UserService;
-import info.xiaomo.core.constant.Err;
-import info.xiaomo.core.controller.BaseController;
-import info.xiaomo.core.controller.Result;
+import info.xiaomo.core.base.BaseController;
+import info.xiaomo.core.base.Result;
+import info.xiaomo.core.constant.Code;
 import info.xiaomo.core.exception.UserNotFoundException;
 import info.xiaomo.core.untils.MD5Util;
 import info.xiaomo.core.untils.MailUtil;
@@ -14,6 +14,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,19 +50,19 @@ public class UserController extends BaseController {
      * 根据id 查找用户
      *
      * @param id id
-     * @return result
+     * @return Result<>
      */
     @ApiOperation(value = "查找用户", notes = "查找用户", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "findById/{id}", method = RequestMethod.GET)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "唯一id", required = true, dataType = "Long", paramType = "path"),
     })
-    public Result findUserById(@PathVariable("id") Long id) {
+    public Result<UserModel> findUserById(@PathVariable("id") Long id) {
         UserModel userModel = service.findUserById(id);
         if (userModel == null) {
-            return new Result(Err.USER_NOT_FOUND.getResultCode(), Err.USER_NOT_FOUND.getMessage());
+            return new Result<>(Code.USER_NOT_FOUND.getResultCode(), Code.USER_NOT_FOUND.getMessage());
         }
-        return new Result(userModel);
+        return new Result<>(userModel);
     }
 
     /**
@@ -69,22 +70,22 @@ public class UserController extends BaseController {
      */
     @ApiOperation(value = "添加用户", notes = "添加用户", httpMethod = "POST", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "addUser", method = RequestMethod.POST)
-    public Result addUser(@RequestBody UserModel user) {
+    public Result<UserModel> addUser(@RequestBody UserModel user) {
         UserModel userModel = service.findUserByEmail(user.getEmail());
         if (userModel != null) {
-            return new Result(Err.USER_REPEAT.getResultCode(), Err.USER_REPEAT.getMessage());
+            return new Result<>(Code.USER_REPEAT.getResultCode(), Code.USER_REPEAT.getMessage());
         }
         String salt = RandomUtil.createSalt();
         user.setPassword(MD5Util.encode(user.getPassword(), salt));
         user.setSalt(salt);
         service.addUser(user);
-        return new Result(user);
+        return new Result<>(user);
     }
 
     /**
      * 注册
      *
-     * @return result
+     * @return Result<>
      */
     @ApiOperation(value = "注册", notes = "注册用户并发送验证链接到邮箱", httpMethod = "POST", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ApiImplicitParams({
@@ -92,22 +93,22 @@ public class UserController extends BaseController {
             @ApiImplicitParam(name = "密码", required = true, dataType = "String", paramType = "path")
     })
     @RequestMapping(value = "register/{email}/{password}", method = RequestMethod.POST)
-    public Result register(@PathVariable("email") String email, @PathVariable("password") String password) throws Exception {
+    public Result<String> register(@PathVariable("email") String email, @PathVariable("password") String password) throws Exception {
         UserModel userModel = service.findUserByEmail(email);
         //邮箱被占用
         if (userModel != null) {
-            return new Result(Err.USER_REPEAT.getResultCode(), Err.USER_REPEAT.getMessage());
+            return new Result<>(Code.USER_REPEAT.getResultCode(), Code.USER_REPEAT.getMessage());
         }
         String redirectValidateUrl = MailUtil.redirectValidateUrl(email, password);
         MailUtil.send(email, "帐号激活邮件", redirectValidateUrl);
-        return new Result(redirectValidateUrl);
+        return new Result<>(redirectValidateUrl);
     }
 
 
     /**
      * 登录
      *
-     * @return result
+     * @return Result<>
      */
     @ApiOperation(value = "登录", notes = "登录", httpMethod = "POST", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ApiImplicitParams({
@@ -115,17 +116,17 @@ public class UserController extends BaseController {
             @ApiImplicitParam(name = "password", value = "密码", required = true, dataType = "String", paramType = "path")
     })
     @RequestMapping(value = "login/{email}/{password}", method = RequestMethod.GET)
-    public Result login(@PathVariable("email") String email, @PathVariable("password") String password) {
+    public Result<UserModel> login(@PathVariable("email") String email, @PathVariable("password") String password) {
         UserModel userModel = service.findUserByEmail(email);
         //找不到用户
         if (userModel == null) {
-            return new Result(Err.USER_NOT_FOUND.getResultCode(), Err.USER_NOT_FOUND.getMessage());
+            return new Result<>(Code.USER_NOT_FOUND.getResultCode(), Code.USER_NOT_FOUND.getMessage());
         }
         //密码不正确
         if (!MD5Util.encode(password, userModel.getSalt()).equals(userModel.getPassword())) {
-            return new Result(Err.AUTH_FAILED.getResultCode(), Err.AUTH_FAILED.getMessage());
+            return new Result<>(Code.AUTH_FAILED.getResultCode(), Code.AUTH_FAILED.getMessage());
         }
-        return new Result(userModel);
+        return new Result<>(userModel);
     }
 
 
@@ -137,17 +138,17 @@ public class UserController extends BaseController {
      */
     @ApiOperation(value = "修改密码", notes = "修改密码", httpMethod = "POST", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "changePassword", method = RequestMethod.POST)
-    public Result changePassword(@RequestBody UserModel user) throws UserNotFoundException {
+    public Result<UserModel> changePassword(@RequestBody UserModel user) throws UserNotFoundException {
         UserModel userByEmail = service.findUserByEmail(user.getEmail());
         if (userByEmail == null) {
-            return new Result(Err.USER_NOT_FOUND.getResultCode(), Err.USER_NOT_FOUND.getMessage());
+            return new Result<>(Code.USER_NOT_FOUND.getResultCode(), Code.USER_NOT_FOUND.getMessage());
         }
         String salt = RandomUtil.createSalt();
         userByEmail.setPassword(MD5Util.encode(user.getPassword(), salt));
         userByEmail.setNickName(user.getNickName());
         userByEmail.setSalt(salt);
         UserModel updateUser = service.updateUser(userByEmail);
-        return new Result(updateUser);
+        return new Result<>(updateUser);
     }
 
     /**
@@ -158,31 +159,31 @@ public class UserController extends BaseController {
      */
     @ApiOperation(value = "更新用户信息", notes = "更新用户信息", httpMethod = "POST", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "update", method = RequestMethod.POST)
-    public Result update(@RequestBody UserModel user) throws UserNotFoundException {
+    public Result<UserModel> update(@RequestBody UserModel user) throws UserNotFoundException {
         UserModel userModel = service.findUserByEmail(user.getEmail());
         if (userModel == null) {
-            return new Result(Err.USER_NOT_FOUND.getResultCode(), Err.USER_NOT_FOUND.getMessage());
+            return new Result<>(Code.USER_NOT_FOUND.getResultCode(), Code.USER_NOT_FOUND.getMessage());
         }
         userModel = new UserModel();
         userModel.setEmail(user.getEmail());
         userModel.setNickName(user.getNickName());
         UserModel updateUser = service.updateUser(userModel);
-        return new Result(updateUser);
+        return new Result<>(updateUser);
     }
 
     /**
      * 返回所有用户数据
      *
-     * @return result
+     * @return Result<>
      */
     @ApiOperation(value = "返回所有用户数据", notes = "返回所有用户数据", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "findAll", method = RequestMethod.GET)
-    public Result getAll() {
+    public Result<List<UserModel>> getAll() {
         List<UserModel> pages = service.findAll();
         if (pages == null || pages.size() <= 0) {
-            return new Result(Err.NULL_DATA.getResultCode(), Err.NULL_DATA.getMessage());
+            return new Result<>(Code.NULL_DATA.getResultCode(), Code.NULL_DATA.getMessage());
         }
-        return new Result(pages);
+        return new Result<>(pages);
     }
 
 
@@ -190,20 +191,118 @@ public class UserController extends BaseController {
      * 根据id删除用户
      *
      * @param id id
-     * @return result
+     * @return Result<>
      */
     @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
     @ApiOperation(value = "根据id删除用户", notes = "根据id删除用户", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "唯一id", required = true, dataType = "Long", paramType = "path"),
     })
-    public Result deleteUserById(@PathVariable("id") Long id) throws UserNotFoundException {
+    public Result<UserModel> deleteUserById(@PathVariable("id") Long id) throws UserNotFoundException {
         UserModel userModel = service.deleteUserById(id);
         if (userModel == null) {
-            return new Result(Err.USER_NOT_FOUND.getResultCode(), Err.USER_NOT_FOUND.getMessage());
+            return new Result<>(Code.USER_NOT_FOUND.getResultCode(), Code.USER_NOT_FOUND.getMessage());
         }
-        return new Result(userModel);
+        return new Result<>(userModel);
     }
 
 
+    /**
+     * 查找所有(不带分页)
+     *
+     * @return Result<>
+     */
+    @Override
+    public Result<List> findAll() {
+        return null;
+    }
+
+    /**
+     * 带分页
+     *
+     * @param start    起始页
+     * @param pageSize 页码数
+     * @return Result<>
+     */
+    @Override
+    public Result<Page> findAll(@PathVariable int start, @PathVariable int pageSize) {
+        return null;
+    }
+
+    /**
+     * 根据id查看模型
+     *
+     * @param id id
+     * @return Result<>
+     */
+    @Override
+    public Result findById(@PathVariable Long id) {
+        return null;
+    }
+
+    /**
+     * 根据名字查找模型
+     *
+     * @param name name
+     * @return Result<>
+     */
+    @Override
+    public Result findByName(@PathVariable String name) {
+        return null;
+    }
+
+    /**
+     * 根据名字删除模型
+     *
+     * @param name name
+     * @return Result<>
+     */
+    @Override
+    public Result delByName(@PathVariable String name) {
+        return null;
+    }
+
+    /**
+     * 根据id删除模型
+     *
+     * @param id id
+     * @return Result<>
+     */
+    @Override
+    public Result<Boolean> delById(@PathVariable Long id) {
+        return null;
+    }
+
+    /**
+     * 添加模型
+     *
+     * @param model model
+     * @return Result<>
+     */
+    @Override
+    public Result<Boolean> add(@RequestBody Object model) {
+        return null;
+    }
+
+    /**
+     * 更新
+     *
+     * @param model model
+     * @return Result<>
+     */
+    @Override
+    public Result<Boolean> update(@RequestBody Object model) {
+        return null;
+    }
+
+    /**
+     * 批量删除
+     *
+     * @param ids ids
+     * @return Result<>
+     */
+    @Override
+    public Result<Boolean> delByIds(@PathVariable List ids) {
+        return null;
+    }
 }

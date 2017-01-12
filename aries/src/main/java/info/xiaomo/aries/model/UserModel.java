@@ -9,7 +9,6 @@ import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import java.io.Serializable;
 
 /**
  * @author 小莫 (https://xiaomo.info) (https://github.com/syoubaku)
@@ -22,8 +21,6 @@ import java.io.Serializable;
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 @ApiModel(value = "用户实体类")
-public class UserModel extends BaseModel implements Serializable {
-
-    private String name;
+public class UserModel extends BaseModel {
 
 }

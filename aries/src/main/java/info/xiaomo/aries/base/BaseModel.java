@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -17,13 +18,17 @@ import java.util.Date;
 @MappedSuperclass
 @Data
 @ApiModel("基类")
-public class BaseModel {
+public class BaseModel implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "Id")
     @ApiModelProperty(value = "id")
     private long id;
+
+    @ApiModelProperty(value = "名字")
+    @Column(name = "Name")
+    private String name;
 
     @JsonSerialize(using = CustomDateSerializer.class)
     @Column(name = "CreateTime")

@@ -49,32 +49,47 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void delById(Long id) {
-        userDao.delete(id);
+    public boolean delById(Long id) {
+        try {
+            userDao.delete(id);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 
     @Override
-    public void delByName(String name) {
-        userDao.deleteByName(name);
+    public boolean delByName(String name) {
+        return userDao.deleteByName(name);
     }
 
     @Override
-    public void add(UserModel model) {
+    public boolean add(UserModel model) {
         UserModel userModel = userDao.findByName(model.getName());
         if (userModel != null) {
             LOGGER.debug("用户{}己经存在", userModel.getName());
-            return;
+            return false;
         }
         userDao.save(model);
+        return true;
     }
 
     @Override
-    public void update(UserModel model) {
+    public boolean update(UserModel model) {
         UserModel userModel = userDao.findById(model.getId());
         if (userModel == null) {
             LOGGER.debug("用户{}不存在", model.getName());
-            return;
+            return false;
         }
         userDao.save(model);
+        return true;
+    }
+
+    @Override
+    public boolean delByIds(List<Long> ids) {
+        for (Long id : ids) {
+            userDao.delete(id);
+        }
+        return true;
     }
 }

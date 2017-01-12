@@ -15,6 +15,6 @@ public interface UserDao extends JpaRepository<UserModel, Long> {
 
     UserModel findByName(String name);
 
-    void deleteByName(String name);
+    boolean deleteByName(String name);
 
 }

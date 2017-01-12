@@ -1,4 +1,4 @@
-package info.xiaomo.application.model.base;
+package info.xiaomo.application.base;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

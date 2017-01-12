@@ -4,9 +4,6 @@ package info.xiaomo.application.service;
 import info.xiaomo.application.model.UserModel;
 import info.xiaomo.core.exception.UserNotFoundException;
 import org.springframework.data.domain.Page;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -27,7 +24,6 @@ public interface UserService {
 
     UserModel findUserById(Long id);
 
-    @Transactional(isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED)
     UserModel findUserByEmail(String email);
 
     UserModel addUser(UserModel model);

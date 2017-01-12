@@ -1,6 +1,6 @@
 package info.xiaomo.crawler.model;
 
-import info.xiaomo.crawler.model.base.BaseModel;
+import info.xiaomo.core.base.BaseModel;
 import lombok.*;
 
 import javax.persistence.Entity;
@@ -19,7 +19,7 @@ import javax.persistence.Table;
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 @NoArgsConstructor
-public class ShikigamiModel extends BaseModel{
+public class ShikigamiModel extends BaseModel {
 
     /**
      * 名字

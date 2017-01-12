@@ -39,8 +39,8 @@ public class UserModel extends BaseModel implements Serializable {
     private String email;
 
     @ApiModelProperty(value = "昵称")
-    @Column(name = "NickName")
-    private String nickName;
+    @Column(name = "Name")
+    private String name;
 
     @ApiModelProperty(value = "密码")
     @Column(name = "Password")

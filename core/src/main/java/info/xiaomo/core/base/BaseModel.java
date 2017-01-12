@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -35,4 +36,13 @@ public abstract class BaseModel implements Serializable{
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "Id")
     private long id;
+
+    @Column(name = "Name")
+    private String name;
+
+    @Column(name = "CreateTime")
+    private Date createTime;
+
+    @Column(name = "UpdateTime")
+    private Date updateTime;
 }

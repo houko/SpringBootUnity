@@ -145,7 +145,7 @@ public class UserController extends BaseController {
         }
         String salt = RandomUtil.createSalt();
         userByEmail.setPassword(MD5Util.encode(user.getPassword(), salt));
-        userByEmail.setNickName(user.getNickName());
+        userByEmail.setName(user.getName());
         userByEmail.setSalt(salt);
         UserModel updateUser = service.updateUser(userByEmail);
         return new Result<>(updateUser);
@@ -166,7 +166,7 @@ public class UserController extends BaseController {
         }
         userModel = new UserModel();
         userModel.setEmail(user.getEmail());
-        userModel.setNickName(user.getNickName());
+        userModel.setName(user.getName());
         UserModel updateUser = service.updateUser(userModel);
         return new Result<>(updateUser);
     }

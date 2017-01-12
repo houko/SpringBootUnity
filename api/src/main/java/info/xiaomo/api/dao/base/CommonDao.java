@@ -1,6 +1,6 @@
 package info.xiaomo.api.dao.base;
 
-import info.xiaomo.api.model.base.BaseModel;
+import info.xiaomo.core.base.BaseModel;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 

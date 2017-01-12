@@ -52,7 +52,7 @@ public class ChangeLogController extends BaseController {
         if (changeLogModel == null) {
             return new Result(Code.NULL_DATA.getResultCode(), Code.NULL_DATA.getMessage());
         }
-        return new Result(changeLogModel);
+        return new Result<>(changeLogModel);
     }
 
     /**
@@ -66,7 +66,7 @@ public class ChangeLogController extends BaseController {
         if (model == null) {
             return new Result(Code.NULL_DATA.getResultCode(), Code.NULL_DATA.getMessage());
         }
-        return new Result(model);
+        return new Result<>(model);
     }
 
     /**

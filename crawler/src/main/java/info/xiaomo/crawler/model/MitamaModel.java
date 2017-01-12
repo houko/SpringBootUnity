@@ -1,6 +1,7 @@
 package info.xiaomo.crawler.model;
 
-import info.xiaomo.crawler.model.base.BaseModel;
+
+import info.xiaomo.core.base.BaseModel;
 
 /**
  * @author 小莫 (https://xiaomo.info) (https://github.com/syoubaku)

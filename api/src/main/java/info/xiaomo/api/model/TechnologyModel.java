@@ -2,7 +2,7 @@ package info.xiaomo.api.model;
 
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import info.xiaomo.api.model.base.BaseModel;
+import info.xiaomo.core.base.BaseModel;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;

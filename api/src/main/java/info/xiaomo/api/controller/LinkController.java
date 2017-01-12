@@ -206,7 +206,6 @@ public class LinkController extends BaseController {
         }
         linkModel = new LinkModel();
         linkModel.setName(model.getName());
-        linkModel.setPosition(model.getPosition());
         linkModel.setUrl(model.getUrl());
         LinkModel addModel = service.add(linkModel);
         return new Result<>(addModel);
@@ -226,7 +225,6 @@ public class LinkController extends BaseController {
         }
         linkModel.setName(model.getName());
         linkModel.setUrl(model.getUrl());
-        linkModel.setPosition(model.getPosition());
         LinkModel updateModel = service.update(linkModel);
         return new Result<>(updateModel);
     }

@@ -1,6 +1,6 @@
 package info.xiaomo.aries.model;
 
-import info.xiaomo.aries.base.BaseModel;
+import info.xiaomo.core.base.BaseModel;
 import io.swagger.annotations.ApiModel;
 import lombok.*;
 

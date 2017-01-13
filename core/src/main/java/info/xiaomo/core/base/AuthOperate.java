@@ -20,6 +20,16 @@ public interface AuthOperate {
      */
     Result<Boolean> login(@PathVariable String name, @PathVariable String password);
 
+
+    /**
+     * 修改密码
+     *
+     * @param name     用户名(邮箱或者电话)
+     * @param password 密码
+     * @return 结果
+     */
+    Result<Boolean> changePassword(@PathVariable String name, @PathVariable String password);
+
     /**
      * 注册
      *

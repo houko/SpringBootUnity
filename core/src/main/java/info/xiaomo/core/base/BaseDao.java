@@ -1,12 +1,13 @@
 package info.xiaomo.core.base;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 /**
  * @author 小莫 (https://xiaomo.info) (https://github.com/syoubaku)
  * @version : 2017/1/13 11:23
  */
-
+@Repository
 public interface BaseDao<T> extends JpaRepository<T, Long> {
 
     T findById(String name);

@@ -1,6 +1,7 @@
 package info.xiaomo.core.base;
 
 import org.springframework.data.domain.Page;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -8,6 +9,7 @@ import java.util.List;
  * @author 小莫 (https://xiaomo.info) (https://github.com/syoubaku)
  * @version : 2017/1/11 16:42
  */
+@Service
 public interface BaseService<T> {
 
     T findById(Long id);

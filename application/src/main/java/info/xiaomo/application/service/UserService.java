@@ -2,10 +2,7 @@ package info.xiaomo.application.service;
 
 
 import info.xiaomo.application.model.UserModel;
-import info.xiaomo.core.exception.UserNotFoundException;
-import org.springframework.data.domain.Page;
-
-import java.util.List;
+import info.xiaomo.core.base.BaseService;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -20,20 +17,7 @@ import java.util.List;
  * @Date: 2016/4/1 17:45
  * @Copyright(©) 2015 by xiaomo.
  **/
-public interface UserService {
+public interface UserService extends BaseService<UserModel> {
 
-    UserModel findUserById(Long id);
-
-    UserModel findUserByEmail(String email);
-
-    UserModel addUser(UserModel model);
-
-    UserModel updateUser(UserModel model) throws UserNotFoundException;
-
-    Page<UserModel> findAll(int start, int pageSize);
-
-    List<UserModel> findAll();
-
-    UserModel deleteUserById(Long id) throws UserNotFoundException;
 
 }

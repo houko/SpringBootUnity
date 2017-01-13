@@ -36,24 +36,20 @@ public class UserServiceImpl implements UserService {
         this.dao = dao;
     }
 
-    @Override
     public UserModel findUserById(Long id) {
         return dao.findOne(id);
     }
 
-    @Override
     public UserModel findUserByEmail(String email) {
-        return dao.findUserByEmail(email);
+        return dao.findByName(email);
     }
 
-    @Override
     public UserModel addUser(UserModel model) {
         return dao.save(model);
     }
 
-    @Override
     public UserModel updateUser(UserModel model) throws UserNotFoundException {
-        UserModel userUpdate = dao.findUserByEmail(model.getEmail());
+        UserModel userUpdate = dao.findByName(model.getEmail());
         if (userUpdate == null) {
             throw new UserNotFoundException();
         }
@@ -71,11 +67,45 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean delById(Long id) {
+        return false;
+    }
+
+    @Override
+    public boolean delByName(String name) {
+        return false;
+    }
+
+    @Override
+    public boolean add(UserModel model) {
+        return false;
+    }
+
+    @Override
+    public boolean update(UserModel model) {
+        return false;
+    }
+
+    @Override
+    public boolean delByIds(List<Long> ids) {
+        return false;
+    }
+
+    @Override
+    public UserModel findById(Long id) {
+        return null;
+    }
+
+    @Override
+    public UserModel findByName(String name) {
+        return null;
+    }
+
+    @Override
     public List<UserModel> findAll() {
         return dao.findAll();
     }
 
-    @Override
     public UserModel deleteUserById(Long id) throws UserNotFoundException {
         UserModel userModel = dao.findOne(id);
         if (userModel == null) {

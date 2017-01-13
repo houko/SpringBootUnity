@@ -37,7 +37,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/user")
 @Api(value = "UserController", description = "用户相关api")
-public class UserController extends BaseController {
+public class UserController extends BaseController<UserModel> {
 
     private final UserService service;
 
@@ -57,8 +57,8 @@ public class UserController extends BaseController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "唯一id", required = true, dataType = "Long", paramType = "path"),
     })
-    public Result<UserModel> findUserById(@PathVariable("id") Long id) {
-        UserModel userModel = service.findUserById(id);
+    public Result<UserModel> findById(@PathVariable("id") Long id) {
+        UserModel userModel = service.findById(id);
         if (userModel == null) {
             return new Result<>(Code.USER_NOT_FOUND.getResultCode(), Code.USER_NOT_FOUND.getMessage());
         }
@@ -66,20 +66,53 @@ public class UserController extends BaseController {
     }
 
     /**
+     * 根据名字查找模型
+     *
+     * @param name name
+     * @return result
+     */
+    @Override
+    public Result<UserModel> findByName(@PathVariable String name) {
+        return null;
+    }
+
+    /**
+     * 根据名字删除模型
+     *
+     * @param name name
+     * @return result
+     */
+    @Override
+    public Result<Boolean> delByName(@PathVariable String name) {
+        return null;
+    }
+
+    /**
+     * 根据id删除模型
+     *
+     * @param id id
+     * @return result
+     */
+    @Override
+    public Result<Boolean> delById(@PathVariable Long id) {
+        return null;
+    }
+
+    /**
      * 添加用户
      */
     @ApiOperation(value = "添加用户", notes = "添加用户", httpMethod = "POST", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "addUser", method = RequestMethod.POST)
-    public Result<UserModel> addUser(@RequestBody UserModel user) {
-        UserModel userModel = service.findUserByEmail(user.getEmail());
+    public Result<Boolean> add(@RequestBody UserModel user) {
+        UserModel userModel = service.findByName(user.getEmail());
         if (userModel != null) {
             return new Result<>(Code.USER_REPEAT.getResultCode(), Code.USER_REPEAT.getMessage());
         }
         String salt = RandomUtil.createSalt();
         user.setPassword(MD5Util.encode(user.getPassword(), salt));
         user.setSalt(salt);
-        service.addUser(user);
-        return new Result<>(user);
+        Boolean add = service.add(user);
+        return new Result<>(add);
     }
 
     /**
@@ -94,7 +127,7 @@ public class UserController extends BaseController {
     })
     @RequestMapping(value = "register/{email}/{password}", method = RequestMethod.POST)
     public Result<String> register(@PathVariable("email") String email, @PathVariable("password") String password) throws Exception {
-        UserModel userModel = service.findUserByEmail(email);
+        UserModel userModel = service.findByName(email);
         //邮箱被占用
         if (userModel != null) {
             return new Result<>(Code.USER_REPEAT.getResultCode(), Code.USER_REPEAT.getMessage());
@@ -117,7 +150,7 @@ public class UserController extends BaseController {
     })
     @RequestMapping(value = "login/{email}/{password}", method = RequestMethod.GET)
     public Result<UserModel> login(@PathVariable("email") String email, @PathVariable("password") String password) {
-        UserModel userModel = service.findUserByEmail(email);
+        UserModel userModel = service.findByName(email);
         //找不到用户
         if (userModel == null) {
             return new Result<>(Code.USER_NOT_FOUND.getResultCode(), Code.USER_NOT_FOUND.getMessage());
@@ -138,8 +171,8 @@ public class UserController extends BaseController {
      */
     @ApiOperation(value = "修改密码", notes = "修改密码", httpMethod = "POST", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "changePassword", method = RequestMethod.POST)
-    public Result<UserModel> changePassword(@RequestBody UserModel user) throws UserNotFoundException {
-        UserModel userByEmail = service.findUserByEmail(user.getEmail());
+    public Result<Boolean> changePassword(@RequestBody UserModel user) throws UserNotFoundException {
+        UserModel userByEmail = service.findByName(user.getEmail());
         if (userByEmail == null) {
             return new Result<>(Code.USER_NOT_FOUND.getResultCode(), Code.USER_NOT_FOUND.getMessage());
         }
@@ -147,7 +180,7 @@ public class UserController extends BaseController {
         userByEmail.setPassword(MD5Util.encode(user.getPassword(), salt));
         userByEmail.setName(user.getName());
         userByEmail.setSalt(salt);
-        UserModel updateUser = service.updateUser(userByEmail);
+        boolean updateUser = service.update(userByEmail);
         return new Result<>(updateUser);
     }
 
@@ -155,20 +188,31 @@ public class UserController extends BaseController {
      * 更新用户信息
      *
      * @return model
-     * @throws UserNotFoundException UserNotFoundException
      */
     @ApiOperation(value = "更新用户信息", notes = "更新用户信息", httpMethod = "POST", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "update", method = RequestMethod.POST)
-    public Result<UserModel> update(@RequestBody UserModel user) throws UserNotFoundException {
-        UserModel userModel = service.findUserByEmail(user.getEmail());
+    public Result<Boolean> update(@RequestBody UserModel user) {
+        UserModel userModel = service.findByName(user.getEmail());
         if (userModel == null) {
             return new Result<>(Code.USER_NOT_FOUND.getResultCode(), Code.USER_NOT_FOUND.getMessage());
         }
         userModel = new UserModel();
         userModel.setEmail(user.getEmail());
         userModel.setName(user.getName());
-        UserModel updateUser = service.updateUser(userModel);
+        boolean updateUser = service.update(userModel);
         return new Result<>(updateUser);
+    }
+
+    /**
+     * 批量删除
+     *
+     * @param ids ids
+     * @return result
+     */
+    @Override
+    public Result<Boolean> delByIds(@PathVariable List<Long> ids) {
+        Boolean aBoolean = service.delByIds(ids);
+        return new Result<>(aBoolean);
     }
 
     /**
@@ -178,12 +222,25 @@ public class UserController extends BaseController {
      */
     @ApiOperation(value = "返回所有用户数据", notes = "返回所有用户数据", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "findAll", method = RequestMethod.GET)
-    public Result<List<UserModel>> getAll() {
+    public Result<List<UserModel>> findAll() {
         List<UserModel> pages = service.findAll();
         if (pages == null || pages.size() <= 0) {
             return new Result<>(Code.NULL_DATA.getResultCode(), Code.NULL_DATA.getMessage());
         }
         return new Result<>(pages);
+    }
+
+    /**
+     * 带分页
+     *
+     * @param start    起始页
+     * @param pageSize 页码数
+     * @return result
+     */
+    @Override
+    public Result<Page<UserModel>> findAll(@PathVariable int start, @PathVariable int pageSize) {
+        Page<UserModel> all = service.findAll(start, pageSize);
+        return new Result<>(all);
     }
 
 
@@ -198,111 +255,13 @@ public class UserController extends BaseController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "唯一id", required = true, dataType = "Long", paramType = "path"),
     })
-    public Result<UserModel> deleteUserById(@PathVariable("id") Long id) throws UserNotFoundException {
-        UserModel userModel = service.deleteUserById(id);
-        if (userModel == null) {
+    public Result<Boolean> deleteUserById(@PathVariable("id") Long id) throws UserNotFoundException {
+        boolean userModel = service.delById(id);
+        if (!userModel) {
             return new Result<>(Code.USER_NOT_FOUND.getResultCode(), Code.USER_NOT_FOUND.getMessage());
         }
-        return new Result<>(userModel);
+        return new Result<>(true);
     }
 
 
-    /**
-     * 查找所有(不带分页)
-     *
-     * @return Result<>
-     */
-    @Override
-    public Result<List> findAll() {
-        return null;
-    }
-
-    /**
-     * 带分页
-     *
-     * @param start    起始页
-     * @param pageSize 页码数
-     * @return Result<>
-     */
-    @Override
-    public Result<Page> findAll(@PathVariable int start, @PathVariable int pageSize) {
-        return null;
-    }
-
-    /**
-     * 根据id查看模型
-     *
-     * @param id id
-     * @return Result<>
-     */
-    @Override
-    public Result findById(@PathVariable Long id) {
-        return null;
-    }
-
-    /**
-     * 根据名字查找模型
-     *
-     * @param name name
-     * @return Result<>
-     */
-    @Override
-    public Result findByName(@PathVariable String name) {
-        return null;
-    }
-
-    /**
-     * 根据名字删除模型
-     *
-     * @param name name
-     * @return Result<>
-     */
-    @Override
-    public Result delByName(@PathVariable String name) {
-        return null;
-    }
-
-    /**
-     * 根据id删除模型
-     *
-     * @param id id
-     * @return Result<>
-     */
-    @Override
-    public Result<Boolean> delById(@PathVariable Long id) {
-        return null;
-    }
-
-    /**
-     * 添加模型
-     *
-     * @param model model
-     * @return Result<>
-     */
-    @Override
-    public Result<Boolean> add(@RequestBody Object model) {
-        return null;
-    }
-
-    /**
-     * 更新
-     *
-     * @param model model
-     * @return Result<>
-     */
-    @Override
-    public Result<Boolean> update(@RequestBody Object model) {
-        return null;
-    }
-
-    /**
-     * 批量删除
-     *
-     * @param ids ids
-     * @return Result<>
-     */
-    @Override
-    public Result<Boolean> delByIds(@PathVariable List ids) {
-        return null;
-    }
 }

@@ -1,7 +1,7 @@
 package info.xiaomo.application.dao;
 
 import info.xiaomo.application.model.UserModel;
-import org.springframework.data.jpa.repository.JpaRepository;
+import info.xiaomo.core.base.BaseDao;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -27,7 +27,6 @@ import org.springframework.stereotype.Repository;
  */
 
 @Repository
-public interface UserDao extends JpaRepository<UserModel, Long> {
+public interface UserDao extends BaseDao<UserModel> {
 
-    UserModel findUserByEmail(String email);
 }

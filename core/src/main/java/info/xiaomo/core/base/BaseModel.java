@@ -30,12 +30,12 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public abstract class BaseModel implements Serializable{
+public abstract class BaseModel implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "Id")
-    private long id;
+    private Long id;
 
     @Column(name = "Name")
     private String name;

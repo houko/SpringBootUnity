@@ -18,13 +18,13 @@ public interface BaseService<T> {
 
     Page<T> findAll(int start, int pageSize);
 
-    boolean delById(Long id);
+    Boolean delById(Long id);
 
-    boolean delByName(String name);
+    Boolean delByName(String name);
 
-    boolean add(T model);
+    Boolean add(T model);
 
-    boolean update(T model);
+    Boolean update(T model);
 
-    boolean delByIds(List<Long> ids);
+    Boolean delByIds(List<Long> ids);
 }

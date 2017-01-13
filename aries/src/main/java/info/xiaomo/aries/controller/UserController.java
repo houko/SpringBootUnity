@@ -20,7 +20,6 @@ import java.util.List;
  * @author 小莫 (https://xiaomo.info) (https://github.com/syoubaku)
  * @version : 2017/1/11 16:40
  */
-@RestController
 @RequestMapping("/user")
 @Api(value = "UserController", description = "用户相关api")
 public class UserController extends BaseController<UserModel> {

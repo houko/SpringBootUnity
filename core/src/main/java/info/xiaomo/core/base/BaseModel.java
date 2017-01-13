@@ -1,8 +1,6 @@
 package info.xiaomo.core.base;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -24,8 +22,6 @@ import java.util.Date;
 
 @MappedSuperclass
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public abstract class BaseModel implements Serializable {
 
     @Id

@@ -10,7 +10,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BaseDao<T> extends JpaRepository<T, Long> {
 
-    T findById(String name);
+    T findById(Long id);
 
     T findByName(String name);
+
+    boolean deleteByName(String name);
 }

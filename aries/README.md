@@ -17,6 +17,6 @@
 ## 服务端
 
 - api链接：[http://api.xiaomo.info/](http://api.xiaomo.info/)
-- 服务器：
-- 开发环境：
-- 开源类库：
+- 服务器：nginx
+- 开发环境：java8
+- 开源类库：spring boot

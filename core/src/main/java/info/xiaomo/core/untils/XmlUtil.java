@@ -1,5 +1,6 @@
 package info.xiaomo.core.untils;
 
+import com.alibaba.fastjson.JSON;
 import org.dom4j.*;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
@@ -135,4 +136,8 @@ public class XmlUtil {
         return DocumentHelper.parseText(text);
     }
 
+    public static void main(String[] args) throws Exception {
+        Element parse = parse("E:\\thinkpage_cities.xls", "UTF8");
+        System.out.println(JSON.toJSONString(parse));
+    }
 }

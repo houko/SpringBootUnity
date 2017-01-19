@@ -1,6 +1,5 @@
 package info.xiaomo.core.untils;
 
-import info.xiaomo.core.other.CountryModel;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 
@@ -13,18 +12,18 @@ import java.util.Date;
 import java.util.List;
 
 public class ExcelUtil {
-
-    public static void main(String[] args) throws Exception {
-        List<List<String>> listData = getListData("E:\\thinkpage_cities.xls", 1);
-        List<CountryModel> list = new ArrayList<>();
-        for (List<String> listDatum : listData) {
-            CountryModel model = new CountryModel();
-            model.setCityName(listDatum.get(0));
-            model.setCityNameEN(listDatum.get(1));
-            list.add(model);
-        }
-        System.out.println(list);
-    }
+//
+//    public static void main(String[] args) throws Exception {
+//        List<List<String>> listData = getListData("E:\\thinkpage_cities.xls", 1);
+//        List<CountryModel> list = new ArrayList<>();
+//        for (List<String> listDatum : listData) {
+//            CountryModel model = new CountryModel();
+//            model.setCityName(listDatum.get(0));
+//            model.setCityNameEN(listDatum.get(1));
+//            list.add(model);
+//        }
+//        System.out.println(list);
+//    }
 
     public static List<List<String>> getListData(String path, int ignoreRows) throws IOException {
         File file = new File(path);

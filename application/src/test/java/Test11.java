@@ -1,15 +1,11 @@
 import info.xiaomo.application.ApplicationMain;
-import info.xiaomo.application.dao.CountryDao;
-import info.xiaomo.application.model.CountryModel;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 
 import static info.xiaomo.core.untils.ExcelUtil.getListData;
@@ -23,20 +19,20 @@ import static info.xiaomo.core.untils.ExcelUtil.getListData;
 @WebAppConfiguration // 由于是Web项目，Junit需要模拟ServletContext，因此我们需要给我们的测试类加上@WebAppConfiguration。
 public class Test11 {
 
-    @Autowired
-    private
-    CountryDao dao;
+//    @Autowired
+//    private
+//    CountryDao dao;
 
     @Test
     public void test() throws IOException {
         List<List<String>> listData = getListData("E:\\thinkpage_cities.xls", 1);
         for (List<String> listDatum : listData) {
-            CountryModel model = new CountryModel();
-            model.setCityName(listDatum.get(0));
-            model.setName(listDatum.get(1));
-            model.setCreateTime(new Date());
-            model.setUpdateTime(new Date());
-            dao.save(model);
+//            CountryModel model = new CountryModel();
+//            model.setCityName(listDatum.get(0));
+//            model.setName(listDatum.get(1));
+//            model.setCreateTime(new Date());
+//            model.setUpdateTime(new Date());
+//            dao.save(model);
         }
 
     }

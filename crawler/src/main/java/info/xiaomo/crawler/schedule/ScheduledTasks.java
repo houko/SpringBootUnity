@@ -41,7 +41,9 @@ public class ScheduledTasks {
     public void reportCurrentByCron() {
         LOGGER.debug("开始执行任务：");
         List<ShikigamiModel> shikigamiModel = OnnmyoujiSpider.getShikigamiModel();
-        shikigamiModel.forEach(shikigamaService::save);
+        for (ShikigamiModel model : shikigamiModel) {
+            shikigamaService.save(model);
+        }
     }
 
     @Scheduled(fixedRate = 1000)

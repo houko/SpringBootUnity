@@ -67,7 +67,7 @@ public class MongodbMain {
         return new ApiInfoBuilder()
                 .title("Spring Boot中使用Swagger2构建RESTful APIs")
                 .description("使用mongodb构建api接口")
-                .termsOfServiceUrl("http://blog.xiaomo.info/")
+                .termsOfServiceUrl("https://xiaomo.info/")
                 .contact("小莫")
                 .version("1.0")
                 .build();

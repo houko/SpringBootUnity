@@ -83,7 +83,7 @@ public class ApiMain {
         return new ApiInfoBuilder()
                 .title("Spring Boot中使用Swagger2构建RESTful APIs")
                 .description("api根地址：http://api.xiaomo.info:8080/")
-                .termsOfServiceUrl("http://blog.xiaomo.info/")
+                .termsOfServiceUrl("https://xiaomo.info/")
                 .contact("小莫")
                 .version("1.0")
                 .build();

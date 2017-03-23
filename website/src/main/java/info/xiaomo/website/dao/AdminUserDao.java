@@ -18,12 +18,12 @@ import org.springframework.stereotype.Repository;
  * Today the best performance  as tomorrow newest starter!
  * Created by IntelliJ IDEA.
  *
- * @author: xiaomo
- * @github: https://github.com/qq83387856
- * @email: hupengbest@163.com
- * @QQ_NO: 83387856
- * @Date: 16/4/2 13:08
- * @Copyright(©) 2015 by xiaomo.
+ * author: xiaomo
+ * github: https://github.com/syoubaku
+ * email: xiaomo@xiaomo.info
+
+ * Date: 16/4/2 13:08
+ * Copyright(©) 2015 by xiaomo.
  */
 @Repository
 public interface AdminUserDao extends JpaRepository<AdminModel, Long> {

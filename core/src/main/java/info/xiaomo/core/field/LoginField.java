@@ -6,12 +6,12 @@ package info.xiaomo.core.field;
  * Today the best performance  as tomorrow newest starter!
  * Created by IntelliJ IDEA.
  *
- * @author: xiaomo
- * @github: https://github.com/qq83387856
- * @email: hupengbest@163.com(83387856)
- * @Date: 2016/1/8 13:16
- * @Description: QQ登录常量类
- * @Copyright(©) 2015 by xiaomo.
+ * author: xiaomo
+ * github: https://github.com/syoubaku
+ * email: xiaomo@xiaomo.info(83387856)
+ * Date: 2016/1/8 13:16
+ * Description: QQ登录常量类
+ * Copyright(©) 2015 by xiaomo.
  */
 public interface LoginField {
     //qq

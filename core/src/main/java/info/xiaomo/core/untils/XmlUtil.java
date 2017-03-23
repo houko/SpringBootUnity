@@ -11,7 +11,7 @@ import java.net.URL;
 import java.util.List;
 
 /**
- * @author advance
+ * author advance
  */
 public class XmlUtil {
     /**

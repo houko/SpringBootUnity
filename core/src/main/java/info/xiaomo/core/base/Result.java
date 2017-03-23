@@ -8,13 +8,13 @@ import lombok.Data;
  * Today the best performance  as tomorrow newest starter!
  * Created by IntelliJ IDEA.
  *
- * @author: xiaomo
- * @github: https://github.com/qq83387856
- * @email: hupengbest@163.com
- * @QQ_NO: 83387856
- * @Date: 2016/10/31 15:25
- * @Description: 返回结果
- * @Copyright(©) 2015 by xiaomo.
+ * author: xiaomo
+ * github: https://github.com/syoubaku
+ * email: xiaomo@xiaomo.info
+
+ * Date: 2016/10/31 15:25
+ * Description: 返回结果
+ * Copyright(©) 2015 by xiaomo.
  */
 @Data
 public class Result<T> {

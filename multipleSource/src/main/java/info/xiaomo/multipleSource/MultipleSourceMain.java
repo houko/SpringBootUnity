@@ -17,13 +17,13 @@ import javax.sql.DataSource;
  * Today the best performance  as tomorrow newest starter!
  * Created by IntelliJ IDEA.
  *
- * @author: xiaomo
- * @github: https://github.com/qq83387856
- * @email: hupengbest@163.com
- * @QQ_NO: 83387856
- * @Date: 2016/11/16 10:34
- * @Description: 多数据源(在配置文件中自定义字段,在这里取出并创建不同的数据源)
- * @Copyright(©) 2015 by xiaomo.
+ * author: xiaomo
+ * github: https://github.com/syoubaku
+ * email: xiaomo@xiaomo.info
+
+ * Date: 2016/11/16 10:34
+ * Description: 多数据源(在配置文件中自定义字段,在这里取出并创建不同的数据源)
+ * Copyright(©) 2015 by xiaomo.
  **/
 
 @SpringBootApplication

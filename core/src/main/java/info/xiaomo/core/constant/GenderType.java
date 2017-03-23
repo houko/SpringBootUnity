@@ -6,13 +6,13 @@ package info.xiaomo.core.constant;
  * Today the best performance  as tomorrow newest starter!
  * Created by IntelliJ IDEA.
  *
- * @author: xiaomo
- * @github: https://github.com/qq83387856
- * @email: hupengbest@163.com
- * @QQ_NO: 83387856
- * @Date: 2016/1/12 16:37
- * @Description: 性别
- * @Copyright(©) 2015 by xiaomo.
+ * author: xiaomo
+ * github: https://github.com/syoubaku
+ * email: xiaomo@xiaomo.info
+
+ * Date: 2016/1/12 16:37
+ * Description: 性别
+ * Copyright(©) 2015 by xiaomo.
  **/
 public interface GenderType {
 

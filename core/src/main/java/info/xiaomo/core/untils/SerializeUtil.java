@@ -16,13 +16,13 @@ import java.io.*;
  * Today the best performance  as tomorrow newest starter!
  * Created by IntelliJ IDEA.
  *
- * @author: xiaomo
- * @github: https://github.com/qq83387856
- * @email: hupengbest@163.com
- * @QQ_NO: 83387856
- * @Date: 15/9/6 16:05
- * @Description: 序列化通用方法
- * @Copyright(©) 2015 by xiaomo.
+ * author: xiaomo
+ * github: https://github.com/syoubaku
+ * email: xiaomo@xiaomo.info
+
+ * Date: 15/9/6 16:05
+ * Description: 序列化通用方法
+ * Copyright(©) 2015 by xiaomo.
  */
 public class SerializeUtil {
 

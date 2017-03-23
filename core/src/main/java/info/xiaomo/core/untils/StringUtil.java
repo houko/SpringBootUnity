@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 /**
  * 对字符串的简单处理
  *
- * @author L.cm
+ * author L.cm
  * @date 2013-6-6 下午5:08:06
  */
 public class StringUtil extends StringUtils {

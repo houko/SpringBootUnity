@@ -15,7 +15,7 @@ import java.util.concurrent.ThreadLocalRandom;
 /**
  * 随机工具类
  *
- * @author xiaomo
+ * author xiaomo
  */
 public class RandomUtil {
     private static final Logger LOGGER = LoggerFactory.getLogger(RandomUtil.class);

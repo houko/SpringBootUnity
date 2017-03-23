@@ -5,7 +5,7 @@ import java.io.File;
 /**
  * 七牛云储存的帮助类
  *
- * @author l.cm
+ * author l.cm
  */
 public class QiniuUtil {
 

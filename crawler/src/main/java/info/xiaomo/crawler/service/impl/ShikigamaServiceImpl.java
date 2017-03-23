@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * @author 小莫 (https://xiaomo.info) (https://github.com/syoubaku)
+ * author 小莫 (https://xiaomo.info) (https://github.com/syoubaku)
  * @created : 2016/12/24 15:54
  */
 @Service

@@ -12,13 +12,13 @@ import java.io.IOException;
  * Today the best performance  as tomorrow newest starter!
  * Created by IntelliJ IDEA.
  *
- * @author: xiaomo
- * @github: https://github.com/qq83387856
- * @email: hupengbest@163.com
- * @QQ_NO: 83387856
- * @Date: 2016/4/1516:25
- * @Description:
- * @Copyright(©) 2015 by xiaomo.
+ * author: xiaomo
+ * github: https://github.com/syoubaku
+ * email: xiaomo@xiaomo.info
+
+ * Date: 2016/4/1516:25
+ * Description:
+ * Copyright(©) 2015 by xiaomo.
  **/
 @Component
 public class CORSFilter implements Filter {

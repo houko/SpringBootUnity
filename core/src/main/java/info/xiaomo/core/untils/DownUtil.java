@@ -8,7 +8,7 @@ import java.net.URL;
 import java.net.URLConnection;
 
 /**
- * @author 小莫 (https://xiaomo.info) (https://github.com/syoubaku)
+ * author 小莫 (https://xiaomo.info) (https://github.com/syoubaku)
  * @created : 2016/12/26 13:25
  */
 public class DownUtil {

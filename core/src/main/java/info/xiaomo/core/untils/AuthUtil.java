@@ -8,12 +8,12 @@ import javax.servlet.http.HttpSession;
  * Today the best performance  as tomorrow newest starter!
  * Created by IntelliJ IDEA.
  *
- * @author: xiaomo
- * @github: https://github.com/qq83387856
+ * author: xiaomo
+ * github: https://github.com/syoubaku
  * @email: xiaomo@xiaomo.info
- * @QQ_NO: 83387856
- * @Date: 2016/11/31 9:50
- * @Copyright(©) 2015 by xiaomo.
+
+ * Date: 2016/11/31 9:50
+ * Copyright(©) 2015 by xiaomo.
  **/
 
 public class AuthUtil {

@@ -6,13 +6,13 @@ package info.xiaomo.core.constant;
  * Today the best performance  as tomorrow newest starter!
  * Created by IntelliJ IDEA.
  *
- * @author: xiaomo
- * @github: https://github.com/qq83387856
- * @email: hupengbest@163.com
- * @QQ_NO: 83387856
- * @Date: 2016/10/29 10:59
- * @Description: 错误码
- * @Copyright(©) 2015 by xiaomo.
+ * author: xiaomo
+ * github: https://github.com/syoubaku
+ * email: xiaomo@xiaomo.info
+
+ * Date: 2016/10/29 10:59
+ * Description: 错误码
+ * Copyright(©) 2015 by xiaomo.
  */
 public enum Code {
     SUCCESS(200, "成功"),

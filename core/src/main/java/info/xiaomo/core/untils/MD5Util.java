@@ -16,13 +16,13 @@ import java.security.MessageDigest;
  * Today the best performance  as tomorrow newest starter!
  * Created by IntelliJ IDEA.
  *
- * @author: xiaomo
- * @github: https://github.com/qq83387856
- * @email: hupengbest@163.com
- * @QQ_NO: 83387856
- * @Date: 16/4/3 10:03
- * @Description: md5加密解密
- * @Copyright(©) 2015 by xiaomo.
+ * author: xiaomo
+ * github: https://github.com/syoubaku
+ * email: xiaomo@xiaomo.info
+
+ * Date: 16/4/3 10:03
+ * Description: md5加密解密
+ * Copyright(©) 2015 by xiaomo.
  */
 public class MD5Util {
 

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author 小莫 (https://xiaomo.info) (https://github.com/syoubaku)
+ * author 小莫 (https://xiaomo.info) (https://github.com/syoubaku)
  * @created : 2016/12/24 15:05
  * 阴阳师获取数据
  */

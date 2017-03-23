@@ -21,13 +21,13 @@ import java.util.List;
  * Today the best performance  as tomorrow newest starter!
  * Created by IntelliJ IDEA.
  *
- * @author: xiaomo
- * @github: https://github.com/qq83387856
- * @email: hupengbest@163.com
- * @QQ_NO: 83387856
- * @Date: 2016/5/6 14:21
- * @Description: 系统设置控制器
- * @Copyright(©) 2015 by xiaomo.
+ * author: xiaomo
+ * github: https://github.com/syoubaku
+ * email: xiaomo@xiaomo.info
+
+ * Date: 2016/5/6 14:21
+ * Description: 系统设置控制器
+ * Copyright(©) 2015 by xiaomo.
  **/
 @Controller
 @RequestMapping("/webSet")

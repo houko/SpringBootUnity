@@ -19,5 +19,8 @@
 4. 个人主站: https://xiaomo.info
 
 # 七. gitignore不生效的原因和解决办法
-无效的原因是：对应的目录或者文件已经被git跟踪，此时再加入.gitignore后就无效了
-解决办法： 执行 `git rm -r --cached .idea` 删掉git己经管理的idea文件
+无效的原因是：对应的目录或者文件已经被git跟踪，此时再加入.gitignore后就无效了   
+
+解决办法： 执行   
+`git rm -r --cached .idea`   
+删掉git己经管理的idea文件  

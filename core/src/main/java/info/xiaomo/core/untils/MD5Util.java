@@ -17,7 +17,7 @@ import java.security.MessageDigest;
  * Created by IntelliJ IDEA.
  *
  * author: xiaomo
- * github: https://github.com/syoubaku
+ * github: https://github.com/xiaomoinfo
  * email: xiaomo@xiaomo.info
 
  * Date: 16/4/3 10:03

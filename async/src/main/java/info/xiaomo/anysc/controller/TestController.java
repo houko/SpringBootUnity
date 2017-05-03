@@ -17,7 +17,7 @@ import java.util.concurrent.Future;
  * Created by IntelliJ IDEA.
  *
  * author: xiaomo
- * github: https://github.com/syoubaku
+ * github: https://github.com/xiaomoinfo
  * email: xiaomo@xiaomo.info
 
  * Date: 2016/11/15 15:12

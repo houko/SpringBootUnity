@@ -11,7 +11,7 @@ import java.util.List;
 import static info.xiaomo.core.untils.ExcelUtil.getListData;
 
 /**
- * author 小莫 (https://xiaomo.info) (https://github.com/syoubaku)
+ * author 小莫 (https://xiaomo.info) (https://github.com/xiaomoinfo)
  * @version : 2017/1/13 18:33
  */
 @RunWith(SpringJUnit4ClassRunner.class) // SpringJUnit支持，由此引入Spring-Test框架支持！

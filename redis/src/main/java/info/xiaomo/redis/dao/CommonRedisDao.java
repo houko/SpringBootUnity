@@ -12,7 +12,7 @@ import java.util.Set;
  * Created by IntelliJ IDEA.
  *
  * author: xiaomo
- * github: https://github.com/syoubaku
+ * github: https://github.com/xiaomoinfo
  * email: xiaomo@xiaomo.info
 
  * Date: 2016/11/14 17:59

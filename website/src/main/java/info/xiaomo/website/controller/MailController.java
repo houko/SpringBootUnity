@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Created by IntelliJ IDEA.
  *
  * author: xiaomo
- * github: https://github.com/syoubaku
+ * github: https://github.com/xiaomoinfo
  * email: xiaomo@xiaomo.info
 
  * Date: 2016/11/14 11:06

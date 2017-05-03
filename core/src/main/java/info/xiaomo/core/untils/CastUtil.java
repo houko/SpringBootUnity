@@ -13,7 +13,7 @@ import java.util.Iterator;
  * Created by IntelliJ IDEA.
  *
  * author: xiaomo
- * github: https://github.com/syoubaku
+ * github: https://github.com/xiaomoinfo
  * email: xiaomo@xiaomo.info
 
  * Date: 2016/11/22 14:55

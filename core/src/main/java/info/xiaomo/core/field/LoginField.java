@@ -7,7 +7,7 @@ package info.xiaomo.core.field;
  * Created by IntelliJ IDEA.
  *
  * author: xiaomo
- * github: https://github.com/syoubaku
+ * github: https://github.com/xiaomoinfo
  * email: xiaomo@xiaomo.info(83387856)
  * Date: 2016/1/8 13:16
  * Description: QQ登录常量类

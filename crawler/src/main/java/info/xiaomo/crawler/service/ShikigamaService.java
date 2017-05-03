@@ -5,7 +5,7 @@ import info.xiaomo.crawler.model.ShikigamiModel;
 import java.util.List;
 
 /**
- * author 小莫 (https://xiaomo.info) (https://github.com/syoubaku)
+ * author 小莫 (https://xiaomo.info) (https://github.com/xiaomoinfo)
  * @created : 2016/12/24 15:54
  */
 public interface ShikigamaService {

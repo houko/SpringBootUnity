@@ -19,7 +19,7 @@ import org.springframework.stereotype.Repository;
  * Created by IntelliJ IDEA.
  *
  * author: xiaomo
- * github: https://github.com/syoubaku
+ * github: https://github.com/xiaomoinfo
  * email: xiaomo@xiaomo.info
 
  * Date: 16/4/2 13:08

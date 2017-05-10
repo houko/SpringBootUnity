@@ -1,8 +1,8 @@
-package info.xiaomo.application.service.impl;
+package info.xiaomo.reader.service.impl;
 
-import info.xiaomo.application.dao.UserDao;
-import info.xiaomo.application.model.UserModel;
-import info.xiaomo.application.service.UserService;
+import info.xiaomo.reader.dao.UserDao;
+import info.xiaomo.reader.model.UserModel;
+import info.xiaomo.reader.service.UserService;
 import info.xiaomo.core.exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

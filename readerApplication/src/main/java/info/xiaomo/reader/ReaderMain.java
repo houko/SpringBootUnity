@@ -1,16 +1,13 @@
-package info.xiaomo.application;
+package info.xiaomo.reader;
 
 import io.swagger.annotations.ApiOperation;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.scheduling.annotation.EnableAsync;
-import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,10 +43,10 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableJpaRepositories("info.xiaomo.*.dao")
 @Controller
 @EnableSwagger2
-public class ApplicationMain {
+public class ReaderMain {
 
     public static void main(String[] args) throws Exception {
-        SpringApplication.run(ApplicationMain.class, args);
+        SpringApplication.run(ReaderMain.class, args);
     }
 
 
@@ -70,7 +67,7 @@ public class ApplicationMain {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("info.xiaomo.application"))
+                .apis(RequestHandlerSelectors.basePackage("info.xiaomo.reader"))
                 .paths(PathSelectors.any())
                 .build();
     }

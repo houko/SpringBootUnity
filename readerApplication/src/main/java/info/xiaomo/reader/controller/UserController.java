@@ -1,7 +1,7 @@
-package info.xiaomo.application.controller;
+package info.xiaomo.reader.controller;
 
-import info.xiaomo.application.model.UserModel;
-import info.xiaomo.application.service.UserService;
+import info.xiaomo.reader.model.UserModel;
+import info.xiaomo.reader.service.UserService;
 import info.xiaomo.core.base.BaseController;
 import info.xiaomo.core.base.Result;
 import info.xiaomo.core.constant.Code;

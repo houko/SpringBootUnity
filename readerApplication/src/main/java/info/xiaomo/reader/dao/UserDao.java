@@ -1,6 +1,6 @@
-package info.xiaomo.application.dao;
+package info.xiaomo.reader.dao;
 
-import info.xiaomo.application.model.UserModel;
+import info.xiaomo.reader.model.UserModel;
 import info.xiaomo.core.base.BaseDao;
 import org.springframework.stereotype.Repository;
 

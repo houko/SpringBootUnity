@@ -1,7 +1,7 @@
-package info.xiaomo.application.service;
+package info.xiaomo.reader.service;
 
 
-import info.xiaomo.application.model.UserModel;
+import info.xiaomo.reader.model.UserModel;
 import info.xiaomo.core.base.BaseService;
 
 /**

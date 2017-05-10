@@ -1,4 +1,4 @@
-package info.xiaomo.application.model;
+package info.xiaomo.reader.model;
 
 
 import info.xiaomo.core.base.BaseModel;

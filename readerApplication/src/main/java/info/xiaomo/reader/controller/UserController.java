@@ -211,7 +211,7 @@ public class UserController extends BaseController<UserModel> {
      */
     @Override
     public Result<Boolean> delByIds(@PathVariable List<Long> ids) {
-        Boolean aBoolean = service.delByIds(ids);
+        Boolean aBoolean = service.deleteByIds(ids);
         return new Result<>(aBoolean);
     }
 
@@ -256,7 +256,7 @@ public class UserController extends BaseController<UserModel> {
             @ApiImplicitParam(name = "id", value = "唯一id", required = true, dataType = "Long", paramType = "path"),
     })
     public Result<Boolean> deleteUserById(@PathVariable("id") Long id) throws UserNotFoundException {
-        boolean userModel = service.delById(id);
+        boolean userModel = service.deleteById(id);
         if (!userModel) {
             return new Result<>(Code.USER_NOT_FOUND.getResultCode(), Code.USER_NOT_FOUND.getMessage());
         }

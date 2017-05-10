@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean delById(Long id) {
+    public boolean deleteById(Long id) {
         try {
             userDao.delete(id);
         } catch (Exception e) {
@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean delByName(String name) {
+    public boolean deleteByName(String name) {
         return userDao.deleteByName(name);
     }
 
@@ -99,7 +99,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean delByIds(List<Long> ids) {
+    public boolean deleteByIds(List<Long> ids) {
         for (Long id : ids) {
             userDao.delete(id);
         }

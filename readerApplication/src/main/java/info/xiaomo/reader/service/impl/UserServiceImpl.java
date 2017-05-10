@@ -61,18 +61,33 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserModel findById(Long id) {
+        return null;
+    }
+
+    @Override
+    public UserModel findByName(String name) {
+        return null;
+    }
+
+    @Override
+    public List<UserModel> findAll() {
+        return null;
+    }
+
+    @Override
     public Page<UserModel> findAll(int start, int pageSize) {
         Sort sort = new Sort(Sort.Direction.DESC, "createTime");
         return dao.findAll(new PageRequest(start - 1, pageSize, sort));
     }
 
     @Override
-    public boolean delById(Long id) {
+    public boolean deleteById(Long id) {
         return false;
     }
 
     @Override
-    public boolean delByName(String name) {
+    public boolean deleteByName(String name) {
         return false;
     }
 
@@ -87,32 +102,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean delByIds(List<Long> ids) {
+    public boolean deleteByIds(List<Long> ids) {
         return false;
     }
 
-    @Override
-    public UserModel findById(Long id) {
-        return null;
-    }
-
-    @Override
-    public UserModel findByName(String name) {
-        return null;
-    }
-
-    @Override
-    public List<UserModel> findAll() {
-        return dao.findAll();
-    }
-
-    public UserModel deleteUserById(Long id) throws UserNotFoundException {
-        UserModel userModel = dao.findOne(id);
-        if (userModel == null) {
-            throw new UserNotFoundException();
-        }
-        dao.delete(userModel.getId());
-        return userModel;
-    }
 
 }

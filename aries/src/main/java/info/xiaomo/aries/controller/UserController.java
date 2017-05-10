@@ -67,7 +67,7 @@ public class UserController extends BaseController<UserModel> {
     @ApiOperation(value = "根据名字删除数据", notes = "根据名字删除数据", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @Override
     public Result<Boolean> delByName(@PathVariable String name) {
-        boolean b = service.delByName(name);
+        boolean b = service.deleteByName(name);
         return new Result<>(b);
     }
 
@@ -75,7 +75,7 @@ public class UserController extends BaseController<UserModel> {
     @ApiOperation(value = "根据id删除数据", notes = "根据id删除数据", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @Override
     public Result<Boolean> delById(@PathVariable Long id) {
-        boolean b = service.delById(id);
+        boolean b = service.deleteById(id);
         return new Result<>(b);
     }
 
@@ -100,7 +100,7 @@ public class UserController extends BaseController<UserModel> {
     @ApiOperation(value = "根据ids批量删除数据", notes = "根据ids批量删除数据", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @Override
     public Result<Boolean> delByIds(@PathVariable List<Long> ids) {
-        boolean b = service.delByIds(ids);
+        boolean b = service.deleteByIds(ids);
         return new Result<>(b);
     }
 

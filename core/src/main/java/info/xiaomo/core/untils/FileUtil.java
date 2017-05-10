@@ -1,7 +1,7 @@
 package info.xiaomo.core.untils;
 
-import info.xiaomo.core.constant.FileType;
-import info.xiaomo.core.constant.Symbol;
+import info.xiaomo.core.constant.FileConst;
+import info.xiaomo.core.constant.SymbolConst;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
@@ -802,17 +802,17 @@ public class FileUtil {
 
     /**
      * @param filePath filePath
-     * @return FileType
+     * @return FileConst
      * @throws IOException
      */
-    public static FileType getType(String filePath) throws IOException {
+    public static FileConst getType(String filePath) throws IOException {
         String fileHead = getFile(filePath);
         if (fileHead == null || fileHead.length() == 0) {
             return null;
         }
         fileHead = fileHead.toUpperCase();
-        FileType[] fileTypes = FileType.values();
-        for (FileType type : fileTypes) {
+        FileConst[] fileConsts = FileConst.values();
+        for (FileConst type : fileConsts) {
             if (fileHead.startsWith(type.getValue())) {
                 return type;
             }
@@ -822,8 +822,8 @@ public class FileUtil {
 
     public static String getNewFileName(String fileName, String email) {
         String FileType = FileUtil.getFileType(fileName);
-        String newName = email.split(Symbol.AT)[0];
-        return (TimeUtil.getDateNow(TimeUtil.DATE_FORMAT_STRING) + Symbol.HENGXIAN + newName + Symbol.DIAN + FileType).toLowerCase();
+        String newName = email.split(SymbolConst.AT)[0];
+        return (TimeUtil.getDateNow(TimeUtil.DATE_FORMAT_STRING) + SymbolConst.HENGXIAN + newName + SymbolConst.DIAN + FileType).toLowerCase();
     }
 
     public static boolean isImage(String imageName) {
@@ -837,7 +837,7 @@ public class FileUtil {
 
     public static void main(String args[]) throws Exception {
         System.out.println(TimeUtil.getDateNow(TimeUtil.DATE_FORMAT_STRING));
-        System.out.println(getType("E:\\oscchina\\xiaomoBlogJava\\core\\src\\main\\java\\info\\xiaomo\\core\\constant\\GenderType.java"));
+        System.out.println(getType("E:\\oscchina\\xiaomoBlogJava\\core\\src\\main\\java\\info\\xiaomo\\core\\constant\\GenderConst.java"));
     }
 
 }

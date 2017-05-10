@@ -14,7 +14,7 @@ package info.xiaomo.core.constant;
  * Description: 错误码
  * Copyright(©) 2015 by xiaomo.
  */
-public enum Code {
+public enum CodeConst {
     SUCCESS(200, "成功"),
     NOT_FOUNT(404, "找不到"),
     REPEAT(992, "数据重复"),
@@ -30,15 +30,15 @@ public enum Code {
     private int resultCode;
     private String message;
 
-    Code(int resultCode) {
+    CodeConst(int resultCode) {
         this.resultCode = resultCode;
     }
 
-    Code(String message) {
+    CodeConst(String message) {
         this.message = message;
     }
 
-    Code(int resultCode, String message) {
+    CodeConst(int resultCode, String message) {
         this.resultCode = resultCode;
         this.message = message;
     }

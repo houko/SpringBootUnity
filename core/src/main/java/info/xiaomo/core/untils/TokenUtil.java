@@ -1,8 +1,7 @@
 package info.xiaomo.core.untils;
 
 import com.alibaba.fastjson.JSONObject;
-import info.xiaomo.core.constant.Symbol;
-import org.apache.commons.lang3.RandomStringUtils;
+import info.xiaomo.core.constant.SymbolConst;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -36,8 +35,8 @@ public class TokenUtil {
                 if (m2.find()) {
                     accessToken = m2.group(1);
                 } else {
-                    String temp = string.split(Symbol.DENGHAO)[1];
-                    accessToken = temp.split(Symbol.AND)[0];
+                    String temp = string.split(SymbolConst.DENGHAO)[1];
+                    accessToken = temp.split(SymbolConst.AND)[0];
                 }
             }
         }

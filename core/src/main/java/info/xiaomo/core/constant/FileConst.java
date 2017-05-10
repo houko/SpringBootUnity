@@ -1,6 +1,6 @@
 package info.xiaomo.core.constant;
 
-public enum FileType {
+public enum FileConst {
     /**
      * JEPG.
      */
@@ -219,7 +219,7 @@ public enum FileType {
      *
      * @param value
      */
-    private FileType(String value) {
+    private FileConst(String value) {
         this.value = value;
     }
 

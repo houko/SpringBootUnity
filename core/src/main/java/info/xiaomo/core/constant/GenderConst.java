@@ -14,7 +14,7 @@ package info.xiaomo.core.constant;
  * Description: 性别
  * Copyright(©) 2015 by xiaomo.
  **/
-public interface GenderType {
+public interface GenderConst {
 
     int secret = 0;
 

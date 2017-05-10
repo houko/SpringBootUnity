@@ -1,6 +1,6 @@
 package info.xiaomo.mongodb.controller;
 
-import info.xiaomo.core.constant.Code;
+import info.xiaomo.core.constant.CodeConst;
 import info.xiaomo.core.base.Result;
 import info.xiaomo.mongodb.model.MongoUser;
 import info.xiaomo.mongodb.service.MongoUserService;
@@ -54,7 +54,7 @@ public class MongoUserController {
     @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
     public Result delete(@PathVariable("id") Long id) {
         service.delete(id);
-        return new Result(Code.SUCCESS.getResultCode(), Code.SUCCESS.getMessage());
+        return new Result(CodeConst.SUCCESS.getResultCode(), CodeConst.SUCCESS.getMessage());
     }
 
 }

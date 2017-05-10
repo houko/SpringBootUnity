@@ -1,6 +1,6 @@
 package info.xiaomo.website.controller;
 
-import info.xiaomo.core.constant.Code;
+import info.xiaomo.core.constant.CodeConst;
 import info.xiaomo.core.base.BaseController;
 import info.xiaomo.core.base.Result;
 import info.xiaomo.website.model.LinkModel;
@@ -50,7 +50,7 @@ public class LinkController extends BaseController {
     public Result findLinkById(@PathVariable("id") Long id) {
         LinkModel model = service.findById(id);
         if (model == null) {
-            return new Result(Code.NULL_DATA.getResultCode(), Code.NULL_DATA.getMessage());
+            return new Result(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
         }
         return new Result(model);
     }
@@ -65,7 +65,7 @@ public class LinkController extends BaseController {
     public Result findByName(@PathVariable("name") String name) {
         LinkModel model = service.findByName(name);
         if (model == null) {
-            return new Result(Code.NULL_DATA.getResultCode(), Code.NULL_DATA.getMessage());
+            return new Result(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
         }
         return new Result(model);
     }
@@ -135,7 +135,7 @@ public class LinkController extends BaseController {
     public Result findAll() {
         List<LinkModel> pages = service.findAll();
         if (pages == null || pages.size() == 0) {
-            return new Result(Code.NULL_DATA.getResultCode(), Code.NULL_DATA.getMessage());
+            return new Result(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
         }
         return new Result<>(pages);
     }
@@ -172,7 +172,7 @@ public class LinkController extends BaseController {
     public Result add(@RequestBody LinkModel model) {
         LinkModel linkModel = service.findByName(model.getName());
         if (linkModel != null) {
-            return new Result(Code.REPEAT.getResultCode(), Code.REPEAT.getMessage());
+            return new Result(CodeConst.REPEAT.getResultCode(), CodeConst.REPEAT.getMessage());
         }
         linkModel = new LinkModel();
         linkModel.setName(model.getName());
@@ -190,7 +190,7 @@ public class LinkController extends BaseController {
     public Result update(@RequestBody LinkModel model) {
         LinkModel linkModel = service.findById(model.getId());
         if (linkModel == null) {
-            return new Result(Code.NULL_DATA.getResultCode(), Code.NULL_DATA.getMessage());
+            return new Result(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
         }
         linkModel.setName(model.getName());
         linkModel.setUrl(model.getUrl());
@@ -208,7 +208,7 @@ public class LinkController extends BaseController {
     public Result delete(@PathVariable("id") Long id) {
         LinkModel LinkModel = service.findById(id);
         if (LinkModel == null) {
-            return new Result(Code.NULL_DATA.getResultCode(), Code.NULL_DATA.getMessage());
+            return new Result(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
         }
         LinkModel delModel = service.delete(id);
         return new Result<>(delModel);

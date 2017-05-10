@@ -2,7 +2,7 @@ package info.xiaomo.website.controller;
 
 import info.xiaomo.core.base.BaseController;
 import info.xiaomo.core.base.Result;
-import info.xiaomo.core.constant.Code;
+import info.xiaomo.core.constant.CodeConst;
 import info.xiaomo.website.model.WorksModel;
 import info.xiaomo.website.service.WorksService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +47,7 @@ public class WorksController extends BaseController {
     public Result findById(@PathVariable Long id) {
         WorksModel model = service.findById(id);
         if (model == null) {
-            return new Result(Code.NULL_DATA.getResultCode(), Code.NULL_DATA.getMessage());
+            return new Result(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
         }
         return new Result<>(model);
     }
@@ -56,7 +56,7 @@ public class WorksController extends BaseController {
     public Result findAll() {
         List<WorksModel> all = service.findAll();
         if (all == null || all.isEmpty()) {
-            return new Result(Code.NULL_DATA.getResultCode(), Code.NULL_DATA.getMessage());
+            return new Result(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
         }
         return new Result<>(all);
     }
@@ -71,7 +71,7 @@ public class WorksController extends BaseController {
     public Result findByName(@PathVariable String name) {
         WorksModel model = service.findByName(name);
         if (model == null) {
-            return new Result(Code.NULL_DATA.getResultCode(), Code.NULL_DATA.getMessage());
+            return new Result(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
         }
         return new Result<>(model);
     }
@@ -105,7 +105,7 @@ public class WorksController extends BaseController {
     public Result add(@RequestBody WorksModel model) {
         WorksModel addModel = service.findByName(model.getName());
         if (addModel != null) {
-            return new Result(Code.REPEAT.getResultCode(), Code.REPEAT.getMessage());
+            return new Result(CodeConst.REPEAT.getResultCode(), CodeConst.REPEAT.getMessage());
         }
         addModel = service.add(model);
         return new Result<>(addModel);
@@ -115,7 +115,7 @@ public class WorksController extends BaseController {
     public Result update(@RequestBody WorksModel model) {
         WorksModel worksModel = service.findById(model.getId());
         if (worksModel == null) {
-            return new Result(Code.CodeOR.getResultCode(), Code.CodeOR.getMessage());
+            return new Result(CodeConst.CodeOR.getResultCode(), CodeConst.CodeOR.getMessage());
         }
         worksModel = service.update(worksModel);
         return new Result<>(worksModel);
@@ -126,7 +126,7 @@ public class WorksController extends BaseController {
     public Result delete(@PathVariable Long id) {
         WorksModel model = service.findById(id);
         if (model == null) {
-            return new Result(Code.NULL_DATA.getResultCode(), Code.NULL_DATA.getMessage());
+            return new Result(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
         }
         service.del(id);
         return new Result<>(model);

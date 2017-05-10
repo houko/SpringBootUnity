@@ -1,6 +1,6 @@
 package info.xiaomo.core.constant;
 
-public class Symbol {
+public class SymbolConst {
     public static final String JINHAO = "#";
     public static final String AND = "&";
     public static final String SHUXIAN = "\\|";

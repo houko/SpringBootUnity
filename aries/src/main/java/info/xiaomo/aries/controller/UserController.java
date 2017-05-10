@@ -4,7 +4,7 @@ import info.xiaomo.aries.model.UserModel;
 import info.xiaomo.aries.service.UserService;
 import info.xiaomo.core.base.BaseController;
 import info.xiaomo.core.base.Result;
-import info.xiaomo.core.constant.Code;
+import info.xiaomo.core.constant.CodeConst;
 import info.xiaomo.core.untils.MD5Util;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -111,7 +111,7 @@ public class UserController extends BaseController<UserModel> {
         UserModel userModel = service.findByName(name);
         String md5Password = MD5Util.encode(password, userModel.getSalt());
         if (!md5Password.equals(userModel.getPassword())) {
-            return new Result<>(Code.AUTH_FAILED.getResultCode(), Code.AUTH_FAILED.getMessage(), false);
+            return new Result<>(CodeConst.AUTH_FAILED.getResultCode(), CodeConst.AUTH_FAILED.getMessage(), false);
         }
         return new Result<>(true);
     }

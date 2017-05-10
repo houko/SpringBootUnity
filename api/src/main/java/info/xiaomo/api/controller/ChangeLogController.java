@@ -2,7 +2,7 @@ package info.xiaomo.api.controller;
 
 import info.xiaomo.api.model.ChangeLogModel;
 import info.xiaomo.api.service.ChangeLogService;
-import info.xiaomo.core.constant.Code;
+import info.xiaomo.core.constant.CodeConst;
 import info.xiaomo.core.base.BaseController;
 import info.xiaomo.core.base.Result;
 import io.swagger.annotations.Api;
@@ -56,7 +56,7 @@ public class ChangeLogController extends BaseController {
     public Result findById(@PathVariable("id") Long id) {
         ChangeLogModel changeLogModel = service.findById(id);
         if (changeLogModel == null) {
-            return new Result(Code.NULL_DATA.getResultCode(), Code.NULL_DATA.getMessage());
+            return new Result(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
         }
         return new Result(changeLogModel);
     }
@@ -74,7 +74,7 @@ public class ChangeLogController extends BaseController {
     public Result findByName( @PathVariable("name") String name) {
         ChangeLogModel model = service.findByName(name);
         if (model == null) {
-            return new Result(Code.NULL_DATA.getResultCode(), Code.NULL_DATA.getMessage());
+            return new Result(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
         }
         return new Result(model);
     }
@@ -144,7 +144,7 @@ public class ChangeLogController extends BaseController {
     public Result findAll() {
         List<ChangeLogModel> pages = service.findAll();
         if (pages == null || pages.size() <= 0) {
-            return new Result(Code.NULL_DATA.getResultCode(), Code.NULL_DATA.getMessage());
+            return new Result(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
         }
         return new Result<>(pages);
     }
@@ -171,7 +171,7 @@ public class ChangeLogController extends BaseController {
     public Result add(@RequestBody ChangeLogModel model) {
         ChangeLogModel changeLogModel = service.findByName(model.getName());
         if (changeLogModel != null) {
-            return new Result(Code.REPEAT.getResultCode(), Code.REPEAT.getMessage());
+            return new Result(CodeConst.REPEAT.getResultCode(), CodeConst.REPEAT.getMessage());
         }
         changeLogModel = new ChangeLogModel();
         changeLogModel.setName(model.getName());
@@ -191,7 +191,7 @@ public class ChangeLogController extends BaseController {
     public Result update(@RequestBody ChangeLogModel model) {
         ChangeLogModel changeLogModel = service.findByName(model.getName());
         if (changeLogModel == null) {
-            return new Result(Code.NULL_DATA.getResultCode(), Code.NULL_DATA.getMessage());
+            return new Result(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
         }
         changeLogModel.setName(model.getName());
         changeLogModel.setOnlineTime(model.getOnlineTime());
@@ -211,7 +211,7 @@ public class ChangeLogController extends BaseController {
     public Result deleteById(@PathVariable("id") Long id) {
         ChangeLogModel changeLogModel = service.findById(id);
         if (changeLogModel == null) {
-            return new Result(Code.NULL_DATA.getResultCode(), Code.NULL_DATA.getMessage());
+            return new Result(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
         }
         ChangeLogModel delModel = service.delete(id);
         return new Result<>(delModel);

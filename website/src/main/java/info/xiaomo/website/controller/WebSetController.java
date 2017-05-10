@@ -1,6 +1,6 @@
 package info.xiaomo.website.controller;
 
-import info.xiaomo.core.constant.Code;
+import info.xiaomo.core.constant.CodeConst;
 import info.xiaomo.core.base.BaseController;
 import info.xiaomo.core.base.Result;
 import info.xiaomo.website.model.SystemSetModel;
@@ -49,7 +49,7 @@ public class WebSetController extends BaseController {
     public Result findAll() {
         List<SystemSetModel> list = service.findAll();
         if (list.isEmpty() || list.size() == 0) {
-            return new Result(Code.NULL_DATA.getResultCode(), Code.NULL_DATA.getMessage());
+            return new Result(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
         }
         return new Result<>(list);
 
@@ -154,7 +154,7 @@ public class WebSetController extends BaseController {
     public Result update(@RequestBody SystemSetModel systemSetModel) {
         List<SystemSetModel> all = service.findAll();
         if (all.size() > 1) {
-            return new Result(Code.CodeOR.getResultCode(), Code.CodeOR.getMessage());
+            return new Result(CodeConst.CodeOR.getResultCode(), CodeConst.CodeOR.getMessage());
         }
         for (SystemSetModel setModel : all) {
             setModel.setSiteName(systemSetModel.getSiteName());
@@ -166,6 +166,6 @@ public class WebSetController extends BaseController {
             SystemSetModel add = service.update(setModel);
             return new Result<>(add);
         }
-        return new Result(Code.CodeOR.getResultCode(), Code.CodeOR.getMessage());
+        return new Result(CodeConst.CodeOR.getResultCode(), CodeConst.CodeOR.getMessage());
     }
 }

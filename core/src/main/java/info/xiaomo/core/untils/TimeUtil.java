@@ -1,7 +1,7 @@
 package info.xiaomo.core.untils;
 
 
-import info.xiaomo.core.constant.Symbol;
+import info.xiaomo.core.constant.SymbolConst;
 import org.apache.commons.lang3.time.DateUtils;
 import org.apache.commons.lang3.time.FastDateFormat;
 import org.slf4j.Logger;
@@ -48,7 +48,7 @@ public class TimeUtil {
     public static final String YEAR = "yyyy";
     public static final String MONTH = "MM";
     public static final String DAY = "dd";
-    public static final String DATE = MONTH + Symbol.HENGXIAN + DAY;
+    public static final String DATE = MONTH + SymbolConst.HENGXIAN + DAY;
 
     public static final String TIME_PATTERN = DATE_PATTERN_WITH_HENGXIAN + " HH:mm:ss";
     public static final String DATE_PATTERN = " HH:mm:ss";
@@ -118,10 +118,10 @@ public class TimeUtil {
     public static Date convertStringToDate(String datePattern, String strDate) {
         SimpleDateFormat df;
         Date date;
-        if (strDate.split(Symbol.HENGXIAN).length < 2) {//传入的时间是以 / 分割
-            strDate = strDate.replace(Symbol.ZHENGXIEXIAN, Symbol.HENGXIAN);
+        if (strDate.split(SymbolConst.HENGXIAN).length < 2) {//传入的时间是以 / 分割
+            strDate = strDate.replace(SymbolConst.ZHENGXIEXIAN, SymbolConst.HENGXIAN);
         }
-        if (strDate.split(Symbol.SPACE).length > 1) {
+        if (strDate.split(SymbolConst.SPACE).length > 1) {
             datePattern = TIME_PATTERN;
         }
         df = new SimpleDateFormat(datePattern);
@@ -140,8 +140,8 @@ public class TimeUtil {
      */
     public static Date convertStringToDate(String strDate) {
         Date aDate;
-        if (strDate.split(Symbol.HENGXIAN).length < 2) {//传入的时间是以 / 分割
-            strDate = strDate.replace(Symbol.ZHENGXIEXIAN, Symbol.HENGXIAN);
+        if (strDate.split(SymbolConst.HENGXIAN).length < 2) {//传入的时间是以 / 分割
+            strDate = strDate.replace(SymbolConst.ZHENGXIEXIAN, SymbolConst.HENGXIAN);
         }
         aDate = convertStringToDate(DATE_PATTERN_WITH_HENGXIAN, strDate);
         return aDate;

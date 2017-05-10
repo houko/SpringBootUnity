@@ -2,8 +2,8 @@ package info.xiaomo.api.controller;
 
 import info.xiaomo.api.model.UserModel;
 import info.xiaomo.api.service.UserService;
-import info.xiaomo.core.constant.Code;
-import info.xiaomo.core.constant.GenderType;
+import info.xiaomo.core.constant.CodeConst;
+import info.xiaomo.core.constant.GenderConst;
 import info.xiaomo.core.base.BaseController;
 import info.xiaomo.core.base.Result;
 import info.xiaomo.core.exception.UserNotFoundException;
@@ -64,7 +64,7 @@ public class UserController extends BaseController {
     public Result findUserById(@PathVariable("id") Long id) {
         UserModel userModel = service.findUserById(id);
         if (userModel == null) {
-            return new Result(Code.USER_NOT_FOUND.getResultCode(), Code.USER_NOT_FOUND.getMessage());
+            return new Result(CodeConst.USER_NOT_FOUND.getResultCode(), CodeConst.USER_NOT_FOUND.getMessage());
         }
         return new Result<>(userModel);
     }
@@ -77,7 +77,7 @@ public class UserController extends BaseController {
     public Result addUser(@RequestBody UserModel user) {
         UserModel userModel = service.findUserByEmail(user.getEmail());
         if (userModel != null) {
-            return new Result(Code.USER_REPEAT.getResultCode(), Code.USER_REPEAT.getMessage());
+            return new Result(CodeConst.USER_REPEAT.getResultCode(), CodeConst.USER_REPEAT.getMessage());
         }
         String salt = RandomUtil.createSalt();
         user.setPassword(MD5Util.encode(user.getPassword(), salt));
@@ -102,7 +102,7 @@ public class UserController extends BaseController {
         UserModel userModel = service.findUserByEmail(email);
         //邮箱被占用
         if (userModel != null) {
-            return new Result(Code.USER_REPEAT.getResultCode(), Code.USER_REPEAT.getMessage());
+            return new Result(CodeConst.USER_REPEAT.getResultCode(), CodeConst.USER_REPEAT.getMessage());
         }
         String redirectValidateUrl = MailUtil.redirectValidateUrl(email, password);
         MailUtil.send(email, "帐号激活邮件", redirectValidateUrl);
@@ -125,11 +125,11 @@ public class UserController extends BaseController {
         UserModel userModel = service.findUserByEmail(email);
         //找不到用户
         if (userModel == null) {
-            return new Result(Code.USER_NOT_FOUND.getResultCode(), Code.USER_NOT_FOUND.getMessage());
+            return new Result(CodeConst.USER_NOT_FOUND.getResultCode(), CodeConst.USER_NOT_FOUND.getMessage());
         }
         //密码不正确
         if (!MD5Util.encode(password, userModel.getSalt()).equals(userModel.getPassword())) {
-            return new Result(Code.AUTH_FAILED.getResultCode(), Code.AUTH_FAILED.getMessage());
+            return new Result(CodeConst.AUTH_FAILED.getResultCode(), CodeConst.AUTH_FAILED.getMessage());
         }
         return new Result<>(userModel);
     }
@@ -146,7 +146,7 @@ public class UserController extends BaseController {
     public Result changePassword(@RequestBody UserModel user) throws UserNotFoundException {
         UserModel userByEmail = service.findUserByEmail(user.getEmail());
         if (userByEmail == null) {
-            return new Result(Code.USER_NOT_FOUND.getResultCode(), Code.USER_NOT_FOUND.getMessage());
+            return new Result(CodeConst.USER_NOT_FOUND.getResultCode(), CodeConst.USER_NOT_FOUND.getMessage());
         }
         String salt = RandomUtil.createSalt();
         userByEmail.setPassword(MD5Util.encode(user.getPassword(), salt));
@@ -167,7 +167,7 @@ public class UserController extends BaseController {
     public Result update(@RequestBody UserModel user) throws UserNotFoundException {
         UserModel userModel = service.findUserByEmail(user.getEmail());
         if (userModel == null) {
-            return new Result(Code.USER_NOT_FOUND.getResultCode(), Code.USER_NOT_FOUND.getMessage());
+            return new Result(CodeConst.USER_NOT_FOUND.getResultCode(), CodeConst.USER_NOT_FOUND.getMessage());
         }
         userModel = new UserModel();
         userModel.setEmail(user.getEmail());
@@ -190,7 +190,7 @@ public class UserController extends BaseController {
     public Result getAll() {
         List<UserModel> pages = service.findAll();
         if (pages == null || pages.size() <= 0) {
-            return new Result(Code.NULL_DATA.getResultCode(), Code.NULL_DATA.getMessage());
+            return new Result(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
         }
         return new Result<>(pages);
     }
@@ -210,7 +210,7 @@ public class UserController extends BaseController {
     public Result deleteUserById(@PathVariable("id") Long id) throws UserNotFoundException {
         UserModel userModel = service.deleteUserById(id);
         if (userModel == null) {
-            return new Result(Code.USER_NOT_FOUND.getResultCode(), Code.USER_NOT_FOUND.getMessage());
+            return new Result(CodeConst.USER_NOT_FOUND.getResultCode(), CodeConst.USER_NOT_FOUND.getMessage());
         }
         return new Result<>(userModel);
     }
@@ -225,19 +225,19 @@ public class UserController extends BaseController {
         //数据访问层，通过email获取用户信息
         UserModel userModel = service.findUserByEmail(user.getEmail());
         if (userModel != null) {
-            return new Result(Code.USER_REPEAT.getResultCode(), Code.USER_REPEAT.getMessage());
+            return new Result(CodeConst.USER_REPEAT.getResultCode(), CodeConst.USER_REPEAT.getMessage());
         }
         //验证码是否过期
         if (user.getRegisterTime() + TimeUtil.ONE_DAY_IN_MILLISECONDS * 2 < TimeUtil.getNowOfMills()) {
             LOGGER.info("用户{}使用己过期的激活码{}激活邮箱失败！", user.getEmail(), user.getEmail());
-            return new Result(Code.TIME_PASSED.getResultCode(), Code.TIME_PASSED.getMessage());
+            return new Result(CodeConst.TIME_PASSED.getResultCode(), CodeConst.TIME_PASSED.getMessage());
         }
         //激活
         String salt = RandomUtil.createSalt();
         userModel = new UserModel();
         userModel.setNickName(user.getNickName());
         userModel.setEmail(user.getEmail());
-        userModel.setGender(GenderType.secret);
+        userModel.setGender(GenderConst.secret);
         userModel.setValidateCode(MD5Util.encode(user.getEmail(), salt));
         userModel.setPhone(0L);
         userModel.setSalt(salt);

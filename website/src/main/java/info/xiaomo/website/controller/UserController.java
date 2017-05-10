@@ -3,8 +3,8 @@ package info.xiaomo.website.controller;
 import freemarker.template.Configuration;
 import info.xiaomo.core.base.BaseController;
 import info.xiaomo.core.base.Result;
-import info.xiaomo.core.constant.Code;
-import info.xiaomo.core.constant.GenderType;
+import info.xiaomo.core.constant.CodeConst;
+import info.xiaomo.core.constant.GenderConst;
 import info.xiaomo.core.exception.UserNotFoundException;
 import info.xiaomo.core.untils.MD5Util;
 import info.xiaomo.core.untils.RandomUtil;
@@ -123,7 +123,7 @@ public class UserController extends BaseController {
     public Result<UserModel> changePassword(@RequestBody UserModel user) throws UserNotFoundException {
         UserModel userByEmail = service.findUserByEmail(user.getEmail());
         if (userByEmail == null) {
-            return new Result<>(Code.USER_NOT_FOUND.getResultCode(), Code.USER_NOT_FOUND.getMessage());
+            return new Result<>(CodeConst.USER_NOT_FOUND.getResultCode(), CodeConst.USER_NOT_FOUND.getMessage());
         }
         String salt = RandomUtil.createSalt();
         userByEmail.setPassword(MD5Util.encode(user.getPassword(), salt));
@@ -143,7 +143,7 @@ public class UserController extends BaseController {
     public Result<UserModel> update(@RequestBody UserModel user) throws UserNotFoundException {
         UserModel userModel = service.findUserByEmail(user.getEmail());
         if (userModel == null) {
-            return new Result<>(Code.USER_NOT_FOUND.getResultCode(), Code.USER_NOT_FOUND.getMessage());
+            return new Result<>(CodeConst.USER_NOT_FOUND.getResultCode(), CodeConst.USER_NOT_FOUND.getMessage());
         }
         userModel = new UserModel();
         userModel.setEmail(user.getEmail());
@@ -185,7 +185,7 @@ public class UserController extends BaseController {
         userModel = new UserModel();
         userModel.setNickName(email);
         userModel.setEmail(email);
-        userModel.setGender(GenderType.secret);
+        userModel.setGender(GenderConst.secret);
         userModel.setPhone(0L);
         userModel.setSalt(salt);
         userModel.setAddress("");
@@ -223,7 +223,7 @@ public class UserController extends BaseController {
     public Result<UserModel> findUserById(@PathVariable("id") Long id) {
         UserModel userModel = service.findUserById(id);
         if (userModel == null) {
-            return new Result<>(Code.USER_NOT_FOUND.getResultCode(), Code.USER_NOT_FOUND.getMessage());
+            return new Result<>(CodeConst.USER_NOT_FOUND.getResultCode(), CodeConst.USER_NOT_FOUND.getMessage());
         }
         return new Result<>(userModel);
     }
@@ -235,7 +235,7 @@ public class UserController extends BaseController {
     public Result<UserModel> addUser(@RequestBody UserModel user) {
         UserModel userModel = service.findUserByEmail(user.getEmail());
         if (userModel != null) {
-            return new Result<>(Code.USER_REPEAT.getResultCode(), Code.USER_REPEAT.getMessage());
+            return new Result<>(CodeConst.USER_REPEAT.getResultCode(), CodeConst.USER_REPEAT.getMessage());
         }
         String salt = RandomUtil.createSalt();
         user.setPassword(MD5Util.encode(user.getPassword(), salt));
@@ -254,7 +254,7 @@ public class UserController extends BaseController {
     public Result<List<UserModel>> getAll() {
         List<UserModel> pages = service.findAll();
         if (pages == null || pages.size() <= 0) {
-            return new Result<>(Code.NULL_DATA.getResultCode(), Code.NULL_DATA.getMessage());
+            return new Result<>(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
         }
         return new Result<>(pages);
     }
@@ -270,7 +270,7 @@ public class UserController extends BaseController {
     public Result<UserModel> deleteUserById(@PathVariable("id") Long id) throws UserNotFoundException {
         UserModel userModel = service.deleteUserById(id);
         if (userModel == null) {
-            return new Result<>(Code.USER_NOT_FOUND.getResultCode(), Code.USER_NOT_FOUND.getMessage());
+            return new Result<>(CodeConst.USER_NOT_FOUND.getResultCode(), CodeConst.USER_NOT_FOUND.getMessage());
         }
         return new Result<>(userModel);
     }

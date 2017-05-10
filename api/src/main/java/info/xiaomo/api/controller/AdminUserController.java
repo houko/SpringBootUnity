@@ -73,7 +73,7 @@ public class AdminUserController extends BaseController {
         if (!MD5Util.encode(password, adminModel.getSalt()).equals(adminModel.getPassword())) {
             return new Result(Code.AUTH_FAILED.getResultCode(), Code.AUTH_FAILED.getMessage());
         }
-        return new Result(adminModel);
+        return new Result<>(adminModel);
     }
 
 

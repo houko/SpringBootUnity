@@ -37,7 +37,8 @@
         <!-- 数据接口 -->
         <module>api</module>
         <module>crawler</module>
-        <module>application</module>
+        <!-- 小说阅读器 -->
+        <module>readerApplication</module>
         <module>aries</module>
     </modules>
     <packaging>pom</packaging>

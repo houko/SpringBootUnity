@@ -6,6 +6,7 @@
  */
 package info.xiaomo.core.untils;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,7 +20,8 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class RandomUtil {
     private static final Logger LOGGER = LoggerFactory.getLogger(RandomUtil.class);
-
+    private static final String NUM_S = "0123456789";
+    private static final String STR_S = "abcdefghijklmnopqrstuvwxyz0123456789";
     /**
      * 随机产生min到max之间的一个整数值，包含min和max
      */
@@ -59,6 +61,34 @@ public class RandomUtil {
             }
         }
         return null;
+    }
+
+
+    /**
+     * 生成一个10位的tonken用于http cache(纯数字)
+     *
+     * @return String    返回类型(纯数字)
+     */
+    public static String getTonken() {
+        return RandomStringUtils.random(10, NUM_S);
+    }
+
+    /**
+     * 生成随机数
+     *
+     * @return String    返回类型
+     */
+    public static String randomPwd(int count) {
+        return RandomStringUtils.random(count, STR_S);
+    }
+
+    /**
+     * 生成随机数
+     *
+     * @return String    返回类型
+     */
+    public static String randomPwd() {
+        return RandomStringUtils.random(10, STR_S);
     }
 
     /**
@@ -121,19 +151,22 @@ public class RandomUtil {
         return randomIndexByProb(list);
     }
 
+    /**
+     *  生成盐值
+     * @return
+     */
     public static String createSalt() {
-        String[] str = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
-                "a", "b", "c", "d", "e", "f", "g", "h", "i", "j",
-                "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
-        int number = str.length;
-        //接收随机字符
-        String text = "";
-        Random random = new Random();
-        //随机产生4个字符的字符串
-        for (int i = 0; i < 10; i++) {
-            text += str[random.nextInt(number)];
-        }
-        return text;
+        return randomPwd(10);
+    }
+
+
+    /**
+     * 生成盐值
+     * @param count
+     * @return
+     */
+    public static String createSalt(int count) {
+        return randomPwd(count);
     }
 
     public static void main(String[] args) {

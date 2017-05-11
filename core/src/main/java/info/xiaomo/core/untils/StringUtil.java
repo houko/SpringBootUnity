@@ -1,6 +1,5 @@
 package info.xiaomo.core.untils;
 
-import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,16 +11,15 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
 /**
  * 对字符串的简单处理
- *
+ * <p>
  * author L.cm
+ *
  * @date 2013-6-6 下午5:08:06
  */
 public class StringUtil extends StringUtils {
-
-    private static final String NUM_S = "0123456789";
-    private static final String STR_S = "abcdefghijklmnopqrstuvwxyz0123456789";
 
     private final static String[] hex = {"00", "01", "02", "03", "04", "05",
             "06", "07", "08", "09", "0A", "0B", "0C", "0D", "0E", "0F", "10",
@@ -73,6 +71,73 @@ public class StringUtil extends StringUtils {
             0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F,
             0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F};
 
+
+    /**
+     * ip正则表达式
+     */
+    public static final String IP_REGEX = "([1-9]|[1-9]\\d|1\\d{2}|2[0-4]\\d|25[0-5])(\\." + "(\\d|[1-9]\\d|1\\d{2}|2[0-4]\\d|25[0-5])){3}";
+
+    private static final char[] QUOTE_ENCODE = "&quot;".toCharArray();
+    private static final char[] AMP_ENCODE = "&amp;".toCharArray();
+    private static final char[] LT_ENCODE = "&lt;".toCharArray();
+    private static final char[] GT_ENCODE = "&gt;".toCharArray();
+
+    /**
+     * 是否是空字符串
+     *
+     * @param str 字符串
+     * @return 是否为空
+     */
+    public static boolean isBlank(String str) {
+        if (str == null || str.trim().isEmpty()) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * String数组转成int数组
+     *
+     * @param numbers String[]
+     * @return List<Integer>
+     */
+    public static List<Integer> strArrToIntList(String[] numbers) {
+        List<Integer> intArr = new ArrayList<>();
+        for (String number : numbers) {
+            intArr.add(Integer.parseInt(number));
+        }
+        return intArr;
+    }
+
+    /**
+     * String数组转成int数组
+     *
+     * @param numbers String[]
+     * @return int[]
+     */
+    public static int[] strArrToIntArr(String[] numbers) {
+        int[] intArr = new int[numbers.length];
+        for (int i = 0; i < numbers.length; i++) {
+            intArr[i] = Integer.parseInt(numbers[i]);
+        }
+        return intArr;
+    }
+
+    /**
+     * 根据指定的分隔符将字符串转为int数组
+     *
+     * @param source 字符串
+     * @param split  分割符
+     * @return int[]
+     */
+    public static int[] strToIntArr(String source, String split) {
+        if (isBlank(source)) {
+            return new int[0];
+        }
+        String[] numbers = source.split(split);
+        return strArrToIntArr(numbers);
+    }
+
     /**
      * 截取文字safe 中文
      *
@@ -93,42 +158,12 @@ public class StringUtil extends StringUtils {
         return string;
     }
 
-    /**
-     * 生成一个10位的tonken用于http cache
-     *
-     * @return String    返回类型
-     */
-    public static String getTonken() {
-        return RandomStringUtils.random(10, NUM_S);
-    }
-
-    /**
-     * 生成随机数
-     *
-     * @return String    返回类型
-     */
-    public static String randomPwd(int count) {
-        return RandomStringUtils.random(count, STR_S);
-    }
 
 
-    /**
-     * 百度获ip获取到的城市处理 供大众点评
-     * @return String    返回类型
-     */
-    public static String cityMatcher(String city) {
-        String regex = "(.+)[市|省|自治区]";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(city);
-        if (matcher.matches()) {
-            return matcher.group(1);
-        } else {
-            return null;
-        }
-    }
 
     /**
      * 字符串全角转半角
+     *
      * @return String    返回类型
      */
     public static String togglecase(String string) {
@@ -139,16 +174,6 @@ public class StringUtil extends StringUtils {
         return sb.toString();
     }
 
-    /**
-     * 功能描述: 生成sql占位符 ?,?,?
-     *
-     * @return String    返回类型
-     */
-    public static String sqlHolder(int size) {
-        String[] paras = new String[size];
-        Arrays.fill(paras, "?");
-        return StringUtils.join(paras, ',');
-    }
 
     /**
      * 计算文字长度-.-无中文问题
@@ -187,6 +212,8 @@ public class StringUtil extends StringUtils {
 
     /**
      * 获取ip
+     *
+     * @return ip 如果返回null,说明是一个不合法的ip地址格式
      */
     public static String getIP(HttpServletRequest request) {
         String ip = request.getHeader("X-Requested-For");
@@ -207,6 +234,9 @@ public class StringUtil extends StringUtils {
         }
         if (StringUtils.isBlank(ip) || "unknown".equalsIgnoreCase(ip)) {
             ip = request.getRemoteAddr();
+        }
+        if (!ip.matches(IP_REGEX)) {
+            return null;
         }
         return ip;
     }
@@ -312,30 +342,7 @@ public class StringUtil extends StringUtils {
         return returnString.toString();
     }
 
-    /*
-     *
-     */
-    private String delSQlString(String sql) {
-        String delSql = "in(";
-        StringTokenizer Tokenizer = new StringTokenizer(sql, "|");
 
-        // 标记本身等于分隔符的特殊情况
-        delSql += Tokenizer.nextToken();
-        while (Tokenizer.hasMoreTokens()) {
-            delSql += Tokenizer.nextToken() + ",";
-        }
-        delSql = delSql.substring(0, delSql.length() - 1) + ")";
-        return delSql;
-    }
-
-    private String delNewSQlString(String sql) {
-        return "in (" + sql.replace('|', ',') + ")";
-    }
-
-    private static final char[] QUOTE_ENCODE = "&quot;".toCharArray();
-    private static final char[] AMP_ENCODE = "&amp;".toCharArray();
-    private static final char[] LT_ENCODE = "&lt;".toCharArray();
-    private static final char[] GT_ENCODE = "&gt;".toCharArray();
 
     /**
      * This method takes a string which may contain HTML tags (ie, &lt;b&gt;,
@@ -405,10 +412,60 @@ public class StringUtil extends StringUtils {
      */
     public static String convertNumToMoney(int num) {
         NumberFormat formatc = NumberFormat.getCurrencyInstance(Locale.CHINA);
-        String strcurr = formatc.format(num);
-        System.out.println(strcurr);
-        return strcurr;
+        return formatc.format(num);
     }
+
+
+    /**
+     * 数字的金额表达式
+     * @param num 金额
+     * @param inLocale 币种
+     * @return 处理好的币种
+     */
+    public static String convertNumToMoney(int num,Locale inLocale) {
+        NumberFormat formatc = NumberFormat.getCurrencyInstance(inLocale);
+        return formatc.format(num);
+    }
+
+    /**
+     * 格式化字符串，如果没有对应的参数则按照原样输出
+     * <p>
+     * <ul>
+     * 例如:
+     * <li>"获得{0}元宝,20"输出"获得20元宝"</li>
+     * <li>"{0}获得{1}元宝,XX"输出"XX获得{1}元宝"</li>
+     * <li>"{0}获得{1}元宝,XX,20"输出"XX获得20元宝"</li>
+     * </ul>
+     *
+     * @param str
+     * @param params
+     * @return
+     */
+    public static String format(String str, Object... params) {
+        if (isBlank(str)) {
+            return str;
+        }
+        if (params == null || params.length == 0) {
+            return str;
+        }
+        Pattern p = Pattern.compile("\\{(\\d+)}");
+        Matcher m = p.matcher(str);
+        StringBuffer sb = new StringBuffer();
+        while (m.find()) {
+            String param = m.group();
+            int index = Integer.parseInt(m.group(1));
+            if (params.length > index) {
+                Object obj = params[index];
+                if (obj != null) {
+                    param = obj.toString();
+                }
+            }
+            m.appendReplacement(sb, param);
+        }
+        m.appendTail(sb);
+        return sb.toString();
+    }
+
 
     /**
      * <pre>
@@ -455,98 +512,7 @@ public class StringUtil extends StringUtils {
         return strSrc;
     }
 
-    /**
-     * 用于将字符串中的特殊字符转换成Web页中可以安全显示的字符串
-     * 可对表单数据据进行处理对一些页面特殊字符进行处理如'<','>','"',''','&'
-     *
-     * @param strSrc 要进行替换操作的字符串
-     * @return 替换特殊字符后的字符串
-     * @since 1.0
-     */
 
-    public static String htmlEncode(String strSrc) {
-        if (strSrc == null)
-            return "";
-        char[] arr_cSrc = strSrc.toCharArray();
-        StringBuilder buf = new StringBuilder(arr_cSrc.length);
-        char ch;
-        for (char anArr_cSrc : arr_cSrc) {
-            ch = anArr_cSrc;
-
-            if (ch == '<')
-                buf.append("&lt;");
-            else if (ch == '>')
-                buf.append("&gt;");
-            else if (ch == '"')
-                buf.append("&quot;");
-            else if (ch == '\'')
-                buf.append("&#039;");
-            else if (ch == '&')
-                buf.append("&amp;");
-            else
-                buf.append(ch);
-        }
-
-        return buf.toString();
-    }
-
-    /**
-     * 用于将字符串中的特殊字符转换成Web页中可以安全显示的字符串
-     * 可对表单数据据进行处理对一些页面特殊字符进行处理如'<','>','"',''','&'
-     *
-     * @param strSrc 要进行替换操作的字符串
-     * @param quotes 为0时单引号和双引号都替换，为1时不替换单引号，为2时不替换双引号，为3时单引号和双引号都不替换
-     * @return 替换特殊字符后的字符串
-     * @since 1.0
-     */
-    public static String htmlEncode(String strSrc, int quotes) {
-
-        if (strSrc == null)
-            return "";
-        if (quotes == 0) {
-            return htmlEncode(strSrc);
-        }
-
-        char[] arr_cSrc = strSrc.toCharArray();
-        StringBuffer buf = new StringBuffer(arr_cSrc.length);
-        char ch;
-
-        for (int i = 0; i < arr_cSrc.length; i++) {
-            ch = arr_cSrc[i];
-            if (ch == '<')
-                buf.append("&lt;");
-            else if (ch == '>')
-                buf.append("&gt;");
-            else if (ch == '"' && quotes == 1)
-                buf.append("&quot;");
-            else if (ch == '\'' && quotes == 2)
-                buf.append("&#039;");
-            else if (ch == '&')
-                buf.append("&amp;");
-            else
-                buf.append(ch);
-        }
-
-        return buf.toString();
-    }
-
-    /**
-     * 和htmlEncode正好相反
-     *
-     * @param strSrc 要进行转换的字符串
-     * @return 转换后的字符串
-     * @since 1.0
-     */
-    public static String htmlDecode(String strSrc) {
-        if (strSrc == null)
-            return "";
-        strSrc = strSrc.replaceAll("&lt;", "<");
-        strSrc = strSrc.replaceAll("&gt;", ">");
-        strSrc = strSrc.replaceAll("&quot;", "\"");
-        strSrc = strSrc.replaceAll("&#039;", "'");
-        strSrc = strSrc.replaceAll("&amp;", "&");
-        return strSrc;
-    }
 
     /**
      * 在将数据存入数据库前转换
@@ -655,11 +621,9 @@ public class StringUtil extends StringUtils {
      *
      * @param str 要进行处理的字符串
      * @return 转换后的字符串
-     * @see fs_com.utils.CTools#toChinese
-     * @see fs_com.utils.CTools#null2Blank
      */
     public static String toChineseAndHtmlEncode(String str, int quotes) {
-        return htmlEncode(toChinese(str), quotes);
+        return HtmlUtil.htmlEncode(toChinese(str), quotes);
     }
 
     /**
@@ -734,11 +698,6 @@ public class StringUtil extends StringUtils {
         return floatee.toString();
     }
 
-    /**
-     *int型变量转换成String型变量
-     *@param intVal 要进行转换的整数
-     *@return str 如果intVal不可以转换成String型数据，返回空值表示异常,否则返回转换后的值
-     */
     /**
      * int型变量转换成String型变量
      *
@@ -832,19 +791,6 @@ public class StringUtil extends StringUtils {
             return str;
     }
 
-    /**
-     * sql语句 处理
-     *
-     * @param sql    要进行处理的sql语句
-     * @param dbtype 数据库类型
-     * @return 处理后的sql语句
-     */
-    public static String sql4DB(String sql, String dbtype) {
-        if (!dbtype.equalsIgnoreCase("oracle")) {
-            sql = toISO(sql);
-        }
-        return sql;
-    }
 
     /**
      * 字符串从GBK编码转换为Unicode编码
@@ -1026,39 +972,5 @@ public class StringUtil extends StringUtils {
             i++;
         }
         return sbuf.toString();
-    }
-
-    /**
-     * 去除html tag
-     * @param htmlStr
-     * @return
-     */
-    public static String delHTMLTag(String htmlStr){
-        String regEx_script="<script[^>]*?>[\\s\\S]*?<\\/script>"; //定义script的正则表达式
-        String regEx_style="<style[^>]*?>[\\s\\S]*?<\\/style>"; //定义style的正则表达式
-        String regEx_html="<[^>]+>"; //定义HTML标签的正则表达式
-
-        Pattern p_script=Pattern.compile(regEx_script,Pattern.CASE_INSENSITIVE);
-        Matcher m_script=p_script.matcher(htmlStr);
-        htmlStr=m_script.replaceAll(""); //过滤script标签
-
-        Pattern p_style=Pattern.compile(regEx_style,Pattern.CASE_INSENSITIVE);
-        Matcher m_style=p_style.matcher(htmlStr);
-        htmlStr=m_style.replaceAll(""); //过滤style标签
-
-        Pattern p_html=Pattern.compile(regEx_html,Pattern.CASE_INSENSITIVE);
-        Matcher m_html=p_html.matcher(htmlStr);
-        htmlStr=m_html.replaceAll(""); //过滤html标签
-
-        return htmlStr.trim(); //返回文本字符串
-    }
-
-
-
-    public static void main(String[] args) {
-        String stest = "一声笑傲江湖之曲1234 abcd[]()<+>,.~\"";
-        System.out.println(stest);
-        System.out.println(encode(stest));
-        System.out.println(decode(encode(stest)));
     }
 }

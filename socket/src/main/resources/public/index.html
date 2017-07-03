@@ -6,7 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet">
-    <script src="http://static.xiaomo.info/jquery.js"></script>
+    <script src="http://apps.bdimg.com/libs/jquery/1.6.4/jquery.min.js"></script>
     <title>登录</title>
 </head>
 <body>
@@ -42,6 +42,10 @@
 <script>
     function login() {
         var username = $("#userName").val();
+        if (username === ""){
+            alert("请输入一个昵称");
+            return;
+        }
         window.location.href = "http://localhost:8081/chat.html?username=" + username;
     }
     function keyEnter(event) {

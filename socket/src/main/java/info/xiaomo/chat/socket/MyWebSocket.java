@@ -1,6 +1,6 @@
 package info.xiaomo.chat.socket;
 
-import info.xiaomo.core.untils.StringUtil;
+import info.xiaomo.core.untils.HtmlUtil;
 import info.xiaomo.core.untils.TimeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,11 +19,11 @@ import java.util.concurrent.CopyOnWriteArraySet;
  * いま 最高の表現 として 明日最新の始発．．～
  * Today the best performance  as tomorrow newest starter!
  * Created by IntelliJ IDEA.
- *
+ * <p>
  * author: xiaomo
  * github: https://github.com/xiaomoinfo
  * email: xiaomo@xiaomo.info
-
+ * <p>
  * Date: 2016/11/3 16:36
  * Description: 用户实体类
  * Copyright(©) 2015 by xiaomo.
@@ -97,7 +97,7 @@ public class MyWebSocket {
         for (MyWebSocket item : webSocketSet) {
             item.sendMessage(date + message);
         }
-        LOGGER.info("客户端消息:{}", StringUtil.delHTMLTag(message));
+        LOGGER.info("客户端消息:{}", HtmlUtil.delHTMLTag(message));
     }
 
     /**

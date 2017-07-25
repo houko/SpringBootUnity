@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/xiaomoinfo/XiaomoApi.svg?branch=master)](https://travis-ci.org/xiaomoinfo/XiaomoApi)
+
 ![blog](https://image.xiaomo.info/blog/blog.png)
 
 ### 一、我的博客

@@ -57,15 +57,15 @@
     </parent>
 
     <repositories>
-        <repository>
-            <id>inner-release</id>
-            <name>inner-release</name>
-            <layout>default</layout>
-            <url>http://192.168.1.62:8081/nexus/content/repositories/releases/</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
+        <!--<repository>-->
+            <!--<id>inner-release</id>-->
+            <!--<name>inner-release</name>-->
+            <!--<layout>default</layout>-->
+            <!--<url>http://192.168.1.62:8081/nexus/content/repositories/releases/</url>-->
+            <!--<snapshots>-->
+                <!--<enabled>false</enabled>-->
+            <!--</snapshots>-->
+        <!--</repository>-->
         <repository>
             <id>central</id>
             <name>aliyun maven</name>

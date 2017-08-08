@@ -7,7 +7,6 @@
 [![GitHub followers](https://img.shields.io/github/followers/xiaomoinfo.svg?style=social&label=Follow)]()
 [![GitHub forks](https://img.shields.io/github/forks/xiaomoinfo/SpringBootUnity.svg?style=social&label=Fork)](https://github.com/xiaomoinfo/SpringBootUnity)
 [![GitHub stars](https://img.shields.io/github/stars/xiaomoinfo/SpringBootUnity.svg?style=social&label=Star)]()
-[![GitHub watchers](https://img.shields.io/github/watchers/xiaomoinfo/SpringBootUnity.svg?style=social&label=Watch)]()
 
 ![blog](https://image.xiaomo.info/blog/blog.png)
 

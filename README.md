@@ -10,8 +10,9 @@
 
 ![blog](https://image.xiaomo.info/blog/blog.png)
 
-### 一、我的博客
-虽然不知道为什么，但是还是要先给自己的博客打一波广告吧。上面记载着我在项目开发的过程中积累的点滴，如果有什么建议也可以在上面给我[留言](https://xiaomo.info/about/)
+### 一、项目简介
+![mark](https://static.xiaomo.info/image/project/mark.svg)
+
 
 
 ### 二、本项目相关

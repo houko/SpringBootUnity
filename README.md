@@ -4,7 +4,6 @@
 [![GitHub stars](https://img.shields.io/github/stars/xiaomoinfo/SpringBootUnity.svg)](https://github.com/xiaomoinfo/SpringBootUnity/stargazers)
 [![GitHub license](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/xiaomoinfo/SpringBootUnity/master/LICENSE)
 [![Maven Central](https://img.shields.io/maven-central/v/org.apache.maven/apache-maven.svg)]()
-[![Twitter](https://img.shields.io/twitter/url/https/github.com/xiaomoinfo/SpringBootUnity.svg?style=social)](https://twitter.com/intent/tweet?text=Wow:&url=%5Bobject%20Object%5D)
 [![GitHub followers](https://img.shields.io/github/followers/xiaomoinfo.svg?style=social&label=Follow)]()
 [![GitHub forks](https://img.shields.io/github/forks/xiaomoinfo/SpringBootUnity.svg?style=social&label=Fork)](https://github.com/xiaomoinfo/SpringBootUnity)
 [![GitHub stars](https://img.shields.io/github/stars/xiaomoinfo/SpringBootUnity.svg?style=social&label=Star)]()

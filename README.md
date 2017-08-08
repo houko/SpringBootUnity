@@ -19,6 +19,20 @@
 ###  项目简介
 ![mark](https://static.xiaomo.info/image/project/mark.png)
 
+
+### 启动方式
+- `spring boot`内置了tomcat做为web容器，默认打成jar包直接放在服务器上执行就可以了
+> `java -Xms64m -Xmx2048m -jar project.jar 5 >> ./project.log &`
+
+- 如果需要定制化打成war包，那么也很简单。在`maven`中做下设置就ok了,然后把war包扔到tomcat下面就可以运行了
+
+```
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>api</artifactId>
+    <packaging>war</packaging>
+```
+
+
 ###  项目说明
 需求是多变的，本项目是以spring boot为基础，在使用spring boot的过程中对应不同的需求选用不同的技术和spring boot进行搭配，因此本项目是个偏于使用示例的定位。同时如果您在使用spring boot的过程中有什么好用的技术期待您对本项目的PR。
 

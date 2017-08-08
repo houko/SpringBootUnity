@@ -8,8 +8,6 @@
 [![GitHub forks](https://img.shields.io/github/forks/xiaomoinfo/SpringBootUnity.svg?style=social&label=Fork)](https://github.com/xiaomoinfo/SpringBootUnity)
 [![GitHub stars](https://img.shields.io/github/stars/xiaomoinfo/SpringBootUnity.svg?style=social&label=Star)]()
 
-![blog](https://image.xiaomo.info/blog/blog.png)
-
 ### 一、项目简介
 ![mark](https://static.xiaomo.info/image/project/mark.svg)
 

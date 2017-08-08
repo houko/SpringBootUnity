@@ -32,6 +32,16 @@
 
 - [在线工具 - 程序员的工具箱](http://tool.lu/ "在线工具 - 程序员的工具箱")
 
+## 许可证
+
+[apache](LICENSE "apache")
+
+
+###  问题反馈
+1. 欢迎提[issue](https://github.com/xiaomoinfo/xiaomo-api/issues)一起完善这个项目。
+2. QQ: 83387856
+4. 个人主站: https://xiaomo.info
+
 ### 在线文档
 
 - [JDK7英文文档](http://tool.oschina.net/apidocs/apidoc?api=jdk_7u4 "JDK7英文文档")
@@ -54,15 +64,3 @@
 
 - [Thymeleaf](http://www.thymeleaf.org/doc/tutorials/3.0/thymeleafspring.html "Thymeleaf")
 
-
-
-
-## 许可证
-
-[apache](LICENSE "apache")
-
-
-###  问题反馈
-1. 欢迎提[issue](https://github.com/xiaomoinfo/xiaomo-api/issues)一起完善这个项目。
-2. QQ: 83387856
-4. 个人主站: https://xiaomo.info

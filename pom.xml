@@ -81,7 +81,7 @@
         <!-- project encoding -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- sources resultCode version -->
-        <sources.version>1.7</sources.version>
+        <sources.version>1.8</sources.version>
         <!-- common util method jar -->
         <common-lang3.version>3.5</common-lang3.version>
         <!-- test jar -->

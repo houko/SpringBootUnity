@@ -63,9 +63,7 @@
 
 ## 许可证
 
-[apache](LICENSE "apache")
-
-License
+[License](LICENSE "apache")
 -------
 
     Copyright 2017 SpringBootUnity

@@ -33,6 +33,9 @@
 ```
 
 
+![war](https://static.xiaomo.info/image/project/war.png)
+
+
 ###  项目说明
 需求是多变的，本项目是以spring boot为基础，在使用spring boot的过程中对应不同的需求选用不同的技术和spring boot进行搭配，因此本项目是个偏于使用示例的定位。同时如果您在使用spring boot的过程中有什么好用的技术期待您对本项目的PR。
 

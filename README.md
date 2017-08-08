@@ -8,7 +8,7 @@
 [![GitHub forks](https://img.shields.io/github/forks/xiaomoinfo/SpringBootUnity.svg?style=social&label=Fork)](https://github.com/xiaomoinfo/SpringBootUnity)
 [![GitHub stars](https://img.shields.io/github/stars/xiaomoinfo/SpringBootUnity.svg?style=social&label=Star)]()
 
-### 一、项目简介
+###  项目简介
 ![mark](https://static.xiaomo.info/image/project/mark.svg)
 
 ### 二、构建环境
@@ -16,20 +16,13 @@
 2. `jdk1.8`   
 3. `spring boot 1.5.6 release`(目前最新版)   
 
-### 三、其他说明
+###  其他说明
 本人是一个热爱开源精神、追求新潮的开发者。习惯以github的issue驱动方式来组织我的项目，也希望感兴趣的朋友和我联系，一起进步，共同开发感兴趣的开源项目。
 
-### 四、关于我
+###  关于我
  @[小莫](https://xiaomo.info)：一个普通的技术开发者，技术过得去，还算勤勉！目前任rpg服务端主程，熟悉游戏开发和web开发。同时也是个喜欢二次元的死宅，爱动漫，略懂日语。
 
-### 五、问题反馈
+###  问题反馈
 1. 欢迎提[issue](https://github.com/xiaomoinfo/xiaomo-api/issues)
 2. QQ: 83387856
 4. 个人主站: https://xiaomo.info
-
-### 六. gitignore不生效的原因和解决办法
-无效的原因是：对应的目录或者文件已经被git跟踪，此时再加入.gitignore后就无效了   
-
-解决办法： 执行   
-`git rm -r --cached .idea`   
-删掉git己经管理的idea文件  

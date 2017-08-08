@@ -20,16 +20,44 @@
 ###  项目简介
 ![mark](https://static.xiaomo.info/image/project/mark.png)
 
-
-### spring 生态
-![mark](https://static.xiaomo.info/image/project/spring.png)
-
-
 ###  其他说明
 本人是一个热爱开源精神、追求新潮的开发者。习惯以github的issue驱动方式来组织我的项目，也希望感兴趣的朋友和我联系，一起进步，共同开发感兴趣的开源项目。同时如果您在使用spring boot的过程中有什么好用的技术期待您对本项目的PR。
 
 ### 关于我
  @[小莫](https://xiaomo.info)：一个普通的技术开发者，技术过得去，还算勤勉！目前任rpg服务端主程，熟悉游戏开发和web开发。同时也是个喜欢二次元的死宅，爱动漫，略懂日语。
+
+### 在线小工具
+
+- [在线Cron表达式生成器](http://cron.qqe2.com/ "在线Cron表达式生成器")
+
+- [在线工具 - 程序员的工具箱](http://tool.lu/ "在线工具 - 程序员的工具箱")
+
+### 在线文档
+
+- [JDK7英文文档](http://tool.oschina.net/apidocs/apidoc?api=jdk_7u4 "JDK7英文文档")
+
+- [Spring4.x文档](http://spring.oschina.mopaas.com/ "Spring4.x文档")
+
+- [Mybatis3官网](http://www.mybatis.org/mybatis-3/zh/index.html "Mybatis3官网")
+
+- [Dubbo官网](http://dubbo.io/ "Dubbo官网")
+
+- [Nginx中文文档](http://tool.oschina.net/apidocs/apidoc?api=nginx-zh "Nginx中文文档")
+
+- [Freemarker在线手册](http://freemarker.foofun.cn/ "Freemarker在线中文手册")
+
+- [Velocity在线手册](http://velocity.apache.org/engine/devel/developer-guide.html "Velocity在线手册")
+
+- [Bootstrap在线手册](http://www.bootcss.com/ "Bootstrap在线手册")
+
+- [Git官网中文文档](https://git-scm.com/book/zh/v2 "Git官网中文文档")
+
+- [Thymeleaf](http://www.thymeleaf.org/doc/tutorials/3.0/thymeleafspring.html "Thymeleaf")
+
+## 许可证
+
+[apache](LICENSE "apache")
+
 
 ###  问题反馈
 1. 欢迎提[issue](https://github.com/xiaomoinfo/xiaomo-api/issues)一起完善这个项目。

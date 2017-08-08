@@ -5,7 +5,9 @@
 [![GitHub license](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/xiaomoinfo/SpringBootUnity/master/LICENSE)
 [![Twitter](https://img.shields.io/twitter/url/https/github.com/xiaomoinfo/SpringBootUnity.svg?style=social)](https://twitter.com/intent/tweet?text=Wow:&url=%5Bobject%20Object%5D)
 [![GitHub forks](https://img.shields.io/github/forks/badges/shields.svg?style=social&label=Fork)](https://github.com/xiaomoinfo/SpringBootUnity)
-
+[![GitHub stars](https://img.shields.io/github/stars/badges/shields.svg?style=social&label=Star)]()
+[![GitHub followers](https://img.shields.io/github/followers/espadrine.svg?style=social&label=Follow)]()
+[![GitHub watchers](https://img.shields.io/github/watchers/badges/shields.svg?style=social&label=Watch)]()
 
 ![blog](https://image.xiaomo.info/blog/blog.png)
 

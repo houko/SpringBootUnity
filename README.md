@@ -8,14 +8,6 @@
 [![GitHub forks](https://img.shields.io/github/forks/xiaomoinfo/SpringBootUnity.svg?style=social&label=Fork)](https://github.com/xiaomoinfo/SpringBootUnity)
 [![GitHub stars](https://img.shields.io/github/stars/xiaomoinfo/SpringBootUnity.svg?style=social&label=Star)]()
 
-###  项目简介
-![mark](https://static.xiaomo.info/image/project/mark.png)
-
-
-### spring 生态
-![mark](https://static.xiaomo.info/image/project/spring.png)
-
-
 ### 环境
 - `maven` latest   
 - `jdk1.8`   
@@ -24,6 +16,14 @@
 - mysql5.5+
 - git: 版本管理
 - nginx: 反向代理服务器
+
+###  项目简介
+![mark](https://static.xiaomo.info/image/project/mark.png)
+
+
+### spring 生态
+![mark](https://static.xiaomo.info/image/project/spring.png)
+
 
 ###  其他说明
 本人是一个热爱开源精神、追求新潮的开发者。习惯以github的issue驱动方式来组织我的项目，也希望感兴趣的朋友和我联系，一起进步，共同开发感兴趣的开源项目。同时如果您在使用spring boot的过程中有什么好用的技术期待您对本项目的PR。

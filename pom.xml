@@ -36,9 +36,8 @@
         <module>multipleSource</module>
         <!-- 数据接口 -->
         <module>api</module>
+        <!-- 爬虫 -->
         <module>crawler</module>
-        <!-- aries -->
-        <module>aries</module>
     </modules>
     <packaging>pom</packaging>
 

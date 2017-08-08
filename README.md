@@ -62,7 +62,6 @@
 - [Thymeleaf](http://www.thymeleaf.org/doc/tutorials/3.0/thymeleafspring.html "Thymeleaf")
 
 ## [License](LICENSE "apache")
--------
 
     Copyright 2017 SpringBootUnity
 

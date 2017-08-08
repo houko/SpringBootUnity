@@ -20,11 +20,11 @@
 ###  项目简介
 ![mark](https://static.xiaomo.info/image/project/mark.png)
 
-###  其他说明
-本人是一个热爱开源精神、追求新潮的开发者。习惯以github的issue驱动方式来组织我的项目，也希望感兴趣的朋友和我联系，一起进步，共同开发感兴趣的开源项目。同时如果您在使用spring boot的过程中有什么好用的技术期待您对本项目的PR。
+###  项目说明
+需求是多变的，本项目是以spring boot为基础，在使用spring boot的过程中对应不同的需求选用不同的技术和spring boot进行搭配，因此本项目是个偏于使用示例的定位。同时如果您在使用spring boot的过程中有什么好用的技术期待您对本项目的PR。
 
 ### 关于我
- @[小莫](https://xiaomo.info)：一个普通的技术开发者，技术过得去，还算勤勉！目前任rpg服务端主程，熟悉游戏开发和web开发。同时也是个喜欢二次元的死宅，爱动漫，略懂日语。
+ @[小莫](https://xiaomo.info)：本人是一个热爱开源精神、追求新潮的开发者，技术过得去，还算勤勉！习惯以github的issue驱动方式来组织我的项目，也希望感兴趣的朋友和我联系，一起进步，共同开发感兴趣的开源项目。目前任rpg服务端主程，熟悉游戏开发和web开发。同时也是个喜欢二次元的死宅，爱动漫，略懂日语。
 
 ### 在线小工具
 
@@ -53,6 +53,9 @@
 - [Git官网中文文档](https://git-scm.com/book/zh/v2 "Git官网中文文档")
 
 - [Thymeleaf](http://www.thymeleaf.org/doc/tutorials/3.0/thymeleafspring.html "Thymeleaf")
+
+
+
 
 ## 许可证
 

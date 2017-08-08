@@ -9,7 +9,7 @@
 [![GitHub stars](https://img.shields.io/github/stars/xiaomoinfo/SpringBootUnity.svg?style=social&label=Star)]()
 
 ###  项目简介
-![mark](https://static.xiaomo.info/image/project/mark.svg)
+![mark](https://static.xiaomo.info/image/project/mark.png)
 
 ### 二、构建环境
 1. `maven` latest   

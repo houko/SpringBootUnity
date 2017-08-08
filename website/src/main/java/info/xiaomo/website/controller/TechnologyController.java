@@ -48,7 +48,7 @@ public class TechnologyController extends BaseController {
         if (model == null) {
             return new Result(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
         }
-        return new Result(model);
+        return new Result<>(model);
     }
 
     @RequestMapping(value = "/findByName/{name}", method = RequestMethod.GET)
@@ -57,7 +57,7 @@ public class TechnologyController extends BaseController {
         if (model == null) {
             return new Result(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
         }
-        return new Result(model);
+        return new Result<>(model);
     }
 
     @Override

@@ -75,7 +75,7 @@ public class ExcelUtil {
                 String[] values = new String[rowSize];
                 Arrays.fill(values, "");
                 boolean hasValue = false;
-                for (short columnIndex = 0; columnIndex <= row.getLastCellNum(); columnIndex++) {
+                for (int columnIndex = 0; columnIndex <= row.getLastCellNum(); columnIndex++) {
                     String value = "";
                     cell = row.getCell(columnIndex);
                     if (cell != null) {

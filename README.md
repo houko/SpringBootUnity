@@ -24,6 +24,8 @@
 - `spring boot`内置了tomcat做为web容器，默认打成jar包直接放在服务器上执行就可以了
 > `java -Xms64m -Xmx2048m -jar project.jar 5 >> ./project.log &`
 
+![jar](https://static.xiaomo.info/image/project/javajar.gif)
+
 - 如果需要定制化打成war包，那么也很简单。在`maven`中做下设置就ok了,然后把war包扔到tomcat下面就可以运行了
 
 ```

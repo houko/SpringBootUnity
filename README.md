@@ -32,10 +32,8 @@
 - [在线工具 - 程序员的工具箱](http://tool.lu/ "在线工具 - 程序员的工具箱")
 
 
-
-
 ###  问题反馈
-1. 欢迎提[issue](https://github.com/xiaomoinfo/xiaomo-api/issues)一起完善这个项目。
+1. 欢迎提[issue](https://github.com/xiaomoinfo/SpringBootUnity/issues)一起完善这个项目。
 2. QQ: 83387856
 4. 个人主站: https://xiaomo.info
 
@@ -65,15 +63,14 @@
 
 ## [License](LICENSE "apache")
 
-    Copyright 2017 SpringBootUnity
+    Copyright 2017 
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
+xi   Unless required by applicable law or agreed to in writing, software
     distributed under the License is distributed on an "AS IS" BASIS,
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and

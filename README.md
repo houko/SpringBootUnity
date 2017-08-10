@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/xiaomoinfo/XiaomoApi.svg?branch=master)](https://travis-ci.org/xiaomoinfo/XiaomoApi)
+[![Build Status](https://travis-ci.org/xiaomoinfo/SpringBootUnity.svg?branch=master)](https://travis-ci.org/xiaomoinfo/SpringBootUnity)
 [![GitHub issues](https://img.shields.io/github/issues/xiaomoinfo/SpringBootUnity.svg)](https://github.com/xiaomoinfo/SpringBootUnity/issues)
 [![GitHub forks](https://img.shields.io/github/forks/xiaomoinfo/SpringBootUnity.svg)](https://github.com/xiaomoinfo/SpringBootUnity/network)
 [![GitHub stars](https://img.shields.io/github/stars/xiaomoinfo/SpringBootUnity.svg)](https://github.com/xiaomoinfo/SpringBootUnity/stargazers)

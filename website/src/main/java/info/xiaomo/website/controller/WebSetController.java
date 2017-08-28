@@ -48,7 +48,7 @@ public class WebSetController extends BaseController {
     @RequestMapping(value = "findAll", method = RequestMethod.GET)
     public Result findAll() {
         List<SystemSetModel> list = service.findAll();
-        if (list.isEmpty() || list.size() == 0) {
+        if (list.isEmpty()) {
             return new Result(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
         }
         return new Result<>(list);

@@ -37,6 +37,13 @@
 
 ![war](https://static.xiaomo.info/image/project/war.png)
 
+### 更新日志
+- api模块: 添加swagger-bootstrap-ui,和原有ui并行存在。(http://localhost:8080 默认UI  http://localhost:808/doc.html bootstrap-ui)
+[默认](screenshot/swagger-ui.png)
+[bootstrap](screenshot/bootstrap.png)
+[bootstrap](screenshot/interface.png)
+[bootstrap](screenshot/api.png)
+
 
 ###  项目说明
 需求是多变的，本项目是以spring boot为基础，在使用spring boot的过程中对应不同的需求选用不同的技术和spring boot进行搭配，因此本项目是个偏于使用示例的定位。同时如果您在使用spring boot的过程中有什么好用的技术期待您对本项目的PR。

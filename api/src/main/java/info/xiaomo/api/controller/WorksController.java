@@ -34,7 +34,7 @@ import java.util.List;
 
 @RequestMapping("/works")
 @RestController
-@Api(value = "WorksController",description = "作品相关api")
+@Api(value = "作品相关api",description = "作品相关api")
 public class WorksController extends BaseController {
 
     private final WorksService service;

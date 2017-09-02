@@ -40,7 +40,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/adminUser")
-@Api(value = "AdminUserController", description = "后台用户相关api")
+@Api(value = "后台用户相关api", description = "后台用户相关api")
 public class AdminUserController extends BaseController {
 
     private final AdminUserService service;

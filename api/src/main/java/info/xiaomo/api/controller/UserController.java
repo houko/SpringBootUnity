@@ -40,7 +40,7 @@ import java.util.List;
  **/
 @RestController
 @RequestMapping("/user")
-@Api(value = "UserController", description = "用户相关api")
+@Api(value = "用户相关api", description = "用户相关api")
 public class UserController extends BaseController {
 
     private final UserService service;

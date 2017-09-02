@@ -32,7 +32,7 @@ import java.util.List;
  **/
 @RestController
 @RequestMapping("/changeLog")
-@Api(value = "ChangeLogController",description = "更新日志相关api")
+@Api(value = "更新日志相关api",description = "更新日志相关api")
 public class ChangeLogController extends BaseController {
 
     private final ChangeLogService service;

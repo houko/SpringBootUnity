@@ -32,7 +32,7 @@ import java.util.List;
  **/
 @RestController
 @RequestMapping("/link")
-@Api(value = "LinkController",description = "友情链接相关api")
+@Api(value = "友情链接相关api",description = "友情链接相关api")
 public class LinkController extends BaseController {
 
     private final LinkService service;

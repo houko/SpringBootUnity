@@ -40,10 +40,17 @@
 ### 更新日志
 - api模块: 添加swagger-bootstrap-ui,和原有ui并行存在。       
 http://localhost:8080 默认UI           
-http://localhost:808/doc.html bootstrap-ui              
+http://localhost:808/doc.html bootstrap-ui   
+
+#### swagger            
 ![默认](screenshot/swagger-ui.png)
+
+
+#### bootstrap-ui
 ![bootstrap](screenshot/bootstrap.png)
+
 ![bootstrap](screenshot/interface.png)
+
 ![bootstrap](screenshot/api.png)
 
 

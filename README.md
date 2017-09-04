@@ -42,6 +42,14 @@
 http://localhost:8080 默认UI           
 http://localhost:808/doc.html bootstrap-ui   
 
+```
+1. spring boot版本从1.4.3更新到1.5.6   
+2. 修复不配置数据库信息无法启动的bug   
+3. 版本号更新到2017.1   
+4. api模块(swagger)添加开源库swagger-bootstrap-ui，和swagger默认UI同时存在。  
+5. web模块添加数据库sql文件,导入后一键启动可直接访问到web界面。  
+```
+
 #### swagger            
 ![默认](screenshot/swagger-ui.png)
 

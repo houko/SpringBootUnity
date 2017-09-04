@@ -17,7 +17,7 @@
 - nginx: 反向代理服务器
 
 ###  项目简介
-![mark](https://static.xiaomo.info/image/project/mark.png)
+![mark](screenshot/spring.png)
 
 
 ### 启动方式

@@ -15,9 +15,15 @@
 - mysql5.5+
 - git: 版本管理
 - nginx: 反向代理服务器
+- lombok
 
 ###  项目简介
 ![mark](screenshot/spring.png)
+
+### 注意事项
+本项目使用了`lombok`,在查看本项目时如果您没有下载`lombok 插件`，请先安装,不然找不到get/set方法
+
+![](screenshot/lombok.png)
 
 
 ### 启动方式

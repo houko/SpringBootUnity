@@ -21,7 +21,7 @@
 ![mark](screenshot/spring.png)
 
 ### 注意事项
-本项目使用了`lombok`,在查看本项目时如果您没有下载`lombok 插件`，请先安装,不然找不到get/set方法
+本项目使用了`lombok`,在查看本项目时如果您没有下载`lombok 插件`，请先安装,不然找不到get/set方法。eclipse用户请参照[官网](http://jnb.ociweb.com/jnb/jnbJan2010.html#references)
 
 ![](screenshot/lombok.png)
 

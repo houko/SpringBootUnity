@@ -42,8 +42,6 @@
 ```
 
 
-![war](https://static.xiaomo.info/image/project/war.png)
-
 ### 更新日志
 - 2017-09-02 api模块: 添加swagger-bootstrap-ui,和原有ui并行存在。       
 http://localhost:8080 默认UI           

@@ -132,7 +132,7 @@ http://localhost:808/doc.html bootstrap-ui
 
 ## 赞助商
 
-支持本项目并成为赞助商. 您的LOGO和网站链接将会被展示在这里. [[成为赞助商](https://opencollective.com/SpringBootUnity#sponsor)]
+[[成为赞助商](https://opencollective.com/SpringBootUnity#sponsor)]支持本项目并成为赞助商. 您的LOGO和网站链接将会被展示在这里. 
 
 <a href="https://opencollective.com/SpringBootUnity/sponsor/0/website" target="_blank"><img src="https://opencollective.com/SpringBootUnity/sponsor/0/avatar.svg"></a>
 <a href="https://opencollective.com/SpringBootUnity/sponsor/1/website" target="_blank"><img src="https://opencollective.com/SpringBootUnity/sponsor/1/avatar.svg"></a>

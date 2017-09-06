@@ -117,9 +117,9 @@ http://localhost:808/doc.html bootstrap-ui
 
 
 
-## Contributors
+## 贡献者
 
-This project exists thanks to all the people who contribute.
+感谢所有为本项目做出贡献的开发者们.
 <a href="graphs/contributors"><img src="https://opencollective.com/SpringBootUnity/contributors.svg?width=890" /></a>
 
 
@@ -132,7 +132,7 @@ This project exists thanks to all the people who contribute.
 
 ## 赞助商
 
-Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[成为赞助商](https://opencollective.com/SpringBootUnity#sponsor)]
+支持本项目并成为赞助商. 您的LOGO和网站链接将会被展示在这里. [[成为赞助商](https://opencollective.com/SpringBootUnity#sponsor)]
 
 <a href="https://opencollective.com/SpringBootUnity/sponsor/0/website" target="_blank"><img src="https://opencollective.com/SpringBootUnity/sponsor/0/avatar.svg"></a>
 <a href="https://opencollective.com/SpringBootUnity/sponsor/1/website" target="_blank"><img src="https://opencollective.com/SpringBootUnity/sponsor/1/avatar.svg"></a>

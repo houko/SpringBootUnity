@@ -35,7 +35,7 @@ public class MybatisUserController {
     }
 
 
-    @RequestMapping("findAll")
+    @RequestMapping("/")
     public Result<List<User>> findAll() {
         List<User> all = userMapper.findAll();
         return new Result<>(all);

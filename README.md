@@ -6,6 +6,9 @@
 [![Maven Central](https://img.shields.io/maven-central/v/org.apache.maven/apache-maven.svg)]()
 [![GitHub followers](https://img.shields.io/github/followers/xiaomoinfo.svg?style=social&label=Follow)]()
 
+###  项目简介
+![mark](screenshot/spring.png)
+
 ### 环境
 - `maven` latest   
 - `jdk1.8`   
@@ -16,8 +19,7 @@
 - nginx: 反向代理服务器
 - lombok
 
-###  项目简介
-![mark](screenshot/spring.png)
+
 
 ### 注意事项
 - 本项目代码托管在[github](https://github.com/xiaomoinfo/SpringBootUnity)和[码云](http://git.oschina.net/hupeng/SpringBootUnity)两个地方,最新代码以github为准,码云上会在github上更新完之后进行同步。

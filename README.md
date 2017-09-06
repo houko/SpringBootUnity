@@ -5,7 +5,6 @@
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/xiaomoinfo/MysqlBlobToJsonTool/master/LICENSE)
 [![Maven Central](https://img.shields.io/maven-central/v/org.apache.maven/apache-maven.svg)]()
 [![GitHub followers](https://img.shields.io/github/followers/xiaomoinfo.svg?style=social&label=Follow)]()
-[![GitHub watchers](https://img.shields.io/github/watchers/xiaomoinfo/SpringBootUnity.svg?style=social&label=Watch)]()
 
 ### 环境
 - `maven` latest   

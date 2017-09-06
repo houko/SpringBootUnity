@@ -56,6 +56,13 @@ http://localhost:808/doc.html bootstrap-ui
 5. web模块添加数据库sql文件,导入后一键启动可直接访问到web界面。  
 ```
 
+- 2017-09-06 更新记录
+
+```
+1. mybatis模块:添加USER.sql,启动后访问:http://localhost:8080 即可看到接口数据
+2. 所有模块： 添加 characterEncoding=utf8&useSSL=true 解决高版本mysql的sll警告
+3. 添加代码贡献者列表和支持项目链接。
+```
 #### swagger            
 ![默认](screenshot/swagger-ui.png)
 
@@ -116,16 +123,16 @@ This project exists thanks to all the people who contribute.
 <a href="graphs/contributors"><img src="https://opencollective.com/SpringBootUnity/contributors.svg?width=890" /></a>
 
 
-## Backers
+## 支持者
 
-Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/SpringBootUnity#backer)]
+感谢您的支持! 🙏 [成为支持者](https://opencollective.com/SpringBootUnity#backer)]
 
 <a href="https://opencollective.com/SpringBootUnity#backers" target="_blank"><img src="https://opencollective.com/SpringBootUnity/backers.svg?width=890"></a>
 
 
-## Sponsors
+## 赞助商
 
-Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/SpringBootUnity#sponsor)]
+Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[成为赞助商](https://opencollective.com/SpringBootUnity#sponsor)]
 
 <a href="https://opencollective.com/SpringBootUnity/sponsor/0/website" target="_blank"><img src="https://opencollective.com/SpringBootUnity/sponsor/0/avatar.svg"></a>
 <a href="https://opencollective.com/SpringBootUnity/sponsor/1/website" target="_blank"><img src="https://opencollective.com/SpringBootUnity/sponsor/1/avatar.svg"></a>

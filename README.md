@@ -61,8 +61,11 @@ http://localhost:808/doc.html bootstrap-ui
 ```
 1. mybatis模块:添加USER.sql,启动后访问:http://localhost:8080 即可看到接口数据
 2. 所有模块： 添加 characterEncoding=utf8&useSSL=true 解决高版本mysql的sll警告
-3. 添加代码贡献者列表和支持项目链接。
+3. 添加代码贡献者列表和支持者，赞助商链接。
 ```
+
+![support](screenshot/support.png)
+
 #### swagger            
 ![默认](screenshot/swagger-ui.png)
 

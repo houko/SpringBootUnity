@@ -1,5 +1,6 @@
 package info.xiaomo.scheduled.task;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -7,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Component
+@Slf4j
 public class ScheduledTasks {
 
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
@@ -14,7 +16,7 @@ public class ScheduledTasks {
     // 定义某个定时任务
     @Scheduled(fixedRate = 5000)
     public void reportCurrentTime() {
-        System.out.println("当前时间：" + dateFormat.format(new Date()));
+        log.debug("每5秒钟执行一次，注意观察日志时间");
     }
 
 
@@ -40,7 +42,7 @@ public class ScheduledTasks {
     //每1分钟执行一次
     @Scheduled(cron = "0 */1 *  * * * ")
     public void reportCurrentByCron() {
-        System.out.println("Scheduling Tasks Examples By Cron: The time is now " + dateFormat.format(new Date()));
+        log.debug("每分钟执行一次，注意观察日志时间");
     }
 
 }

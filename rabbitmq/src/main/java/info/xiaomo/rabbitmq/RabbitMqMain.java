@@ -15,11 +15,11 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  * いま 最高の表現 として 明日最新の始発．．～
  * Today the best performance  as tomorrow newest starter!
  * Created by IntelliJ IDEA.
- *
+ * <p>
  * author: xiaomo
  * github: https://github.com/xiaomoinfo
  * email: xiaomo@xiaomo.info
-
+ * <p>
  * Date: 2016/4/1 15:38
  * Description: RabbitMq启动器
  * Copyright(©) 2015 by xiaomo.
@@ -27,7 +27,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @Configuration
 @ComponentScan("info.xiaomo")
 @EnableScheduling
-@EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class,HibernateJpaAutoConfiguration.class})
+@EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
 public class RabbitMqMain {
     public static void main(String[] args) throws Exception {
         SpringApplication.run(RabbitMqMain.class, args);

@@ -52,7 +52,7 @@ public class ScheduledTasks {
         List<ShikigamiModel> shikigamiModel = shikigamaService.findAll();
         for (ShikigamiModel aShikigamiModel : shikigamiModel) {
             String url = aShikigamiModel.getImage();
-            DownUtil.download(url, "C:\\Users\\xiaomo\\Desktop\\yss\\");
+            DownUtil.download(url, "D:\\yys\\");
             LOGGER.debug("开始下载图片:{}", url);
         }
     }

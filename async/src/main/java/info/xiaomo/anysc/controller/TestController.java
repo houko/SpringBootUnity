@@ -26,7 +26,7 @@ import java.util.concurrent.Future;
  **/
 
 @RestController
-@RequestMapping("/async")
+@RequestMapping("/")
 public class TestController extends BaseController {
 
     private final AsyncTask task;
@@ -36,7 +36,7 @@ public class TestController extends BaseController {
         this.task = task;
     }
 
-    @RequestMapping(value = "/task", method = RequestMethod.GET)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public Result task() throws Exception {
         long start = System.currentTimeMillis();
 

@@ -90,7 +90,7 @@ public class HtmlUtil {
         }
 
         char[] arr_cSrc = strSrc.toCharArray();
-        StringBuffer buf = new StringBuffer(arr_cSrc.length);
+        StringBuilder buf = new StringBuilder(arr_cSrc.length);
         char ch;
 
         for (int i = 0; i < arr_cSrc.length; i++) {

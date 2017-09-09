@@ -7,7 +7,13 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>出错</title>
 </head>
-<body>
-错误
+<body onload="jumpToIndex()">
+
+<script>
+    function jumpToIndex() {
+        window.location.href ="/";
+    }
+
+</script>
 </body>
 </html>

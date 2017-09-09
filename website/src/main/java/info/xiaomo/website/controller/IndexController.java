@@ -16,11 +16,11 @@ import java.util.List;
  * いま 最高の表現 として 明日最新の始発．．～
  * Today the best performance  as tomorrow newest starter!
  * Created by IntelliJ IDEA.
- *
+ * <p>
  * author: xiaomo
  * github: https://github.com/xiaomoinfo
  * email: xiaomo@xiaomo.info
-
+ * <p>
  * Date: 2016/11/21 10:53
  * Copyright(©) 2015 by xiaomo.
  **/
@@ -42,6 +42,8 @@ public class IndexController {
         if (all.size() > 0) {
             SystemSetModel model = all.get(0);
             session.setAttribute("webSet", model);
+        } else {
+            session.setAttribute("webSet", new SystemSetModel());
         }
         return UserView.INDEX.getName();
     }

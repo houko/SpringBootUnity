@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <link rel="icon" href="${webSet.icon}">
-    <title>${webSet.siteName}</title>
+    <link rel="icon" href="http://image.xiaomo.info/logo/logo.png">
+    <title>小莫的个人网站</title>
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
 </head>

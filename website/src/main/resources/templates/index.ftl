@@ -26,10 +26,7 @@
                     <a class="nav-link navbar-color" href="http://blog.xiaomo.info">博客</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link navbar-color" href="lolmax">项目实例</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link navbar-color" href="https://github.com/qq83387856">关于</a>
+                    <a class="nav-link navbar-color" href="https://xiaomo.info">关于</a>
                 </li>
             </ul>
         <#if currentUser??>

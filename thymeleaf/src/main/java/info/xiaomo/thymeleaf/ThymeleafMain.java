@@ -1,8 +1,10 @@
-package info.xiaomo.velocity;
+package info.xiaomo.thymeleaf;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
@@ -20,13 +22,13 @@ import org.springframework.context.annotation.Configuration;
  * Copyright(©) 2015 by xiaomo.
  **/
 @Configuration
-@EnableAutoConfiguration
+@EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class,HibernateJpaAutoConfiguration.class})
 @ComponentScan("info.xiaomo")
 @EntityScan("info.xiaomo.*.model")
-public class VelocityMain {
+public class ThymeleafMain {
 
     public static void main(String[] args) throws Exception {
-        SpringApplication.run(VelocityMain.class, args);
+        SpringApplication.run(ThymeleafMain.class, args);
     }
 
 

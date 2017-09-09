@@ -1,4 +1,4 @@
-package info.xiaomo.velocity.controller;
+package info.xiaomo.thymeleaf.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -19,11 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
  **/
 
 @Controller
-public class VelocityController {
+public class ThymeleafController {
 
     @RequestMapping("hello")
     public String hello(ModelMap map) {
-        map.put("host", "使用Velocity!");
+        map.put("hello", "使用thymeleaf!");
         return "index";
     }
 

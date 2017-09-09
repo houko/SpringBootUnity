@@ -30,8 +30,8 @@
         <module>mybatis</module>
         <!-- freemarker -->
         <module>freemarker</module>
-        <!-- velocity -->
-        <module>velocity</module>
+        <!-- thymeleaf -->
+        <module>thymeleaf</module>
         <!-- 多数据源 -->
         <module>multipleSource</module>
         <!-- 数据接口 -->

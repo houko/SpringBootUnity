@@ -19,7 +19,7 @@ public enum UserView {
     LOGIN("login"),
     REGISTER("register"),
     REGISTER_INFO("info"),
-    INDEX("/web/index");
+    INDEX("index");
 
     private String name;
 

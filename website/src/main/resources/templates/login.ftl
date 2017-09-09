@@ -9,9 +9,9 @@
 </head>
 <body>
 <form action="/user/login"  method="post">
-    <div><label> 用户名 : <input type="text" name="email"/> </label></div>
+    <div><label> 邮箱 : <input type="email" name="email"/> </label></div>
     <div><label> 密 码 : <input type="password" name="password"/> </label></div>
-    ${errMsg!}
+    <h1 style="color: red;">${CodeMsg!}</h1>
     <div><input type="submit" value="登录"/></div>
     <div><input type="button" value="注册" onclick="toRegister()"/></div>
 </form>

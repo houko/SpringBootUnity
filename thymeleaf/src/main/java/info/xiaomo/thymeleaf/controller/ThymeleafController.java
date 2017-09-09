@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class ThymeleafController {
 
-    @RequestMapping("hello")
+    @RequestMapping("/")
     public String hello(ModelMap map) {
         map.put("hello", "使用thymeleaf!");
         return "index";

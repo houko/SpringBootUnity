@@ -34,7 +34,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * author: xiaomo
  * github: https://github.com/xiaomoinfo
  * email: xiaomo@xiaomo.info
- * Date: 2016/4/1 15:38
+ * Date: 2016/4/2 15:38
  * Description: 后台管理启动器
  * Copyright(©) 2015 by xiaomo.
  **/

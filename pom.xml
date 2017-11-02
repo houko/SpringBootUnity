@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>info.xiaomo</groupId>
     <artifactId>xiaomo</artifactId>
-    <version>2017.1</version>
+    <version>2017.2</version>
 
     <!-- 模块 -->
     <modules>

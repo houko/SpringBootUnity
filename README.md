@@ -17,7 +17,6 @@
 - lombok
 
 
-
 ### 注意事项
 - 本项目代码托管在[github](https://github.com/xiaomoinfo/SpringBootUnity)和[码云](http://git.oschina.net/hupeng/SpringBootUnity)两个地方,最新代码会先推送在github上,码云上会在github上更新完之后进行同步。
 - 本项目多数数据库都用到了`hibernate`，如果没有提供`sql`文件。则启动时会根据代码映射自动生成数据库表，请在启动前修改`application.properties`中的数据库连接信息
@@ -136,8 +135,6 @@ http://localhost:808/doc.html bootstrap-ui
 - [Git官网中文文档](https://git-scm.com/book/zh/v2 "Git官网中文文档")
 
 - [Thymeleaf](http://www.thymeleaf.org/doc/tutorials/3.0/thymeleafspring.html "Thymeleaf")
-
-
 
 
 

@@ -1,10 +1,7 @@
 [![Build Status](https://travis-ci.org/xiaomoinfo/SpringBootUnity.svg?branch=master)](https://travis-ci.org/xiaomoinfo/SpringBootUnity)
 [![Backers on Open Collective](https://opencollective.com/SpringBootUnity/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/SpringBootUnity/sponsors/badge.svg)](#sponsors) [![GitHub issues](https://img.shields.io/github/issues/xiaomoinfo/SpringBootUnity.svg)](https://github.com/xiaomoinfo/SpringBootUnity/issues)
-[![GitHub forks](https://img.shields.io/github/forks/xiaomoinfo/SpringBootUnity.svg)](https://github.com/xiaomoinfo/SpringBootUnity/network)
-[![GitHub stars](https://img.shields.io/github/stars/xiaomoinfo/SpringBootUnity.svg)](https://github.com/xiaomoinfo/SpringBootUnity/stargazers)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/xiaomoinfo/MysqlBlobToJsonTool/master/LICENSE)
 [![Maven Central](https://img.shields.io/maven-central/v/org.apache.maven/apache-maven.svg)]()
-[![GitHub followers](https://img.shields.io/github/followers/xiaomoinfo.svg?style=social&label=Follow)]()
 
 ###  项目简介
 ![mark](screenshot/spring.png)
@@ -22,7 +19,7 @@
 
 
 ### 注意事项
-- 本项目代码托管在[github](https://github.com/xiaomoinfo/SpringBootUnity)和[码云](http://git.oschina.net/hupeng/SpringBootUnity)两个地方,最新代码以github为准,码云上会在github上更新完之后进行同步。
+- 本项目代码托管在[github](https://github.com/xiaomoinfo/SpringBootUnity)和[码云](http://git.oschina.net/hupeng/SpringBootUnity)两个地方,最新代码会先推送在github上,码云上会在github上更新完之后进行同步。
 - 本项目多数数据库都用到了`hibernate`，如果没有提供`sql`文件。则启动时会根据代码映射自动生成数据库表，请在启动前修改`application.properties`中的数据库连接信息
 - 本项目使用了`lombok`,在查看本项目时如果您没有下载`lombok 插件`，请先安装,不然找不到`get/set`方法。eclipse用户请参照[官网](http://jnb.ociweb.com/jnb/jnbJan2010.html#references)
 
@@ -30,11 +27,19 @@
 
 
 ### 启动方式
-- `spring boot`内置了tomcat做为web容器，默认打成jar包直接放在服务器上执行就可以了
+
+- 本地运行
+本repo是一个多模块组成，每一个模块都可以单独打包运行。如果想运行哪个模块可以找到对应的Main文件右键运行。
+![run](screenshot/run.png)
+
+
+- 在linux服务器运行
+ `spring boot`内置了tomcat做为web容器，默认打成jar包直接放在服务器上执行就可以了
 > `java -Xms64m -Xmx2048m -jar project.jar 5 >> ./project.log &`
 
-![jar](https://static.xiaomo.info/image/project/javajar.gif)
 
+
+### 打包
 - 如果需要定制化打成war包，那么也很简单。在`maven`中做下设置就ok了,然后把war包扔到tomcat下面就可以运行了
 
 ```
@@ -60,9 +65,37 @@ http://localhost:808/doc.html bootstrap-ui
 - 2017-09-06 所有模块： 添加 characterEncoding=utf8&useSSL=true 解决高版本mysql的sll警告
 - 2017-09-06 添加代码贡献者列表和支持者，赞助商链接。
 - 2017-09-08 crawler模块(网络爬虫):修复本地文件目录不存在会报错的bug。处理方式为：不存在则自动创建
+- 2017-11-02 开源协议从apache更换到MIT
+- 2017-11-02 添加本地运行方式的说明
 
 
+## 贡献者
 
+感谢所有为本项目做出贡献的开发者们.
+<a href="graphs/contributors"><img src="https://opencollective.com/SpringBootUnity/contributors.svg?width=890" /></a>
+
+
+## 支持者
+
+感谢您的支持! 🙏  [[成为支持者](https://opencollective.com/SpringBootUnity#backer)]
+
+<a href="https://opencollective.com/SpringBootUnity#backers" target="_blank"><img src="https://opencollective.com/SpringBootUnity/backers.svg?width=890"></a>
+
+
+## 赞助商
+
+[[成为赞助商](https://opencollective.com/SpringBootUnity#sponsor)]支持本项目并成为赞助商. 您的LOGO和网站链接将会被展示在这里. 
+
+<a href="https://opencollective.com/SpringBootUnity/sponsor/0/website" target="_blank"><img src="https://opencollective.com/SpringBootUnity/sponsor/0/avatar.svg"></a>
+<a href="https://opencollective.com/SpringBootUnity/sponsor/1/website" target="_blank"><img src="https://opencollective.com/SpringBootUnity/sponsor/1/avatar.svg"></a>
+<a href="https://opencollective.com/SpringBootUnity/sponsor/2/website" target="_blank"><img src="https://opencollective.com/SpringBootUnity/sponsor/2/avatar.svg"></a>
+<a href="https://opencollective.com/SpringBootUnity/sponsor/3/website" target="_blank"><img src="https://opencollective.com/SpringBootUnity/sponsor/3/avatar.svg"></a>
+<a href="https://opencollective.com/SpringBootUnity/sponsor/4/website" target="_blank"><img src="https://opencollective.com/SpringBootUnity/sponsor/4/avatar.svg"></a>
+<a href="https://opencollective.com/SpringBootUnity/sponsor/5/website" target="_blank"><img src="https://opencollective.com/SpringBootUnity/sponsor/5/avatar.svg"></a>
+<a href="https://opencollective.com/SpringBootUnity/sponsor/6/website" target="_blank"><img src="https://opencollective.com/SpringBootUnity/sponsor/6/avatar.svg"></a>
+<a href="https://opencollective.com/SpringBootUnity/sponsor/7/website" target="_blank"><img src="https://opencollective.com/SpringBootUnity/sponsor/7/avatar.svg"></a>
+<a href="https://opencollective.com/SpringBootUnity/sponsor/8/website" target="_blank"><img src="https://opencollective.com/SpringBootUnity/sponsor/8/avatar.svg"></a>
+<a href="https://opencollective.com/SpringBootUnity/sponsor/9/website" target="_blank"><img src="https://opencollective.com/SpringBootUnity/sponsor/9/avatar.svg"></a>
 
 ###  项目说明
 需求是多变的，本项目是以spring boot为基础，在使用spring boot的过程中对应不同的需求选用不同的技术和spring boot进行搭配，因此本项目是个偏于使用示例的定位。同时如果您在使用spring boot的过程中有什么好用的技术期待您对本项目的PR。
@@ -105,34 +138,6 @@ http://localhost:808/doc.html bootstrap-ui
 - [Thymeleaf](http://www.thymeleaf.org/doc/tutorials/3.0/thymeleafspring.html "Thymeleaf")
 
 
-
-## 贡献者
-
-感谢所有为本项目做出贡献的开发者们.
-<a href="graphs/contributors"><img src="https://opencollective.com/SpringBootUnity/contributors.svg?width=890" /></a>
-
-
-## 支持者
-
-感谢您的支持! 🙏  [[成为支持者](https://opencollective.com/SpringBootUnity#backer)]
-
-<a href="https://opencollective.com/SpringBootUnity#backers" target="_blank"><img src="https://opencollective.com/SpringBootUnity/backers.svg?width=890"></a>
-
-
-## 赞助商
-
-[[成为赞助商](https://opencollective.com/SpringBootUnity#sponsor)]支持本项目并成为赞助商. 您的LOGO和网站链接将会被展示在这里. 
-
-<a href="https://opencollective.com/SpringBootUnity/sponsor/0/website" target="_blank"><img src="https://opencollective.com/SpringBootUnity/sponsor/0/avatar.svg"></a>
-<a href="https://opencollective.com/SpringBootUnity/sponsor/1/website" target="_blank"><img src="https://opencollective.com/SpringBootUnity/sponsor/1/avatar.svg"></a>
-<a href="https://opencollective.com/SpringBootUnity/sponsor/2/website" target="_blank"><img src="https://opencollective.com/SpringBootUnity/sponsor/2/avatar.svg"></a>
-<a href="https://opencollective.com/SpringBootUnity/sponsor/3/website" target="_blank"><img src="https://opencollective.com/SpringBootUnity/sponsor/3/avatar.svg"></a>
-<a href="https://opencollective.com/SpringBootUnity/sponsor/4/website" target="_blank"><img src="https://opencollective.com/SpringBootUnity/sponsor/4/avatar.svg"></a>
-<a href="https://opencollective.com/SpringBootUnity/sponsor/5/website" target="_blank"><img src="https://opencollective.com/SpringBootUnity/sponsor/5/avatar.svg"></a>
-<a href="https://opencollective.com/SpringBootUnity/sponsor/6/website" target="_blank"><img src="https://opencollective.com/SpringBootUnity/sponsor/6/avatar.svg"></a>
-<a href="https://opencollective.com/SpringBootUnity/sponsor/7/website" target="_blank"><img src="https://opencollective.com/SpringBootUnity/sponsor/7/avatar.svg"></a>
-<a href="https://opencollective.com/SpringBootUnity/sponsor/8/website" target="_blank"><img src="https://opencollective.com/SpringBootUnity/sponsor/8/avatar.svg"></a>
-<a href="https://opencollective.com/SpringBootUnity/sponsor/9/website" target="_blank"><img src="https://opencollective.com/SpringBootUnity/sponsor/9/avatar.svg"></a>
 
 
 

@@ -143,9 +143,12 @@ public class HtmlUtil {
      * @return string
      */
     public static String delHTMLTag(String htmlStr) {
-        String regexScript = "<script[^>]*?>[\\s\\S]*?<\\/script>"; //定义script的正则表达式
-        String regexStyle = "<style[^>]*?>[\\s\\S]*?<\\/style>"; //定义style的正则表达式
-        String regexHtml = "<[^>]+>"; //定义HTML标签的正则表达式
+        //定义script的正则表达式
+        String regexScript = "<script[^>]*?>[\\s\\S]*?<\\/script>";
+        //定义style的正则表达式
+        String regexStyle = "<style[^>]*?>[\\s\\S]*?<\\/style>";
+        //定义HTML标签的正则表达式
+        String regexHtml = "<[^>]+>";
 
         Pattern pScript = Pattern.compile(regexScript, Pattern.CASE_INSENSITIVE);
         Matcher mScript = pScript.matcher(htmlStr);

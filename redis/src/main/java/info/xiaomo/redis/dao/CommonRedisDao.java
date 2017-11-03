@@ -75,6 +75,8 @@ public interface CommonRedisDao {
 
     /**
      * 获取缓存
+     * @param key
+     * @return
      */
     String getValue(String key);
 

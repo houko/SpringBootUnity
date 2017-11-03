@@ -101,8 +101,8 @@
 
 <footer>
     <div class="footer">
-        <h5>Copyright © ${webSet.fromYear!}-${webSet.toYear!} xiaomo AllRight Reversed</h5>
-        <h6><a href="${webSet.beianUrl!}" target="_blank">${webSet.beianNumber!}</a></h6>
+        <h5>Copyright © 2016-2017 xiaomo AllRight Reversed</h5>
+        <h6><a href="https://xiaomo.info" target="_blank">浙ICP备15009606号</a></h6>
     </div>
 </footer>
 

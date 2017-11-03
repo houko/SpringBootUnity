@@ -175,11 +175,10 @@ object CharUtil {
 
     @JvmStatic
     fun main(args: Array<String>) {
-        var url: String
+        var url = "http://www.google.com/search?hl=zh-CN&newwindow=1&q=%E4%B8%AD%E5%9B%BD%E5%A4%A7%E7%99%BE%E7%A7%91%E5%9C%A8%E7%BA%BF%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2&btnG=%E6%90%9C%E7%B4%A2&lr="
         println(utf8urlencode("小莫"))
         println(iso2gb("小莫"))
         println(gb2iso("小莫"))
-        url = "http://www.google.com/search?hl=zh-CN&newwindow=1&q=%E4%B8%AD%E5%9B%BD%E5%A4%A7%E7%99%BE%E7%A7%91%E5%9C%A8%E7%BA%BF%E5%85%A8%E6%96%87%E6%A3%80%E7%B4%A2&btnG=%E6%90%9C%E7%B4%A2&lr="
         if (CharUtil.isUtf8Url(url)) {
             println(CharUtil.utf8urldecode(url))
         }

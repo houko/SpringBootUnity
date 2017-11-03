@@ -29,5 +29,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserDao extends JpaRepository<UserModel, Long> {
 
+    /**
+     * 根据邮件查
+     *
+     * @param email
+     * @return
+     */
     UserModel findUserByEmail(String email);
 }

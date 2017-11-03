@@ -5,13 +5,14 @@ import info.xiaomo.core.base.Result;
 import info.xiaomo.core.constant.CodeConst;
 import info.xiaomo.website.model.ChangeLogModel;
 import info.xiaomo.website.service.ChangeLogService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,13 +25,14 @@ import java.util.List;
  * @author : xiaomo
  * github: https://github.com/xiaomoinfo
  * email: xiaomo@xiaomo.info
-
+ * <p>
  * Date: 2016/4/1117:40
  * Description: 更新日志控制器
  * Copyright(©) 2015 by xiaomo.
  **/
-@Controller
+@RestController
 @RequestMapping("/changeLog")
+@Api(value = "更新日志相关api", description = "更新日志相关api")
 public class ChangeLogController extends BaseController {
 
     private final ChangeLogService service;
@@ -48,6 +50,10 @@ public class ChangeLogController extends BaseController {
      */
     @Override
     @RequestMapping(value = "findById/{id}", method = RequestMethod.GET)
+    @ApiOperation(value = "通过id查找", notes = "通过id查找", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "唯一id", required = true, dataType = "Long", paramType = "path")
+    })
     public Result findById(@PathVariable("id") Long id) {
         ChangeLogModel changeLogModel = service.findById(id);
         if (changeLogModel == null) {
@@ -63,12 +69,16 @@ public class ChangeLogController extends BaseController {
      */
     @Override
     @RequestMapping(value = "findByName/{name}", method = RequestMethod.GET)
+    @ApiOperation(value = "通过名字查找", notes = "通过名字查找", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "name", value = "更新日志内容", required = true, dataType = "String", paramType = "path")
+    })
     public Result findByName(@PathVariable("name") String name) {
         ChangeLogModel model = service.findByName(name);
         if (model == null) {
             return new Result(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
         }
-        return new Result<>(model);
+        return new Result(model);
     }
 
     /**
@@ -133,6 +143,7 @@ public class ChangeLogController extends BaseController {
      */
     @Override
     @RequestMapping(value = "findAll", method = RequestMethod.GET)
+    @ApiOperation(value = "分页查询更新日志", notes = "分页查询更新日志", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public Result findAll() {
         List<ChangeLogModel> pages = service.findAll();
         if (pages == null || pages.size() <= 0) {
@@ -158,6 +169,7 @@ public class ChangeLogController extends BaseController {
      *
      * @return result
      */
+    @ApiOperation(value = "增加更新日志", notes = "增加更新日志", httpMethod = "POST", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public Result add(@RequestBody ChangeLogModel model) {
         ChangeLogModel changeLogModel = service.findByName(model.getName());
@@ -177,6 +189,7 @@ public class ChangeLogController extends BaseController {
      *
      * @return result
      */
+    @ApiOperation(value = "修改更新日志", notes = "修改更新日志", httpMethod = "POST", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "update", method = RequestMethod.POST)
     public Result update(@RequestBody ChangeLogModel model) {
         ChangeLogModel changeLogModel = service.findByName(model.getName());
@@ -194,6 +207,10 @@ public class ChangeLogController extends BaseController {
      * 删除更新日志
      */
     @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
+    @ApiOperation(value = "删除更新日志", notes = "删除更新日志", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "唯一id", required = true, dataType = "Long", paramType = "path")
+    })
     public Result deleteById(@PathVariable("id") Long id) {
         ChangeLogModel changeLogModel = service.findById(id);
         if (changeLogModel == null) {

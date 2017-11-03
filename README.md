@@ -68,6 +68,7 @@ http://localhost:808/doc.html bootstrap-ui
 - 2017-11-02 spring boot版本更新到1.5.8
 - 2017-11-03 添加kotlin环境配置
 - 2017-11-03 按照阿里巴巴编程规范插件P3C优化代码
+- 2017-11-03 合并`api`和`website`模块,访问`localhost:8080`会显示网站主页,访问`localhost:8080/api`会显示api管理界面
 
 
 

@@ -11,5 +11,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ShikigamaDao extends JpaRepository<ShikigamiModel, Long> {
 
+    /**
+     * 根据名字查式神
+     *
+     * @param name
+     * @return
+     */
     ShikigamiModel findByName(String name);
 }

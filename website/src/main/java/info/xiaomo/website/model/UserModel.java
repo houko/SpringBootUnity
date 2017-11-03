@@ -50,6 +50,9 @@ public class UserModel extends BaseModel implements Serializable {
     @Column(name = "Phone")
     private Long phone = 0L;
 
+    @Column(name = "validateCode")
+    private String validateCode = "";
+
     @Column(name = "ImgUrl")
     private String imgUrl = "";
 
@@ -58,4 +61,6 @@ public class UserModel extends BaseModel implements Serializable {
 
     @Column(name = "RegisterTime")
     private Long registerTime = 0L;
+
+
 }

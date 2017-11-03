@@ -190,7 +190,9 @@ public class StringUtil extends StringUtils {
     public static String replace(String s, Map<String, String> map) {
         StringBuilder sb = new StringBuilder((int) (s.length() * 1.5));
         int cursor = 0;
-        for (int start, end; (start = s.indexOf("${", cursor)) != -1 && (end = s.indexOf('}', start)) != -1; ) {
+        String str = "${";
+        char ch = '}';
+        for (int start, end; (start = s.indexOf(str, cursor)) != -1 && (end = s.indexOf(ch, start)) != -1; ) {
             sb.append(s.substring(cursor, start));
             String key = s.substring(start + 2, end);
             sb.append(map.get(StringUtils.trim(key)));
@@ -208,22 +210,23 @@ public class StringUtil extends StringUtils {
      */
     public static String getIP(HttpServletRequest request) {
         String ip = request.getHeader("X-Requested-For");
-        if (StringUtils.isBlank(ip) || "unknown".equalsIgnoreCase(ip)) {
+        String unknown = "unknown";
+        if (StringUtils.isBlank(ip) || unknown.equalsIgnoreCase(ip)) {
             ip = request.getHeader("X-Forwarded-For");
         }
-        if (StringUtils.isBlank(ip) || "unknown".equalsIgnoreCase(ip)) {
+        if (StringUtils.isBlank(ip) || unknown.equalsIgnoreCase(ip)) {
             ip = request.getHeader("Proxy-Client-IP");
         }
-        if (StringUtils.isBlank(ip) || "unknown".equalsIgnoreCase(ip)) {
+        if (StringUtils.isBlank(ip) || unknown.equalsIgnoreCase(ip)) {
             ip = request.getHeader("WL-Proxy-Client-IP");
         }
-        if (StringUtils.isBlank(ip) || "unknown".equalsIgnoreCase(ip)) {
+        if (StringUtils.isBlank(ip) || unknown.equalsIgnoreCase(ip)) {
             ip = request.getHeader("HTTP_CLIENT_IP");
         }
-        if (StringUtils.isBlank(ip) || "unknown".equalsIgnoreCase(ip)) {
+        if (StringUtils.isBlank(ip) || unknown.equalsIgnoreCase(ip)) {
             ip = request.getHeader("HTTP_X_FORWARDED_FOR");
         }
-        if (StringUtils.isBlank(ip) || "unknown".equalsIgnoreCase(ip)) {
+        if (StringUtils.isBlank(ip) || unknown.equalsIgnoreCase(ip)) {
             ip = request.getRemoteAddr();
         }
         if (!ip.matches(IP_REGEX)) {

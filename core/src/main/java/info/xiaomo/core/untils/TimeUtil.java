@@ -120,7 +120,8 @@ public class TimeUtil {
         SimpleDateFormat df;
         Date date;
         //传入的时间是以 / 分割
-        if (strDate.split(SymbolConst.HENGXIAN).length < 2) {
+        int length = 2;
+        if (strDate.split(SymbolConst.HENGXIAN).length < length) {
             strDate = strDate.replace(SymbolConst.ZHENGXIEXIAN, SymbolConst.HENGXIAN);
         }
         if (strDate.split(SymbolConst.SPACE).length > 1) {
@@ -143,7 +144,8 @@ public class TimeUtil {
     public static Date convertStringToDate(String strDate) {
         Date aDate;
         //传入的时间是以 / 分割
-        if (strDate.split(SymbolConst.HENGXIAN).length < 2) {
+        int length = 2;
+        if (strDate.split(SymbolConst.HENGXIAN).length < length) {
             strDate = strDate.replace(SymbolConst.ZHENGXIEXIAN, SymbolConst.HENGXIAN);
         }
         aDate = convertStringToDate(DATE_PATTERN_WITH_HENGXIAN, strDate);
@@ -319,7 +321,8 @@ public class TimeUtil {
         String strReturn = "";
         try {
             String p;
-            if (strDate.length() > 10) {
+            int length = 10;
+            if (strDate.length() > length) {
                 p = "yyyy-MM-dd HH:mm:ss";
             } else {
                 p = "yyyy-MM-dd";
@@ -342,7 +345,8 @@ public class TimeUtil {
         String strReturn = "";
         try {
             String p;
-            if (strDate.length() > 10) {
+            int length = 10;
+            if (strDate.length() > length) {
                 p = "yyyy-MM-dd HH:mm:ss";
             } else {
                 p = "yyyy-MM-dd";
@@ -451,16 +455,20 @@ public class TimeUtil {
     public static boolean isSeason(String date) {
         int getMonth = Integer.parseInt(date.substring(5, 7));
         boolean sign = false;
-        if (getMonth == 3) {
+        int monthThree = 3;
+        if (getMonth == monthThree) {
             sign = true;
         }
-        if (getMonth == 6) {
+        int monthSix = 6;
+        if (getMonth == monthSix) {
             sign = true;
         }
-        if (getMonth == 9) {
+        int monthNine = 9;
+        if (getMonth == monthNine) {
             sign = true;
         }
-        if (getMonth == 12) {
+        int maxMonth = 12;
+        if (getMonth == maxMonth) {
             sign = true;
         }
         return sign;
@@ -524,7 +532,8 @@ public class TimeUtil {
         java.util.Date date = new Date();
         cld.setTime(date);
         int intMon = cld.get(Calendar.MONTH) + 1;
-        if (intMon < 10) {
+        int ten = 10;
+        if (intMon < ten) {
             strMonth = "0" + String.valueOf(intMon);
         } else {
             strMonth = String.valueOf(intMon);
@@ -557,10 +566,11 @@ public class TimeUtil {
         int intDay = cld.get(Calendar.DAY_OF_MONTH);
         String mons = String.valueOf(intMon);
         String days = String.valueOf(intDay);
-        if (intMon < 10) {
+        int ten = 10;
+        if (intMon < ten) {
             mons = "0" + String.valueOf(intMon);
         }
-        if (intDay < 10) {
+        if (intDay < ten) {
             days = "0" + String.valueOf(intDay);
         }
         return String.valueOf(cld.get(Calendar.YEAR)) + "-" + mons + "-" + days;

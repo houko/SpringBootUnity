@@ -97,7 +97,8 @@ public class LunarCalendarUtil {
         int leapMonth;
         int i;
 
-        if (year < MIN_YEAR || year > MAX_YEAR || month < 1 || month > 12
+        int maxMonth = 12;
+        if (year < MIN_YEAR || year > MAX_YEAR || month < 1 || month > maxMonth
                 || monthDay < 1 || monthDay > 30) {
             throw new IllegalArgumentException(
                     "Illegal lunar date, must be like that:\n\t" +
@@ -108,7 +109,9 @@ public class LunarCalendarUtil {
 
         dayOffset = (LUNAR_INFO[year - MIN_YEAR] & 0x001F) - 1;
 
-        if (((LUNAR_INFO[year - MIN_YEAR] & 0x0060) >> 5) == 2) {
+        int five = 5;
+        int two = 2;
+        if (((LUNAR_INFO[year - MIN_YEAR] & 0x0060) >> five) == two) {
             dayOffset += 31;
         }
 
@@ -135,10 +138,11 @@ public class LunarCalendarUtil {
             }
         }
 
-        boolean res = dayOffset > 366 || (year % 4 != 0 && dayOffset > 365);
+        int four = 4;
+        boolean res = dayOffset > 366 || (year % four != 0 && dayOffset > 365);
         if (res) {
             year += 1;
-            if (year % 4 == 1) {
+            if (year % four == 1) {
                 dayOffset -= 366;
             } else {
                 dayOffset -= 365;
@@ -146,35 +150,36 @@ public class LunarCalendarUtil {
         }
 
         int[] solarInfo = new int[3];
-        for (i = 1; i < 13; i++) {
+        int oneThree = 13;
+        for (i = 1; i < oneThree; i++) {
             int iPos = DAYS_BEFORE_MONTH[i];
-            if (year % 4 == 0 && i > 2) {
+            if (year % four == 0 && i > two) {
                 iPos += 1;
             }
 
-            if (year % 4 == 0 && i == 2 && iPos + 1 == dayOffset) {
+            if (year % four == 0 && i == two && iPos + 1 == dayOffset) {
                 solarInfo[1] = i;
-                solarInfo[2] = dayOffset - 31;
+                solarInfo[two] = dayOffset - 31;
                 break;
             }
 
             if (iPos >= dayOffset) {
                 solarInfo[1] = i;
                 iPos = DAYS_BEFORE_MONTH[i - 1];
-                if (year % 4 == 0 && i > 2) {
+                if (year % four == 0 && i > two) {
                     iPos += 1;
                 }
                 if (dayOffset > iPos) {
-                    solarInfo[2] = dayOffset - iPos;
+                    solarInfo[two] = dayOffset - iPos;
                 } else if (dayOffset == iPos) {
-                    if (year % 4 == 0 && i == 2) {
-                        solarInfo[2] = DAYS_BEFORE_MONTH[i] - DAYS_BEFORE_MONTH[i - 1] + 1;
+                    if (year % four == 0 && i == two) {
+                        solarInfo[two] = DAYS_BEFORE_MONTH[i] - DAYS_BEFORE_MONTH[i - 1] + 1;
                     } else {
-                        solarInfo[2] = DAYS_BEFORE_MONTH[i] - DAYS_BEFORE_MONTH[i - 1];
+                        solarInfo[two] = DAYS_BEFORE_MONTH[i] - DAYS_BEFORE_MONTH[i - 1];
                     }
 
                 } else {
-                    solarInfo[2] = dayOffset;
+                    solarInfo[two] = dayOffset;
                 }
                 break;
             }
@@ -226,12 +231,13 @@ public class LunarCalendarUtil {
 
         // 农历年份
         lunarDate[0] = iYear;
-        // 闰哪个月,1-12
+// 闰哪个月,1-12
         int leapMonth = leapMonth(iYear);
         boolean isLeap = false;
         // 用当年的天数offset,逐个减去每月（农历）的天数，求出当天是本月的第几天
         int iMonth, daysOfMonth = 0;
-        for (iMonth = 1; iMonth <= 13 && offset > 0; iMonth++) {
+        int i = 13;
+        for (iMonth = 1; iMonth <= i && offset > 0; iMonth++) {
             daysOfMonth = daysInLunarMonth(iYear, iMonth);
             offset -= daysOfMonth;
         }

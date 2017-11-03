@@ -192,8 +192,9 @@ public class HttpUtil {
             return url;
         }
         StringBuilder sb = new StringBuilder(url);
-        if (!url.contains("?")) {
-            sb.append("?");
+        String wenhao = "?";
+        if (!url.contains(wenhao)) {
+            sb.append(wenhao);
         }
         sb.append(map2Url(params));
         return sb.toString();

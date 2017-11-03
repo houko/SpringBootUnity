@@ -574,8 +574,9 @@ public class FileUtil {
         if (isFileExist(picPath + jpg)) {
             picExtend = jpg;
         }
-        if (isFileExist(picPath + ".png")) {
-            picExtend = ".png";
+        String png = ".png";
+        if (isFileExist(picPath + png)) {
+            picExtend = png;
         }
         //返回图片扩展名
         return picExtend;

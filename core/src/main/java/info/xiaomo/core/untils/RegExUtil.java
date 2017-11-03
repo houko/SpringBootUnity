@@ -132,7 +132,7 @@ public class RegExUtil {
      * @since 1.0
      */
 
-    public static String ereg_replace(String pattern, String newstr, String str) throws PatternSyntaxException {
+    public static String eregReplace(String pattern, String newstr, String str) throws PatternSyntaxException {
         Pattern p = Pattern.compile(pattern);
         Matcher m = p.matcher(str);
         return m.replaceAll(newstr);
@@ -151,7 +151,7 @@ public class RegExUtil {
         Pattern p = Pattern.compile(pattern);
         Matcher m = p.matcher(str);
         while (m.find()) {
-            vector.add(ereg_replace("(\\[\\#)|(\\#\\])", "", m.group()));
+            vector.add(eregReplace("(\\[\\#)|(\\#\\])", "", m.group()));
         }
         return vector;
     }
@@ -170,7 +170,7 @@ public class RegExUtil {
         String[] array = new String[m.groupCount()];
         int i = 0;
         while (m.find()) {
-            array[i] = ereg_replace("(\\[\\#)|(\\#\\])", "", m.group());
+            array[i] = eregReplace("(\\[\\#)|(\\#\\])", "", m.group());
             i++;
         }
         return array;

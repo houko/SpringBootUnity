@@ -77,5 +77,5 @@ public class UserModel extends BaseModel implements Serializable {
 
     @ApiModelProperty(value = "注册时间(时间戳)")
     @Column(name = "RegisterTime")
-    private Long RegisterTime = 0L;
+    private Long registerTime = 0L;
 }

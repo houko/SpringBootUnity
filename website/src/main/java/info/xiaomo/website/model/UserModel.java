@@ -57,5 +57,5 @@ public class UserModel extends BaseModel implements Serializable {
     private String address = "";
 
     @Column(name = "RegisterTime")
-    private Long RegisterTime = 0L;
+    private Long registerTime = 0L;
 }

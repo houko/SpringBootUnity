@@ -33,26 +33,6 @@ public class SqlUtil {
         return StringUtils.join(paras, ',');
     }
 
-    /*
- *
- */
-    private String delSQlString(String sql) {
-        StringBuilder delSql = new StringBuilder("in(");
-        StringTokenizer Tokenizer = new StringTokenizer(sql, "|");
-
-        // 标记本身等于分隔符的特殊情况
-        delSql.append(Tokenizer.nextToken());
-        while (Tokenizer.hasMoreTokens()) {
-            delSql.append(Tokenizer.nextToken()).append(",");
-        }
-        delSql = new StringBuilder(delSql.substring(0, delSql.length() - 1) + ")");
-        return delSql.toString();
-    }
-
-    private String delNewSQlString(String sql) {
-        return "in (" + sql.replace('|', ',') + ")";
-    }
-
     /**
      * sql语句 处理
      *
@@ -62,8 +42,28 @@ public class SqlUtil {
      */
     public static String sql4DB(String sql, String dbtype) {
         if (!"oracle".equalsIgnoreCase(dbtype)) {
-            sql = StringUtil.toISO(sql);
+            sql = StringUtil.Companion.toISO(sql);
         }
         return sql;
+    }
+
+    private String delNewSQlString(String sql) {
+        return "in (" + sql.replace('|', ',') + ")";
+    }
+
+    /*
+ *
+ */
+    private String delSQlString(String sql) {
+        StringBuilder delSql = new StringBuilder("in(");
+        StringTokenizer tokenizer = new StringTokenizer(sql, "|");
+
+        // 标记本身等于分隔符的特殊情况
+        delSql.append(tokenizer.nextToken());
+        while (tokenizer.hasMoreTokens()) {
+            delSql.append(tokenizer.nextToken()).append(",");
+        }
+        delSql = new StringBuilder(delSql.substring(0, delSql.length() - 1) + ")");
+        return delSql.toString();
     }
 }

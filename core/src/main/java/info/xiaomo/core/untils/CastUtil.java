@@ -21,7 +21,7 @@ import java.util.Iterator;
  **/
 
 public class CastUtil {
-    protected static final ByteArrayOutputStream out = new ByteArrayOutputStream();
+    protected static final ByteArrayOutputStream OUT = new ByteArrayOutputStream();
     protected static ObjectOutputStream oos;
 
     public CastUtil() {
@@ -208,20 +208,20 @@ public class CastUtil {
     }
 
     public static byte[] objectToBytes(Object obj) throws IOException {
-        out.reset();
+        OUT.reset();
 
         byte[] var2;
         try {
             if (oos == null) {
-                oos = new ObjectOutputStream(out);
+                oos = new ObjectOutputStream(OUT);
             } else {
                 oos.reset();
             }
 
             oos.writeObject(obj);
-            var2 = out.toByteArray();
+            var2 = OUT.toByteArray();
         } finally {
-            out.close();
+            OUT.close();
         }
 
         return var2;

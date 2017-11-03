@@ -16,10 +16,10 @@ package info.xiaomo.core.constant;
  **/
 public interface GenderConst {
 
-    int secret = 0;
+    int SECRET = 0;
 
-    int man = 1;
+    int MAN = 1;
 
-    int woman = 2;
+    int WOMAN = 2;
 
 }

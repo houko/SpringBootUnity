@@ -5,20 +5,21 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
+/**
+ * @author qq
+ */
 @Component
 @Slf4j
 public class ScheduledTasks {
 
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("HH:mm:ss");
 
     // 定义某个定时任务
     @Scheduled(fixedRate = 5000)
     public void reportCurrentTime() {
         log.debug("每5秒钟执行一次，注意观察日志时间");
     }
-
 
 
     /**

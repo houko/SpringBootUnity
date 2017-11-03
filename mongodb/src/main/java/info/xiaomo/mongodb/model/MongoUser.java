@@ -60,5 +60,5 @@ public class MongoUser {
     private String address = "";
 
     @ApiModelProperty(value = "注册时间(时间戳)")
-    private Long RegisterTime = 0L;
+    private Long registerTime = 0L;
 }

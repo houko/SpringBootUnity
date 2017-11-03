@@ -27,7 +27,7 @@ public class HtmlUtil {
      * @return 是否包含html标签
      */
     public static boolean containsHTMLTag(String str) {
-        if (StringUtil.isBlank(str)) {
+        if (StringUtil.Companion.isBlank(str)) {
             return false;
         }
 
@@ -53,8 +53,8 @@ public class HtmlUtil {
         char[] arrCsrc = strSrc.toCharArray();
         StringBuilder buf = new StringBuilder(arrCsrc.length);
         char ch;
-        for (char anArr_cSrc : arrCsrc) {
-            ch = anArr_cSrc;
+        for (char anArrCSrc : arrCsrc) {
+            ch = anArrCSrc;
 
             if (ch == '<') {
                 buf.append("&lt;");

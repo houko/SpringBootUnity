@@ -5,7 +5,7 @@ import info.xiaomo.core.base.Result;
 import info.xiaomo.core.constant.CodeConst;
 import info.xiaomo.core.constant.GenderConst;
 import info.xiaomo.core.exception.UserNotFoundException;
-import info.xiaomo.core.untils.MD5Util;
+import info.xiaomo.core.untils.Md5Util;
 import info.xiaomo.core.untils.RandomUtil;
 import info.xiaomo.core.untils.TimeUtil;
 import info.xiaomo.website.model.UserModel;
@@ -29,6 +29,7 @@ import java.util.List;
  * Today the best performance  as tomorrow newest starter!
  * Created by IntelliJ IDEA.
  * <p>
+ *
  * @author : xiaomo
  * github: https://github.com/xiaomoinfo
  * email: xiaomo@xiaomo.info
@@ -79,7 +80,7 @@ public class UserController {
             return UserView.LOGIN.getName();
         }
         //密码不正确
-        if (!MD5Util.encode(password, userModel.getSalt()).equals(userModel.getPassword())) {
+        if (!Md5Util.encode(password, userModel.getSalt()).equals(userModel.getPassword())) {
             map.put("CodeMsg", "密码不正确");
             return UserView.LOGIN.getName();
         }
@@ -126,7 +127,7 @@ public class UserController {
             return new Result<>(CodeConst.USER_NOT_FOUND.getResultCode(), CodeConst.USER_NOT_FOUND.getMessage());
         }
         String salt = RandomUtil.createSalt();
-        userByEmail.setPassword(MD5Util.encode(user.getPassword(), salt));
+        userByEmail.setPassword(Md5Util.encode(user.getPassword(), salt));
         userByEmail.setNickName(user.getNickName());
         userByEmail.setSalt(salt);
         UserModel updateUser = service.updateUser(userByEmail);
@@ -174,7 +175,7 @@ public class UserController {
             return UserView.REGISTER.getName();
         }
         //验证码是否过期
-        if (time + TimeUtil.ONE_DAY_IN_MILLISECONDS * 2 < TimeUtil.getNowOfMills()) {
+        if (time + TimeUtil.ONE_DAY_IN_MILLISECONDS < TimeUtil.getNowOfMills()) {
             log.info("用户{}使用己过期时间{}激活邮箱失败！", email, time);
             map.put("CodeMsg", "时间己过期，请重新注册");
             return UserView.REGISTER.getName();
@@ -184,11 +185,11 @@ public class UserController {
         userModel = new UserModel();
         userModel.setNickName(email);
         userModel.setEmail(email);
-        userModel.setGender(GenderConst.secret);
+        userModel.setGender(GenderConst.SECRET);
         userModel.setPhone(0L);
         userModel.setSalt(salt);
         userModel.setAddress("");
-        userModel.setPassword(MD5Util.encode(password, salt));
+        userModel.setPassword(Md5Util.encode(password, salt));
         userModel = service.addUser(userModel);
         log.info("用户{}激活邮箱成功！", userModel.getEmail());
         session.setAttribute("currentUser", userModel);
@@ -238,7 +239,7 @@ public class UserController {
             return new Result<>(CodeConst.USER_REPEAT.getResultCode(), CodeConst.USER_REPEAT.getMessage());
         }
         String salt = RandomUtil.createSalt();
-        user.setPassword(MD5Util.encode(user.getPassword(), salt));
+        user.setPassword(Md5Util.encode(user.getPassword(), salt));
         user.setSalt(salt);
         service.addUser(user);
         return new Result<>(user);

@@ -552,30 +552,33 @@ public class FileUtil {
     /**
      * 获取图片文件的扩展名（发布系统专用）
      *
-     * @param pic_path 为图片名称加上前面的路径不包括扩展名
+     * @param picPath 为图片名称加上前面的路径不包括扩展名
      * @return 图片的扩展名
      * @since 1.0
      */
-    public static String getPicExtendName(String pic_path) {
-        pic_path = getUNIXfilePath(pic_path);
-        String pic_extend = "";
-        if (isFileExist(pic_path + ".gif")) {
-            pic_extend = ".gif";
+    public static String getPicExtendName(String picPath) {
+        picPath = getUNIXfilePath(picPath);
+        String picExtend = "";
+        String gif = ".gif";
+        if (isFileExist(picPath + gif)) {
+            picExtend = gif;
         }
-        if (isFileExist(pic_path + ".jpeg")) {
-            pic_extend = ".jpeg";
+        String jpeg = ".jpeg";
+        if (isFileExist(picPath + jpeg)) {
+            picExtend = jpeg;
         }
-        if (isFileExist(pic_path + ".jpg")) {
-            pic_extend = ".jpg";
+        String jpg = ".jpg";
+        if (isFileExist(picPath + jpg)) {
+            picExtend = jpg;
         }
-        if (isFileExist(pic_path + ".png")) {
-            pic_extend = ".png";
+        if (isFileExist(picPath + ".png")) {
+            picExtend = ".png";
         }
-        return pic_extend; //返回图片扩展名
+        //返回图片扩展名
+        return picExtend;
     }
 
-    //拷贝文件
-    public static boolean CopyFile(File in, File out) throws Exception {
+    public static boolean copyFile(File in, File out) throws Exception {
         try {
             FileInputStream fis = new FileInputStream(in);
             FileOutputStream fos = new FileOutputStream(out);
@@ -594,11 +597,11 @@ public class FileUtil {
     }
 
     //拷贝文件
-    public static boolean CopyFile(String infile, String outfile) throws Exception {
+    public static boolean copyFile(String infile, String outfile) throws Exception {
         try {
             File in = new File(infile);
             File out = new File(outfile);
-            return CopyFile(in, out);
+            return copyFile(in, out);
         } catch (IOException ie) {
             ie.printStackTrace();
             return false;
@@ -612,7 +615,7 @@ public class FileUtil {
      * @param in  data source
      * @param out data destination
      * @throws IOException in an input or output error occurs
-     * @since ostermillerutils 1.00.00
+     * @since orientals 1.00.00
      */
     private static void copy(InputStream in, OutputStream out) throws IOException {
         byte[] buffer = new byte[BUFFER_SIZE];
@@ -821,9 +824,9 @@ public class FileUtil {
     }
 
     public static String getNewFileName(String fileName, String email) {
-        String FileType = FileUtil.getFileType(fileName);
+        String fileType = FileUtil.getFileType(fileName);
         String newName = email.split(SymbolConst.AT)[0];
-        return (TimeUtil.getDateNow(TimeUtil.DATE_FORMAT_STRING) + SymbolConst.HENGXIAN + newName + SymbolConst.DIAN + FileType).toLowerCase();
+        return (TimeUtil.getDateNow(TimeUtil.DATE_FORMAT_STRING) + SymbolConst.HENGXIAN + newName + SymbolConst.DIAN + fileType).toLowerCase();
     }
 
     public static boolean isImage(String imageName) {

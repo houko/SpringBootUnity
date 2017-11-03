@@ -243,8 +243,8 @@ public class LinkController extends BaseController {
             @ApiImplicitParam(name = "id", value = "唯一id", required = true, dataType = "Long", paramType = "path")
     })
     public Result delete(@PathVariable("id") Long id) {
-        LinkModel LinkModel = service.findById(id);
-        if (LinkModel == null) {
+        LinkModel linkmodel = service.findById(id);
+        if (linkmodel == null) {
             return new Result<>(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
         }
         LinkModel delModel = service.delete(id);

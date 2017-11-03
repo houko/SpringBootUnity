@@ -2,13 +2,13 @@ package info.xiaomo.api.controller;
 
 import info.xiaomo.api.model.UserModel;
 import info.xiaomo.api.service.UserService;
-import info.xiaomo.core.constant.CodeConst;
-import info.xiaomo.core.constant.GenderConst;
 import info.xiaomo.core.base.BaseController;
 import info.xiaomo.core.base.Result;
+import info.xiaomo.core.constant.CodeConst;
+import info.xiaomo.core.constant.GenderConst;
 import info.xiaomo.core.exception.UserNotFoundException;
-import info.xiaomo.core.untils.MD5Util;
 import info.xiaomo.core.untils.MailUtil;
+import info.xiaomo.core.untils.Md5Util;
 import info.xiaomo.core.untils.RandomUtil;
 import info.xiaomo.core.untils.TimeUtil;
 import io.swagger.annotations.Api;
@@ -80,8 +80,8 @@ public class UserController extends BaseController {
             return new Result(CodeConst.USER_REPEAT.getResultCode(), CodeConst.USER_REPEAT.getMessage());
         }
         String salt = RandomUtil.createSalt();
-        user.setPassword(MD5Util.encode(user.getPassword(), salt));
-        user.setValidateCode(MD5Util.encode(user.getEmail(), ""));
+        user.setPassword(Md5Util.encode(user.getPassword(), salt));
+        user.setValidateCode(Md5Util.encode(user.getEmail(), ""));
         user.setSalt(salt);
         service.addUser(user);
         return new Result<>(user);
@@ -128,7 +128,7 @@ public class UserController extends BaseController {
             return new Result(CodeConst.USER_NOT_FOUND.getResultCode(), CodeConst.USER_NOT_FOUND.getMessage());
         }
         //密码不正确
-        if (!MD5Util.encode(password, userModel.getSalt()).equals(userModel.getPassword())) {
+        if (!Md5Util.encode(password, userModel.getSalt()).equals(userModel.getPassword())) {
             return new Result(CodeConst.AUTH_FAILED.getResultCode(), CodeConst.AUTH_FAILED.getMessage());
         }
         return new Result<>(userModel);
@@ -149,7 +149,7 @@ public class UserController extends BaseController {
             return new Result(CodeConst.USER_NOT_FOUND.getResultCode(), CodeConst.USER_NOT_FOUND.getMessage());
         }
         String salt = RandomUtil.createSalt();
-        userByEmail.setPassword(MD5Util.encode(user.getPassword(), salt));
+        userByEmail.setPassword(Md5Util.encode(user.getPassword(), salt));
         userByEmail.setNickName(user.getNickName());
         userByEmail.setSalt(salt);
         UserModel updateUser = service.updateUser(userByEmail);
@@ -175,7 +175,7 @@ public class UserController extends BaseController {
         userModel.setPhone(user.getPhone());
         userModel.setAddress(user.getAddress());
         userModel.setGender(user.getGender());
-        userModel.setValidateCode(MD5Util.encode(user.getEmail(), ""));
+        userModel.setValidateCode(Md5Util.encode(user.getEmail(), ""));
         UserModel updateUser = service.updateUser(userModel);
         return new Result<>(updateUser);
     }
@@ -228,7 +228,7 @@ public class UserController extends BaseController {
             return new Result(CodeConst.USER_REPEAT.getResultCode(), CodeConst.USER_REPEAT.getMessage());
         }
         //验证码是否过期
-        if (user.getRegisterTime() + TimeUtil.ONE_DAY_IN_MILLISECONDS * 2 < TimeUtil.getNowOfMills()) {
+        if (user.getRegisterTime() + TimeUtil.ONE_DAY_IN_MILLISECONDS < TimeUtil.getNowOfMills()) {
             LOGGER.info("用户{}使用己过期的激活码{}激活邮箱失败！", user.getEmail(), user.getEmail());
             return new Result(CodeConst.TIME_PASSED.getResultCode(), CodeConst.TIME_PASSED.getMessage());
         }
@@ -237,12 +237,12 @@ public class UserController extends BaseController {
         userModel = new UserModel();
         userModel.setNickName(user.getNickName());
         userModel.setEmail(user.getEmail());
-        userModel.setGender(GenderConst.secret);
-        userModel.setValidateCode(MD5Util.encode(user.getEmail(), salt));
+        userModel.setGender(GenderConst.SECRET);
+        userModel.setValidateCode(Md5Util.encode(user.getEmail(), salt));
         userModel.setPhone(0L);
         userModel.setSalt(salt);
         userModel.setAddress("");
-        userModel.setPassword(MD5Util.encode(user.getPassword(), salt));
+        userModel.setPassword(Md5Util.encode(user.getPassword(), salt));
         userModel = service.addUser(userModel);
         LOGGER.info("用户{}使用激活码{}激活邮箱成功！", userModel.getEmail(), userModel.getValidateCode());
         return new Result<>(userModel);

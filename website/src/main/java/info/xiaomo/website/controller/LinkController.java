@@ -24,7 +24,7 @@ import java.util.List;
  * @author : xiaomo
  * github: https://github.com/xiaomoinfo
  * email: xiaomo@xiaomo.info
-
+ * <p>
  * Date: 2016/4/1119:55
  * Description: 友情连接控制器
  * Copyright(©) 2015 by xiaomo.
@@ -208,8 +208,8 @@ public class LinkController extends BaseController {
      */
     @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
     public Result delete(@PathVariable("id") Long id) {
-        LinkModel LinkModel = service.findById(id);
-        if (LinkModel == null) {
+        LinkModel linkModel = service.findById(id);
+        if (linkModel == null) {
             return new Result(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
         }
         LinkModel delModel = service.delete(id);

@@ -15,7 +15,9 @@ package info.xiaomo.website.view;
  **/
 
 public enum TechnologyView {
-
+    /**
+     * login
+     */
     LOGIN("login"),
     REGISTER("register"),
     REGISTER_INFO("info"),

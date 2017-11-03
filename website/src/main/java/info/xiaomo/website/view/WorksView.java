@@ -16,6 +16,9 @@ package info.xiaomo.website.view;
 
 public enum WorksView {
 
+    /**
+     * login
+     */
     LOGIN("login"),
     REGISTER("register"),
     REGISTER_INFO("info"),

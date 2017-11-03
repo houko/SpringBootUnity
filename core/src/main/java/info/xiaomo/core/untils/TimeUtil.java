@@ -297,7 +297,7 @@ public class TimeUtil {
         String strReturn = "";
         try {
 
-            Date d = TimeUtil.convertStringToDate("yyyy-MM-dd HH:mm:ss", StringUtil.replace(
+            Date d = TimeUtil.convertStringToDate("yyyy-MM-dd HH:mm:ss", StringUtil.Companion.replace(
                     strDate, "T", " "));
             strReturn = TimeUtil.date2Str("hh:mm aaa", d);
 
@@ -321,7 +321,7 @@ public class TimeUtil {
             } else {
                 p = "yyyy-MM-dd";
             }
-            Date d = TimeUtil.convertStringToDate(p, StringUtil.replace(strDate, "T", " "));
+            Date d = TimeUtil.convertStringToDate(p, StringUtil.Companion.replace(strDate, "T", " "));
             strReturn = TimeUtil.date2Str("EEE d-MMM", d);
 
         } catch (Exception e) {
@@ -344,7 +344,7 @@ public class TimeUtil {
             } else {
                 p = "yyyy-MM-dd";
             }
-            Date d = TimeUtil.convertStringToDate(p, StringUtil.replace(strDate, "T", " "));
+            Date d = TimeUtil.convertStringToDate(p, StringUtil.Companion.replace(strDate, "T", " "));
             strReturn = TimeUtil.date2Str("EEE d-MMM hh:mm aaa", d);
 
         } catch (Exception e) {

@@ -15,7 +15,9 @@ package info.xiaomo.website.view;
  **/
 
 public enum ChangeLogView {
-
+    /**
+     * Login
+     */
     LOGIN("login"),
     REGISTER("register"),
     REGISTER_INFO("info"),

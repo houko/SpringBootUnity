@@ -2,9 +2,9 @@ package info.xiaomo.api.controller;
 
 import info.xiaomo.api.model.TechnologyModel;
 import info.xiaomo.api.service.TechnologyService;
-import info.xiaomo.core.constant.CodeConst;
 import info.xiaomo.core.base.BaseController;
 import info.xiaomo.core.base.Result;
+import info.xiaomo.core.constant.CodeConst;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -44,6 +44,7 @@ public class TechnologyController extends BaseController {
     }
 
 
+    @Override
     @ApiOperation(value = "根据id查找技术", notes = "根据id查找技术",httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "/findById/{id}",method = RequestMethod.GET)
     @ApiImplicitParams({
@@ -57,6 +58,7 @@ public class TechnologyController extends BaseController {
         return new Result<>(model);
     }
 
+    @Override
     @ApiOperation(value = "根据名字查找技术", notes = "根据名字查找技术",httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "/findByName/{name}",method = RequestMethod.GET)
     @ApiImplicitParams({
@@ -125,6 +127,7 @@ public class TechnologyController extends BaseController {
         return null;
     }
 
+    @Override
     @ApiOperation(value = "查找所有", notes = "查找所有",httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "/findAll",method = RequestMethod.GET)
     public Result findAll() {

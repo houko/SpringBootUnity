@@ -9,12 +9,15 @@ package info.xiaomo.core.constant;
  * @author : xiaomo
  * github: https://github.com/xiaomoinfo
  * email: xiaomo@xiaomo.info
-
+ * <p>
  * Date: 2016/10/29 10:59
  * Description: 错误码
  * Copyright(©) 2015 by xiaomo.
  */
 public enum CodeConst {
+    /**
+     * success
+     */
     SUCCESS(200, "成功"),
     NOT_FOUNT(404, "找不到"),
     REPEAT(992, "数据重复"),

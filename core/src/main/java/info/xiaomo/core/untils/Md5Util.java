@@ -19,14 +19,14 @@ import java.security.MessageDigest;
  * @author : xiaomo
  * github: https://github.com/xiaomoinfo
  * email: xiaomo@xiaomo.info
-
+ * <p>
  * Date: 16/4/3 10:03
  * Description: md5加密解密
  * Copyright(©) 2015 by xiaomo.
  */
-public class MD5Util {
+public class Md5Util {
 
-    private final static String[] hexDigits = {
+    private final static String[] HEX_DIGITS = {
             "0", "1", "2", "3", "4", "5", "6", "7",
             "8", "9", "a", "b", "c", "d", "e", "f"};
 
@@ -39,20 +39,20 @@ public class MD5Util {
     public static String byteArrayToString(byte[] b) {
         StringBuilder resultSb = new StringBuilder();
         for (byte aB : b) {
-            resultSb.append(byteToHexString(aB));//若使用本函数转换则可得到加密结果的16进制表示，即数字字母混合的形式
-//      resultSb.append(byteToNumString(b[i]));//使用本函数则返回加密结果的10进制数字字串，即全数字形式
+            //若使用本函数转换则可得到加密结果的16进制表示，即数字字母混合的形式
+            resultSb.append(byteToHexString(aB));
         }
         return resultSb.toString();
     }
 
     private static String byteToNumString(byte b) {
 
-        int _b = b;
-        if (_b < 0) {
-            _b = 256 + _b;
+        int tempB = b;
+        if (tempB < 0) {
+            tempB = 256 + tempB;
         }
 
-        return String.valueOf(_b);
+        return String.valueOf(tempB);
     }
 
     private static String byteToHexString(byte b) {
@@ -62,7 +62,7 @@ public class MD5Util {
         }
         int d1 = n / 16;
         int d2 = n % 16;
-        return hexDigits[d1] + hexDigits[d2];
+        return HEX_DIGITS[d1] + HEX_DIGITS[d2];
     }
 
     public static String encode(String password, String salt) {

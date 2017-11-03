@@ -6,7 +6,7 @@ import info.xiaomo.core.base.BaseController;
 import info.xiaomo.core.base.Result;
 import info.xiaomo.core.constant.CodeConst;
 import info.xiaomo.core.exception.UserNotFoundException;
-import info.xiaomo.core.untils.MD5Util;
+import info.xiaomo.core.untils.Md5Util;
 import info.xiaomo.core.untils.RandomUtil;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,7 +70,7 @@ public class AdminUserController extends BaseController {
         if (adminModel == null) {
             return new Result(CodeConst.USER_NOT_FOUND.getResultCode(), CodeConst.USER_NOT_FOUND.getMessage());
         }
-        if (!MD5Util.encode(password, adminModel.getSalt()).equals(adminModel.getPassword())) {
+        if (!Md5Util.encode(password, adminModel.getSalt()).equals(adminModel.getPassword())) {
             return new Result(CodeConst.AUTH_FAILED.getResultCode(), CodeConst.AUTH_FAILED.getMessage());
         }
         return new Result<>(adminModel);
@@ -95,7 +95,7 @@ public class AdminUserController extends BaseController {
         }
         String salt = RandomUtil.createSalt();
         model.setSalt(salt);
-        model.setPassword(MD5Util.encode(model.getPassword(), salt));
+        model.setPassword(Md5Util.encode(model.getPassword(), salt));
         AdminModel saveModel = service.addAdminUser(model);
         return new Result<>(saveModel);
     }
@@ -254,7 +254,7 @@ public class AdminUserController extends BaseController {
         }
         String salt = RandomUtil.createSalt();
         adminModel.setSalt(salt);
-        adminModel.setPassword(MD5Util.encode(model.getPassword(), salt));
+        adminModel.setPassword(Md5Util.encode(model.getPassword(), salt));
         service.updateAdminUser(adminModel);
         return new Result<>(adminModel);
     }

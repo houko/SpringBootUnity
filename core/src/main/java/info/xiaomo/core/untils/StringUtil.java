@@ -160,7 +160,7 @@ public class StringUtil extends StringUtils {
     public static String togglecase(String string) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < string.length(); i++) {
-            sb.append(CharUtil.regularize(string.charAt(i)));
+            sb.append(CharUtil.INSTANCE.regularize(string.charAt(i)));
         }
         return sb.toString();
     }

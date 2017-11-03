@@ -29,9 +29,9 @@ abstract class BaseModel : Serializable {
             field = this.id
         }
 
-    @Column(name = "Name")
+    @Column(name = "modelName")
     var name: String? = null
-        set(name) {
+        set(modelName) {
             field = this.name
         }
 

@@ -95,12 +95,12 @@ public class MyWebSocket {
      */
     @OnMessage
     public void onMessage(String message) throws IOException {
-        String date = "<font color='green'>" + TimeUtil.getDateNow(TimeUtil.DATE_PATTERN) + "</font></br>";
+        String date = "<font color='green'>" + TimeUtil.INSTANCE.getDateNow(TimeUtil.INSTANCE.getDATE_PATTERN()) + "</font></br>";
         // 群发消息
         for (MyWebSocket item : webSocketSet) {
             item.sendMessage(date + message);
         }
-        LOGGER.info("客户端消息:{}", HtmlUtil.delHTMLTag(message));
+        LOGGER.info("客户端消息:{}", HtmlUtil.INSTANCE.delHTMLTag(message));
     }
 
     /**

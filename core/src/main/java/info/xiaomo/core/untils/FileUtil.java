@@ -828,8 +828,8 @@ public class FileUtil {
 
     public static String getNewFileName(String fileName, String email) {
         String fileType = FileUtil.getFileType(fileName);
-        String newName = email.split(SymbolConst.AT)[0];
-        return (TimeUtil.getDateNow(TimeUtil.DATE_FORMAT_STRING) + SymbolConst.HENGXIAN + newName + SymbolConst.DIAN + fileType).toLowerCase();
+        String newName = email.split(SymbolConst.INSTANCE.getAT())[0];
+        return (TimeUtil.INSTANCE.getDateNow(TimeUtil.INSTANCE.getDATE_FORMAT_STRING()) + SymbolConst.INSTANCE.getHENGXIAN() + newName + SymbolConst.INSTANCE.getDIAN() + fileType).toLowerCase();
     }
 
     public static boolean isImage(String imageName) {

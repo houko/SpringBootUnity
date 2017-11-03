@@ -79,7 +79,7 @@ public class UserController extends BaseController {
         if (userModel != null) {
             return new Result(CodeConst.USER_REPEAT.getResultCode(), CodeConst.USER_REPEAT.getMessage());
         }
-        String salt = RandomUtil.createSalt();
+        String salt = RandomUtil.INSTANCE.createSalt();
         user.setPassword(Md5Util.encode(user.getPassword(), salt));
         user.setValidateCode(Md5Util.encode(user.getEmail(), ""));
         user.setSalt(salt);
@@ -148,7 +148,7 @@ public class UserController extends BaseController {
         if (userByEmail == null) {
             return new Result(CodeConst.USER_NOT_FOUND.getResultCode(), CodeConst.USER_NOT_FOUND.getMessage());
         }
-        String salt = RandomUtil.createSalt();
+        String salt = RandomUtil.INSTANCE.createSalt();
         userByEmail.setPassword(Md5Util.encode(user.getPassword(), salt));
         userByEmail.setNickName(user.getNickName());
         userByEmail.setSalt(salt);
@@ -228,23 +228,23 @@ public class UserController extends BaseController {
             return new Result(CodeConst.USER_REPEAT.getResultCode(), CodeConst.USER_REPEAT.getMessage());
         }
         //验证码是否过期
-        if (user.getRegisterTime() + TimeUtil.ONE_DAY_IN_MILLISECONDS < TimeUtil.getNowOfMills()) {
-            LOGGER.info("用户{}使用己过期的激活码{}激活邮箱失败！", user.getEmail(), user.getEmail());
+        if (user.getRegisterTime() + TimeUtil.INSTANCE.getONE_DAY_IN_MILLISECONDS() < TimeUtil.INSTANCE.getNowOfMills()) {
+            getLOGGER().info("用户{}使用己过期的激活码{}激活邮箱失败！", user.getEmail(), user.getEmail());
             return new Result(CodeConst.TIME_PASSED.getResultCode(), CodeConst.TIME_PASSED.getMessage());
         }
         //激活
-        String salt = RandomUtil.createSalt();
+        String salt = RandomUtil.INSTANCE.createSalt();
         userModel = new UserModel();
         userModel.setNickName(user.getNickName());
         userModel.setEmail(user.getEmail());
-        userModel.setGender(GenderConst.SECRET);
+        userModel.setGender(GenderConst.Companion.getSECRET());
         userModel.setValidateCode(Md5Util.encode(user.getEmail(), salt));
         userModel.setPhone(0L);
         userModel.setSalt(salt);
         userModel.setAddress("");
         userModel.setPassword(Md5Util.encode(user.getPassword(), salt));
         userModel = service.addUser(userModel);
-        LOGGER.info("用户{}使用激活码{}激活邮箱成功！", userModel.getEmail(), userModel.getValidateCode());
+        getLOGGER().info("用户{}使用激活码{}激活邮箱成功！", userModel.getEmail(), userModel.getValidateCode());
         return new Result<>(userModel);
     }
 

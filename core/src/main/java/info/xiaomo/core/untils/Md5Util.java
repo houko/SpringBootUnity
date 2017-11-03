@@ -79,7 +79,7 @@ public class Md5Util {
 
     public static void main(String[] args) {
         String password = "xiaomo";
-        String salt = RandomUtil.createSalt();
+        String salt = RandomUtil.INSTANCE.createSalt();
         System.out.println("原数据：" + password);
         System.out.println("盐值：" + salt);
         System.out.println("MD5后：" + encode(password, salt));

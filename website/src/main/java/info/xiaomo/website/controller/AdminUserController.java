@@ -93,7 +93,7 @@ public class AdminUserController extends BaseController {
         if (adminModel != null) {
             return new Result(CodeConst.ADMIN_USER_REPEAT.getResultCode(), CodeConst.ADMIN_USER_REPEAT.getMessage());
         }
-        String salt = RandomUtil.createSalt();
+        String salt = RandomUtil.INSTANCE.createSalt();
         model.setSalt(salt);
         model.setPassword(Md5Util.encode(model.getPassword(), salt));
         AdminModel saveModel = service.addAdminUser(model);
@@ -252,7 +252,7 @@ public class AdminUserController extends BaseController {
         if (adminModel == null) {
             return new Result(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
         }
-        String salt = RandomUtil.createSalt();
+        String salt = RandomUtil.INSTANCE.createSalt();
         adminModel.setSalt(salt);
         adminModel.setPassword(Md5Util.encode(model.getPassword(), salt));
         service.updateAdminUser(adminModel);

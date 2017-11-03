@@ -38,8 +38,8 @@ public class TokenUtil {
                 if (m2.find()) {
                     accessToken = m2.group(1);
                 } else {
-                    String temp = string.split(SymbolConst.DENGHAO)[1];
-                    accessToken = temp.split(SymbolConst.AND)[0];
+                    String temp = string.split(SymbolConst.INSTANCE.getDENGHAO())[1];
+                    accessToken = temp.split(SymbolConst.INSTANCE.getAND())[0];
                 }
             }
         }

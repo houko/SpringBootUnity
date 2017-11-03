@@ -69,7 +69,7 @@ public class MailUtil {
      * @return 有3个参数 email password  time
      */
     public static String redirectValidateUrl(String email, String password) {
-        Long now = TimeUtil.getNowOfMills();
+        Long now = TimeUtil.INSTANCE.getNowOfMills();
         StringBuilder sb = new StringBuilder("点击下面链接激活账号，48小时生效，否则重新注册账号，链接只能使用一次，请尽快激活！</br>");
         sb.append("<a href=\"http://localhost:8080/user/validate?email=");
         sb.append(email);
@@ -87,7 +87,7 @@ public class MailUtil {
         sb.append("</a><br/>");
         sb.append("<span style='float:right;padding-right:4%'>小莫</span></br>");
         sb.append("<span style='float:right'>");
-        sb.append(TimeUtil.getFormatDate());
+        sb.append(TimeUtil.INSTANCE.getFormatDate());
         sb.append("</span></br>");
         return sb.toString();
     }

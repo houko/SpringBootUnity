@@ -84,7 +84,7 @@ public class MailUtil {
      * @return 有3个参数 email password
      */
     public static String getContent(String email, String password, Configuration configuration) {
-        Long now = TimeUtil.getNowOfMills();
+        Long now = TimeUtil.INSTANCE.getNowOfMills();
         Map<String, Object> data = new HashMap<>(10);
         StringBuilder sb = new StringBuilder("http://localhost:8080/user/validate?email=");
         sb.append(email);
@@ -94,7 +94,7 @@ public class MailUtil {
         sb.append(now);
         data.put("email", email);
         data.put("url", sb.toString());
-        data.put("now", TimeUtil.getFormatDate(now, TimeUtil.DEFAULT_FORMAT));
+        data.put("now", TimeUtil.INSTANCE.getFormatDate(now, TimeUtil.INSTANCE.getDEFAULT_FORMAT()));
         Template template;
         String readyParsedTemplate = null;
         try {

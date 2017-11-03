@@ -25,8 +25,8 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/")
-class TestController @Autowired
-constructor(private val task: AsyncTask) {
+class TestController
+@Autowired constructor(private val task: AsyncTask) {
 
     @RequestMapping(value = "/", method = arrayOf(RequestMethod.GET))
     @Throws(Exception::class)

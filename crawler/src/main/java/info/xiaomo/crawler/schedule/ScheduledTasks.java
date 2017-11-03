@@ -40,7 +40,7 @@ public class ScheduledTasks {
     @Scheduled(cron = "0 */1 *  * * * ")
     public void reportCurrentByCron() {
         LOGGER.debug("开始执行任务：");
-        List<ShikigamiModel> shikigamiModel = OnnmyoujiSpider.getShikigamiModel();
+        List<ShikigamiModel> shikigamiModel = OnnmyoujiSpider.INSTANCE.getShikigamiModel();
         for (ShikigamiModel model : shikigamiModel) {
             shikigamaService.save(model);
         }

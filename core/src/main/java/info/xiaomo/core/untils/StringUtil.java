@@ -631,7 +631,7 @@ public class StringUtil extends StringUtils {
      * @return 转换后的字符串
      */
     public static String toChineseAndHtmlEncode(String str, int quotes) {
-        return HtmlUtil.htmlEncode(toChinese(str), quotes);
+        return HtmlUtil.INSTANCE.htmlEncode(toChinese(str), quotes);
     }
 
     /**

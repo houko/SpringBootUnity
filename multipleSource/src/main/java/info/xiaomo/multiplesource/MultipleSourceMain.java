@@ -1,4 +1,4 @@
-package info.xiaomo.multipleSource;
+package info.xiaomo.multiplesource;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringApplication;

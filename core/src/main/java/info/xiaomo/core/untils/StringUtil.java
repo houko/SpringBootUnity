@@ -799,7 +799,7 @@ public class StringUtil extends StringUtils {
      * @return
      */
     public static String stringToUnicode(String text) {
-        String result = "";
+        StringBuffer result = new StringBuffer();
         int input;
         StringReader isr;
         try {
@@ -809,14 +809,14 @@ public class StringUtil extends StringUtils {
         }
         try {
             while ((input = isr.read()) != -1) {
-                result = result + "&#x" + Integer.toHexString(input) + ";";
+                result.append("&#x").append(input).append(";");
 
             }
         } catch (IOException e) {
             return "-2";
         }
         isr.close();
-        return result;
+        return result.toString();
 
     }
 
@@ -828,23 +828,21 @@ public class StringUtil extends StringUtils {
         char temChr;
         int ascInt;
         int i;
-        String result = "";
+        StringBuilder stringBuffer = new StringBuilder();
         if (inStr == null) {
             inStr = "";
         }
         for (i = 0; i < inStr.length(); i++) {
             temChr = inStr.charAt(i);
             ascInt = temChr;
-            //System.out.println("1=="+ascInt);
-            //System.out.println("1=="+Integer.toBinaryString(ascInt));
             if (Integer.toHexString(ascInt).length() > 2) {
-                result = result + "&#x" + Integer.toHexString(ascInt) + ";";
+                stringBuffer.append("&#x").append(Integer.toHexString(ascInt)).append(";");
             } else {
-                result = result + temChr;
+                stringBuffer.append(temChr);
             }
 
         }
-        return result;
+        return stringBuffer.toString();
     }
 
     /**

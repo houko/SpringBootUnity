@@ -1,4 +1,4 @@
-package info.xiaomo.multipleSource.domain;
+package info.xiaomo.multiplesource.domain;
 
 
 import lombok.Data;

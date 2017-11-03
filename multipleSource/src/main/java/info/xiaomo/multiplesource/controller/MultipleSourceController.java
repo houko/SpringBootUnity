@@ -1,7 +1,7 @@
-package info.xiaomo.multipleSource.controller;
+package info.xiaomo.multiplesource.controller;
 
 import info.xiaomo.core.base.Result;
-import info.xiaomo.multipleSource.sql.Sql;
+import info.xiaomo.multiplesource.sql.Sql;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;

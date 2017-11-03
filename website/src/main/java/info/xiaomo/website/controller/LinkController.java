@@ -176,24 +176,6 @@ public class LinkController extends BaseController {
         return null;
     }
 
-
-//    /**
-//     * 返回所有 带分页
-//     *
-//     * @param start    start
-//     * @param pageSize pageSize
-//     * @return 分页数据
-//     */
-//    @RequestMapping("findAll")
-//    public Result findAll(@RequestParam(value = "start", defaultValue = "1") int start, @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
-//        Page<LinkModel> pages = service.findAll(start, pageSize);
-//        if (pages == null || pages.getSize() <= 0) {
-//            return new Result<>(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
-//        }
-//        return new Result<>(pages);
-//    }
-
-
     /**
      * 添加链接
      *

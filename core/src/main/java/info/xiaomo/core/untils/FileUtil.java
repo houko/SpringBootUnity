@@ -838,9 +838,4 @@ public class FileUtil {
                 || "png".equals(fileType) || "PNG".equals(fileType));
     }
 
-    public static void main(String args[]) throws Exception {
-        System.out.println(TimeUtil.getDateNow(TimeUtil.DATE_FORMAT_STRING));
-        System.out.println(getType("E:\\oscchina\\xiaomoBlogJava\\core\\src\\main\\java\\info\\xiaomo\\core\\constant\\GenderConst.java"));
-    }
-
 }

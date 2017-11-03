@@ -502,8 +502,6 @@ public class TimeUtil {
      */
     public static String getNowForFileName(int afterDay) {
         GregorianCalendar calendar = new GregorianCalendar();
-//    Date DATE = calendar.getTime();
-
         SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
 
         calendar.set(Calendar.DATE, calendar.get(Calendar.DATE) + afterDay);

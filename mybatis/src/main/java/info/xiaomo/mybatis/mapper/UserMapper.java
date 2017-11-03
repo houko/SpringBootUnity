@@ -20,16 +20,24 @@ public interface UserMapper {
 
     /**
      * 根据名字查
+     * @param name
+     * @return user
      */
     @Select("SELECT * FROM USER WHERE NAME = #{name}")
     User findByName(@Param("name") String name);
 
+    /**
+     * 插入
+     *
+     * @param name
+     * @param age
+     * @return
+     */
     @Insert("INSERT INTO USER(NAME, AGE) VALUES(#{name}, #{age})")
     int insert(@Param("name") String name, @Param("age") Integer age);
 
     /**
      * 查所有
-     *
      * @return
      */
     @Select("SELECT * FROM USER WHERE 1=1")

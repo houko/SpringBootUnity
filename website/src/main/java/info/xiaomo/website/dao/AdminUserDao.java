@@ -21,13 +21,19 @@ import org.springframework.stereotype.Repository;
  * @author : xiaomo
  * github: https://github.com/xiaomoinfo
  * email: xiaomo@xiaomo.info
-
+ * <p>
  * Date: 16/4/2 13:08
  * Copyright(©) 2015 by xiaomo.
  */
 @Repository
 public interface AdminUserDao extends JpaRepository<AdminModel, Long> {
 
+    /**
+     * 根据名字查用户
+     *
+     * @param s
+     * @return
+     */
     AdminModel findAdminUserByUserName(String s);
 
 }

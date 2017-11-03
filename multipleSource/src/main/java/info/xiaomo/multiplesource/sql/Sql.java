@@ -1,4 +1,4 @@
-package info.xiaomo.multipleSource.sql;
+package info.xiaomo.multiplesource.sql;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～

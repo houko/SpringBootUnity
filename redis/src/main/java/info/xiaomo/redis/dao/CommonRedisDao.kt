@@ -76,7 +76,7 @@ interface CommonRedisDao {
      * @param key
      * @return
      */
-    fun getValue(key: String): String
+    fun getValue(key: String): String?
 
     /**
      * 移除缓存
@@ -146,7 +146,7 @@ interface CommonRedisDao {
      * @param k
      * @return
      */
-    fun getSet(k: String): Set<String>
+    fun getSet(k: String): Set<String>?
 
     /**
      * 缓存List
@@ -194,7 +194,7 @@ interface CommonRedisDao {
      * @param end
      * @return
      */
-    fun getList(k: String, start: Long, end: Long): List<String>
+    fun getList(k: String, start: Long, end: Long): List<String>?
 
     /**
      * 获取页码

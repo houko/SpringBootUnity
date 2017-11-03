@@ -6,7 +6,7 @@ package info.xiaomo.core.field;
  * Today the best performance  as tomorrow newest starter!
  * Created by IntelliJ IDEA.
  *
- * author: xiaomo
+ * @author : xiaomo
  * github: https://github.com/xiaomoinfo
  * email: xiaomo@xiaomo.info(83387856)
  * Date: 2016/1/8 13:16

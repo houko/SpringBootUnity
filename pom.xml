@@ -48,24 +48,7 @@
         </developer>
     </developers>
 
-    <!-- spring boot starter 版本 -->
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.8.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
-    </parent>
-
     <repositories>
-        <!--<repository>-->
-            <!--<id>inner-release</id>-->
-            <!--<name>inner-release</name>-->
-            <!--<layout>default</layout>-->
-            <!--<url>http://192.168.1.62:8081/nexus/content/repositories/releases/</url>-->
-            <!--<snapshots>-->
-                <!--<enabled>false</enabled>-->
-            <!--</snapshots>-->
-        <!--</repository>-->
         <repository>
             <id>central</id>
             <name>aliyun maven</name>
@@ -127,6 +110,12 @@
     <!-- 相关依赖 -->
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-parent</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+            </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-web</artifactId>

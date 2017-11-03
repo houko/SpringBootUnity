@@ -31,7 +31,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * Today the best performance  as tomorrow newest starter!
  * Created by IntelliJ IDEA.
  *
- * author: xiaomo
+ * @author : xiaomo
  * github: https://github.com/xiaomoinfo
  * email: xiaomo@xiaomo.info
  * Date: 2016/4/2 15:38

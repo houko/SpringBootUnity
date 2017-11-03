@@ -1,9 +1,6 @@
-package info.xiaomo.redis.dao;
+package info.xiaomo.redis.dao
 
-import org.springframework.data.redis.core.ListOperations;
-
-import java.util.List;
-import java.util.Set;
+import org.springframework.data.redis.core.ListOperations
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -14,13 +11,14 @@ import java.util.Set;
  * @author : xiaomo
  * github: https://github.com/xiaomoinfo
  * email: xiaomo@xiaomo.info
- * <p>
+ *
+ *
  * Date: 2016/11/14 17:59
  * Description: 用户实体类
  * Copyright(©) 2015 by xiaomo.
- **/
+ */
 
-public interface CommonRedisDao {
+interface CommonRedisDao {
 
     /**
      * 添加
@@ -30,7 +28,7 @@ public interface CommonRedisDao {
      * @param time
      * @return
      */
-    boolean cacheValue(String key, String value, long time);
+    fun cacheValue(key: String, value: String, time: Long): Boolean
 
     /**
      * 添加
@@ -39,7 +37,7 @@ public interface CommonRedisDao {
      * @param value
      * @return
      */
-    boolean cacheValue(String key, String value);
+    fun cacheValue(key: String, value: String): Boolean
 
     /**
      * 是否包含
@@ -47,7 +45,7 @@ public interface CommonRedisDao {
      * @param key
      * @return
      */
-    boolean containsValueKey(String key);
+    fun containsValueKey(key: String): Boolean
 
     /**
      * 是否包含
@@ -55,7 +53,7 @@ public interface CommonRedisDao {
      * @param key
      * @return
      */
-    boolean containsSetKey(String key);
+    fun containsSetKey(key: String): Boolean
 
     /**
      * 是否包含
@@ -63,7 +61,7 @@ public interface CommonRedisDao {
      * @param key
      * @return
      */
-    boolean containsListKey(String key);
+    fun containsListKey(key: String): Boolean
 
     /**
      * 是否包含
@@ -71,14 +69,14 @@ public interface CommonRedisDao {
      * @param key
      * @return
      */
-    boolean containsKey(String key);
+    fun containsKey(key: String): Boolean
 
     /**
      * 获取缓存
      * @param key
      * @return
      */
-    String getValue(String key);
+    fun getValue(key: String): String
 
     /**
      * 移除缓存
@@ -86,7 +84,7 @@ public interface CommonRedisDao {
      * @param key
      * @return
      */
-    boolean removeValue(String key);
+    fun removeValue(key: String): Boolean
 
     /**
      * 移除缓存
@@ -94,7 +92,7 @@ public interface CommonRedisDao {
      * @param key
      * @return
      */
-    boolean removeSet(String key);
+    fun removeSet(key: String): Boolean
 
     /**
      * 移除缓存
@@ -102,7 +100,7 @@ public interface CommonRedisDao {
      * @param key
      * @return
      */
-    boolean removeList(String key);
+    fun removeList(key: String): Boolean
 
     /**
      * 缓存Set
@@ -112,7 +110,7 @@ public interface CommonRedisDao {
      * @param time
      * @return
      */
-    boolean cacheSet(String key, String value, long time);
+    fun cacheSet(key: String, value: String, time: Long): Boolean
 
     /**
      * 缓存Set
@@ -121,7 +119,7 @@ public interface CommonRedisDao {
      * @param value
      * @return
      */
-    boolean cacheSet(String key, String value);
+    fun cacheSet(key: String, value: String): Boolean
 
     /**
      * 缓存Set
@@ -131,7 +129,7 @@ public interface CommonRedisDao {
      * @param time
      * @return
      */
-    boolean cacheSet(String k, Set<String> v, long time);
+    fun cacheSet(k: String, v: Set<String>, time: Long): Boolean
 
     /**
      * 缓存Set
@@ -140,7 +138,7 @@ public interface CommonRedisDao {
      * @param v
      * @return
      */
-    boolean cacheSet(String k, Set<String> v);
+    fun cacheSet(k: String, v: Set<String>): Boolean
 
     /**
      * 获取Set
@@ -148,7 +146,7 @@ public interface CommonRedisDao {
      * @param k
      * @return
      */
-    Set<String> getSet(String k);
+    fun getSet(k: String): Set<String>
 
     /**
      * 缓存List
@@ -158,7 +156,7 @@ public interface CommonRedisDao {
      * @param time
      * @return
      */
-    boolean cacheList(String k, String v, long time);
+    fun cacheList(k: String, v: String, time: Long): Boolean
 
     /**
      * 缓存List
@@ -167,7 +165,7 @@ public interface CommonRedisDao {
      * @param v
      * @return
      */
-    boolean cacheList(String k, String v);
+    fun cacheList(k: String, v: String): Boolean
 
     /**
      * 缓存List
@@ -177,7 +175,7 @@ public interface CommonRedisDao {
      * @param time
      * @return
      */
-    boolean cacheList(String k, List<String> v, long time);
+    fun cacheList(k: String, v: List<String>, time: Long): Boolean
 
     /**
      * 缓存List
@@ -186,7 +184,7 @@ public interface CommonRedisDao {
      * @param v
      * @return
      */
-    boolean cacheList(String k, List<String> v);
+    fun cacheList(k: String, v: List<String>): Boolean
 
     /**
      * 获取List
@@ -196,7 +194,7 @@ public interface CommonRedisDao {
      * @param end
      * @return
      */
-    List<String> getList(String k, long start, long end);
+    fun getList(k: String, start: Long, end: Long): List<String>
 
     /**
      * 获取页码
@@ -204,7 +202,7 @@ public interface CommonRedisDao {
      * @param key
      * @return
      */
-    long getListSize(String key);
+    fun getListSize(key: String): Long
 
     /**
      * 获取页码
@@ -213,7 +211,7 @@ public interface CommonRedisDao {
      * @param k
      * @return
      */
-    long getListSize(ListOperations<String, String> listOps, String k);
+    fun getListSize(listOps: ListOperations<String, String>, k: String): Long
 
     /**
      * 移除list缓存
@@ -221,5 +219,5 @@ public interface CommonRedisDao {
      * @param k
      * @return
      */
-    boolean removeOneOfList(String k);
+    fun removeOneOfList(k: String): Boolean
 }

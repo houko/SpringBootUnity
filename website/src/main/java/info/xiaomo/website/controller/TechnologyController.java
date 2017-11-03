@@ -1,8 +1,8 @@
 package info.xiaomo.website.controller;
 
-import info.xiaomo.core.constant.CodeConst;
 import info.xiaomo.core.base.BaseController;
 import info.xiaomo.core.base.Result;
+import info.xiaomo.core.constant.CodeConst;
 import info.xiaomo.website.model.TechnologyModel;
 import info.xiaomo.website.service.TechnologyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +42,7 @@ public class TechnologyController extends BaseController {
     }
 
 
+    @Override
     @RequestMapping(value = "/findById/{id}", method = RequestMethod.GET)
     public Result findById(@PathVariable Long id) {
         TechnologyModel model = service.findById(id);
@@ -51,6 +52,7 @@ public class TechnologyController extends BaseController {
         return new Result<>(model);
     }
 
+    @Override
     @RequestMapping(value = "/findByName/{name}", method = RequestMethod.GET)
     public Result findByName(@PathVariable String name) {
         TechnologyModel model = service.findByName(name);
@@ -85,6 +87,7 @@ public class TechnologyController extends BaseController {
         return null;
     }
 
+    @Override
     @RequestMapping(value = "/findAll", method = RequestMethod.GET)
     public Result findAll() {
         List<TechnologyModel> all = service.findAll();

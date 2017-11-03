@@ -61,7 +61,7 @@ public class SqlUtil {
      * @return 处理后的sql语句
      */
     public static String sql4DB(String sql, String dbtype) {
-        if (!dbtype.equalsIgnoreCase("oracle")) {
+        if (!"oracle".equalsIgnoreCase(dbtype)) {
             sql = StringUtil.toISO(sql);
         }
         return sql;

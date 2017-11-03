@@ -2,9 +2,9 @@ package info.xiaomo.api.controller;
 
 import info.xiaomo.api.model.AdminModel;
 import info.xiaomo.api.service.AdminUserService;
-import info.xiaomo.core.constant.CodeConst;
 import info.xiaomo.core.base.BaseController;
 import info.xiaomo.core.base.Result;
+import info.xiaomo.core.constant.CodeConst;
 import info.xiaomo.core.exception.UserNotFoundException;
 import info.xiaomo.core.untils.MD5Util;
 import info.xiaomo.core.untils.RandomUtil;
@@ -162,6 +162,7 @@ public class AdminUserController extends BaseController {
      * @param userName userName
      * @return Result
      */
+    @Override
     @ApiOperation(value = "查找用户", notes = "根据传来的用户名查找用户并返回", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "findByName/{userName}", method = RequestMethod.GET)
     @ApiImplicitParams({

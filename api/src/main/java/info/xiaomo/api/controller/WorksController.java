@@ -2,9 +2,9 @@ package info.xiaomo.api.controller;
 
 import info.xiaomo.api.model.WorksModel;
 import info.xiaomo.api.service.WorksService;
-import info.xiaomo.core.constant.CodeConst;
 import info.xiaomo.core.base.BaseController;
 import info.xiaomo.core.base.Result;
+import info.xiaomo.core.constant.CodeConst;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -45,6 +45,7 @@ public class WorksController extends BaseController {
     }
 
 
+    @Override
     @RequestMapping(value = "/findById/{id}",method = RequestMethod.GET)
     @ApiOperation(value = "根据id查找作品", notes = "根据id查找作品",httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ApiImplicitParams({
@@ -58,6 +59,7 @@ public class WorksController extends BaseController {
         return new Result<>(model);
     }
 
+    @Override
     @RequestMapping(value = "/findAll",method = RequestMethod.GET)
     @ApiOperation(value = "查找所有", notes = "查找所有",httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public Result findAll() {
@@ -81,6 +83,7 @@ public class WorksController extends BaseController {
     }
 
 
+    @Override
     @RequestMapping(value = "/findByName/{name}",method = RequestMethod.GET)
     @ApiOperation(value = "根据名字查找作品", notes = "根据名字查找作品",httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ApiImplicitParams({

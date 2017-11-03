@@ -90,8 +90,9 @@ public class XmlUtil {
             List list = document.selectNodes(nodes);
             for (Object aList : list) {
                 Attribute attribute = (Attribute) aList;
-                if (attribute.getName().equals(attributeName))
+                if (attribute.getName().equals(attributeName)) {
                     attribute.setValue(value);
+                }
             }
             XMLWriter output;
             if (outXml != null) { //指定输出文件

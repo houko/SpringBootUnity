@@ -43,6 +43,7 @@ public class WorksController extends BaseController {
     }
 
 
+    @Override
     @RequestMapping(value = "/findById/{id}", method = RequestMethod.GET)
     public Result findById(@PathVariable Long id) {
         WorksModel model = service.findById(id);
@@ -52,6 +53,7 @@ public class WorksController extends BaseController {
         return new Result<>(model);
     }
 
+    @Override
     @RequestMapping(value = "/findAll", method = RequestMethod.GET)
     public Result findAll() {
         List<WorksModel> all = service.findAll();
@@ -67,6 +69,7 @@ public class WorksController extends BaseController {
     }
 
 
+    @Override
     @RequestMapping(value = "/findByName/{name}", method = RequestMethod.GET)
     public Result findByName(@PathVariable String name) {
         WorksModel model = service.findByName(name);

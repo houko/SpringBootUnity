@@ -27,11 +27,13 @@ public class TokenUtil {
                 accessToken = json.getString("access_token");
             }
         } catch (Exception e) {
-            Matcher m = Pattern.compile("^access_token=(\\w+)&expires_in=(\\w+)&refresh_token=(\\w+)$").matcher(string);
+            String regex = "^access_token=(\\w+)&expires_in=(\\w+)&refresh_token=(\\w+)$";
+            Matcher m = Pattern.compile(regex).matcher(string);
             if (m.find()) {
                 accessToken = m.group(1);
             } else {
-                Matcher m2 = Pattern.compile("^access_token=(\\w+)&expires_in=(\\w+)$").matcher(string);
+                String regex1 = "^access_token=(\\w+)&expires_in=(\\w+)$";
+                Matcher m2 = Pattern.compile(regex1).matcher(string);
                 if (m2.find()) {
                     accessToken = m2.group(1);
                 } else {
@@ -50,9 +52,11 @@ public class TokenUtil {
      */
     public static String getOpenId(String string) {
         String openid = null;
-        Matcher m = Pattern.compile("\"openid\"\\s*:\\s*\"(\\w+)\"").matcher(string);
-        if (m.find())
+        String regex = "\"openid\"\\s*:\\s*\"(\\w+)\"";
+        Matcher m = Pattern.compile(regex).matcher(string);
+        if (m.find()) {
             openid = m.group(1);
+        }
         return openid;
     }
 

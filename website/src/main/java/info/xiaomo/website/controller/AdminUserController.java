@@ -1,8 +1,8 @@
 package info.xiaomo.website.controller;
 
-import info.xiaomo.core.constant.CodeConst;
 import info.xiaomo.core.base.BaseController;
 import info.xiaomo.core.base.Result;
+import info.xiaomo.core.constant.CodeConst;
 import info.xiaomo.core.exception.UserNotFoundException;
 import info.xiaomo.core.untils.MD5Util;
 import info.xiaomo.core.untils.RandomUtil;
@@ -128,6 +128,7 @@ public class AdminUserController extends BaseController {
      * @param userName userName
      * @return Result
      */
+    @Override
     @RequestMapping(value = "findByName/{userName}", method = RequestMethod.GET)
     public Result findByName(@PathVariable("userName") String userName) {
         AdminModel adminModel = service.findAdminUserByUserName(userName);

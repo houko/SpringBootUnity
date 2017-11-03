@@ -15,7 +15,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * author 小莫 (https://xiaomo.info) (https://github.com/xiaomoinfo)
+ * @author : xiaomo (https://xiaomo.info) (https://github.com/xiaomoinfo)
  * @created : 2016/12/24 15:59
  */
 @Component

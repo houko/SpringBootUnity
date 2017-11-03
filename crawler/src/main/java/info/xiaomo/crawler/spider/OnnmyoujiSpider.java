@@ -11,13 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * author 小莫 (https://xiaomo.info) (https://github.com/xiaomoinfo)
+ * @author : xiaomo (https://xiaomo.info) (https://github.com/xiaomoinfo)
  * @created : 2016/12/24 15:05
  * 阴阳师获取数据
  */
 public class OnnmyoujiSpider {
 
-    private static final String url = "http://ng.d.cn/db/yinyangshi/index.html";
+    private static final String URL = "http://ng.d.cn/db/yinyangshi/index.html";
 
 
     /**
@@ -39,7 +39,7 @@ public class OnnmyoujiSpider {
      */
     private static List<String> getShikigamiDetailInfoUrl() {
         List<String> list = new ArrayList<>();
-        String html = HttpUtil.get(url);
+        String html = HttpUtil.get(URL);
         Document doc = Jsoup.parse(html);
         Element select = doc.select(".heroList-2").get(0);
         Elements liElement = select.select("a");
@@ -56,7 +56,7 @@ public class OnnmyoujiSpider {
      */
     private static List<String> getMitamaDetailInfoUrl() {
         List<String> list = new ArrayList<>();
-        String html = HttpUtil.get(url);
+        String html = HttpUtil.get(URL);
         Document doc = Jsoup.parse(html);
         Element select = doc.select(".heroList-1").get(0);
         Elements liElement = select.select("a");

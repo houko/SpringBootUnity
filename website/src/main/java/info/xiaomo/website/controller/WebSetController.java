@@ -1,8 +1,8 @@
 package info.xiaomo.website.controller;
 
-import info.xiaomo.core.constant.CodeConst;
 import info.xiaomo.core.base.BaseController;
 import info.xiaomo.core.base.Result;
+import info.xiaomo.core.constant.CodeConst;
 import info.xiaomo.website.model.SystemSetModel;
 import info.xiaomo.website.service.WebSetService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +45,7 @@ public class WebSetController extends BaseController {
      *
      * @return list
      */
+    @Override
     @RequestMapping(value = "findAll", method = RequestMethod.GET)
     public Result findAll() {
         List<SystemSetModel> list = service.findAll();

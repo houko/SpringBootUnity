@@ -2,9 +2,9 @@ package info.xiaomo.api.controller;
 
 import info.xiaomo.api.model.ChangeLogModel;
 import info.xiaomo.api.service.ChangeLogService;
-import info.xiaomo.core.constant.CodeConst;
 import info.xiaomo.core.base.BaseController;
 import info.xiaomo.core.base.Result;
+import info.xiaomo.core.constant.CodeConst;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -48,6 +48,7 @@ public class ChangeLogController extends BaseController {
      * @param id id
      * @return model
      */
+    @Override
     @RequestMapping(value = "findById/{id}",method = RequestMethod.GET)
     @ApiOperation(value = "通过id查找", notes = "通过id查找",httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ApiImplicitParams({
@@ -66,12 +67,13 @@ public class ChangeLogController extends BaseController {
      *
      * @return result
      */
+    @Override
     @RequestMapping(value = "findByName/{name}", method = RequestMethod.GET)
     @ApiOperation(value = "通过名字查找", notes = "通过名字查找",httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "name", value = "更新日志内容", required = true, dataType = "String", paramType = "path")
     })
-    public Result findByName( @PathVariable("name") String name) {
+    public Result findByName(@PathVariable("name") String name) {
         ChangeLogModel model = service.findByName(name);
         if (model == null) {
             return new Result(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
@@ -139,6 +141,7 @@ public class ChangeLogController extends BaseController {
      *
      * @return 分页
      */
+    @Override
     @RequestMapping(value = "findAll", method = RequestMethod.GET)
     @ApiOperation(value = "分页查询更新日志", notes = "分页查询更新日志",httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public Result findAll() {

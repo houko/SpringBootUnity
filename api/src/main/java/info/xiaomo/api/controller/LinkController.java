@@ -2,9 +2,9 @@ package info.xiaomo.api.controller;
 
 import info.xiaomo.api.model.LinkModel;
 import info.xiaomo.api.service.LinkService;
-import info.xiaomo.core.constant.CodeConst;
 import info.xiaomo.core.base.BaseController;
 import info.xiaomo.core.base.Result;
+import info.xiaomo.core.constant.CodeConst;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -67,6 +67,7 @@ public class LinkController extends BaseController {
      * @param name name
      * @return model
      */
+    @Override
     @RequestMapping(value = "findByName/{name}",method = RequestMethod.GET)
     @ApiOperation(value = "根据名字查找", notes = "根据名字查找",httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ApiImplicitParams({
@@ -141,6 +142,7 @@ public class LinkController extends BaseController {
      *
      * @return 所有
      */
+    @Override
     @RequestMapping(value = "findAll",method = RequestMethod.GET)
     @ApiOperation(value = "返回所有数据", notes = "返回所有数据",httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public Result findAll() {

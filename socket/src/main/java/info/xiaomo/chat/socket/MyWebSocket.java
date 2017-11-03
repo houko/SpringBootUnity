@@ -2,6 +2,7 @@ package info.xiaomo.chat.socket;
 
 import info.xiaomo.core.untils.HtmlUtil;
 import info.xiaomo.core.untils.TimeUtil;
+import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -20,6 +21,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
  * Today the best performance  as tomorrow newest starter!
  * Created by IntelliJ IDEA.
  * <p>
+ *
  * @author : xiaomo
  * github: https://github.com/xiaomoinfo
  * email: xiaomo@xiaomo.info
@@ -31,6 +33,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
 
 @ServerEndpoint("/websocket")
 @Component
+@Data
 public class MyWebSocket {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MyWebSocket.class);
@@ -109,5 +112,6 @@ public class MyWebSocket {
     private void sendMessage(String message) throws IOException {
         this.session.getBasicRemote().sendText(message);
     }
+
 
 }

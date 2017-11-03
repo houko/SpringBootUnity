@@ -291,17 +291,18 @@ public class HttpUtil {
      * https 域名校验
      */
     public class TrustAnyHostnameVerifier implements HostnameVerifier {
+        @Override
         public boolean verify(String hostname, SSLSession session) {
-            return true;// 直接返回true
+            return true;
         }
     }
 
 
 }
 
-// 证书管理
 class MyX509TrustManager implements X509TrustManager {
 
+    @Override
     public X509Certificate[] getAcceptedIssuers() {
         return null;
     }

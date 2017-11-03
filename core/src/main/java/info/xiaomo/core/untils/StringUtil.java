@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
  */
 public class StringUtil extends StringUtils {
 
-    private final static String[] hex = {"00", "01", "02", "03", "04", "05",
+    private final static String[] HEX = {"00", "01", "02", "03", "04", "05",
             "06", "07", "08", "09", "0A", "0B", "0C", "0D", "0E", "0F", "10",
             "11", "12", "13", "14", "15", "16", "17", "18", "19", "1A", "1B",
             "1C", "1D", "1E", "1F", "20", "21", "22", "23", "24", "25", "26",
@@ -46,7 +46,7 @@ public class StringUtil extends StringUtils {
             "ED", "EE", "EF", "F0", "F1", "F2", "F3", "F4", "F5", "F6", "F7",
             "F8", "F9", "FA", "FB", "FC", "FD", "FE", "FF"};
 
-    private final static byte[] val = {0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F,
+    private final static byte[] VAL = {0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F,
             0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F,
             0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F,
             0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F,
@@ -89,10 +89,7 @@ public class StringUtil extends StringUtils {
      * @return 是否为空
      */
     public static boolean isBlank(String str) {
-        if (str == null || str.trim().isEmpty()) {
-            return true;
-        }
-        return false;
+        return str == null || str.trim().isEmpty();
     }
 
     /**
@@ -243,7 +240,9 @@ public class StringUtil extends StringUtils {
 
     //判断字符串是否为空，并删除首尾空格
     public static String convertNullCode(String tempSql) {
-        if (tempSql == null) tempSql = "";
+        if (tempSql == null) {
+            tempSql = "";
+        }
         return tempSql;
     }
 
@@ -252,7 +251,7 @@ public class StringUtil extends StringUtils {
      *
      * @param tempSql 要转换的字符串
      */
-    public static String ISOCode(String tempSql) {
+    public static String isocode(String tempSql) {
 
         String returnString = convertNullCode(tempSql);
 
@@ -271,7 +270,7 @@ public class StringUtil extends StringUtils {
      * @param tempSql 要转换的字符串
      * @return
      */
-    public static String GBKCode(String tempSql) {
+    public static String gbkcode(String tempSql) {
         String returnString = convertNullCode(tempSql);
         try {
             byte[] ascii = returnString.getBytes("ISO-8859-1");
@@ -307,7 +306,7 @@ public class StringUtil extends StringUtils {
      * @param tempSql 要转换的字符串
      * @return
      */
-    public static String GBK2BIG5Code(String tempSql) {
+    public static String gbk2big5code(String tempSql) {
         String returnString = convertNullCode(tempSql);
         try {
             byte[] ascii = returnString.getBytes("GBK");
@@ -448,7 +447,8 @@ public class StringUtil extends StringUtils {
         if (params == null || params.length == 0) {
             return str;
         }
-        Pattern p = Pattern.compile("\\{(\\d+)}");
+        String regex = "\\{(\\d+)}";
+        Pattern p = Pattern.compile(regex);
         Matcher m = p.matcher(str);
         StringBuffer sb = new StringBuffer();
         while (m.find()) {
@@ -482,31 +482,34 @@ public class StringUtil extends StringUtils {
      * <pre>
      */
     public static String replace(String strSrc, String strOld, String strNew) {
-        if (strSrc == null || strOld == null || strNew == null)
+        if (strSrc == null || strOld == null || strNew == null) {
             return "";
+        }
 
         int i = 0;
 
         if (strOld.equals(strNew)) //避免新旧字符一样产生死循环
+        {
             return strSrc;
+        }
 
         if ((i = strSrc.indexOf(strOld, i)) >= 0) {
-            char[] arr_cSrc = strSrc.toCharArray();
-            char[] arr_cNew = strNew.toCharArray();
+            char[] arrCsrc = strSrc.toCharArray();
+            char[] arrCnew = strNew.toCharArray();
 
             int intOldLen = strOld.length();
-            StringBuilder buf = new StringBuilder(arr_cSrc.length);
-            buf.append(arr_cSrc, 0, i).append(arr_cNew);
+            StringBuilder buf = new StringBuilder(arrCsrc.length);
+            buf.append(arrCsrc, 0, i).append(arrCnew);
 
             i += intOldLen;
             int j = i;
 
             while ((i = strSrc.indexOf(strOld, i)) > 0) {
-                buf.append(arr_cSrc, j, i - j).append(arr_cNew);
+                buf.append(arrCsrc, j, i - j).append(arrCnew);
                 i += intOldLen;
                 j = i;
             }
-            buf.append(arr_cSrc, j, arr_cSrc.length - j);
+            buf.append(arrCsrc, j, arrCsrc.length - j);
             return buf.toString();
         }
         return strSrc;
@@ -588,7 +591,7 @@ public class StringUtil extends StringUtils {
         }
     }
 
-    public static String ISO2UTF8(String strVal) {
+    public static String iso2utf8(String strVal) {
         try {
             if (strVal == null) {
                 return "";
@@ -601,7 +604,7 @@ public class StringUtil extends StringUtils {
         }
     }
 
-    public static String UTF82ISO(String strVal) {
+    public static String utf82iso(String strVal) {
         try {
             if (strVal == null) {
                 return "";
@@ -634,12 +637,13 @@ public class StringUtil extends StringUtils {
      * @return 转换后的字符串
      */
     public static String str4Table(String str) {
-        if (str == null)
+        if (str == null) {
             return "&nbsp;";
-        else if (str.equals(""))
+        } else if ("".equals(str)) {
             return "&nbsp;";
-        else
+        } else {
             return str;
+        }
     }
 
     /**
@@ -692,7 +696,6 @@ public class StringUtil extends StringUtils {
         return floatee;
     }
 
-    //change the float type to the string type
     public static String floatToString(float value) {
         Float floatee = value;
         return floatee.toString();
@@ -742,10 +745,11 @@ public class StringUtil extends StringUtils {
      * @return 如果str为null值，返回空串"",否则返回str
      */
     public static String null2Blank(String str) {
-        if (str == null)
+        if (str == null) {
             return "";
-        else
+        } else {
             return str;
+        }
     }
 
     /**
@@ -756,10 +760,11 @@ public class StringUtil extends StringUtils {
      */
 
     public static String null2Blank(Date d) {
-        if (d == null)
+        if (d == null) {
             return "";
-        else
+        } else {
             return d.toString();
+        }
     }
 
     /**
@@ -771,10 +776,11 @@ public class StringUtil extends StringUtils {
     public static int null2Zero(String str) {
         int intTmp;
         intTmp = str2Int(str);
-        if (intTmp == -1)
+        if (intTmp == -1) {
             return 0;
-        else
+        } else {
             return intTmp;
+        }
     }
 
     /**
@@ -785,10 +791,11 @@ public class StringUtil extends StringUtils {
      */
     public static String null2SZero(String str) {
         str = null2Blank(str);
-        if (str.equals(""))
+        if ("".equals(str)) {
             return "0";
-        else
+        } else {
             return str;
+        }
     }
 
 
@@ -798,7 +805,7 @@ public class StringUtil extends StringUtils {
      * @param text
      * @return
      */
-    public static String StringToUnicode(String text) {
+    public static String stringToUnicode(String text) {
         String result = "";
         int input;
         StringReader isr;
@@ -918,12 +925,12 @@ public class StringUtil extends StringUtils {
                 sbuf.append((char) ch);
             } else if (ch <= 0x007F) {
                 sbuf.append('%');
-                sbuf.append(hex[ch]);
+                sbuf.append(HEX[ch]);
             } else {
                 sbuf.append('%');
                 sbuf.append('u');
-                sbuf.append(hex[(ch >>> 8)]);
-                sbuf.append(hex[(0x00FF & ch)]);
+                sbuf.append(HEX[(ch >>> 8)]);
+                sbuf.append(HEX[(0x00FF & ch)]);
             }
         }
         return sbuf.toString();
@@ -955,14 +962,14 @@ public class StringUtil extends StringUtils {
             } else if (ch == '%') {
                 int cint = 0;
                 if ('u' != s.charAt(i + 1)) {
-                    cint = (cint << 4) | val[s.charAt(i + 1)];
-                    cint = (cint << 4) | val[s.charAt(i + 2)];
+                    cint = (cint << 4) | VAL[s.charAt(i + 1)];
+                    cint = (cint << 4) | VAL[s.charAt(i + 2)];
                     i += 2;
                 } else {
-                    cint = (cint << 4) | val[s.charAt(i + 2)];
-                    cint = (cint << 4) | val[s.charAt(i + 3)];
-                    cint = (cint << 4) | val[s.charAt(i + 4)];
-                    cint = (cint << 4) | val[s.charAt(i + 5)];
+                    cint = (cint << 4) | VAL[s.charAt(i + 2)];
+                    cint = (cint << 4) | VAL[s.charAt(i + 3)];
+                    cint = (cint << 4) | VAL[s.charAt(i + 4)];
+                    cint = (cint << 4) | VAL[s.charAt(i + 5)];
                     i += 5;
                 }
                 sbuf.append((char) cint);

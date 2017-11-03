@@ -44,6 +44,7 @@ public class CORSFilter implements Filter {
      * @throws IOException      IOException
      * @throws ServletException ServletException
      */
+    @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
         HttpServletResponse response = (HttpServletResponse) res;
         response.setHeader("Access-Control-Allow-Origin", "*");
@@ -57,6 +58,7 @@ public class CORSFilter implements Filter {
     /**
      * 销毁对象
      */
+    @Override
     public void destroy() {
     }
 }

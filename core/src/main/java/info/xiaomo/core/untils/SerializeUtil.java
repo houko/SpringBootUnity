@@ -30,7 +30,9 @@ public class SerializeUtil {
      * 序列化
      */
     public static String serialize(Object object) {
-        if (object == null) return null;
+        if (object == null) {
+            return null;
+        }
         ObjectOutputStream oos;
         ByteArrayOutputStream baos;
         try {

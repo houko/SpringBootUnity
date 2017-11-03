@@ -57,7 +57,9 @@ public class CharUtil {
 
                 for (byte aB : b) {
                     int k = aB;
-                    if (k < 0) k += 256;
+                    if (k < 0) {
+                        k += 256;
+                    }
                     result.append("%").append(Integer.toHexString(k).toUpperCase());
                 }
 
@@ -75,11 +77,15 @@ public class CharUtil {
         if (text != null && text.length() > 0) {
             text = text.toLowerCase();
             p = text.indexOf("%e");
-            if (p == -1) return text;
+            if (p == -1) {
+                return text;
+            }
             while (p != -1) {
                 result += text.substring(0, p);
                 text = text.substring(p, text.length());
-                if (Objects.equals(text, "") || text.length() < 9) return result;
+                if (Objects.equals(text, "") || text.length() < 9) {
+                    return result;
+                }
                 result += CodeToWord(text.substring(0, 9));
                 text = text.substring(9, text.length());
                 p = text.indexOf("%e");
@@ -117,12 +123,13 @@ public class CharUtil {
         if (text.startsWith("%e")) {
             for (int p = 0; p != -1; ) {
                 p = text.indexOf("%", p);
-                if (p != -1)
+                if (p != -1) {
                     p++;
+                }
                 sign += p;
             }
         }
-        return sign.equals("147-1");
+        return "147-1".equals(sign);
     }
 
     /**

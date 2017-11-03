@@ -47,26 +47,28 @@ public class HtmlUtil {
      */
 
     public static String htmlEncode(String strSrc) {
-        if (strSrc == null)
+        if (strSrc == null) {
             return "";
-        char[] arr_cSrc = strSrc.toCharArray();
-        StringBuilder buf = new StringBuilder(arr_cSrc.length);
+        }
+        char[] arrCsrc = strSrc.toCharArray();
+        StringBuilder buf = new StringBuilder(arrCsrc.length);
         char ch;
-        for (char anArr_cSrc : arr_cSrc) {
+        for (char anArr_cSrc : arrCsrc) {
             ch = anArr_cSrc;
 
-            if (ch == '<')
+            if (ch == '<') {
                 buf.append("&lt;");
-            else if (ch == '>')
+            } else if (ch == '>') {
                 buf.append("&gt;");
-            else if (ch == '"')
+            } else if (ch == '"') {
                 buf.append("&quot;");
-            else if (ch == '\'')
+            } else if (ch == '\'') {
                 buf.append("&#039;");
-            else if (ch == '&')
+            } else if (ch == '&') {
                 buf.append("&amp;");
-            else
+            } else {
                 buf.append(ch);
+            }
         }
 
         return buf.toString();
@@ -83,30 +85,32 @@ public class HtmlUtil {
      */
     public static String htmlEncode(String strSrc, int quotes) {
 
-        if (strSrc == null)
+        if (strSrc == null) {
             return "";
+        }
         if (quotes == 0) {
             return htmlEncode(strSrc);
         }
 
-        char[] arr_cSrc = strSrc.toCharArray();
-        StringBuilder buf = new StringBuilder(arr_cSrc.length);
+        char[] arrCsrc = strSrc.toCharArray();
+        StringBuilder buf = new StringBuilder(arrCsrc.length);
         char ch;
 
-        for (int i = 0; i < arr_cSrc.length; i++) {
-            ch = arr_cSrc[i];
-            if (ch == '<')
+        for (int i = 0; i < arrCsrc.length; i++) {
+            ch = arrCsrc[i];
+            if (ch == '<') {
                 buf.append("&lt;");
-            else if (ch == '>')
+            } else if (ch == '>') {
                 buf.append("&gt;");
-            else if (ch == '"' && quotes == 1)
+            } else if (ch == '"' && quotes == 1) {
                 buf.append("&quot;");
-            else if (ch == '\'' && quotes == 2)
+            } else if (ch == '\'' && quotes == 2) {
                 buf.append("&#039;");
-            else if (ch == '&')
+            } else if (ch == '&') {
                 buf.append("&amp;");
-            else
+            } else {
                 buf.append(ch);
+            }
         }
 
         return buf.toString();
@@ -120,8 +124,9 @@ public class HtmlUtil {
      * @since 1.0
      */
     public static String htmlDecode(String strSrc) {
-        if (strSrc == null)
+        if (strSrc == null) {
             return "";
+        }
         strSrc = strSrc.replaceAll("&lt;", "<");
         strSrc = strSrc.replaceAll("&gt;", ">");
         strSrc = strSrc.replaceAll("&quot;", "\"");
@@ -137,21 +142,21 @@ public class HtmlUtil {
      * @return string
      */
     public static String delHTMLTag(String htmlStr) {
-        String regEx_script = "<script[^>]*?>[\\s\\S]*?<\\/script>"; //定义script的正则表达式
-        String regEx_style = "<style[^>]*?>[\\s\\S]*?<\\/style>"; //定义style的正则表达式
-        String regEx_html = "<[^>]+>"; //定义HTML标签的正则表达式
+        String regexScript = "<script[^>]*?>[\\s\\S]*?<\\/script>"; //定义script的正则表达式
+        String regexStyle = "<style[^>]*?>[\\s\\S]*?<\\/style>"; //定义style的正则表达式
+        String regexHtml = "<[^>]+>"; //定义HTML标签的正则表达式
 
-        Pattern p_script = Pattern.compile(regEx_script, Pattern.CASE_INSENSITIVE);
-        Matcher m_script = p_script.matcher(htmlStr);
-        htmlStr = m_script.replaceAll(""); //过滤script标签
+        Pattern pScript = Pattern.compile(regexScript, Pattern.CASE_INSENSITIVE);
+        Matcher mScript = pScript.matcher(htmlStr);
+        htmlStr = mScript.replaceAll(""); //过滤script标签
 
-        Pattern p_style = Pattern.compile(regEx_style, Pattern.CASE_INSENSITIVE);
-        Matcher m_style = p_style.matcher(htmlStr);
-        htmlStr = m_style.replaceAll(""); //过滤style标签
+        Pattern pStyle = Pattern.compile(regexStyle, Pattern.CASE_INSENSITIVE);
+        Matcher mStyle = pStyle.matcher(htmlStr);
+        htmlStr = mStyle.replaceAll(""); //过滤style标签
 
-        Pattern p_html = Pattern.compile(regEx_html, Pattern.CASE_INSENSITIVE);
-        Matcher m_html = p_html.matcher(htmlStr);
-        htmlStr = m_html.replaceAll(""); //过滤html标签
+        Pattern pHtml = Pattern.compile(regexHtml, Pattern.CASE_INSENSITIVE);
+        Matcher mHtml = pHtml.matcher(htmlStr);
+        htmlStr = mHtml.replaceAll(""); //过滤html标签
 
         return htmlStr.trim(); //返回文本字符串
     }

@@ -309,7 +309,7 @@ public class CastUtil {
     }
 
     public static byte[] hexStringToBytes(String hexString) {
-        if (hexString != null && !hexString.equals("")) {
+        if (hexString != null && !"".equals(hexString)) {
             hexString = hexString.toUpperCase();
             int length = hexString.length() / 2;
             char[] hexChars = hexString.toCharArray();
@@ -330,7 +330,7 @@ public class CastUtil {
         if (str != null && !str.isEmpty()) {
             int len = str.length();
             int p = str.indexOf(37);
-            return p == len - 1 ? Double.valueOf(str.substring(0, len - 1)) / 100.0D : (p > -1 ? 0.0D : (str.equals("true") ? 1.0D : toDouble(str)));
+            return p == len - 1 ? Double.valueOf(str.substring(0, len - 1)) / 100.0D : (p > -1 ? 0.0D : ("true".equals(str) ? 1.0D : toDouble(str)));
         } else {
             return 0.0D;
         }

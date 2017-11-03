@@ -32,7 +32,7 @@ public class ExcelUtil {
         for (String[] aResult : result) {
             List<String> list = new ArrayList<>();
             for (String anAResult : aResult) {
-                if (!anAResult.equals("")) {
+                if (!"".equals(anAResult)) {
                     list.add(anAResult);
                 }
             }
@@ -99,7 +99,7 @@ public class ExcelUtil {
                                 break;
                             case HSSFCell.CELL_TYPE_FORMULA:
                                 // 导入时如果为公式生成的数据则无值
-                                if (!cell.getStringCellValue().equals("")) {
+                                if (!"".equals(cell.getStringCellValue())) {
                                     value = cell.getStringCellValue();
                                 } else {
                                     value = cell.getNumericCellValue() + "";
@@ -118,7 +118,7 @@ public class ExcelUtil {
                                 value = "";
                         }
                     }
-                    if (columnIndex == 0 && value.trim().equals("")) {
+                    if (columnIndex == 0 && "".equals(value.trim())) {
                         break;
                     }
                     values[columnIndex] = rightTrim(value);

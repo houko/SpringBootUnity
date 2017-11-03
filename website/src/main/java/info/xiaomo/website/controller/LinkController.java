@@ -1,8 +1,8 @@
 package info.xiaomo.website.controller;
 
-import info.xiaomo.core.constant.CodeConst;
 import info.xiaomo.core.base.BaseController;
 import info.xiaomo.core.base.Result;
+import info.xiaomo.core.constant.CodeConst;
 import info.xiaomo.website.model.LinkModel;
 import info.xiaomo.website.service.LinkService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +52,7 @@ public class LinkController extends BaseController {
         if (model == null) {
             return new Result(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
         }
-        return new Result(model);
+        return new Result<>(model);
     }
 
     /**
@@ -61,13 +61,14 @@ public class LinkController extends BaseController {
      * @param name name
      * @return model
      */
+    @Override
     @RequestMapping(value = "findByName/{name}", method = RequestMethod.GET)
     public Result findByName(@PathVariable("name") String name) {
         LinkModel model = service.findByName(name);
         if (model == null) {
             return new Result(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
         }
-        return new Result(model);
+        return new Result<>(model);
     }
 
     /**
@@ -131,6 +132,7 @@ public class LinkController extends BaseController {
      *
      * @return 所有
      */
+    @Override
     @RequestMapping(value = "findAll", method = RequestMethod.GET)
     public Result findAll() {
         List<LinkModel> pages = service.findAll();

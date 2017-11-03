@@ -10,7 +10,7 @@ import java.net.URL;
 import java.net.URLConnection;
 
 /**
- * author 小莫 (https://xiaomo.info) (https://github.com/xiaomoinfo)
+ * @author : xiaomo (https://xiaomo.info) (https://github.com/xiaomoinfo)
  *
  * @created : 2016/12/26 13:25
  */

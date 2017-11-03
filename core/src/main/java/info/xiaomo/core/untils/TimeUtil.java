@@ -282,6 +282,8 @@ public class TimeUtil {
             case "Sun":
                 returnValue = 0;
                 break;
+            default:
+                returnValue = 0;
         }
         return returnValue;
     }
@@ -314,10 +316,11 @@ public class TimeUtil {
         String strReturn = "";
         try {
             String p;
-            if (strDate.length() > 10)
+            if (strDate.length() > 10) {
                 p = "yyyy-MM-dd HH:mm:ss";
-            else
+            } else {
                 p = "yyyy-MM-dd";
+            }
             Date d = TimeUtil.convertStringToDate(p, StringUtil.replace(strDate, "T", " "));
             strReturn = TimeUtil.date2Str("EEE d-MMM", d);
 
@@ -336,10 +339,11 @@ public class TimeUtil {
         String strReturn = "";
         try {
             String p;
-            if (strDate.length() > 10)
+            if (strDate.length() > 10) {
                 p = "yyyy-MM-dd HH:mm:ss";
-            else
+            } else {
                 p = "yyyy-MM-dd";
+            }
             Date d = TimeUtil.convertStringToDate(p, StringUtil.replace(strDate, "T", " "));
             strReturn = TimeUtil.date2Str("EEE d-MMM hh:mm aaa", d);
 
@@ -371,10 +375,12 @@ public class TimeUtil {
      * @return 字符串
      */
     public static String getDateFromNow(int timeType, int timeNum, String pattern) {
-        if ((pattern == null) || (pattern.equals("")))
+
+        if ((pattern == null) || ("".equals(pattern))) {
             pattern = "yyyy-MM-dd HH:mm:ss";
+        }
         Calendar cld = Calendar.getInstance();
-        Date date = null;
+        Date date;
         DateFormat df = new SimpleDateFormat(pattern);
         cld.set(timeType, cld.get(timeType) + timeNum);
         date = cld.getTime();
@@ -388,8 +394,9 @@ public class TimeUtil {
      * @return 字符串
      */
     public static String getDateNow(String pattern) {
-        if ((pattern == null) || (pattern.equals("")))
+        if ((pattern == null) || ("".equals(pattern))) {
             pattern = "yyyy-MM-dd HH:mm:ss";
+        }
         Calendar cld = Calendar.getInstance();
         DateFormat df = new SimpleDateFormat(pattern);
         return df.format(cld.getTime());
@@ -441,14 +448,18 @@ public class TimeUtil {
     public static boolean isSeason(String date) {
         int getMonth = Integer.parseInt(date.substring(5, 7));
         boolean sign = false;
-        if (getMonth == 3)
+        if (getMonth == 3) {
             sign = true;
-        if (getMonth == 6)
+        }
+        if (getMonth == 6) {
             sign = true;
-        if (getMonth == 9)
+        }
+        if (getMonth == 9) {
             sign = true;
-        if (getMonth == 12)
+        }
+        if (getMonth == 12) {
             sign = true;
+        }
         return sign;
     }
 
@@ -512,10 +523,11 @@ public class TimeUtil {
         java.util.Date date = new Date();
         cld.setTime(date);
         int intMon = cld.get(Calendar.MONTH) + 1;
-        if (intMon < 10)
+        if (intMon < 10) {
             strMonth = "0" + String.valueOf(intMon);
-        else
+        } else {
             strMonth = String.valueOf(intMon);
+        }
         return strMonth;
     }
 
@@ -544,10 +556,12 @@ public class TimeUtil {
         int intDay = cld.get(Calendar.DAY_OF_MONTH);
         String mons = String.valueOf(intMon);
         String days = String.valueOf(intDay);
-        if (intMon < 10)
+        if (intMon < 10) {
             mons = "0" + String.valueOf(intMon);
-        if (intDay < 10)
+        }
+        if (intDay < 10) {
             days = "0" + String.valueOf(intDay);
+        }
         return String.valueOf(cld.get(Calendar.YEAR)) + "-" + mons + "-" + days;
     }
 

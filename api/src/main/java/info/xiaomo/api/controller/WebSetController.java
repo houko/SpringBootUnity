@@ -2,9 +2,9 @@ package info.xiaomo.api.controller;
 
 import info.xiaomo.api.model.SystemSetModel;
 import info.xiaomo.api.service.WebSetService;
-import info.xiaomo.core.constant.CodeConst;
 import info.xiaomo.core.base.BaseController;
 import info.xiaomo.core.base.Result;
+import info.xiaomo.core.constant.CodeConst;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,11 +45,12 @@ public class WebSetController extends BaseController {
      *
      * @return list
      */
+    @Override
     @ApiOperation(value = "查找所有", notes = "查找所有",httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "findAll", method = RequestMethod.GET)
     public Result findAll() {
         List<SystemSetModel> list = service.findAll();
-        if (list.isEmpty() || list.size() == 0) {
+        if (list.isEmpty()) {
             return new Result(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
         }
         return new Result(list);

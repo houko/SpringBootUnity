@@ -828,11 +828,11 @@ public class FileUtil {
 
     public static boolean isImage(String imageName) {
         String fileType = FileUtil.getFileType(imageName);
-        return !(fileType.equals("bmp") || fileType.equals("BMP")
-                || fileType.equals("jpg") || fileType.equals("JPG")
-                || fileType.equals("jpeg") || fileType.equals("JPEG")
-                || fileType.equals("git") || fileType.equals("GIF")
-                || fileType.equals("png") || fileType.equals("PNG"));
+        return !("bmp".equals(fileType) || "BMP".equals(fileType)
+                || "jpg".equals(fileType) || "JPG".equals(fileType)
+                || "jpeg".equals(fileType) || "JPEG".equals(fileType)
+                || "git".equals(fileType) || "GIF".equals(fileType)
+                || "png".equals(fileType) || "PNG".equals(fileType));
     }
 
     public static void main(String args[]) throws Exception {

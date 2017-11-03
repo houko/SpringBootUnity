@@ -15,6 +15,7 @@ import java.util.List;
  * 所有方法都是静态方法，不需要生成此类的实例，
  * 为避免生成此类的实例，构造方法被申明为private类型的。
  *
+ * @author : xiaomo
  * @since 1.0
  */
 
@@ -596,7 +597,6 @@ public class FileUtil {
         }
     }
 
-    //拷贝文件
     public static boolean copyFile(String infile, String outfile) throws Exception {
         try {
             File in = new File(infile);

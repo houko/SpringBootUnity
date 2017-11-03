@@ -21,7 +21,7 @@ import java.io.IOException;
  * Copyright(©) 2015 by xiaomo.
  **/
 @Component
-public class CORSFilter implements Filter {
+public class CorsFilter implements Filter {
 
 
     /**

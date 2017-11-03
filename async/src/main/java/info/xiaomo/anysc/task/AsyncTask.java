@@ -7,6 +7,9 @@ import org.springframework.stereotype.Component;
 import java.util.Random;
 import java.util.concurrent.Future;
 
+/**
+ * @author : xiaomo
+ */
 @Component
 public class AsyncTask {
 

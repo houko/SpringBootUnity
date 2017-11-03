@@ -24,13 +24,11 @@ import java.io.Serializable;
  **/
 @Entity
 @Table(name = "changeLog")
-// lomlok
 @Data
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 @NoArgsConstructor
-// swagger ui
 public class ChangeLogModel extends BaseModel implements Serializable {
 
     @Column(name = "Name")

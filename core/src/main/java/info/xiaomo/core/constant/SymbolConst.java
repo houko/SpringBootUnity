@@ -1,5 +1,8 @@
 package info.xiaomo.core.constant;
 
+/**
+ * @author : xiaomo
+ */
 public class SymbolConst {
     public static final String JINHAO = "#";
     public static final String AND = "&";

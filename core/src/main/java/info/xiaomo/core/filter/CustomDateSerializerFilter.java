@@ -9,6 +9,9 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * @author : xiaomo
+ */
 public class CustomDateSerializerFilter extends JsonSerializer<Date> {
 
     @Override

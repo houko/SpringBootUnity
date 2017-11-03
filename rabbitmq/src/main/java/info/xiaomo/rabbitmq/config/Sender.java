@@ -6,6 +6,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
+/**
+ * @author : xiaomo
+ */
 @Component
 public class Sender {
 

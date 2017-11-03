@@ -5,6 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+/**
+ * @author : xiaomo
+ */
 @Data
 @ToString(callSuper = false)
 @NoArgsConstructor
@@ -13,7 +16,7 @@ public class User {
     private Long id;
 
     private String name;
-    
+
     private Integer age;
 
     public User(Long id, String name, Integer age) {

@@ -32,13 +32,11 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "adminUser")
-// lomlok
 @Data
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = false)
 @AllArgsConstructor
 @NoArgsConstructor
-// swagger ui
 public class AdminModel extends BaseModel implements Serializable {
 
     @Column(name = "UserName")

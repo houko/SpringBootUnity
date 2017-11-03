@@ -10,7 +10,7 @@ import java.util.regex.PatternSyntaxException;
 /**
  * 这是个正则表达式应用类，用来匹配和替换字串用的
  *
- * author xiaomo
+ * @author xiaomo
  */
 
 public class RegExUtil {

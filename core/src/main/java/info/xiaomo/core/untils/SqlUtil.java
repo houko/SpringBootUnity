@@ -51,9 +51,6 @@ public class SqlUtil {
         return "in (" + sql.replace('|', ',') + ")";
     }
 
-    /*
- *
- */
     private String delSQlString(String sql) {
         StringBuilder delSql = new StringBuilder("in(");
         StringTokenizer tokenizer = new StringTokenizer(sql, "|");

@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author qq
+ * @author : xiaomo
  */
 @Mapper
 public interface UserMapper {

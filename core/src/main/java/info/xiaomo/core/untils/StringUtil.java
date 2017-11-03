@@ -15,9 +15,9 @@ import java.util.regex.Pattern;
 /**
  * 对字符串的简单处理
  * <p>
- * author L.cm
  *
- * @date 2013-6-6 下午5:08:06
+ * @author : xiaomo
+ * @Date 2013-6-6 下午5:08:06
  */
 public class StringUtil extends StringUtils {
 
@@ -232,7 +232,12 @@ public class StringUtil extends StringUtils {
         return ip;
     }
 
-    //判断字符串是否为空，并删除首尾空格
+    /**
+     * 判断字符串是否为空，并删除首尾空格
+     *
+     * @param tempSql
+     * @return
+     */
     public static String convertNullCode(String tempSql) {
         if (tempSql == null) {
             tempSql = "";
@@ -311,7 +316,11 @@ public class StringUtil extends StringUtils {
         return returnString;
     }
 
-    //替换非法字符
+    /**
+     * 替换非法字符
+     * @param input
+     * @return
+     */
     public static String convertHtml(String input) {
         StringBuffer returnString = new StringBuffer(input.length());
 
@@ -684,7 +693,7 @@ public class StringUtil extends StringUtils {
     }
 
     public static float stringToFloat(String floatstr) {
-        Float floatee;
+        float floatee;
         floatee = Float.valueOf(floatstr);
         return floatee;
     }

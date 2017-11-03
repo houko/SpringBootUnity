@@ -22,6 +22,7 @@ import java.util.Map.Entry;
 
 /**
  * https 请求 微信为https的请求
+ * @author : xiaomo
  */
 public class HttpUtil {
 

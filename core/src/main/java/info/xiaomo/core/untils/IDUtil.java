@@ -4,6 +4,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
+/**
+ * @author : xiaomo
+ */
 public class IDUtil {
     private static final Logger LOGGER = LoggerFactory.getLogger(IDUtil.class);
     /**

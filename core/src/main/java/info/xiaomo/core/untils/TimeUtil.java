@@ -297,7 +297,7 @@ public class TimeUtil {
         String strReturn = "";
         try {
 
-            Date d = TimeUtil.convertStringToDate("yyyy-MM-dd HH:mm:ss", StringUtil.Companion.replace(
+            Date d = TimeUtil.convertStringToDate("yyyy-MM-dd HH:mm:ss", StringUtil.replace(
                     strDate, "T", " "));
             strReturn = TimeUtil.date2Str("hh:mm aaa", d);
 
@@ -321,7 +321,7 @@ public class TimeUtil {
             } else {
                 p = "yyyy-MM-dd";
             }
-            Date d = TimeUtil.convertStringToDate(p, StringUtil.Companion.replace(strDate, "T", " "));
+            Date d = TimeUtil.convertStringToDate(p, StringUtil.replace(strDate, "T", " "));
             strReturn = TimeUtil.date2Str("EEE d-MMM", d);
 
         } catch (Exception e) {
@@ -344,7 +344,7 @@ public class TimeUtil {
             } else {
                 p = "yyyy-MM-dd";
             }
-            Date d = TimeUtil.convertStringToDate(p, StringUtil.Companion.replace(strDate, "T", " "));
+            Date d = TimeUtil.convertStringToDate(p, StringUtil.replace(strDate, "T", " "));
             strReturn = TimeUtil.date2Str("EEE d-MMM hh:mm aaa", d);
 
         } catch (Exception e) {
@@ -860,22 +860,6 @@ public class TimeUtil {
         return Calendar.getInstance().get(Calendar.YEAR);
     }
 
-    public static void main(String args[]) {
-        getFormatDate(TimeUtil.getNowOfMills(), DEFAULT_FORMAT);
-//        System.out.println(getYear());
-//        System.out.println(getYesterday());
-//        System.out.println(isSeason("2002-03-02"));
-//        String cc = "100.123.342";
-//        System.out.println(cc.indexOf(".", 3));
-//        StringTokenizer st = new StringTokenizer(cc, ".");
-//        if (st.countTokens() != 2) {
-//            String event = st.nextToken();
-//            System.out.println("" + event);
-//            String strDate = getDateFromNow(0, "yyyy-MM-dd HH:mm:ss");
-//            System.out.println("DATE:" + strDate);
-//            System.out.println("15:" + strDate.substring(0, 16));
-//        }
-    }
 }
 
 

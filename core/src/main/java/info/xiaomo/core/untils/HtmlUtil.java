@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
  * Today the best performance  as tomorrow newest starter!
  * Created by IntelliJ IDEA.
  * <p>
+ *
  * @author : xiaomo
  * github: https://github.com/syoubaku
  * email: xiaomo@xiamoo.info
@@ -27,7 +28,7 @@ public class HtmlUtil {
      * @return 是否包含html标签
      */
     public static boolean containsHTMLTag(String str) {
-        if (StringUtil.Companion.isBlank(str)) {
+        if (StringUtil.isBlank(str)) {
             return false;
         }
 

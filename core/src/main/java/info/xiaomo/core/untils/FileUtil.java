@@ -641,7 +641,7 @@ public class FileUtil {
             }
         }
         if (file.isDirectory()) {
-            File files[] = file.listFiles();
+            File[] files = file.listFiles();
             for (File file1 : files != null ? files : new File[0]) {
                 list(list, file1, filter);
             }

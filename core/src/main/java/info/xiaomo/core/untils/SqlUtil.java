@@ -42,7 +42,7 @@ public class SqlUtil {
      */
     public static String sql4DB(String sql, String dbtype) {
         if (!"oracle".equalsIgnoreCase(dbtype)) {
-            sql = StringUtil.Companion.toISO(sql);
+            sql = StringUtil.toISO(sql);
         }
         return sql;
     }

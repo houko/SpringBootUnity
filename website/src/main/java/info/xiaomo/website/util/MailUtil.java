@@ -85,7 +85,7 @@ public class MailUtil {
      */
     public static String getContent(String email, String password, Configuration configuration) {
         Long now = TimeUtil.getNowOfMills();
-        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> data = new HashMap<>(10);
         StringBuilder sb = new StringBuilder("http://localhost:8080/user/validate?email=");
         sb.append(email);
         sb.append("&password=");

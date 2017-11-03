@@ -28,6 +28,12 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AdminUserDao extends JpaRepository<AdminModel, Long> {
 
+    /**
+     * 根据名字查用户
+     *
+     * @param s
+     * @return
+     */
     AdminModel findAdminUserByUserName(String s);
 
 }

@@ -125,7 +125,8 @@ public class LunarCalendarUtil {
 
         // 这一年有闰月
         if (leapMonth != 0) {
-            if (month > leapMonth || (month == leapMonth && isLeapMonth)) {
+            boolean res = month > leapMonth || (month == leapMonth && isLeapMonth);
+            if (res) {
                 if ((LUNAR_INFO[year - MIN_YEAR] & (0x80000 >> (month - 1))) == 0) {
                     dayOffset += 29;
                 } else {
@@ -134,7 +135,8 @@ public class LunarCalendarUtil {
             }
         }
 
-        if (dayOffset > 366 || (year % 4 != 0 && dayOffset > 365)) {
+        boolean res = dayOffset > 366 || (year % 4 != 0 && dayOffset > 365);
+        if (res) {
             year += 1;
             if (year % 4 == 1) {
                 dayOffset -= 366;

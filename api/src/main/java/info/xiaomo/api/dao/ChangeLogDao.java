@@ -20,6 +20,12 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ChangeLogDao extends JpaRepository<ChangeLogModel, Long> {
 
+    /**
+     * 根据名字查日志
+     *
+     * @param name
+     * @return
+     */
     ChangeLogModel findByName(String name);
 
 }

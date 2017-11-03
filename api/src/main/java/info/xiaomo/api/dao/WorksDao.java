@@ -28,6 +28,12 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface WorksDao extends JpaRepository<WorksModel, Long> {
 
+    /**
+     * 根据名字查作品
+     *
+     * @param name
+     * @return
+     */
     WorksModel findWorkByName(String name);
 
 }

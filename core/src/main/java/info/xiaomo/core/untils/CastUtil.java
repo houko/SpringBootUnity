@@ -119,7 +119,7 @@ public class CastUtil {
     }
 
     public static HashMap copyMap(HashMap map) {
-        HashMap<Object, Object> newmap = new HashMap<>();
+        HashMap<Object, Object> newmap = new HashMap<>(10);
 
         for (Object key : map.keySet()) {
             newmap.put(key, map.get(key));

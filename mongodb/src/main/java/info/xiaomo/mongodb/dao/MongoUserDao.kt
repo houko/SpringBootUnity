@@ -1,8 +1,8 @@
-package info.xiaomo.mongodb.dao;
+package info.xiaomo.mongodb.dao
 
-import info.xiaomo.mongodb.model.MongoUser;
-import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.stereotype.Repository;
+import info.xiaomo.mongodb.model.MongoUser
+import org.springframework.data.mongodb.repository.MongoRepository
+import org.springframework.stereotype.Repository
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -13,14 +13,15 @@ import org.springframework.stereotype.Repository;
  * @author : xiaomo
  * github: https://github.com/xiaomoinfo
  * email: xiaomo@xiaomo.info
- * <p>
+ *
+ *
  * Date: 2016/11/15 15:42
  * Description: 用户实体类
  * Copyright(©) 2015 by xiaomo.
- **/
+ */
 
 @Repository
-public interface MongoUserDao extends MongoRepository<MongoUser, Long> {
+interface MongoUserDao : MongoRepository<MongoUser, Long> {
 
     /**
      * 根据字字查用户
@@ -28,6 +29,6 @@ public interface MongoUserDao extends MongoRepository<MongoUser, Long> {
      * @param userName
      * @return
      */
-    MongoUser findByUserName(String userName);
+    fun findByUserName(userName: String): MongoUser
 
 }

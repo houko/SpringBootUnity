@@ -1,6 +1,5 @@
 package info.xiaomo.core.base
 
-import lombok.Data
 import java.io.Serializable
 import java.util.*
 import javax.persistence.*
@@ -20,7 +19,6 @@ import javax.persistence.*
  */
 
 @MappedSuperclass
-@Data
 abstract class BaseModel : Serializable {
 
     @Id

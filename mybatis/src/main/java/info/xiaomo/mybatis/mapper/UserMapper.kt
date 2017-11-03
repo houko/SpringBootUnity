@@ -1,30 +1,23 @@
-package info.xiaomo.mybatis.mapper;
+package info.xiaomo.mybatis.mapper
 
 
-import info.xiaomo.mybatis.domain.User;
-import org.apache.ibatis.annotations.*;
-
-import java.util.List;
-import java.util.Map;
+import info.xiaomo.mybatis.domain.User
+import org.apache.ibatis.annotations.*
 
 /**
  * @author : xiaomo
  */
 @Mapper
-public interface UserMapper {
+interface UserMapper {
 
-    @Results({
-            @Result(property = "name", column = "name"),
-            @Result(property = "age", column = "age")
-    })
-
+    @Results(Result(property = "name", column = "name"), Result(property = "age", column = "age"))
     /**
      * 根据名字查
      * @param name
      * @return user
      */
     @Select("SELECT * FROM USER WHERE NAME = #{name}")
-    User findByName(@Param("name") String name);
+    fun findByName(@Param("name") name: String): User
 
     /**
      * 插入
@@ -34,14 +27,14 @@ public interface UserMapper {
      * @return
      */
     @Insert("INSERT INTO USER(NAME, AGE) VALUES(#{name}, #{age})")
-    int insert(@Param("name") String name, @Param("age") Integer age);
+    fun insert(@Param("name") name: String, @Param("age") age: Int?): Int
 
     /**
      * 查所有
      * @return
      */
     @Select("SELECT * FROM USER WHERE 1=1")
-    List<User> findAll();
+    fun findAll(): List<User>
 
     /**
      * 更新
@@ -49,7 +42,7 @@ public interface UserMapper {
      * @param user
      */
     @Update("UPDATE USER SET age=#{age} WHERE name=#{name}")
-    void update(User user);
+    fun update(user: User)
 
     /**
      * 删除
@@ -57,7 +50,7 @@ public interface UserMapper {
      * @param id
      */
     @Delete("DELETE FROM USER WHERE id =#{id}")
-    void delete(Long id);
+    fun delete(id: Long?)
 
     /**
      * 添加
@@ -66,7 +59,7 @@ public interface UserMapper {
      * @return
      */
     @Insert("INSERT INTO USER(name, age) VALUES(#{name}, #{age})")
-    int insertByUser(User user);
+    fun insertByUser(user: User): Int
 
     /**
      * 添加
@@ -75,6 +68,6 @@ public interface UserMapper {
      * @return
      */
     @Insert("INSERT INTO user(name, age) VALUES(#{name,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER})")
-    int insertByMap(Map<String, Object> map);
+    fun insertByMap(map: Map<String, Any>): Int
 
 }

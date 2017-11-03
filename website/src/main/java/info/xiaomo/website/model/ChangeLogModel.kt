@@ -2,7 +2,8 @@ package info.xiaomo.website.model
 
 
 import info.xiaomo.core.base.BaseModel
-import lombok.*
+import lombok.EqualsAndHashCode
+import lombok.NoArgsConstructor
 import java.io.Serializable
 import javax.persistence.Column
 import javax.persistence.Entity
@@ -23,10 +24,9 @@ import javax.persistence.Table
  */
 @Entity
 @Table(name = "changeLog")
-@Data
-@ToString(callSuper = true)
+
 @EqualsAndHashCode(callSuper = false)
-@AllArgsConstructor
+
 @NoArgsConstructor
 class ChangeLogModel : BaseModel(), Serializable {
 

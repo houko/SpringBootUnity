@@ -1,7 +1,7 @@
 package info.xiaomo.mongodb.controller;
 
-import info.xiaomo.core.constant.CodeConst;
 import info.xiaomo.core.base.Result;
+import info.xiaomo.core.constant.CodeConst;
 import info.xiaomo.mongodb.model.MongoUser;
 import info.xiaomo.mongodb.service.MongoUserService;
 import io.swagger.annotations.Api;

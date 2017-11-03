@@ -1,16 +1,10 @@
 package info.xiaomo.multiplesource.domain;
 
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-
 /**
  * @author : xiaomo
  */
-@Data
-@ToString(callSuper = false)
-@NoArgsConstructor
+
 public class User {
 
     private Long id;

@@ -1,8 +1,6 @@
-package info.xiaomo.mongodb.service;
+package info.xiaomo.mongodb.service
 
-import info.xiaomo.mongodb.model.MongoUser;
-
-import java.util.List;
+import info.xiaomo.mongodb.model.MongoUser
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -13,20 +11,21 @@ import java.util.List;
  * @author : xiaomo
  * github: https://github.com/xiaomoinfo
  * email: xiaomo@xiaomo.info
- * <p>
+ *
+ *
  * Date: 2016/11/15 15:45
  * Copyright(©) 2015 by xiaomo.
- **/
+ */
 
 
-public interface MongoUserService {
+interface MongoUserService {
 
     /**
      * 查所有
      *
      * @return
      */
-    List<MongoUser> findAll();
+    fun findAll(): List<MongoUser>
 
     /**
      * 根据id查
@@ -34,7 +33,7 @@ public interface MongoUserService {
      * @param id
      * @return
      */
-    MongoUser findById(Long id);
+    fun findById(id: Long?): MongoUser
 
     /**
      * 根据名字查
@@ -42,7 +41,7 @@ public interface MongoUserService {
      * @param userName
      * @return
      */
-    MongoUser findByName(String userName);
+    fun findByName(userName: String): MongoUser
 
     /**
      * 添加
@@ -50,14 +49,14 @@ public interface MongoUserService {
      * @param mongoUser
      * @return
      */
-    MongoUser add(MongoUser mongoUser);
+    fun add(mongoUser: MongoUser): MongoUser
 
     /**
      * 删除
      *
      * @param id
      */
-    void delete(Long id);
+    fun delete(id: Long?)
 
     /**
      * 更新
@@ -65,6 +64,6 @@ public interface MongoUserService {
      * @param mongoUser
      * @return
      */
-    MongoUser update(MongoUser mongoUser);
+    fun update(mongoUser: MongoUser): MongoUser
 
 }

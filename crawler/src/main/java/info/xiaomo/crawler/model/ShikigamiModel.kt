@@ -1,9 +1,7 @@
 package info.xiaomo.crawler.model
 
 import info.xiaomo.core.base.BaseModel
-import lombok.Data
 import lombok.EqualsAndHashCode
-import lombok.ToString
 import javax.persistence.Entity
 import javax.persistence.Table
 
@@ -14,8 +12,6 @@ import javax.persistence.Table
 
 @Entity
 @Table(name = "shikigame")
-@Data
-@ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = false)
 class ShikigamiModel : BaseModel() {
 

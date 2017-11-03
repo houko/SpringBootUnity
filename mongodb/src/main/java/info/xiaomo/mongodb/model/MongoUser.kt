@@ -1,11 +1,7 @@
-package info.xiaomo.mongodb.model;
+package info.xiaomo.mongodb.model
 
-import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-import org.springframework.data.annotation.Id;
+import io.swagger.annotations.ApiModelProperty
+import org.springframework.data.annotation.Id
 
 
 /**
@@ -17,48 +13,44 @@ import org.springframework.data.annotation.Id;
  * @author : xiaomo
  * github: https://github.com/xiaomoinfo
  * email: xiaomo@xiaomo.info
-
+ *
  * Date: 2016/11/15 15:39
  * Description: 用户实体类
  * Copyright(©) 2015 by xiaomo.
- **/
+ */
 
-@Data
-@ToString(callSuper = false)
-@NoArgsConstructor
-@AllArgsConstructor
-public class MongoUser {
+class MongoUser {
 
     @Id
-    private int id;
+    private val id: Int = 0
 
     @ApiModelProperty(value = "登录用户")
-    private String email;
+    private val email: String? = null
 
     @ApiModelProperty(value = "昵称")
-    private String userName;
+    private val userName: String? = null
 
     @ApiModelProperty(value = "密码")
-    private String password;
+    private val password: String? = null
 
     @ApiModelProperty(value = "盐值")
-    private String salt;
+    private val salt: String? = null
 
     @ApiModelProperty(value = "激活码")
-    private String validateCode;
+    private val validateCode: String? = null
 
     @ApiModelProperty(value = "性别：1男2女0保密")
-    private int gender = 0;
+    private val gender = 0
 
     @ApiModelProperty(value = "电话")
-    private Long phone = 0L;
+    private val phone = 0L
 
     @ApiModelProperty(value = "图片地址")
-    private String imgUrl = "";
+    private val imgUrl = ""
 
     @ApiModelProperty(value = "地址")
-    private String address = "";
+    private val address = ""
 
     @ApiModelProperty(value = "注册时间(时间戳)")
-    private Long registerTime = 0L;
+    private val registerTime = 0L
 }

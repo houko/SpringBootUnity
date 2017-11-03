@@ -1,7 +1,5 @@
 package info.xiaomo.core.base
 
-import lombok.Data
-
 /**
  * 把今天最好的表现当作明天最新的起点．．～
  * いま 最高の表現 として 明日最新の始発．．～
@@ -16,7 +14,7 @@ import lombok.Data
  * Description: 返回结果
  * Copyright(©) 2015 by xiaomo.
  */
-@Data
+
 class Result<T> {
 
     private var resultCode = 200

@@ -14,7 +14,6 @@ import io.swagger.annotations.Api
 import io.swagger.annotations.ApiImplicitParam
 import io.swagger.annotations.ApiImplicitParams
 import io.swagger.annotations.ApiOperation
-import lombok.extern.slf4j.Slf4j
 import org.hibernate.service.spi.ServiceException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
@@ -39,7 +38,6 @@ import java.text.ParseException
 @RestController
 @RequestMapping("/user")
 @Api(value = "用户相关api", description = "用户相关api")
-@Slf4j
 class UserController @Autowired
 constructor(private val service: UserService) {
 
@@ -64,8 +62,8 @@ constructor(private val service: UserService) {
     @RequestMapping(value = "addUser", method = arrayOf(RequestMethod.POST))
     fun addUser(@RequestBody user: UserModel): Result<*> {
         val salt = RandomUtil.createSalt()
-        user.password = Md5Util.encode(user.password, salt)
-        user.validateCode = Md5Util.encode(user.email, "")
+        user.password = Md5Util.encode(user.password!!, salt)
+        user.validateCode = Md5Util.encode(user.email!!, "")!!
         user.salt = salt
         service.addUser(user)
         return Result(user)
@@ -99,7 +97,7 @@ constructor(private val service: UserService) {
         val userModel = service.findUserByEmail(email)
         //找不到用户
         //密码不正确
-        return if (Md5Util.encode(password, userModel.salt) != userModel.password) {
+        return if (Md5Util.encode(password, userModel.salt!!) != userModel.password) {
             val result = Result<Any>(CodeConst.AUTH_FAILED.resultCode, CodeConst.AUTH_FAILED.message!!)
             result
         } else Result(userModel)
@@ -118,7 +116,7 @@ constructor(private val service: UserService) {
     fun changePassword(@RequestBody user: UserModel): Result<*> {
         val userByEmail = service.findUserByEmail(user.email!!)
         val salt = RandomUtil.createSalt()
-        userByEmail.password = Md5Util.encode(user.password, salt)
+        userByEmail.password = Md5Util.encode(user.password!!, salt)
         userByEmail.nickName = user.nickName
         userByEmail.salt = salt
         val updateUser = service.updateUser(userByEmail)
@@ -135,14 +133,14 @@ constructor(private val service: UserService) {
     @RequestMapping(value = "update", method = arrayOf(RequestMethod.POST))
     @Throws(UserNotFoundException::class)
     fun update(@RequestBody user: UserModel): Result<*> {
-        var userModel: UserModel?
+        val userModel: UserModel?
         userModel = UserModel()
         userModel.email = user.email
         userModel.nickName = user.nickName
         userModel.phone = user.phone
         userModel.address = user.address
         userModel.gender = user.gender
-        userModel.validateCode = Md5Util.encode(user.email, "")
+        userModel.validateCode = Md5Util.encode(user.email!!, "")!!
         val updateUser = service.updateUser(userModel)
         return Result(updateUser)
     }
@@ -190,11 +188,11 @@ constructor(private val service: UserService) {
         userModel.nickName = user.nickName
         userModel.email = user.email
         userModel.gender = GenderConst.SECRET
-        userModel.validateCode = Md5Util.encode(user.email, salt)
+        userModel.validateCode = Md5Util.encode(user.email!!, salt)!!
         userModel.phone = 0L
         userModel.salt = salt
         userModel.address = ""
-        userModel.password = Md5Util.encode(user.password, salt)
+        userModel.password = Md5Util.encode(user.password!!, salt)
         userModel = service.addUser(userModel)
         return Result(userModel)
     }

@@ -14,15 +14,11 @@
 - mysql5.5+
 - git: 版本管理
 - nginx: 反向代理服务器
-- lombok
 
 
 ### 注意事项
 - 本项目代码托管在[github](https://github.com/xiaomoinfo/SpringBootUnity)和[码云](http://git.oschina.net/hupeng/SpringBootUnity)两个地方,最新代码会先推送在github上,码云上会在github上更新完之后进行同步。
 - 本项目多数数据库都用到了`hibernate`，如果没有提供`sql`文件。则启动时会根据代码映射自动生成数据库表，请在启动前修改`application.properties`中的数据库连接信息
-- 本项目使用了`lombok`,在查看本项目时如果您没有下载`lombok 插件`，请先安装,不然找不到`get/set`方法。eclipse用户请参照[官网](http://jnb.ociweb.com/jnb/jnbJan2010.html#references)
-
-![lombok](screenshot/lombok.png)
 
 
 ### 启动方式

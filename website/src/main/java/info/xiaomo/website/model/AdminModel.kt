@@ -2,8 +2,6 @@ package info.xiaomo.website.model
 
 
 import info.xiaomo.core.base.BaseModel
-import lombok.EqualsAndHashCode
-import lombok.NoArgsConstructor
 import java.io.Serializable
 import javax.persistence.Column
 import javax.persistence.Entity
@@ -32,10 +30,6 @@ import javax.persistence.Table
  */
 @Entity
 @Table(name = "adminUser")
-
-@EqualsAndHashCode(callSuper = false)
-
-@NoArgsConstructor
 class AdminModel : BaseModel(), Serializable {
 
     @Column(name = "UserName")

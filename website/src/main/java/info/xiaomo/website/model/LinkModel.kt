@@ -2,8 +2,6 @@ package info.xiaomo.website.model
 
 
 import info.xiaomo.core.base.BaseModel
-import lombok.EqualsAndHashCode
-import lombok.NoArgsConstructor
 import java.io.Serializable
 import javax.persistence.Column
 import javax.persistence.Entity
@@ -24,11 +22,6 @@ import javax.persistence.Table
  */
 @Entity
 @Table(name = "link")
-// lomlok
-
-@EqualsAndHashCode(callSuper = false)
-
-@NoArgsConstructor
 class LinkModel : BaseModel(), Serializable {
     @Column(name = "Url")
     var url: String? = null

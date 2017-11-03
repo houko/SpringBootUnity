@@ -2,8 +2,6 @@ package info.xiaomo.website.model
 
 
 import info.xiaomo.core.base.BaseModel
-import lombok.EqualsAndHashCode
-import lombok.NoArgsConstructor
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.Table
@@ -24,11 +22,6 @@ import javax.persistence.Table
 
 @Entity
 @Table(name = "technology")
-// lomlok
-
-@EqualsAndHashCode(callSuper = false)
-
-@NoArgsConstructor
 class TechnologyModel : BaseModel() {
 
     @Column(name = "Url")

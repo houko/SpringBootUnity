@@ -163,11 +163,6 @@
                 <artifactId>mail</artifactId>
                 <version>${javax-mail.version}</version>
             </dependency>
-            <dependency>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-                <version>${lombak.version}</version>
-            </dependency>
             <!-- Swagger -->
             <dependency>
                 <groupId>io.springfox</groupId>

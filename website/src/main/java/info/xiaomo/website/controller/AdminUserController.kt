@@ -69,7 +69,7 @@ constructor(private val service: AdminUserService) {
     @ApiResponses(value = *arrayOf(ApiResponse(code = 404, message = "Not Found"), ApiResponse(code = 400, message = "No Name Provided")))
     fun login(@PathVariable("userName") userName: String, @PathVariable("password") password: String): Result<*> {
         val adminModel = service.findAdminUserByUserName(userName)
-        return if (Md5Util.encode(password, adminModel.salt) != adminModel.password) {
+        return if (Md5Util.encode(password, adminModel.salt!!) != adminModel.password) {
             Result<Any>(CodeConst.AUTH_FAILED.resultCode, CodeConst.AUTH_FAILED.message!!)
         } else Result(adminModel)
     }
@@ -86,7 +86,7 @@ constructor(private val service: AdminUserService) {
     fun add(@RequestBody model: AdminModel): Result<*> {
         val salt = RandomUtil.createSalt()
         model.salt = salt
-        model.password = Md5Util.encode(model.password, salt)
+        model.password = Md5Util.encode(model.password!!, salt)
         val saveModel = service.addAdminUser(model)
         return Result(saveModel)
     }
@@ -137,7 +137,7 @@ constructor(private val service: AdminUserService) {
         val adminModel = service.findAdminUserByUserName(model.userName!!)
         val salt = RandomUtil.createSalt()
         adminModel.salt = salt
-        adminModel.password = Md5Util.encode(model.password, salt)
+        adminModel.password = Md5Util.encode(model.password!!, salt)
         service.updateAdminUser(adminModel)
         return Result(adminModel)
     }

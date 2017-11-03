@@ -1,6 +1,6 @@
 package info.xiaomo.website.controller
 
-import info.xiaomo.website.util.MailUtil
+import info.xiaomo.core.untils.MailUtil
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RestController
@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController
 class MailController {
 
     @RequestMapping(value = "/send", method = arrayOf(RequestMethod.GET))
-    fun sendMail(): Boolean {
+    fun sendMail() {
         return MailUtil.send("hupengbest@163.com", "测试邮件是否正常", "测试")
     }
 

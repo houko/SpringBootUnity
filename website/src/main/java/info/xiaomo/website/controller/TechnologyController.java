@@ -1,6 +1,5 @@
 package info.xiaomo.website.controller;
 
-import info.xiaomo.core.base.BaseController;
 import info.xiaomo.core.base.Result;
 import info.xiaomo.core.constant.CodeConst;
 import info.xiaomo.website.model.TechnologyModel;
@@ -25,7 +24,7 @@ import java.util.List;
  * @author : xiaomo
  * github: https://github.com/xiaomoinfo
  * email: xiaomo@xiaomo.info
-
+ * <p>
  * Date: 2016/11/3 14:36
  * Description: 用户实体类
  * Copyright(©) 2015 by xiaomo.
@@ -35,7 +34,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/technology")
 @Api(value = "技术中心相关api", description = "技术中心相关api")
-public class TechnologyController extends BaseController {
+public class TechnologyController {
     private final TechnologyService service;
 
     @Autowired
@@ -44,7 +43,6 @@ public class TechnologyController extends BaseController {
     }
 
 
-    @Override
     @ApiOperation(value = "根据id查找技术", notes = "根据id查找技术", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "/findById/{id}", method = RequestMethod.GET)
     @ApiImplicitParams({
@@ -58,7 +56,6 @@ public class TechnologyController extends BaseController {
         return new Result<>(model);
     }
 
-    @Override
     @ApiOperation(value = "根据名字查找技术", notes = "根据名字查找技术", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "/findByName/{name}", method = RequestMethod.GET)
     @ApiImplicitParams({
@@ -72,62 +69,7 @@ public class TechnologyController extends BaseController {
         return new Result<>(model);
     }
 
-    /**
-     * 根据名字删除模型
-     *
-     * @param name name
-     * @return result
-     */
-    @Override
-    public Result<Boolean> delByName(@PathVariable String name) {
-        return null;
-    }
 
-    /**
-     * 根据id删除模型
-     *
-     * @param id id
-     * @return result
-     */
-    @Override
-    public Result<Boolean> delById(@PathVariable Long id) {
-        return null;
-    }
-
-    /**
-     * 添加模型
-     *
-     * @param model model
-     * @return result
-     */
-    @Override
-    public Result<Boolean> add(@RequestBody Object model) {
-        return null;
-    }
-
-    /**
-     * 更新
-     *
-     * @param model model
-     * @return result
-     */
-    @Override
-    public Result<Boolean> update(@RequestBody Object model) {
-        return null;
-    }
-
-    /**
-     * 批量删除
-     *
-     * @param ids ids
-     * @return result
-     */
-    @Override
-    public Result<Boolean> delByIds(@PathVariable List ids) {
-        return null;
-    }
-
-    @Override
     @ApiOperation(value = "查找所有", notes = "查找所有", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "/findAll", method = RequestMethod.GET)
     public Result findAll() {
@@ -145,7 +87,6 @@ public class TechnologyController extends BaseController {
      * @param pageSize 页码数
      * @return result
      */
-    @Override
     public Result<Page> findAll(@PathVariable int start, @PathVariable int pageSize) {
         return null;
     }

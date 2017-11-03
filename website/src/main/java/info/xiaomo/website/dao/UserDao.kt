@@ -1,8 +1,8 @@
-package info.xiaomo.website.dao;
+package info.xiaomo.website.dao
 
-import info.xiaomo.website.model.WorksModel;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import info.xiaomo.website.model.UserModel
+import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.stereotype.Repository
 
 /**
  * │＼＿＿╭╭╭╭╭＿＿／│
@@ -21,19 +21,19 @@ import org.springframework.stereotype.Repository;
  * @author : xiaomo
  * github: https://github.com/xiaomoinfo
  * email: xiaomo@xiaomo.info
-
- * Date: 16/4/2 13:08
+ *
+ * Date: 16/4/3 10:53
  * Copyright(©) 2015 by xiaomo.
  */
+
 @Repository
-public interface WorksDao extends JpaRepository<WorksModel, Long> {
+interface UserDao : JpaRepository<UserModel, Long> {
 
     /**
-     * 根据名字查
+     * 根据邮件查
      *
-     * @param name
+     * @param email
      * @return
      */
-    WorksModel findWorkByName(String name);
-
+    fun findUserByEmail(email: String): UserModel
 }

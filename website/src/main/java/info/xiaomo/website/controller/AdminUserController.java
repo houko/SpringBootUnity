@@ -1,6 +1,5 @@
 package info.xiaomo.website.controller;
 
-import info.xiaomo.core.base.BaseController;
 import info.xiaomo.core.base.Result;
 import info.xiaomo.core.constant.CodeConst;
 import info.xiaomo.core.exception.UserNotFoundException;
@@ -10,7 +9,6 @@ import info.xiaomo.website.model.AdminModel;
 import info.xiaomo.website.service.AdminUserService;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,7 +31,7 @@ import java.util.List;
  * @author : xiaomo
  * github: https://github.com/xiaomoinfo
  * email: xiaomo@xiaomo.info
-
+ * <p>
  * Date: 16/4/2 12:47
  * Description: 后台用户控制器
  * Copyright(©) 2015 by xiaomo.
@@ -41,7 +39,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/adminUser")
 @Api(value = "后台用户相关api", description = "后台用户相关api")
-public class AdminUserController extends BaseController {
+public class AdminUserController {
 
     private final AdminUserService service;
 
@@ -123,38 +121,6 @@ public class AdminUserController extends BaseController {
         return new Result<>(adminModel);
     }
 
-    /**
-     * 查找所有(不带分页)
-     *
-     * @return result
-     */
-    @Override
-    public Result<List> findAll() {
-        return null;
-    }
-
-    /**
-     * 带分页
-     *
-     * @param start    起始页
-     * @param pageSize 页码数
-     * @return result
-     */
-    @Override
-    public Result<Page> findAll(@PathVariable int start, @PathVariable int pageSize) {
-        return null;
-    }
-
-    /**
-     * 根据id查看模型
-     *
-     * @param id id
-     * @return result
-     */
-    @Override
-    public Result findById(@PathVariable Long id) {
-        return null;
-    }
 
     /**
      * 根据名字查找
@@ -162,7 +128,6 @@ public class AdminUserController extends BaseController {
      * @param userName userName
      * @return Result
      */
-    @Override
     @ApiOperation(value = "查找用户", notes = "根据传来的用户名查找用户并返回", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "findByName/{userName}", method = RequestMethod.GET)
     @ApiImplicitParams({
@@ -180,60 +145,6 @@ public class AdminUserController extends BaseController {
         return new Result<>(adminModel);
     }
 
-    /**
-     * 根据名字删除模型
-     *
-     * @param name name
-     * @return result
-     */
-    @Override
-    public Result<Boolean> delByName(@PathVariable String name) {
-        return null;
-    }
-
-    /**
-     * 根据id删除模型
-     *
-     * @param id id
-     * @return result
-     */
-    @Override
-    public Result<Boolean> delById(@PathVariable Long id) {
-        return null;
-    }
-
-    /**
-     * 添加模型
-     *
-     * @param model model
-     * @return result
-     */
-    @Override
-    public Result<Boolean> add(@RequestBody Object model) {
-        return null;
-    }
-
-    /**
-     * 更新
-     *
-     * @param model model
-     * @return result
-     */
-    @Override
-    public Result<Boolean> update(@RequestBody Object model) {
-        return null;
-    }
-
-    /**
-     * 批量删除
-     *
-     * @param ids ids
-     * @return result
-     */
-    @Override
-    public Result<Boolean> delByIds(@PathVariable List ids) {
-        return null;
-    }
 
     /**
      * 修改密码

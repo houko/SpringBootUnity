@@ -1,8 +1,8 @@
-package info.xiaomo.website.dao;
+package info.xiaomo.website.dao
 
-import info.xiaomo.website.model.TechnologyModel;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import info.xiaomo.website.model.WorksModel
+import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.stereotype.Repository
 
 /**
  * │＼＿＿╭╭╭╭╭＿＿／│
@@ -21,12 +21,12 @@ import org.springframework.stereotype.Repository;
  * @author : xiaomo
  * github: https://github.com/xiaomoinfo
  * email: xiaomo@xiaomo.info
- * <p>
+ *
  * Date: 16/4/2 13:08
  * Copyright(©) 2015 by xiaomo.
  */
 @Repository
-public interface TechnologyDao extends JpaRepository<TechnologyModel, Long> {
+interface WorksDao : JpaRepository<WorksModel, Long> {
 
     /**
      * 根据名字查
@@ -34,7 +34,6 @@ public interface TechnologyDao extends JpaRepository<TechnologyModel, Long> {
      * @param name
      * @return
      */
-    TechnologyModel findTechnologyByName(String name);
-
+    fun findWorkByName(name: String): WorksModel
 
 }

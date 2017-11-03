@@ -1,10 +1,8 @@
-package info.xiaomo.website.service;
+package info.xiaomo.website.service
 
-import info.xiaomo.core.exception.UserNotFoundException;
-import info.xiaomo.website.model.AdminModel;
-import org.springframework.data.domain.Page;
-
-import java.util.List;
+import info.xiaomo.core.exception.UserNotFoundException
+import info.xiaomo.website.model.AdminModel
+import org.springframework.data.domain.Page
 
 /**
  * │＼＿＿╭╭╭╭╭＿＿／│
@@ -23,11 +21,18 @@ import java.util.List;
  * @author : xiaomo
  * github: https://github.com/xiaomoinfo
  * email: xiaomo@xiaomo.info
-
+ *
  * Date: 16/4/2 13:04
  * Copyright(©) 2015 by xiaomo.
  */
-public interface AdminUserService {
+interface AdminUserService {
+
+    /**
+     * 查所有
+     *
+     * @return
+     */
+    fun getAdminUsers(): List<AdminModel>
 
     /**
      * 根据用户名查用户
@@ -35,7 +40,7 @@ public interface AdminUserService {
      * @param userName
      * @return
      */
-    AdminModel findAdminUserByUserName(String userName);
+    fun findAdminUserByUserName(userName: String): AdminModel
 
     /**
      * 根据id查用户
@@ -43,7 +48,7 @@ public interface AdminUserService {
      * @param id
      * @return
      */
-    AdminModel findAdminUserById(Long id);
+    fun findAdminUserById(id: Long?): AdminModel
 
     /**
      * 添加用户
@@ -51,7 +56,7 @@ public interface AdminUserService {
      * @param model
      * @return
      */
-    AdminModel addAdminUser(AdminModel model);
+    fun addAdminUser(model: AdminModel): AdminModel
 
     /**
      * 更新用户
@@ -60,7 +65,8 @@ public interface AdminUserService {
      * @return
      * @throws UserNotFoundException
      */
-    AdminModel updateAdminUser(AdminModel model) throws UserNotFoundException;
+    @Throws(UserNotFoundException::class)
+    fun updateAdminUser(model: AdminModel): AdminModel
 
     /**
      * 获取分页
@@ -69,14 +75,7 @@ public interface AdminUserService {
      * @param pageSize
      * @return
      */
-    Page<AdminModel> getAdminUsers(int start, int pageSize);
-
-    /**
-     * 查所有
-     *
-     * @return
-     */
-    List<AdminModel> getAdminUsers();
+    fun getAdminUsers(start: Int, pageSize: Int): Page<AdminModel>
 
     /**
      * 删除
@@ -85,7 +84,8 @@ public interface AdminUserService {
      * @return
      * @throws UserNotFoundException
      */
-    AdminModel deleteAdminUserById(Long id) throws UserNotFoundException;
+    @Throws(UserNotFoundException::class)
+    fun deleteAdminUserById(id: Long?): AdminModel
 
     /**
      * 禁
@@ -94,6 +94,7 @@ public interface AdminUserService {
      * @return
      * @throws UserNotFoundException
      */
-    AdminModel forbidAdminUserById(Long id) throws UserNotFoundException;
+    @Throws(UserNotFoundException::class)
+    fun forbidAdminUserById(id: Long?): AdminModel
 
 }

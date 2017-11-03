@@ -25,7 +25,6 @@ import javax.persistence.Table
 // hibernate
 @Entity
 @Table(name = "works")
-// lomlok
 @Data
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = false)

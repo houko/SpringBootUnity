@@ -1,10 +1,8 @@
-package info.xiaomo.website.service;
+package info.xiaomo.website.service
 
 
-import info.xiaomo.website.model.TechnologyModel;
-import org.springframework.data.domain.Page;
-
-import java.util.List;
+import info.xiaomo.website.model.TechnologyModel
+import org.springframework.data.domain.Page
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -15,19 +13,20 @@ import java.util.List;
  * @author : xiaomo
  * github: https://github.com/xiaomoinfo
  * email: xiaomo@xiaomo.info
- * <p>
+ *
+ *
  * Date: 2016/11/3 14:33
  * Copyright(©) 2015 by xiaomo.
- **/
+ */
 
-public interface TechnologyService {
+interface TechnologyService {
 
     /**
      * find all
      *
      * @return
      */
-    List<TechnologyModel> findAll();
+    fun findAll(): List<TechnologyModel>
 
     /**
      * find all
@@ -36,7 +35,7 @@ public interface TechnologyService {
      * @param pageSize
      * @return
      */
-    Page<TechnologyModel> findAll(int start, int pageSize);
+    fun findAll(start: Int, pageSize: Int): Page<TechnologyModel>
 
     /**
      * find
@@ -44,7 +43,7 @@ public interface TechnologyService {
      * @param id
      * @return
      */
-    TechnologyModel findById(Long id);
+    fun findById(id: Long?): TechnologyModel
 
     /**
      * find
@@ -52,7 +51,7 @@ public interface TechnologyService {
      * @param name
      * @return
      */
-    TechnologyModel findByName(String name);
+    fun findByName(name: String): TechnologyModel
 
     /**
      * update
@@ -60,7 +59,7 @@ public interface TechnologyService {
      * @param model
      * @return
      */
-    TechnologyModel update(TechnologyModel model);
+    fun update(model: TechnologyModel): TechnologyModel
 
     /**
      * add
@@ -68,13 +67,13 @@ public interface TechnologyService {
      * @param model
      * @return
      */
-    TechnologyModel add(TechnologyModel model);
+    fun add(model: TechnologyModel): TechnologyModel
 
     /**
      * del
      *
      * @param id
      */
-    void del(Long id);
+    fun del(id: Long?)
 
 }

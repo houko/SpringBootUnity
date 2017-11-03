@@ -1,10 +1,7 @@
-package info.xiaomo.website.service;
+package info.xiaomo.website.service
 
-
-import info.xiaomo.website.model.LinkModel;
-import org.springframework.data.domain.Page;
-
-import java.util.List;
+import info.xiaomo.website.model.ChangeLogModel
+import org.springframework.data.domain.Page
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -15,66 +12,59 @@ import java.util.List;
  * @author : xiaomo
  * github: https://github.com/xiaomoinfo
  * email: xiaomo@xiaomo.info
- * <p>
+ *
  * Date: 2016/4/1119:49
  * Copyright(©) 2015 by xiaomo.
- **/
-public interface LinkService {
+ */
+interface ChangeLogService {
 
     /**
-     * 根据id查友链
+     * 根据id查
      *
      * @param id
      * @return
      */
-    LinkModel findById(Long id);
+    fun findById(id: Long?): ChangeLogModel
 
     /**
-     * 根据名字查友链
-     *
+     * 根据名字查
      * @param name
      * @return
      */
-    LinkModel findByName(String name);
+    fun findByName(name: String): ChangeLogModel
 
     /**
-     * 分页查
-     *
+     * find all
      * @param start
      * @param pageSize
      * @return
      */
-    Page<LinkModel> findAll(int start, int pageSize);
+    fun findAll(start: Int, pageSize: Int): Page<ChangeLogModel>
 
     /**
-     * 查所有
-     *
+     * find all
      * @return
      */
-    List<LinkModel> findAll();
+    fun findAll(): List<ChangeLogModel>
 
     /**
-     * 添加
-     *
+     * add
      * @param model
      * @return
      */
-    LinkModel add(LinkModel model);
+    fun add(model: ChangeLogModel): ChangeLogModel
 
     /**
-     * 更新
-     *
+     * update
      * @param model
      * @return
      */
-    LinkModel update(LinkModel model);
+    fun update(model: ChangeLogModel): ChangeLogModel
 
     /**
-     * 删除
-     *
+     * delete
      * @param id
      * @return
      */
-    LinkModel delete(Long id);
-
+    fun delete(id: Long?): ChangeLogModel
 }

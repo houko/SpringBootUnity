@@ -1,11 +1,9 @@
-package info.xiaomo.website.service;
+package info.xiaomo.website.service
 
 
-import info.xiaomo.core.exception.UserNotFoundException;
-import info.xiaomo.website.model.UserModel;
-import org.springframework.data.domain.Page;
-
-import java.util.List;
+import info.xiaomo.core.exception.UserNotFoundException
+import info.xiaomo.website.model.UserModel
+import org.springframework.data.domain.Page
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -16,18 +14,19 @@ import java.util.List;
  * @author : xiaomo
  * github: https://github.com/xiaomoinfo
  * email: xiaomo@xiaomo.info
- * <p>
+ *
+ *
  * Date: 2016/4/1 17:45
  * Copyright(©) 2015 by xiaomo.
- **/
-public interface UserService {
+ */
+interface UserService {
     /**
      * 根据id查用户
      *
      * @param id id
      * @return UserModel
      */
-    UserModel findUserById(Long id);
+    fun findUserById(id: Long?): UserModel
 
     /**
      * 根据邮件查用户
@@ -35,7 +34,7 @@ public interface UserService {
      * @param email email
      * @return UserModel
      */
-    UserModel findUserByEmail(String email);
+    fun findUserByEmail(email: String): UserModel
 
     /**
      * 添加用户
@@ -43,7 +42,7 @@ public interface UserService {
      * @param model model
      * @return UserModel
      */
-    UserModel addUser(UserModel model);
+    fun addUser(model: UserModel): UserModel
 
     /**
      * 更新用户
@@ -52,7 +51,8 @@ public interface UserService {
      * @return UserModel
      * @throws UserNotFoundException UserNotFoundException
      */
-    UserModel updateUser(UserModel model) throws UserNotFoundException;
+    @Throws(UserNotFoundException::class)
+    fun updateUser(model: UserModel): UserModel
 
     /**
      * 查找所有 带分页
@@ -61,14 +61,14 @@ public interface UserService {
      * @param pageSize pageSize
      * @return Page
      */
-    Page<UserModel> findAll(int start, int pageSize);
+    fun findAll(start: Int, pageSize: Int): Page<UserModel>
 
     /**
      * 查找所有 不带分页
      *
      * @return List
      */
-    List<UserModel> findAll();
+    fun findAll(): List<UserModel>
 
     /**
      * 删除用户
@@ -77,6 +77,7 @@ public interface UserService {
      * @return UserModel
      * @throws UserNotFoundException
      */
-    UserModel deleteUserById(Long id) throws UserNotFoundException;
+    @Throws(UserNotFoundException::class)
+    fun deleteUserById(id: Long?): UserModel
 
 }

@@ -1,8 +1,8 @@
-package info.xiaomo.website.dao;
+package info.xiaomo.website.dao
 
-import info.xiaomo.website.model.UserModel;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import info.xiaomo.website.model.TechnologyModel
+import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.stereotype.Repository
 
 /**
  * │＼＿＿╭╭╭╭╭＿＿／│
@@ -21,19 +21,21 @@ import org.springframework.stereotype.Repository;
  * @author : xiaomo
  * github: https://github.com/xiaomoinfo
  * email: xiaomo@xiaomo.info
-
- * Date: 16/4/3 10:53
+ *
+ *
+ * Date: 16/4/2 13:08
  * Copyright(©) 2015 by xiaomo.
  */
-
 @Repository
-public interface UserDao extends JpaRepository<UserModel, Long> {
+interface TechnologyDao : JpaRepository<TechnologyModel, Long> {
 
     /**
-     * 根据邮件查
+     * 根据名字查
      *
-     * @param email
+     * @param name
      * @return
      */
-    UserModel findUserByEmail(String email);
+    fun findTechnologyByName(name: String): TechnologyModel
+
+
 }

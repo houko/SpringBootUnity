@@ -1,6 +1,5 @@
 package info.xiaomo.website.controller;
 
-import info.xiaomo.core.base.BaseController;
 import info.xiaomo.core.base.Result;
 import info.xiaomo.core.constant.CodeConst;
 import info.xiaomo.core.constant.GenderConst;
@@ -15,9 +14,9 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,7 +32,7 @@ import java.util.List;
  * @author : xiaomo
  * github: https://github.com/xiaomoinfo
  * email: xiaomo@xiaomo.info
-
+ * <p>
  * Date: 2016/4/1 17:51
  * Description: 用户控制器
  * Copyright(©) 2015 by xiaomo.
@@ -41,7 +40,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/user")
 @Api(value = "用户相关api", description = "用户相关api")
-public class UserController extends BaseController {
+@Slf4j
+public class UserController {
 
     private final UserService service;
 
@@ -222,14 +222,18 @@ public class UserController extends BaseController {
     @RequestMapping(value = "validateEmail", method = RequestMethod.POST)
     public Result validateEmail(@RequestBody UserModel user
     ) throws ServiceException, ParseException, UserNotFoundException {
+        if (user == null) {
+            return new Result(CodeConst.NULL_DATA);
+        }
         //数据访问层，通过email获取用户信息
         UserModel userModel = service.findUserByEmail(user.getEmail());
         if (userModel != null) {
             return new Result(CodeConst.USER_REPEAT.getResultCode(), CodeConst.USER_REPEAT.getMessage());
         }
         //验证码是否过期
-        if (user.getRegisterTime() + TimeUtil.INSTANCE.getONE_DAY_IN_MILLISECONDS() < TimeUtil.INSTANCE.getNowOfMills()) {
-            getLOGGER().info("用户{}使用己过期的激活码{}激活邮箱失败！", user.getEmail(), user.getEmail());
+        Long registerTime = user.getRegisterTime();
+        if (registerTime + TimeUtil.INSTANCE.getONE_DAY_IN_MILLISECONDS() < TimeUtil.INSTANCE.getNowOfMills()) {
+            log.info("用户{}使用己过期的激活码{}激活邮箱失败！", user.getEmail(), user.getEmail());
             return new Result(CodeConst.TIME_PASSED.getResultCode(), CodeConst.TIME_PASSED.getMessage());
         }
         //激活
@@ -244,106 +248,8 @@ public class UserController extends BaseController {
         userModel.setAddress("");
         userModel.setPassword(Md5Util.encode(user.getPassword(), salt));
         userModel = service.addUser(userModel);
-        getLOGGER().info("用户{}使用激活码{}激活邮箱成功！", userModel.getEmail(), userModel.getValidateCode());
+        log.info("用户{}使用激活码{}激活邮箱成功！", userModel.getEmail(), userModel.getValidateCode());
         return new Result<>(userModel);
     }
 
-    /**
-     * 查找所有(不带分页)
-     *
-     * @return result
-     */
-    @Override
-    public Result<List> findAll() {
-        return null;
-    }
-
-    /**
-     * 带分页
-     *
-     * @param start    起始页
-     * @param pageSize 页码数
-     * @return result
-     */
-    @Override
-    public Result<Page> findAll(@PathVariable int start, @PathVariable int pageSize) {
-        return null;
-    }
-
-    /**
-     * 根据id查看模型
-     *
-     * @param id id
-     * @return result
-     */
-    @Override
-    public Result findById(@PathVariable Long id) {
-        return null;
-    }
-
-    /**
-     * 根据名字查找模型
-     *
-     * @param name name
-     * @return result
-     */
-    @Override
-    public Result findByName(@PathVariable String name) {
-        return null;
-    }
-
-    /**
-     * 根据名字删除模型
-     *
-     * @param name name
-     * @return result
-     */
-    @Override
-    public Result<Boolean> delByName(@PathVariable String name) {
-        return null;
-    }
-
-    /**
-     * 根据id删除模型
-     *
-     * @param id id
-     * @return result
-     */
-    @Override
-    public Result<Boolean> delById(@PathVariable Long id) {
-        return null;
-    }
-
-    /**
-     * 添加模型
-     *
-     * @param model model
-     * @return result
-     */
-    @Override
-    public Result<Boolean> add(@RequestBody Object model) {
-        return null;
-    }
-
-    /**
-     * 更新
-     *
-     * @param model model
-     * @return result
-     */
-    @Override
-    public Result<Boolean> update(@RequestBody Object model) {
-        return null;
-    }
-
-    /**
-     * 批量删除
-     *
-     * @param ids ids
-     * @return result
-     */
-    @Override
-    public Result<Boolean> delByIds(@PathVariable List ids) {
-        return null;
-    }
 }

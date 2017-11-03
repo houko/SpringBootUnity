@@ -56,7 +56,7 @@ public class XiaomoMain extends WebMvcConfigurerAdapter {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index() {
-        return UserView.INDEX.getName();
+        return UserView.INDEX.getViewName();
     }
 
     /**

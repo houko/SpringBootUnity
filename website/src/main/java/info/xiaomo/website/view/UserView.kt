@@ -1,4 +1,4 @@
-package info.xiaomo.website.view;
+package info.xiaomo.website.view
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -9,31 +9,19 @@ package info.xiaomo.website.view;
  * @author : xiaomo
  * github: https://github.com/xiaomoinfo
  * email: xiaomo@xiaomo.info
-
+ *
+ *
  * Date: 2016/11/21 11:12
  * Copyright(©) 2015 by xiaomo.
- **/
+ */
 
-public enum LinkView {
+enum class UserView(var viewName: String?) {
     /**
      * login
      */
     LOGIN("login"),
     REGISTER("register"),
     REGISTER_INFO("info"),
-    INDEX("/web/index");
-
-    private String name;
-
-    LinkView(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    INDEX("index"),
+    API("swagger-ui.html")
 }

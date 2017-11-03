@@ -1,8 +1,8 @@
-package info.xiaomo.website.dao;
+package info.xiaomo.website.dao
 
-import info.xiaomo.website.model.AdminModel;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import info.xiaomo.website.model.AdminModel
+import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.stereotype.Repository
 
 /**
  * │＼＿＿╭╭╭╭╭＿＿／│
@@ -21,12 +21,13 @@ import org.springframework.stereotype.Repository;
  * @author : xiaomo
  * github: https://github.com/xiaomoinfo
  * email: xiaomo@xiaomo.info
- * <p>
+ *
+ *
  * Date: 16/4/2 13:08
  * Copyright(©) 2015 by xiaomo.
  */
 @Repository
-public interface AdminUserDao extends JpaRepository<AdminModel, Long> {
+interface AdminUserDao : JpaRepository<AdminModel, Long> {
 
     /**
      * 根据名字查用户
@@ -34,6 +35,6 @@ public interface AdminUserDao extends JpaRepository<AdminModel, Long> {
      * @param s
      * @return
      */
-    AdminModel findAdminUserByUserName(String s);
+    fun findAdminUserByUserName(s: String): AdminModel
 
 }

@@ -1,8 +1,8 @@
-package info.xiaomo.website.dao;
+package info.xiaomo.website.dao
 
-import info.xiaomo.website.model.ChangeLogModel;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import info.xiaomo.website.model.ChangeLogModel
+import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.stereotype.Repository
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -13,12 +13,12 @@ import org.springframework.stereotype.Repository;
  * @author : xiaomo
  * github: https://github.com/xiaomoinfo
  * email: xiaomo@xiaomo.info
-
+ *
  * Date: 2016/4/1119:52
  * Copyright(©) 2015 by xiaomo.
- **/
+ */
 @Repository
-public interface ChangeLogDao extends JpaRepository<ChangeLogModel, Long> {
+interface ChangeLogDao : JpaRepository<ChangeLogModel, Long> {
 
     /**
      * find
@@ -26,6 +26,6 @@ public interface ChangeLogDao extends JpaRepository<ChangeLogModel, Long> {
      * @param name
      * @return
      */
-    ChangeLogModel findByName(String name);
+    fun findByName(name: String): ChangeLogModel
 
 }

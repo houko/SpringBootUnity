@@ -1,10 +1,8 @@
-package info.xiaomo.website.service;
+package info.xiaomo.website.service
 
 
-import info.xiaomo.website.model.WorksModel;
-import org.springframework.data.domain.Page;
-
-import java.util.List;
+import info.xiaomo.website.model.WorksModel
+import org.springframework.data.domain.Page
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -15,19 +13,20 @@ import java.util.List;
  * @author : xiaomo
  * github: https://github.com/xiaomoinfo
  * email: xiaomo@xiaomo.info
- * <p>
+ *
+ *
  * Date: 2016/11/3 14:33
  * Copyright(©) 2015 by xiaomo.
- **/
+ */
 
-public interface WorksService {
+interface WorksService {
 
     /**
      * find all
      *
      * @return
      */
-    List<WorksModel> findAll();
+    fun findAll(): List<WorksModel>
 
     /**
      * find all page
@@ -36,7 +35,7 @@ public interface WorksService {
      * @param pageSize
      * @return
      */
-    Page<WorksModel> findAll(int start, int pageSize);
+    fun findAll(start: Int, pageSize: Int): Page<WorksModel>
 
     /**
      * find
@@ -44,7 +43,7 @@ public interface WorksService {
      * @param id
      * @return
      */
-    WorksModel findById(Long id);
+    fun findById(id: Long?): WorksModel
 
     /**
      * find
@@ -52,7 +51,7 @@ public interface WorksService {
      * @param name
      * @return
      */
-    WorksModel findByName(String name);
+    fun findByName(name: String): WorksModel
 
     /**
      * update
@@ -60,7 +59,7 @@ public interface WorksService {
      * @param model
      * @return
      */
-    WorksModel update(WorksModel model);
+    fun update(model: WorksModel): WorksModel?
 
 
     /**
@@ -69,7 +68,7 @@ public interface WorksService {
      * @param model
      * @return
      */
-    WorksModel add(WorksModel model);
+    fun add(model: WorksModel): WorksModel
 
 
     /**
@@ -77,5 +76,5 @@ public interface WorksService {
      *
      * @param id
      */
-    void del(Long id);
+    fun del(id: Long?)
 }

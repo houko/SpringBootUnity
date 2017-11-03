@@ -119,7 +119,8 @@ public class TimeUtil {
     public static Date convertStringToDate(String datePattern, String strDate) {
         SimpleDateFormat df;
         Date date;
-        if (strDate.split(SymbolConst.HENGXIAN).length < 2) {//传入的时间是以 / 分割
+        //传入的时间是以 / 分割
+        if (strDate.split(SymbolConst.HENGXIAN).length < 2) {
             strDate = strDate.replace(SymbolConst.ZHENGXIEXIAN, SymbolConst.HENGXIAN);
         }
         if (strDate.split(SymbolConst.SPACE).length > 1) {
@@ -141,7 +142,8 @@ public class TimeUtil {
      */
     public static Date convertStringToDate(String strDate) {
         Date aDate;
-        if (strDate.split(SymbolConst.HENGXIAN).length < 2) {//传入的时间是以 / 分割
+        //传入的时间是以 / 分割
+        if (strDate.split(SymbolConst.HENGXIAN).length < 2) {
             strDate = strDate.replace(SymbolConst.ZHENGXIEXIAN, SymbolConst.HENGXIAN);
         }
         aDate = convertStringToDate(DATE_PATTERN_WITH_HENGXIAN, strDate);
@@ -731,32 +733,41 @@ public class TimeUtil {
      */
     public static String getLeftTimeString(long leftTime) {
         StringBuilder sb = new StringBuilder();
-        int leftSecond = (int) (leftTime / 1000);// 剩余秒数
-        int second = leftSecond % 60;// 秒数
+        // 剩余秒数
+        int leftSecond = (int) (leftTime / 1000);
+        // 秒数
+        int second = leftSecond % 60;
         if (second > 0) {
             sb.insert(0, second + "秒");
         }
-        int leftMinute = leftSecond / 60;// 剩余分钟数
-        int minute = leftMinute % 60;// 分钟数
+        // 剩余分钟数
+        int leftMinute = leftSecond / 60;
+        // 分钟数
+        int minute = leftMinute % 60;
         if (minute > 0) {
             sb.insert(0, minute + "分");
         }
-        int leftHour = leftMinute / 60;// 剩余小时
+        // 剩余小时
+        int leftHour = leftMinute / 60;
         int hour = leftHour % 24;
         if (hour > 0) {
             sb.insert(0, hour + "小时");
         }
-        int leftDay = leftHour / 24;// 剩余天数
+        // 剩余天数
+        int leftDay = leftHour / 24;
         if (leftDay > 0) {
             sb.insert(0, leftDay + "天");
         }
-        int day = (int) (leftTime / ONE_DAY_IN_MILLISECONDS);// 获取剩余天数
-        if (day > 0) {// 1天及以上的显示剩余天
+        // 获取剩余天数
+        int day = (int) (leftTime / ONE_DAY_IN_MILLISECONDS);
+        // 1天及以上的显示剩余天
+        if (day > 0) {
             sb.append(day).append("天");
             leftTime -= (day * ONE_DAY_IN_MILLISECONDS);
         }
         hour = (int) (leftTime / ONE_HOUR_IN_MILLISECONDS);
-        if (hour > 0 || sb.length() > 0) {// 1小时及以上或者前面显示了天数则后面需要小时
+        // 1小时及以上或者前面显示了天数则后面需要小时
+        if (hour > 0 || sb.length() > 0) {
             sb.append(hour).append("小时");
             leftTime -= (hour * ONE_HOUR_IN_MILLISECONDS);
         }

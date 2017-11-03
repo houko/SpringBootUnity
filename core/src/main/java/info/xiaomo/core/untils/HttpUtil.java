@@ -26,10 +26,10 @@ import java.util.Map.Entry;
  */
 public class HttpUtil {
 
-    private static final String DEFAULT_CHARSET = "UTF-8"; // 默认字符集
+    private static final String DEFAULT_CHARSET = "UTF-8";
 
-    private static final String GET = "GET"; // GET
-    private static final String POST = "POST";// POST
+    private static final String GET = "GET";
+    private static final String POST = "POST";
 
     private final static String USER_COOKIE_KEY = "uid";
     private final static String USER_COOKIE_SECRET = "&#%!&*";

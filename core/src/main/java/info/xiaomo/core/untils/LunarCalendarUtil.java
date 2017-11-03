@@ -226,8 +226,8 @@ public class LunarCalendarUtil {
 
         // 农历年份
         lunarDate[0] = iYear;
-
-        int leapMonth = leapMonth(iYear); // 闰哪个月,1-12
+        // 闰哪个月,1-12
+        int leapMonth = leapMonth(iYear);
         boolean isLeap = false;
         // 用当年的天数offset,逐个减去每月（农历）的天数，求出当天是本月的第几天
         int iMonth, daysOfMonth = 0;

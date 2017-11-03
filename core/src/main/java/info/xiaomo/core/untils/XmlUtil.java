@@ -95,7 +95,8 @@ public class XmlUtil {
                 }
             }
             XMLWriter output;
-            if (outXml != null) { //指定输出文件
+            //指定输出文件
+            if (outXml != null) {
                 output = new XMLWriter(new FileWriter(new File(outXml)));
             } else { //输出文件为原文件
                 output = new XMLWriter(new FileWriter(inputXml));

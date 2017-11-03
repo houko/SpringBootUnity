@@ -120,7 +120,8 @@ public class RandomUtil {
             return -1;
         }
         int totalProb = newProbs.getLast();
-        if (totalProb == 0) {// 总概率为0
+        // 总概率为0
+        if (totalProb == 0) {
             return -1;
         }
         int random = random(0, totalProb - 1);

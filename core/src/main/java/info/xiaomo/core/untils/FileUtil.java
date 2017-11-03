@@ -511,7 +511,8 @@ public class FileUtil {
         for (String anArraypath : arraypath) {
             tmppath += "/" + anArraypath;
             File d = new File(tmppath.substring(1));
-            if (!d.exists()) { //检查Sub目录是否存在
+            //检查Sub目录是否存在
+            if (!d.exists()) {
                 System.out.println(tmppath.substring(1));
                 if (!d.mkdir()) {
                     return false;
@@ -543,7 +544,8 @@ public class FileUtil {
                 return false;
             }
         }
-        FileWriter fw = new FileWriter(path); //建立FileWriter对象，并实例化fw
+        //建立FileWriter对象，并实例化fw
+        FileWriter fw = new FileWriter(path);
         //将字符串写入文件
         fw.write(modulecontent);
         fw.close();

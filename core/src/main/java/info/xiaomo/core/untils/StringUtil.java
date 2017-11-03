@@ -490,8 +490,8 @@ public class StringUtil extends StringUtils {
         }
 
         int i = 0;
-
-        if (strOld.equals(strNew)) //避免新旧字符一样产生死循环
+//避免新旧字符一样产生死循环
+        if (strOld.equals(strNew))
         {
             return strSrc;
         }
@@ -893,7 +893,8 @@ public class StringUtil extends StringUtils {
             } else {
                 charStr = dataStr.substring(start + 2, end);
             }
-            char letter = (char) Integer.parseInt(charStr, 16); // 16进制parse整形字符串。
+            // 16进制parse整形字符串。
+            char letter = (char) Integer.parseInt(charStr, 16);
             buffer.append(Character.toString(letter));
             start = end;
         }

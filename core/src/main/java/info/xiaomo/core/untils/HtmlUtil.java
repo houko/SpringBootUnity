@@ -149,17 +149,20 @@ public class HtmlUtil {
 
         Pattern pScript = Pattern.compile(regexScript, Pattern.CASE_INSENSITIVE);
         Matcher mScript = pScript.matcher(htmlStr);
-        htmlStr = mScript.replaceAll(""); //过滤script标签
+        //过滤script标签
+        htmlStr = mScript.replaceAll("");
 
         Pattern pStyle = Pattern.compile(regexStyle, Pattern.CASE_INSENSITIVE);
         Matcher mStyle = pStyle.matcher(htmlStr);
-        htmlStr = mStyle.replaceAll(""); //过滤style标签
+        //过滤style标签
+        htmlStr = mStyle.replaceAll("");
 
         Pattern pHtml = Pattern.compile(regexHtml, Pattern.CASE_INSENSITIVE);
         Matcher mHtml = pHtml.matcher(htmlStr);
-        htmlStr = mHtml.replaceAll(""); //过滤html标签
-
-        return htmlStr.trim(); //返回文本字符串
+        //过滤html标签
+        htmlStr = mHtml.replaceAll("");
+        //返回文本字符串
+        return htmlStr.trim();
     }
 
 }

@@ -23,11 +23,8 @@ import org.springframework.context.annotation.ComponentScan
 @ComponentScan("info.xiaomo")
 @EntityScan("info.xiaomo.*.model")
 @EnableAutoConfiguration(exclude = arrayOf(DataSourceAutoConfiguration::class, HibernateJpaAutoConfiguration::class))
-class FreemarkerMain {
+class FreemarkerMain
 
-    fun main(args: Array<String>) {
-        SpringApplication.run(FreemarkerMain::class.java, *args)
-    }
-
-
+fun main(args: Array<String>) {
+    SpringApplication.run(FreemarkerMain::class.java, *args)
 }

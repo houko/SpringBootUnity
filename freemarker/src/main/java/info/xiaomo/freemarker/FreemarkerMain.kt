@@ -25,7 +25,6 @@ import org.springframework.context.annotation.ComponentScan
 @EnableAutoConfiguration(exclude = arrayOf(DataSourceAutoConfiguration::class, HibernateJpaAutoConfiguration::class))
 class FreemarkerMain {
 
-    @Throws(Exception::class)
     fun main(args: Array<String>) {
         SpringApplication.run(FreemarkerMain::class.java, *args)
     }

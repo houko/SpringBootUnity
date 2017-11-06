@@ -30,7 +30,7 @@ constructor(private val dao: CommonRedisDao) {
     @RequestMapping(value = "get/{key}", method = arrayOf(RequestMethod.GET))
     fun find(@PathVariable("key") key: String): Result<String> {
         val value = dao.getValue(key)
-        return Result(value)
+        return Result(value!!)
     }
 
     @RequestMapping(value = "add/{key}/{value}", method = arrayOf(RequestMethod.GET))

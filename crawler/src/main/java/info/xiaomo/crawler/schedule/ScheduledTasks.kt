@@ -41,7 +41,7 @@ constructor(private val shikigamaService: ShikigamaService) {
         val shikigamiModel = shikigamaService.findAll()
         for (aShikigamiModel in shikigamiModel) {
             val url = aShikigamiModel.image
-            DownUtil.download(url, "D:\\yys\\")
+            DownUtil.download(url!!, "D:\\yys\\")
             LOGGER.debug("开始下载图片:{}", url)
         }
     }

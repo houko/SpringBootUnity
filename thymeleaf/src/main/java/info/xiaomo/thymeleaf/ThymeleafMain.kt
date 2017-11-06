@@ -27,7 +27,7 @@ class ThymeleafMain
 
 @Throws(Exception::class)
 fun main(args: Array<String>) {
-    SpringApplication.run(ThymeleafMain::class.java, *args)
+    SpringApplication.run(ThymeleafMain::class, *args)
 
 
 }

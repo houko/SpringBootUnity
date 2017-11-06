@@ -151,7 +151,7 @@ class CastUtil {
         }
 
         fun objectToString(obj: Any): String? {
-            if (obj.javaClass == String::class.java) {
+            if (obj.javaClass == String::class) {
                 return obj.toString()
             } else {
                 val out = ByteArrayOutputStream()

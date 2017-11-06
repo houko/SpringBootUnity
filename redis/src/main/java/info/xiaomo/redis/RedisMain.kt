@@ -28,7 +28,7 @@ object RedisMain {
     @Throws(Exception::class)
     @JvmStatic
     fun main(args: Array<String>) {
-        SpringApplication.run(RedisMain::class.java, *args)
+        SpringApplication.run(RedisMain::class, *args)
     }
 
 }

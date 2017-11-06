@@ -28,5 +28,5 @@ import org.springframework.context.annotation.ComponentScan
 class AsyncMain
 
 fun main(args: Array<String>) {
-    SpringApplication.run(AsyncMain::class.java, *args)
+    SpringApplication.run(AsyncMain::class, *args)
 }

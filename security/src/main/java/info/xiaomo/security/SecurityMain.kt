@@ -58,7 +58,7 @@ class SecurityMain : WebSecurityConfigurerAdapter() {
         @Throws(Exception::class)
         @JvmStatic
         fun main(args: Array<String>) {
-            SpringApplication.run(SecurityMain::class.java, *args)
+            SpringApplication.run(SecurityMain::class, *args)
         }
     }
 

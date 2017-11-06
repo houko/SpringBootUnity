@@ -92,7 +92,7 @@ class XiaomoMain : WebMvcConfigurerAdapter() {
         @Throws(Exception::class)
         @JvmStatic
         fun main(args: Array<String>) {
-            SpringApplication.run(XiaomoMain::class.java, *args)
+            SpringApplication.run(XiaomoMain::class, *args)
         }
     }
 

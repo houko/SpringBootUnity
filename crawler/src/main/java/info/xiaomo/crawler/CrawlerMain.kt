@@ -31,6 +31,6 @@ class CrawlerMain
 
 @Throws(Exception::class)
 fun main(args: Array<String>) {
-    SpringApplication.run(CrawlerMain::class.java, *args)
+    SpringApplication.run(CrawlerMain::class, *args)
 
 }

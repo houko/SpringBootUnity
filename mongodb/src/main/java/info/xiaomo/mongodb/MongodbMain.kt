@@ -74,7 +74,7 @@ class MongodbMain {
         @Throws(Exception::class)
         @JvmStatic
         fun main(args: Array<String>) {
-            SpringApplication.run(MongodbMain::class.java, *args)
+            SpringApplication.run(MongodbMain::class, *args)
         }
     }
 }

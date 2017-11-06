@@ -26,5 +26,5 @@ import org.springframework.context.annotation.ComponentScan
 class FreemarkerMain
 
 fun main(args: Array<String>) {
-    SpringApplication.run(FreemarkerMain::class.java, *args)
+    SpringApplication.run(FreemarkerMain::class, *args)
 }

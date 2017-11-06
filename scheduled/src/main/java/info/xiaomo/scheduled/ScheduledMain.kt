@@ -30,7 +30,7 @@ object ScheduledMain {
     @Throws(Exception::class)
     @JvmStatic
     fun main(args: Array<String>) {
-        SpringApplication.run(ScheduledMain::class.java, *args)
+        SpringApplication.run(ScheduledMain::class, *args)
     }
 
 }

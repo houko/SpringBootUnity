@@ -39,7 +39,7 @@ class RabbitMqMain {
         @Throws(Exception::class)
         @JvmStatic
         fun main(args: Array<String>) {
-            SpringApplication.run(RabbitMqMain::class.java, *args)
+            SpringApplication.run(RabbitMqMain::class, *args)
         }
     }
 

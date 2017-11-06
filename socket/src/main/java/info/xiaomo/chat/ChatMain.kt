@@ -39,7 +39,7 @@ class ChatMain {
         @Throws(Exception::class)
         @JvmStatic
         fun main(args: Array<String>) {
-            SpringApplication.run(ChatMain::class.java, *args)
+            SpringApplication.run(ChatMain::class, *args)
         }
     }
 

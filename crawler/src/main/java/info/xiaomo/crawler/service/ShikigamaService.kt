@@ -14,7 +14,7 @@ interface ShikigamaService {
      * @param name
      * @return
      */
-    fun findByName(name: String): ShikigamiModel
+    fun findByName(name: String): ShikigamiModel?
 
     /**
      * 保存

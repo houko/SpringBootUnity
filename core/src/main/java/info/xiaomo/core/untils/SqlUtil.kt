@@ -59,12 +59,12 @@ class SqlUtil {
          * @return 处理后的sql语句
          */
         fun sql4DB(sql: String, dbtype: String): String {
-            var sql = sql
+            var sqlStr = sql
             val oracle = "oracle"
             if (!oracle.equals(dbtype, ignoreCase = true)) {
-                sql = StringUtil.toISO(sql)
+                sqlStr = StringUtil.toISO(sqlStr)
             }
-            return sql
+            return sqlStr
         }
     }
 }

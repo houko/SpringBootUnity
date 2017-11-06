@@ -201,7 +201,6 @@ object FileUtil {
         }
 
         val entries = dir.listFiles()
-        val sz = entries?.size ?: 0
 
         for (entry in entries ?: arrayOfNulls(0)) {
             if (entry.isDirectory) {
@@ -528,10 +527,10 @@ object FileUtil {
      */
     @Throws(IOException::class)
     fun genModuleTpl(path: String, modulecontent: String): Boolean {
-        var path = path
+        var str = path
 
-        path = getUNIXfilePath(path)
-        val patharray = path.split("\\/".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+        str = getUNIXfilePath(str)
+        val patharray = str.split("\\/".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
         var modulepath = ""
         for (i in 0 until patharray.size - 1) {
             modulepath += "/" + patharray[i]
@@ -543,7 +542,7 @@ object FileUtil {
             }
         }
         //建立FileWriter对象，并实例化fw
-        val fw = FileWriter(path)
+        val fw = FileWriter(str)
         //将字符串写入文件
         fw.write(modulecontent)
         fw.close()
@@ -558,23 +557,23 @@ object FileUtil {
      * @since 1.0
      */
     fun getPicExtendName(picPath: String): String {
-        var picPath = picPath
-        picPath = getUNIXfilePath(picPath)
+        var pic = picPath
+        pic = getUNIXfilePath(pic)
         var picExtend = ""
         val gif = ".gif"
-        if (isFileExist(picPath + gif)) {
+        if (isFileExist(pic + gif)) {
             picExtend = gif
         }
         val jpeg = ".jpeg"
-        if (isFileExist(picPath + jpeg)) {
+        if (isFileExist(pic + jpeg)) {
             picExtend = jpeg
         }
         val jpg = ".jpg"
-        if (isFileExist(picPath + jpg)) {
+        if (isFileExist(pic + jpg)) {
             picExtend = jpg
         }
         val png = ".png"
-        if (isFileExist(picPath + png)) {
+        if (isFileExist(pic + png)) {
             picExtend = png
         }
         //返回图片扩展名
@@ -672,7 +671,6 @@ object FileUtil {
             // 重新定义图片名字
             filename = FileUtil.getNewFileName(fileName, email)
             //上传服务器上 新文件路径
-            val os = System.getProperty("os.name").toLowerCase()
             try {
                 // 判断服务器上 文件夹是否存在
                 val newFile = File(savePath)
@@ -680,7 +678,7 @@ object FileUtil {
                     val result = newFile.mkdirs()
                     println(result)
                 }
-                savePath = savePath + filename
+                savePath += filename
                 val out = FileOutputStream(savePath)
                 // 写入文件
                 out.write(file.bytes)
@@ -716,7 +714,6 @@ object FileUtil {
         var bytes: ByteArray? = ByteArray(len)
         val r = bufferedInputStream.read(bytes!!)
         if (len != r) {
-            bytes = null
             throw IOException("读取文件不正确")
         }
         bufferedInputStream.close()
@@ -731,7 +728,6 @@ object FileUtil {
         var bytes: ByteArray? = ByteArray(len)
         val r = bufferedInputStream.read(bytes!!)
         if (len != r) {
-            bytes = null
             throw IOException("读取文件不正确")
         }
         bufferedInputStream.close()
@@ -746,10 +742,9 @@ object FileUtil {
      * @return
      */
     private fun getData(`in`: InputStream): String {
-        val result = ""
         val sb = StringBuilder()
         val br = BufferedReader(InputStreamReader(`in`))
-        var line = ""
+        val line = ""
         try {
             while ((br.readLine()) != null) {
                 // result = result + line;

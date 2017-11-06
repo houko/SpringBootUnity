@@ -17,5 +17,5 @@ interface ShikigamaDao : JpaRepository<ShikigamiModel, Long> {
      * @param name
      * @return
      */
-    fun findByName(name: String?): ShikigamiModel
+    fun findByName(name: String?): ShikigamiModel?
 }

@@ -126,7 +126,7 @@ class HttpUtil {
                 val read = BufferedReader(InputStreamReader(`in`, DEFAULT_CHARSET))
                 val valueString: String? = null
                 bufferRes = StringBuffer()
-                while ((valueString == read.readLine()) != null) {
+                while ((read.readLine()) != null) {
                     bufferRes.append(valueString)
                 }
                 read.close()
@@ -141,13 +141,13 @@ class HttpUtil {
         }
 
         fun post(url: String, params: String?, headers: Map<String, String>?): String? {
-            var bufferRes: StringBuffer? = null
+            var bufferRes: StringBuffer?
             try {
-                var http: HttpURLConnection? = null
-                if (isHttps(url)) {
-                    http = initHttps(url, POST, headers)
+                var http: HttpURLConnection?
+                http = if (isHttps(url)) {
+                    initHttps(url, POST, headers)
                 } else {
-                    http = initHttp(url, POST, headers)
+                    initHttp(url, POST, headers)
                 }
                 val out = http.outputStream
                 out.write(params!!.toByteArray(charset(DEFAULT_CHARSET)))

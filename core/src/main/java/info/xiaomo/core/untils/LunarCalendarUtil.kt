@@ -89,59 +89,58 @@ object LunarCalendarUtil {
      */
     fun lunarToSolar(year: Int, month: Int, monthDay: Int,
                      isLeapMonth: Boolean): IntArray {
-        var year = year
+        var inputYear = year
         var dayOffset: Int
         val leapMonth: Int
-        var i: Int
+        var i = 1
 
         val maxMonth = 12
-        if (year < MIN_YEAR || year > MAX_YEAR || month < 1 || month > maxMonth
+        if (inputYear < MIN_YEAR || inputYear > MAX_YEAR || month < 1 || month > maxMonth
                 || monthDay < 1 || monthDay > 30) {
             throw IllegalArgumentException(
                     "Illegal lunar date, must be like that:\n\t" +
-                            "year : 1900~2099\n\t" +
+                            "inputYear : 1900~2099\n\t" +
                             "month : 1~12\n\t" +
                             "day : 1~30")
         }
 
-        dayOffset = (LUNAR_INFO[year - MIN_YEAR] and 0x001F) - 1
+        dayOffset = (LUNAR_INFO[inputYear - MIN_YEAR] and 0x001F) - 1
 
         val five = 5
         val two = 2
-        if (LUNAR_INFO[year - MIN_YEAR] and 0x0060 shr five == two) {
+        if (LUNAR_INFO[inputYear - MIN_YEAR] and 0x0060 shr five == two) {
             dayOffset += 31
         }
 
-        i = 1
         while (i < month) {
-            if (LUNAR_INFO[year - MIN_YEAR] and (0x80000 shr i - 1) == 0) {
-                dayOffset += 29
+            dayOffset += if (LUNAR_INFO[inputYear - MIN_YEAR] and (0x80000 shr i - 1) == 0) {
+                29
             } else {
-                dayOffset += 30
+                30
             }
             i++
         }
 
         dayOffset += monthDay
-        leapMonth = LUNAR_INFO[year - MIN_YEAR] and 0xf00000 shr 20
+        leapMonth = LUNAR_INFO[inputYear - MIN_YEAR] and 0xf00000 shr 20
 
         // 这一年有闰月
         if (leapMonth != 0) {
             val res = month > leapMonth || month == leapMonth && isLeapMonth
             if (res) {
-                if (LUNAR_INFO[year - MIN_YEAR] and (0x80000 shr month - 1) == 0) {
-                    dayOffset += 29
+                dayOffset += if (LUNAR_INFO[inputYear - MIN_YEAR] and (0x80000 shr month - 1) == 0) {
+                    29
                 } else {
-                    dayOffset += 30
+                    30
                 }
             }
         }
 
         val four = 4
-        val res = dayOffset > 366 || year % four != 0 && dayOffset > 365
+        val res = dayOffset > 366 || inputYear % four != 0 && dayOffset > 365
         if (res) {
-            year += 1
-            dayOffset -= if (year % four == 1) {
+            inputYear += 1
+            dayOffset -= if (inputYear % four == 1) {
                 366
             } else {
                 365
@@ -153,11 +152,11 @@ object LunarCalendarUtil {
         i = 1
         while (i < oneThree) {
             var iPos = DAYS_BEFORE_MONTH[i]
-            if (year % four == 0 && i > two) {
+            if (inputYear % four == 0 && i > two) {
                 iPos += 1
             }
 
-            if (year % four == 0 && i == two && iPos + 1 == dayOffset) {
+            if (inputYear % four == 0 && i == two && iPos + 1 == dayOffset) {
                 solarInfo[1] = i
                 solarInfo[two] = dayOffset - 31
                 break
@@ -166,13 +165,13 @@ object LunarCalendarUtil {
             if (iPos >= dayOffset) {
                 solarInfo[1] = i
                 iPos = DAYS_BEFORE_MONTH[i - 1]
-                if (year % four == 0 && i > two) {
+                if (inputYear % four == 0 && i > two) {
                     iPos += 1
                 }
                 if (dayOffset > iPos) {
                     solarInfo[two] = dayOffset - iPos
                 } else if (dayOffset == iPos) {
-                    if (year % four == 0 && i == two) {
+                    if (inputYear % four == 0 && i == two) {
                         solarInfo[two] = DAYS_BEFORE_MONTH[i] - DAYS_BEFORE_MONTH[i - 1] + 1
                     } else {
                         solarInfo[two] = DAYS_BEFORE_MONTH[i] - DAYS_BEFORE_MONTH[i - 1]
@@ -185,7 +184,7 @@ object LunarCalendarUtil {
             }
             i++
         }
-        solarInfo[0] = year
+        solarInfo[0] = inputYear
 
         return solarInfo
     }
@@ -220,9 +219,8 @@ object LunarCalendarUtil {
 
         // 用offset减去每农历年的天数计算当天是农历第几天
         // iYear最终结果是农历的年份, offset是当年的第几天
-        var iYear: Int
+        var iYear: Int = MIN_YEAR
         var daysOfYear = 0
-        iYear = MIN_YEAR
         while (iYear <= MAX_YEAR && offset > 0) {
             daysOfYear = daysInLunarYear(iYear)
             offset -= daysOfYear

@@ -9,7 +9,6 @@ import io.swagger.annotations.ApiImplicitParam
 import io.swagger.annotations.ApiImplicitParams
 import io.swagger.annotations.ApiOperation
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.data.domain.Page
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.*
 
@@ -61,17 +60,6 @@ constructor(private val service: TechnologyService) {
         return if (all.isEmpty()) {
             Result<Any>(CodeConst.NULL_DATA.resultCode, CodeConst.NULL_DATA.message!!)
         } else Result(all)
-    }
-
-    /**
-     * 带分页
-     *
-     * @param start    起始页
-     * @param pageSize 页码数
-     * @return result
-     */
-    fun findAll(@PathVariable start: Int, @PathVariable pageSize: Int): Result<Page<*>>? {
-        return null
     }
 
 

@@ -35,22 +35,22 @@ constructor(private val redisTemplate: RedisTemplate<String, String>) : CommonRe
     /**
      * 缓存value操作
      *
-     * @param k    key
-     * @param v    value
+     * @param key    key
+     * @param value    value
      * @param time time
      * @return boolean
      */
-    override fun cacheValue(k: String, v: String, time: Long): Boolean {
-        val key = KEY_PREFIX_VALUE + k
+    override fun cacheValue(key: String, value: String, time: Long): Boolean {
+        val keyStr = KEY_PREFIX_VALUE + key
         try {
             val valueOps = redisTemplate.opsForValue()
-            valueOps.set(key, v)
+            valueOps.set(keyStr, value)
             if (time > 0) {
-                redisTemplate.expire(key, time, TimeUnit.SECONDS)
+                redisTemplate.expire(keyStr, time, TimeUnit.SECONDS)
             }
             return true
         } catch (t: Throwable) {
-            LOGGER.error("缓存[$key]失败, value[$v]", t)
+            LOGGER.error("缓存[$keyStr]失败, value[$value]", t)
         }
 
         return false
@@ -59,42 +59,42 @@ constructor(private val redisTemplate: RedisTemplate<String, String>) : CommonRe
     /**
      * 缓存value操作
      *
-     * @param k key
-     * @param v value
+     * @param key key
+     * @param value value
      * @return boolean
      */
-    override fun cacheValue(k: String, v: String): Boolean {
-        return cacheValue(k, v, -1)
+    override fun cacheValue(key: String, value: String): Boolean {
+        return cacheValue(key, value, -1)
     }
 
     /**
      * 判断缓存是否存在
      *
-     * @param k key
+     * @param key key
      * @return boolean
      */
-    override fun containsValueKey(k: String): Boolean {
-        return containsKey(KEY_PREFIX_VALUE + k)
+    override fun containsValueKey(key: String): Boolean {
+        return containsKey(KEY_PREFIX_VALUE + key)
     }
 
     /**
      * 判断缓存是否存在
      *
-     * @param k key
+     * @param key key
      * @return boolean
      */
-    override fun containsSetKey(k: String): Boolean {
-        return containsKey(KEY_PREFIX_SET + k)
+    override fun containsSetKey(key: String): Boolean {
+        return containsKey(KEY_PREFIX_SET + key)
     }
 
     /**
      * 判断缓存是否存在
      *
-     * @param k key
+     * @param key key
      * @return boolean
      */
-    override fun containsListKey(k: String): Boolean {
-        return containsKey(KEY_PREFIX_LIST + k)
+    override fun containsListKey(key: String): Boolean {
+        return containsKey(KEY_PREFIX_LIST + key)
     }
 
     override fun containsKey(key: String): Boolean {
@@ -110,15 +110,15 @@ constructor(private val redisTemplate: RedisTemplate<String, String>) : CommonRe
     /**
      * 获取缓存
      *
-     * @param k key
+     * @param key key
      * @return string
      */
-    override fun getValue(k: String): String? {
+    override fun getValue(key: String): String? {
         try {
             val valueOps = redisTemplate.opsForValue()
-            return valueOps.get(KEY_PREFIX_VALUE + k)
+            return valueOps.get(KEY_PREFIX_VALUE + key)
         } catch (t: Throwable) {
-            LOGGER.error("获取缓存失败key[$KEY_PREFIX_VALUE$k, Codeor[$t]")
+            LOGGER.error("获取缓存失败key[$KEY_PREFIX_VALUE$key, Codeor[$t]")
         }
 
         return null
@@ -127,41 +127,41 @@ constructor(private val redisTemplate: RedisTemplate<String, String>) : CommonRe
     /**
      * 移除缓存
      *
-     * @param k key
+     * @param key key
      * @return boolean
      */
-    override fun removeValue(k: String): Boolean {
-        return remove(KEY_PREFIX_VALUE + k)
+    override fun removeValue(key: String): Boolean {
+        return remove(KEY_PREFIX_VALUE + key)
     }
 
-    override fun removeSet(k: String): Boolean {
-        return remove(KEY_PREFIX_SET + k)
+    override fun removeSet(key: String): Boolean {
+        return remove(KEY_PREFIX_SET + key)
     }
 
-    override fun removeList(k: String): Boolean {
-        return remove(KEY_PREFIX_LIST + k)
+    override fun removeList(key: String): Boolean {
+        return remove(KEY_PREFIX_LIST + key)
     }
 
 
     /**
      * 缓存set操作
      *
-     * @param k    key
-     * @param v    value
+     * @param key    key
+     * @param value    value
      * @param time time
      * @return boolean
      */
-    override fun cacheSet(k: String, v: String, time: Long): Boolean {
-        val key = KEY_PREFIX_SET + k
+    override fun cacheSet(key: String, value: String, time: Long): Boolean {
+        val keyStr = KEY_PREFIX_SET + key
         try {
             val valueOps = redisTemplate.opsForSet()
-            valueOps.add(key, v)
+            valueOps.add(keyStr, value)
             if (time > 0) {
-                redisTemplate.expire(key, time, TimeUnit.SECONDS)
+                redisTemplate.expire(keyStr, time, TimeUnit.SECONDS)
             }
             return true
         } catch (t: Throwable) {
-            LOGGER.error("缓存[$key]失败, value[$v]", t)
+            LOGGER.error("缓存[$keyStr]失败, value[$value]", t)
         }
 
         return false
@@ -170,12 +170,12 @@ constructor(private val redisTemplate: RedisTemplate<String, String>) : CommonRe
     /**
      * 缓存set
      *
-     * @param k key
-     * @param v value
+     * @param key key
+     * @param value value
      * @return boolean
      */
-    override fun cacheSet(k: String, v: String): Boolean {
-        return cacheSet(k, v, -1)
+    override fun cacheSet(key: String, value: String): Boolean {
+        return cacheSet(key, value, -1)
     }
 
     /**
@@ -322,15 +322,15 @@ constructor(private val redisTemplate: RedisTemplate<String, String>) : CommonRe
     /**
      * 获取总条数, 可用于分页
      *
-     * @param k key
+     * @param key key
      * @return long
      */
-    override fun getListSize(k: String): Long {
+    override fun getListSize(key: String): Long {
         try {
             val listOps = redisTemplate.opsForList()
-            return listOps.size(KEY_PREFIX_LIST + k)!!
+            return listOps.size(KEY_PREFIX_LIST + key)!!
         } catch (t: Throwable) {
-            LOGGER.error("获取list长度失败key[$KEY_PREFIX_LIST$k], Codeor[$t]")
+            LOGGER.error("获取list长度失败key[$KEY_PREFIX_LIST$key], Codeor[$t]")
         }
 
         return 0

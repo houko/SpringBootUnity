@@ -74,33 +74,33 @@ object CharUtil {
      * Utf8URL解码
      */
     fun utf8urldecode(text: String?): String {
-        var text = text
+        var str = text
         var result = ""
         var p: Int
-        if (text != null && text.length > 0) {
-            text = text.toLowerCase()
-            p = text.indexOf("%e")
+        if (str != null && str.isNotEmpty()) {
+            str = str.toLowerCase()
+            p = str.indexOf("%e")
             if (p == -1) {
-                return text
+                return str
             }
             while (p != -1) {
-                result += text!!.substring(0, p)
-                text = text.substring(p, text.length)
-                if (text == "" || text.length < 9) {
+                result += str!!.substring(0, p)
+                str = str.substring(p, str.length)
+                if (str == "" || str.length < 9) {
                     return result
                 }
-                result += codetoword(text.substring(0, 9))
-                text = text.substring(9, text.length)
-                p = text.indexOf("%e")
+                result += codeToWord(str.substring(0, 9))
+                str = str.substring(9, str.length)
+                p = str.indexOf("%e")
             }
         }
-        return result + text!!
+        return result + str!!
     }
 
     /**
      * utf8URL编码转字符
      */
-    private fun codetoword(text: String): String? {
+    private fun codeToWord(text: String): String? {
         var result: String?
         if (utf8codecheck(text)) {
             val code = ByteArray(3)
@@ -142,14 +142,14 @@ object CharUtil {
      * 判断是否Utf8Url编码
      */
     fun isUtf8Url(text: String): Boolean {
-        var text = text
-        text = text.toLowerCase()
-        val p = text.indexOf("%")
+        var textStr = text
+        textStr = textStr.toLowerCase()
+        val p = textStr.indexOf("%")
         val nine = 9
-        if (p != -1 && text.length - p > nine) {
-            text = text.substring(p, p + nine)
+        if (p != -1 && textStr.length - p > nine) {
+            textStr = textStr.substring(p, p + nine)
         }
-        return utf8codecheck(text)
+        return utf8codecheck(textStr)
     }
 
     /**
@@ -158,19 +158,19 @@ object CharUtil {
      * @return char
      */
     fun regularize(input: Char): Char {
-        var input = input
-        if (input.toInt() == 12288) {
-            input = 32.toChar()
-        } else if (input.toInt() > 65280 && input.toInt() < 65375) {
-            input = (input.toInt() - 65248).toChar()
+        var char = input
+        if (char.toInt() == 12288) {
+            char = 32.toChar()
+        } else if (char.toInt() in 65281..65374) {
+            char = (char.toInt() - 65248).toChar()
         } else {
             val a = 'A'
             val z = 'Z'
-            if (input >= a && input <= z) {
-                input += 32.toChar().toInt()
+            if (char in a..z) {
+                char += 32.toChar().toInt()
             }
         }
-        return input
+        return char
     }
 
     @JvmStatic

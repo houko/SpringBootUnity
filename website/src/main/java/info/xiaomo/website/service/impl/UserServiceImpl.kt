@@ -46,22 +46,22 @@ constructor(private val dao: UserDao) : UserService {
     @Throws(UserNotFoundException::class)
     override fun updateUser(model: UserModel): UserModel {
         val userUpdate = dao.findUserByEmail(model.email!!)
-        if (model.address != null) {
+        if (userUpdate.address != null) {
             userUpdate.address = model.address
         }
-        if (model.email != null) {
+        if (userUpdate.email != null) {
             userUpdate.email = model.email
         }
-        if (model.gender != 0) {
+        if (userUpdate.gender != 0) {
             userUpdate.gender = model.gender
         }
-        if (model.imgUrl != null) {
+        if (userUpdate.imgUrl != null) {
             userUpdate.imgUrl = model.imgUrl
         }
-        if (model.nickName != null) {
+        if (userUpdate.nickName != null) {
             userUpdate.nickName = model.nickName
         }
-        if (model.phone != 0L) {
+        if (userUpdate.phone != 0L) {
             userUpdate.phone = model.phone
         }
         userUpdate.updateTime = Date()

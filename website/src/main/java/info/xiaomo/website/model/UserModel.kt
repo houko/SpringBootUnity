@@ -68,13 +68,13 @@ class UserModel : BaseModel(), Serializable {
         }
 
     @Column(name = "ImgUrl")
-    var imgUrl = ""
+    var imgUrl: String? = null
         set(imgUrl) {
             field = this.imgUrl
         }
 
     @Column(name = "Address")
-    var address = ""
+    var address: String? = null
         set(address) {
             field = this.address
         }

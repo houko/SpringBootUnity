@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletResponse
 class LoginInterceptor : HandlerInterceptor {
     @Throws(Exception::class)
     override fun preHandle(httpServletRequest: HttpServletRequest, httpServletResponse: HttpServletResponse, o: Any): Boolean {
-        val user = httpServletRequest.session.getAttribute("currentUser") as UserModel
+        val user = httpServletRequest.session.getAttribute("currentUser") as UserModel?
         if (user == null) {
             //用户没有登录
             httpServletResponse.sendRedirect(httpServletRequest.contextPath + "/user/toLogin")

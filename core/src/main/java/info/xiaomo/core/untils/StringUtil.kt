@@ -173,11 +173,11 @@ class StringUtil : StringUtils() {
          * @return
          */
         fun convertNullCode(tempSql: String?): String {
-            var tempSql = tempSql
-            if (tempSql == null) {
-                tempSql = ""
+            var sql = tempSql
+            if (sql == null) {
+                sql = ""
             }
-            return tempSql
+            return sql
         }
 
         /**
@@ -243,21 +243,17 @@ class StringUtil : StringUtils() {
         fun convertHtml(input: String): String {
             var returnString = StringBuffer(input.length)
 
-            var ch = ' '
+            var ch: Char
             for (i in 0 until input.length) {
 
                 ch = input[i]
 
-                if (ch == '<') {
-                    returnString = returnString.append("&lt")
-                } else if (ch == '>') {
-                    returnString = returnString.append("&gt")
-                } else if (ch == ' ') {
-                    returnString = returnString.append("&nbsp")
-                } else if (ch == '\\') {
-                    returnString = returnString.append("&acute")
-                } else {
-                    returnString = returnString.append(ch)
+                returnString = when (ch) {
+                    '<' -> returnString.append("&lt")
+                    '>' -> returnString.append("&gt")
+                    ' ' -> returnString.append("&nbsp")
+                    '\\' -> returnString.append("&acute")
+                    else -> returnString.append(ch)
                 }
             }
             return returnString.toString()
@@ -315,7 +311,7 @@ class StringUtil : StringUtils() {
 
         fun filterString(allstr: String): String {
             val returnString = StringBuilder(allstr.length)
-            var ch = ' '
+            var ch: Char
             for (i in 0 until allstr.length) {
                 ch = allstr[i]
                 val lsTemp = "'"
@@ -369,7 +365,7 @@ class StringUtil : StringUtils() {
             if (isBlank(str)) {
                 return str
             }
-            if (params == null || params.size == 0) {
+            if (params.isEmpty()) {
                 return str
             }
             val regex = "\\{(\\d+)}"
@@ -381,9 +377,7 @@ class StringUtil : StringUtils() {
                 val index = Integer.parseInt(m.group(1))
                 if (params.size > index) {
                     val obj = params[index]
-                    if (obj != null) {
-                        param = obj.toString()
-                    }
+                    param = obj.toString()
                 }
                 m.appendReplacement(sb, param)
             }
@@ -448,14 +442,14 @@ class StringUtil : StringUtils() {
          * @since 1.0
          */
         fun toChinese(strVal: String?): String {
-            var strVal = strVal
+            var str = strVal
             return try {
-                if (strVal == null) {
+                if (str == null) {
                     ""
                 } else {
-                    strVal = strVal.trim { it <= ' ' }
-                    strVal = String(strVal.toByteArray(charset("ISO8859_1")))
-                    strVal
+                    str = str.trim { it <= ' ' }
+                    str = String(str.toByteArray(charset("ISO8859_1")))
+                    str
                 }
             } catch (exp: Exception) {
                 ""
@@ -470,14 +464,14 @@ class StringUtil : StringUtils() {
          * @return
          */
         fun toGBK(strVal: String?): String {
-            var strVal = strVal
+            var str = strVal
             return try {
-                if (strVal == null) {
+                if (str == null) {
                     ""
                 } else {
-                    strVal = strVal.trim { it <= ' ' }
-                    strVal = String(strVal.toByteArray(charset("UTF-8")))
-                    strVal
+                    str = str.trim { it <= ' ' }
+                    str = String(str.toByteArray(charset("UTF-8")))
+                    str
                 }
             } catch (exp: Exception) {
                 ""
@@ -493,13 +487,13 @@ class StringUtil : StringUtils() {
          * @since 1.0
          */
         fun toISO(strVal: String?): String {
-            var strVal = strVal
+            var str = strVal
             return try {
-                if (strVal == null) {
+                if (str == null) {
                     ""
                 } else {
-                    strVal = String(strVal.toByteArray(charset("GBK")))
-                    strVal
+                    str = String(str.toByteArray(charset("GBK")))
+                    str
                 }
             } catch (exp: Exception) {
                 ""
@@ -508,13 +502,13 @@ class StringUtil : StringUtils() {
         }
 
         fun gbk2UTF8(strVal: String?): String {
-            var strVal = strVal
+            var str = strVal
             return try {
-                if (strVal == null) {
+                if (str == null) {
                     ""
                 } else {
-                    strVal = String(strVal.toByteArray(charset("GBK")))
-                    strVal
+                    str = String(str.toByteArray(charset("GBK")))
+                    str
                 }
             } catch (exp: Exception) {
                 ""
@@ -523,13 +517,13 @@ class StringUtil : StringUtils() {
         }
 
         fun iso2utf8(strVal: String?): String {
-            var strVal = strVal
+            var str = strVal
             return try {
-                if (strVal == null) {
+                if (str == null) {
                     ""
                 } else {
-                    strVal = String(strVal.toByteArray(charset("ISO-8859-1")))
-                    strVal
+                    str = String(str.toByteArray(charset("ISO-8859-1")))
+                    str
                 }
             } catch (exp: Exception) {
                 ""
@@ -538,16 +532,16 @@ class StringUtil : StringUtils() {
         }
 
         fun utf82iso(strVal: String?): String {
-            var strVal = strVal
-            try {
-                if (strVal == null) {
-                    return ""
+            var str = strVal
+            return try {
+                if (str == null) {
+                    ""
                 } else {
-                    strVal = String(strVal.toByteArray(charset("UTF-8")))
-                    return strVal
+                    str = String(str.toByteArray(charset("UTF-8")))
+                    str
                 }
             } catch (exp: Exception) {
-                return ""
+                ""
             }
 
         }
@@ -572,12 +566,10 @@ class StringUtil : StringUtils() {
          * @return 转换后的字符串
          */
         fun str4Table(str: String?): String {
-            return if (str == null) {
-                "&nbsp;"
-            } else if ("" == str) {
-                "&nbsp;"
-            } else {
-                str
+            return when (str) {
+                null -> "&nbsp;"
+                "" -> "&nbsp;"
+                else -> str
             }
         }
 
@@ -591,22 +583,22 @@ class StringUtil : StringUtils() {
         fun str2Int(str: String): Int {
             var intVal: Int
 
-            try {
-                intVal = Integer.parseInt(str)
+            intVal = try {
+                Integer.parseInt(str)
             } catch (e: Exception) {
-                intVal = 0
+                0
             }
 
             return intVal
         }
 
         fun str2Double(str: String): Double {
-            var dVal = 0.0
+            val dVal: Double
 
-            try {
-                dVal = java.lang.Double.parseDouble(str)
+            dVal = try {
+                java.lang.Double.parseDouble(str)
             } catch (e: Exception) {
-                dVal = 0.0
+                0.0
             }
 
             return dVal
@@ -614,20 +606,19 @@ class StringUtil : StringUtils() {
 
 
         fun str2Long(str: String): Long {
-            var longVal: Long = 0
+            var longVal: Long
 
-            try {
-                longVal = java.lang.Long.parseLong(str)
+            longVal = try {
+                java.lang.Long.parseLong(str)
             } catch (e: Exception) {
-                longVal = 0
+                0
             }
 
             return longVal
         }
 
         fun stringToFloat(floatstr: String): Float {
-            val floatee: Float
-            floatee = java.lang.Float.valueOf(floatstr)
+            val floatee: Float = java.lang.Float.valueOf(floatstr)
             return floatee
         }
 
@@ -642,12 +633,12 @@ class StringUtil : StringUtils() {
          * @return str 如果intVal不可以转换成String型数据，返回空值表示异常,否则返回转换后的值
          */
         fun int2Str(intVal: Int): String {
-            var str: String
+            val str: String
 
-            try {
-                str = intVal.toString()
+            str = try {
+                intVal.toString()
             } catch (e: Exception) {
-                str = ""
+                ""
             }
 
             return str
@@ -716,12 +707,12 @@ class StringUtil : StringUtils() {
          * @return
          */
         fun null2SZero(str: String): String {
-            var str = str
-            str = null2Blank(str)
-            return if ("" == str) {
+            var text = str
+            text = null2Blank(text)
+            return if ("" == text) {
                 "0"
             } else {
-                str
+                text
             }
         }
 
@@ -761,16 +752,16 @@ class StringUtil : StringUtils() {
          * @return
          */
         fun gb2utf(inStr: String?): String {
-            var inStr = inStr
+            var str = inStr
             var temChr: Char
             var ascInt: Int
             var i = 0
             val stringBuffer = StringBuilder()
-            if (inStr == null) {
-                inStr = ""
+            if (str == null) {
+                str = ""
             }
-            while (i < inStr.length) {
-                temChr = inStr[i]
+            while (i < str.length) {
+                temChr = str[i]
                 ascInt = temChr.toInt()
                 if (Integer.toHexString(ascInt).length > 2) {
                     stringBuffer.append("&#x").append(Integer.toHexString(ascInt)).append(";")
@@ -812,15 +803,14 @@ class StringUtil : StringUtils() {
          */
         fun decodeUnicode(dataStr: String): StringBuffer {
             var start = 0
-            var end = 0
+            var end: Int
             val buffer = StringBuffer()
             while (start > -1) {
                 end = dataStr.indexOf("\\u", start + 2)
-                var charStr = ""
-                if (end == -1) {
-                    charStr = dataStr.substring(start + 2, dataStr.length)
+                val charStr: String = if (end == -1) {
+                    dataStr.substring(start + 2, dataStr.length)
                 } else {
-                    charStr = dataStr.substring(start + 2, end)
+                    dataStr.substring(start + 2, end)
                 }
                 // 16进制parse整形字符串。
                 val letter = Integer.parseInt(charStr, 16).toChar()

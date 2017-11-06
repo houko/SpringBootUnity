@@ -70,12 +70,11 @@ object TimeUtil {
     val nowTimeStamp: Long
         get() {
             val returnTimeStamp: Long
-            var aDate: Date? = null
-            aDate = convertStringToDate("yyyy-MM-dd HH:mm:ss", fullNowDateTime)
-            if (aDate == null) {
-                returnTimeStamp = 0
+            var aDate: Date? = convertStringToDate("yyyy-MM-dd HH:mm:ss", fullNowDateTime)
+            returnTimeStamp = if (aDate == null) {
+                0
             } else {
-                returnTimeStamp = aDate.time
+                aDate.time
             }
             return returnTimeStamp
         }
@@ -261,21 +260,21 @@ object TimeUtil {
      * @param strDate     字符串的时间
      */
     fun convertStringToDate(datePattern: String, strDate: String): Date? {
-        var datePattern = datePattern
-        var strDate = strDate
+        var dp = datePattern
+        var dataStr = strDate
         val df: SimpleDateFormat
         val date: Date
         //传入的时间是以 / 分割
         val length = 2
-        if (strDate.split(SymbolConst.HENGXIAN.toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray().size < length) {
-            strDate = strDate.replace(SymbolConst.ZHENGXIEXIAN, SymbolConst.HENGXIAN)
+        if (dataStr.split(SymbolConst.HENGXIAN.toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray().size < length) {
+            dataStr = dataStr.replace(SymbolConst.ZHENGXIEXIAN, SymbolConst.HENGXIAN)
         }
-        if (strDate.split(SymbolConst.SPACE.toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray().size > 1) {
-            datePattern = timePattern
+        if (dataStr.split(SymbolConst.SPACE.toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray().size > 1) {
+            dp = timePattern
         }
-        df = SimpleDateFormat(datePattern)
+        df = SimpleDateFormat(dp)
         try {
-            date = df.parse(strDate)
+            date = df.parse(dataStr)
         } catch (pe: ParseException) {
             return null
         }
@@ -289,14 +288,14 @@ object TimeUtil {
      * @param strDate strDate
      */
     fun convertStringToDate(strDate: String): Date? {
-        var strDate = strDate
+        var str = strDate
         val aDate: Date?
         //传入的时间是以 / 分割
         val length = 2
-        if (strDate.split(SymbolConst.HENGXIAN.toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray().size < length) {
-            strDate = strDate.replace(SymbolConst.ZHENGXIEXIAN, SymbolConst.HENGXIAN)
+        if (str.split(SymbolConst.HENGXIAN.toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray().size < length) {
+            str = str.replace(SymbolConst.ZHENGXIEXIAN, SymbolConst.HENGXIAN)
         }
-        aDate = convertStringToDate(datePattern, strDate)
+        aDate = convertStringToDate(datePattern, str)
         return aDate
     }
 
@@ -364,15 +363,15 @@ object TimeUtil {
      * @since 0.4
      */
     fun combineStringArray(array: Array<String>, split: String?): String {
-        var split = split
+        var strArr = split
         val length = array.size - 1
-        if (split == null) {
-            split = ""
+        if (strArr == null) {
+            strArr = ""
         }
         val result = StringBuilder(length * 8)
         for (i in 0 until length) {
             result.append(array[i])
-            result.append(split)
+            result.append(strArr)
         }
         result.append(array[length])
         return result.toString()
@@ -384,16 +383,15 @@ object TimeUtil {
      * @param strWeek strWeek
      */
     fun getWeekNum(strWeek: String): Int {
-        var returnValue = 0
-        when (strWeek) {
-            "Mon" -> returnValue = 1
-            "Tue" -> returnValue = 2
-            "Wed" -> returnValue = 3
-            "Thu" -> returnValue = 4
-            "Fri" -> returnValue = 5
-            "Sat" -> returnValue = 6
-            "Sun" -> returnValue = 0
-            else -> returnValue = 0
+        var returnValue: Int = when (strWeek) {
+            "Mon" -> 1
+            "Tue" -> 2
+            "Wed" -> 3
+            "Thu" -> 4
+            "Fri" -> 5
+            "Sat" -> 6
+            "Sun" -> 0
+            else -> 0
         }
         return returnValue
     }
@@ -490,14 +488,14 @@ object TimeUtil {
      * @return 字符串
      */
     fun getDateFromNow(timeType: Int, timeNum: Int, pattern: String?): String {
-        var pattern = pattern
+        var pt = pattern
 
-        if (pattern == null || "" == pattern) {
-            pattern = "yyyy-MM-dd HH:mm:ss"
+        if (pt == null || "" == pt) {
+            pt = "yyyy-MM-dd HH:mm:ss"
         }
         val cld = Calendar.getInstance()
         val date: Date
-        val df = SimpleDateFormat(pattern)
+        val df = SimpleDateFormat(pt)
         cld.set(timeType, cld.get(timeType) + timeNum)
         date = cld.time
         return df.format(date)
@@ -510,12 +508,12 @@ object TimeUtil {
      * @return 字符串
      */
     fun getDateNow(pattern: String?): String {
-        var pattern = pattern
-        if (pattern == null || "" == pattern) {
-            pattern = "yyyy-MM-dd HH:mm:ss"
+        var pt = pattern
+        if (pt == null || "" == pt) {
+            pt = "yyyy-MM-dd HH:mm:ss"
         }
         val cld = Calendar.getInstance()
-        val df = SimpleDateFormat(pattern)
+        val df = SimpleDateFormat(pt)
         return df.format(cld.time)
     }
 
@@ -591,7 +589,7 @@ object TimeUtil {
      */
     fun getDateFromNow(afterDay: Int): String {
         val calendar = GregorianCalendar()
-        var date = calendar.time
+        val date: Date
 
         val df = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
 
@@ -800,10 +798,10 @@ object TimeUtil {
      * 例如:1天20小时5分0秒,20小时0分0秒,1秒
      */
     fun getLeftTimeString(leftTime: Long): String {
-        var leftTime = leftTime
+        var time = leftTime
         val sb = StringBuilder()
         // 剩余秒数
-        val leftSecond = (leftTime / 1000).toInt()
+        val leftSecond = (time / 1000).toInt()
         // 秒数
         val second = leftSecond % 60
         if (second > 0) {
@@ -828,24 +826,24 @@ object TimeUtil {
             sb.insert(0, leftDay.toString() + "天")
         }
         // 获取剩余天数
-        val day = (leftTime / ONE_DAY_IN_MILLISECONDS).toInt()
+        val day = (time / ONE_DAY_IN_MILLISECONDS).toInt()
         // 1天及以上的显示剩余天
         if (day > 0) {
             sb.append(day).append("天")
-            leftTime -= day * ONE_DAY_IN_MILLISECONDS
+            time -= day * ONE_DAY_IN_MILLISECONDS
         }
-        hour = (leftTime / ONE_HOUR_IN_MILLISECONDS).toInt()
+        hour = (time / ONE_HOUR_IN_MILLISECONDS).toInt()
         // 1小时及以上或者前面显示了天数则后面需要小时
         if (hour > 0 || sb.length > 0) {
             sb.append(hour).append("小时")
-            leftTime -= hour * ONE_HOUR_IN_MILLISECONDS
+            time -= hour * ONE_HOUR_IN_MILLISECONDS
         }
-        minute = (leftTime / ONE_MINUTE_IN_MILLISECONDS).toInt()
+        minute = (time / ONE_MINUTE_IN_MILLISECONDS).toInt()
         if (minute > 0 || sb.length > 0) {
             sb.append(minute).append("分")
-            leftTime -= minute * ONE_MINUTE_IN_MILLISECONDS
+            time -= minute * ONE_MINUTE_IN_MILLISECONDS
         }
-        sb.append(leftTime / 1000).append("秒")
+        sb.append(time / 1000).append("秒")
         return sb.toString()
     }
 

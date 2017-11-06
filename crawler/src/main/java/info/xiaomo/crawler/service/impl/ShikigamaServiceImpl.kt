@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service
 class ShikigamaServiceImpl @Autowired
 constructor(private val dao: ShikigamaDao) : ShikigamaService {
 
-    override fun findByName(name: String): ShikigamiModel {
+    override fun findByName(name: String): ShikigamiModel? {
         return dao.findByName(name)
     }
 

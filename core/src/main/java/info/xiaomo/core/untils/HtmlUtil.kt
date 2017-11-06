@@ -125,13 +125,13 @@ object HtmlUtil {
      * @since 1.0
      */
     fun htmlDecode(strSrc: String?): String? {
-        var strSrc: String? = strSrc ?: return ""
-        strSrc = strSrc!!.replace("&lt;".toRegex(), "<")
-        strSrc = strSrc.replace("&gt;".toRegex(), ">")
-        strSrc = strSrc.replace("&quot;".toRegex(), "\"")
-        strSrc = strSrc.replace("&#039;".toRegex(), "'")
-        strSrc = strSrc.replace("&amp;".toRegex(), "&")
-        return strSrc
+        var str: String? = strSrc ?: return ""
+        str = str!!.replace("&lt;".toRegex(), "<")
+        str = str.replace("&gt;".toRegex(), ">")
+        str = str.replace("&quot;".toRegex(), "\"")
+        str = str.replace("&#039;".toRegex(), "'")
+        str = str.replace("&amp;".toRegex(), "&")
+        return str
     }
 
     /**
@@ -141,7 +141,7 @@ object HtmlUtil {
      * @return string
      */
     fun delHTMLTag(htmlStr: String): String {
-        var htmlStr = htmlStr
+        var text = htmlStr
         //定义script的正则表达式
         val regexScript = "<script[^>]*?>[\\s\\S]*?<\\/script>"
         //定义style的正则表达式
@@ -150,21 +150,21 @@ object HtmlUtil {
         val regexHtml = "<[^>]+>"
 
         val pScript = Pattern.compile(regexScript, Pattern.CASE_INSENSITIVE)
-        val mScript = pScript.matcher(htmlStr)
+        val mScript = pScript.matcher(text)
         //过滤script标签
-        htmlStr = mScript.replaceAll("")
+        text = mScript.replaceAll("")
 
         val pStyle = Pattern.compile(regexStyle, Pattern.CASE_INSENSITIVE)
-        val mStyle = pStyle.matcher(htmlStr)
+        val mStyle = pStyle.matcher(text)
         //过滤style标签
-        htmlStr = mStyle.replaceAll("")
+        text = mStyle.replaceAll("")
 
         val pHtml = Pattern.compile(regexHtml, Pattern.CASE_INSENSITIVE)
-        val mHtml = pHtml.matcher(htmlStr)
+        val mHtml = pHtml.matcher(text)
         //过滤html标签
-        htmlStr = mHtml.replaceAll("")
+        text = mHtml.replaceAll("")
         //返回文本字符串
-        return htmlStr.trim { it <= ' ' }
+        return text.trim { it <= ' ' }
     }
 
 }

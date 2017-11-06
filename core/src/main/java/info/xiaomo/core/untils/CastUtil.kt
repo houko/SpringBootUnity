@@ -20,23 +20,23 @@ import java.util.*
 
 class CastUtil {
     companion object {
-        protected val OUT = ByteArrayOutputStream()
-        protected var oos: ObjectOutputStream? = null
+        private val OUT = ByteArrayOutputStream()
+        private var oos: ObjectOutputStream? = null
 
         fun toInteger(str: Any?): Int {
             return if (str == null) 0 else (str as? Number)?.toInt() ?: toInteger(str.toString())
         }
 
         fun toDouble(number: Any?): Double {
-            if (number == null) {
-                return 0.0
+            return if (number == null) {
+                0.0
             } else if (number is Number) {
-                return number.toDouble()
+                number.toDouble()
             } else if (number is String) {
                 val str = number as String?
-                return if (isNumeric(str) > 0) java.lang.Double.valueOf(str!!) else 0.0
+                if (isNumeric(str) > 0) java.lang.Double.valueOf(str!!) else 0.0
             } else {
-                return 0.0
+                0.0
             }
         }
 
@@ -55,16 +55,16 @@ class CastUtil {
         }
 
         fun toInteger(str: String?): Int {
-            var str = str
-            if (str == null) {
-                return 0
+            var intStr = str
+            return if (intStr == null) {
+                0
             } else {
-                str = str.trim { it <= ' ' }
-                if (str.length == 0) {
-                    return 0
+                intStr = intStr.trim { it <= ' ' }
+                if (intStr.isEmpty()) {
+                    0
                 } else {
-                    val i = isNumeric(str)
-                    return if (i == 1) Integer.parseInt(str) else if (i == 2) java.lang.Double.valueOf(str).toInt() else 0
+                    val i = isNumeric(intStr)
+                    if (i == 1) Integer.parseInt(intStr) else if (i == 2) java.lang.Double.valueOf(intStr).toInt() else 0
                 }
             }
         }
@@ -118,7 +118,7 @@ class CastUtil {
             val newmap = HashMap<Any, Any>(10)
 
             for (key in map.keys) {
-                newmap.put(key, map.get(key)!!)
+                newmap.put(key, map[key]!!)
             }
 
             return newmap
@@ -221,7 +221,6 @@ class CastUtil {
 
         fun stringToBytes(str: String): ByteArray {
             val sb = StringBuffer(str)
-            val c = sb[0]
             val buffer = ByteBuffer.allocate(sb.length * 2)
             var index = 0
 

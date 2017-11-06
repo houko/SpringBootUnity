@@ -52,7 +52,7 @@ interface UserService {
      * @throws UserNotFoundException UserNotFoundException
      */
     @Throws(UserNotFoundException::class)
-    fun updateUser(model: UserModel): UserModel
+    fun updateUser(model: UserModel): UserModel?
 
     /**
      * 查找所有 带分页

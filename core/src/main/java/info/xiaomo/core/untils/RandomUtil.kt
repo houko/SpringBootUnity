@@ -141,14 +141,10 @@ object RandomUtil {
      * @return -1失败or随机的索引
      */
     fun randomIndexByProb(array: IntArray?): Int {
-        if (array == null || array.size == 0) {
+        if (array == null || array.isEmpty()) {
             throw IllegalArgumentException("元素数组不能为空！")
         }
-        val list: MutableList<Int>
-        list = ArrayList()
-        for (i in array) {
-            list.add(i)
-        }
+        val list: MutableList<Int> = array.toMutableList()
         return randomIndexByProb(list)
     }
 

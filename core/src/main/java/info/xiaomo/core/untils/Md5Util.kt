@@ -57,7 +57,7 @@ object Md5Util {
     private fun byteToHexString(b: Byte): String {
         var n = b.toInt()
         if (n < 0) {
-            n = 256 + n
+            n += 256
         }
         val d1 = n / 16
         val d2 = n % 16

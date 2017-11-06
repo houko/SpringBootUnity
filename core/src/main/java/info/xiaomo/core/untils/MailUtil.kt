@@ -33,8 +33,8 @@ object MailUtil {
         get() {
             val props = Properties()
             val dir = System.getProperty("user.dir")
-            val `is` = FileInputStream(dir + "/website/src/main/resources/config/application.properties")
-            props.load(`is`)
+            val fileInputStream = FileInputStream(dir + "/website/src/main/resources/config/application.properties")
+            props.load(fileInputStream)
             USERNAME = props["mail.username"].toString()
             PASSWORD = props["mail.password"].toString()
             val authenticator = object : Authenticator() {

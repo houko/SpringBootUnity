@@ -41,16 +41,16 @@ class CastUtil {
         }
 
         fun toLong(number: Any?): Long {
-            if (number == null) {
-                return 0L
+            return if (number == null) {
+                0L
             } else if (number is Number) {
-                return number.toLong()
+                number.toLong()
             } else if (number is String) {
                 val str = number as String?
                 val isNumber = isNumeric(str)
-                return if (isNumber == 1) java.lang.Long.parseLong(str!!) else if (isNumber == 2) java.lang.Double.valueOf(str!!).toLong() else 0L
+                if (isNumber == 1) java.lang.Long.parseLong(str!!) else if (isNumber == 2) java.lang.Double.valueOf(str!!).toLong() else 0L
             } else {
-                return 0L
+                0L
             }
         }
 

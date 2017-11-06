@@ -47,16 +47,15 @@ constructor(private val service: AdminUserService) {
      *
      * @return 不分页
      */
-    val all: Result<*>
-        @RequestMapping(value = "findAll", method = arrayOf(RequestMethod.GET))
-        @ApiOperation(value = "返回所有用户信息", notes = "不分页", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-        @ApiResponses(value = *arrayOf(ApiResponse(code = 404, message = "Not Found"), ApiResponse(code = 400, message = "No Name Provided")))
-        get() {
-            val pages = service.getAdminUsers()
-            return if (pages.isEmpty()) {
-                Result(pages)
-            } else Result(pages)
-        }
+    @RequestMapping(value = "findAll", method = arrayOf(RequestMethod.GET))
+    @ApiOperation(value = "返回所有用户信息", notes = "不分页", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiResponses(value = *arrayOf(ApiResponse(code = 404, message = "Not Found"), ApiResponse(code = 400, message = "No Name Provided")))
+    fun findAll(): Result<List<AdminModel>> {
+        val pages = service.getAdminUsers()
+        return if (pages.isEmpty()) {
+            Result(pages)
+        } else Result(pages)
+    }
 
     /**
      * 后台账户登录
@@ -192,8 +191,7 @@ constructor(private val service: AdminUserService) {
     @ApiResponses(value = *arrayOf(ApiResponse(code = 404, message = "Not Found"), ApiResponse(code = 400, message = "No Name Provided")))
     @Throws(UserNotFoundException::class)
     fun forbid(@PathVariable("id") id: Long?): Result<*> {
-        var model: AdminModel?
-        model = service.forbidAdminUserById(id)
+        val model: AdminModel? = service.forbidAdminUserById(id)
         return Result(model)
     }
 }

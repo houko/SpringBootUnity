@@ -11,11 +11,11 @@ object LunarCalendarUtil {
     /**
      * 支持转换的最小农历年份
      */
-    val MIN_YEAR = 1900
+    private val MIN_YEAR = 1900
     /**
      * 支持转换的最大农历年份
      */
-    val MAX_YEAR = 2099
+    private val MAX_YEAR = 2099
 
     /**
      * 公历每月前的天数
@@ -352,10 +352,3 @@ object LunarCalendarUtil {
     }
 
 }
-/**
- * 传回农历year年month月的总天数
- *
- * @param year  要计算的年份
- * @param month 要计算的月
- * @return 传回天数
- */

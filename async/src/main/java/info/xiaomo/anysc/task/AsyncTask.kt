@@ -13,7 +13,6 @@ import java.util.concurrent.Future
 open class AsyncTask {
 
     @Async
-    @Throws(Exception::class)
     open fun doTaskOne(): Future<String> {
         println("开始做任务一")
         val start = System.currentTimeMillis()
@@ -24,7 +23,6 @@ open class AsyncTask {
     }
 
     @Async
-    @Throws(Exception::class)
     open fun doTaskTwo(): Future<String> {
         println("开始做任务二")
         val start = System.currentTimeMillis()
@@ -35,7 +33,6 @@ open class AsyncTask {
     }
 
     @Async
-    @Throws(Exception::class)
     open fun doTaskThree(): Future<String> {
         println("开始做任务三")
         val start = System.currentTimeMillis()

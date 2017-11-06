@@ -29,8 +29,7 @@ class TestController
 @Autowired constructor(private val task: AsyncTask) {
 
     @RequestMapping(value = "/", method = arrayOf(RequestMethod.GET))
-    @Throws(Exception::class)
-    fun task(): Result<*> {
+    fun task(): Result<Long> {
         val start = System.currentTimeMillis()
 
         val task1 = task.doTaskOne()

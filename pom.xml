@@ -9,7 +9,6 @@
 
     <!-- 模块 -->
     <modules>
-        <!-- xiaomo.info api接口 -->
         <module>website</module>
         <!-- 核心包 -->
         <module>core</module>

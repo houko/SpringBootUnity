@@ -108,35 +108,13 @@ http://localhost:808/doc.html bootstrap-ui
 - [在线Cron表达式生成器](http://cron.qqe2.com/ "在线Cron表达式生成器")
 
 - [在线工具 - 程序员的工具箱](http://tool.lu/ "在线工具 - 程序员的工具箱")
+- [spring boot官方脚手架](https://start.spring.io/ "spring boot官方脚手架")
 
 
 ###  问题反馈
 1. 欢迎提[issue](https://github.com/xiaomoinfo/SpringBootUnity/issues)一起完善这个项目。
 2. QQ: 83387856
 4. 个人主站: https://xiaomo.info
-
-### 在线文档
-
-- [JDK7英文文档](http://tool.oschina.net/apidocs/apidoc?api=jdk_7u4 "JDK7英文文档")
-
-- [Spring4.x文档](http://spring.oschina.mopaas.com/ "Spring4.x文档")
-
-- [Mybatis3官网](http://www.mybatis.org/mybatis-3/zh/index.html "Mybatis3官网")
-
-- [Dubbo官网](http://dubbo.io/ "Dubbo官网")
-
-- [Nginx中文文档](http://tool.oschina.net/apidocs/apidoc?api=nginx-zh "Nginx中文文档")
-
-- [Freemarker在线手册](http://freemarker.foofun.cn/ "Freemarker在线中文手册")
-
-- [Velocity在线手册](http://velocity.apache.org/engine/devel/developer-guide.html "Velocity在线手册")
-
-- [Bootstrap在线手册](http://www.bootcss.com/ "Bootstrap在线手册")
-
-- [Git官网中文文档](https://git-scm.com/book/zh/v2 "Git官网中文文档")
-
-- [Thymeleaf](http://www.thymeleaf.org/doc/tutorials/3.0/thymeleafspring.html "Thymeleaf")
-
 
 
 ## [License](LICENSE "MIT")

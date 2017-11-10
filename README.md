@@ -65,7 +65,6 @@ http://localhost:808/doc.html bootstrap-ui
 - 2017-11-03 添加kotlin环境配置
 - 2017-11-03 按照阿里巴巴编程规范插件P3C优化代码
 - 2017-11-03 合并`api`和`website`模块,访问`localhost:8080`会显示网站主页,访问`localhost:8080/api`会显示api管理界面
-- 2017-11-03 从java代码转移到kotlin上(java版本请选择[v2017.1](https://github.com/xiaomoinfo/SpringBootUnity/tree/2017.1))
 
 
 

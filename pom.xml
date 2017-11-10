@@ -9,6 +9,7 @@
 
     <!-- 模块 -->
     <modules>
+        <!-- xiaomo.info api接口 -->
         <module>website</module>
         <!-- 核心包 -->
         <module>core</module>
@@ -161,6 +162,11 @@
                 <groupId>javax.mail</groupId>
                 <artifactId>mail</artifactId>
                 <version>${javax-mail.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombak.version}</version>
             </dependency>
             <!-- Swagger -->
             <dependency>

@@ -50,7 +50,7 @@ public class UserModel extends BaseModel implements Serializable {
     @Column(name = "Phone")
     private Long phone = 0L;
 
-    @Column(name = "validateCode")
+    @Column(name = "ValidateCode")
     private String validateCode = "";
 
     @Column(name = "ImgUrl")

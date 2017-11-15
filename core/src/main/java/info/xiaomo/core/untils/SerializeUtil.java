@@ -19,7 +19,7 @@ import java.io.*;
  * @author : xiaomo
  * github: https://github.com/xiaomoinfo
  * email: xiaomo@xiaomo.info
-
+ * <p>
  * Date: 15/9/6 16:05
  * Description: 序列化通用方法
  * Copyright(©) 2015 by xiaomo.

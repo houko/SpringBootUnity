@@ -11,7 +11,6 @@ import java.net.URLConnection;
 
 /**
  * @author : xiaomo (https://xiaomo.info) (https://github.com/xiaomoinfo)
- *
  * @created : 2016/12/26 13:25
  */
 @Slf4j
@@ -64,10 +63,10 @@ public class DownUtil {
         // 输出的文件流
 
         File output = new File(filePath);
-        if (!output.exists()){
+        if (!output.exists()) {
             boolean res = output.mkdir();
-            if (res){
-               log.debug("{} 目录创建成功", filePath);
+            if (res) {
+                log.debug("{} 目录创建成功", filePath);
             }
         }
 

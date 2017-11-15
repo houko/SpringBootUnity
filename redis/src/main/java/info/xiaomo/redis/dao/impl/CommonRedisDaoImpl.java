@@ -32,17 +32,17 @@ import java.util.concurrent.TimeUnit;
 @Repository
 public class CommonRedisDaoImpl implements CommonRedisDao {
 
-    private final RedisTemplate<String, String> redisTemplate;
-    /**
-     * 日志记录
-     */
-    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
     /**
      * 前缀
      */
     private static final String KEY_PREFIX_VALUE = "info:xiaomo:value:";
     private static final String KEY_PREFIX_SET = "info:xiaomo:set:";
     private static final String KEY_PREFIX_LIST = "info:xiaomo:list:";
+    private final RedisTemplate<String, String> redisTemplate;
+    /**
+     * 日志记录
+     */
+    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     public CommonRedisDaoImpl(RedisTemplate<String, String> redisTemplate) {

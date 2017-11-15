@@ -38,6 +38,7 @@ public interface UserMapper {
 
     /**
      * 查所有
+     *
      * @return
      */
     @Select("SELECT * FROM USER WHERE 1=1")

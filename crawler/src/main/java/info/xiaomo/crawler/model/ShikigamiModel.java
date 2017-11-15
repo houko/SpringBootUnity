@@ -54,7 +54,7 @@ public class ShikigamiModel extends BaseModel {
 
 
     /**
-     *  N/R/SR/SSR
+     * N/R/SR/SSR
      */
     private String level;
 
@@ -63,7 +63,6 @@ public class ShikigamiModel extends BaseModel {
      * 描述
      */
     private String des;
-
 
 
 }

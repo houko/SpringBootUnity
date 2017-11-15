@@ -9,7 +9,7 @@ package info.xiaomo.core.constant;
  * @author : xiaomo
  * github: https://github.com/xiaomoinfo
  * email: xiaomo@xiaomo.info
-
+ * <p>
  * Date: 2016/1/12 16:37
  * Description: 性别
  * Copyright(©) 2015 by xiaomo.

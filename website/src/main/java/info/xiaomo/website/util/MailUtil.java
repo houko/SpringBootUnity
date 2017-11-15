@@ -26,7 +26,7 @@ import java.util.Properties;
  * @author : xiaomo
  * github: https://github.com/xiaomoinfo
  * email: xiaomo@xiaomo.info
-
+ * <p>
  * Date: 2016/4/511:00
  * Description: 发送邮件
  * Copyright(©) 2015 by xiaomo.

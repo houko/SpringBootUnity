@@ -13,7 +13,7 @@ import java.util.concurrent.Future;
 @Component
 public class AsyncTask {
 
-    private static Random random =new Random();
+    private static Random random = new Random();
 
     @Async
     public Future<String> doTaskOne() throws Exception {

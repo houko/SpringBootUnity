@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author : xiaomo
  * github: https://github.com/xiaomoinfo
  * email: xiaomo@xiaomo.info
-
+ * <p>
  * Date: 2016/11/14 11:06
  * Description: 用户实体类
  * Copyright(©) 2015 by xiaomo.

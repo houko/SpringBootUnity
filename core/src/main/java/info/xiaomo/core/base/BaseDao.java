@@ -20,6 +20,7 @@ public interface BaseDao<T> extends JpaRepository<T, Long> {
 
     /**
      * 根据名字查
+     *
      * @param name
      * @return
      */
@@ -27,6 +28,7 @@ public interface BaseDao<T> extends JpaRepository<T, Long> {
 
     /**
      * 删除
+     *
      * @param name
      * @return
      */

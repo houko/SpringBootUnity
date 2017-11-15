@@ -14,7 +14,7 @@ import java.util.List;
  * @author : xiaomo
  * github: https://github.com/xiaomoinfo
  * email: xiaomo@xiaomo.info
-
+ * <p>
  * Date: 2016/4/1119:49
  * Copyright(©) 2015 by xiaomo.
  **/
@@ -30,6 +30,7 @@ public interface ChangeLogService {
 
     /**
      * 根据名字查
+     *
      * @param name
      * @return
      */
@@ -37,20 +38,23 @@ public interface ChangeLogService {
 
     /**
      * find all
+     *
      * @param start
      * @param pageSize
      * @return
      */
-    Page<ChangeLogModel> findAll(int start , int pageSize);
+    Page<ChangeLogModel> findAll(int start, int pageSize);
 
     /**
-     *  find all
+     * find all
+     *
      * @return
      */
     List<ChangeLogModel> findAll();
 
     /**
      * add
+     *
      * @param model
      * @return
      */
@@ -58,6 +62,7 @@ public interface ChangeLogService {
 
     /**
      * update
+     *
      * @param model
      * @return
      */
@@ -65,6 +70,7 @@ public interface ChangeLogService {
 
     /**
      * delete
+     *
      * @param id
      * @return
      */

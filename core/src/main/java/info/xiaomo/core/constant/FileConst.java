@@ -152,11 +152,11 @@ public enum FileConst {
      */
     MF("4D616E69666573742D56"),
     /**
-     *EXE Archive.
+     * EXE Archive.
      */
     EXE("4D5A9000030000000400"),
     /**
-     *CHM Archive.
+     * CHM Archive.
      */
     CHM("49545346030000006000"),
     /*

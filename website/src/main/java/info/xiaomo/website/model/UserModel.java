@@ -18,7 +18,7 @@ import java.io.Serializable;
  * @author : xiaomo
  * github: https://github.com/xiaomoinfo
  * email: xiaomo@xiaomo.info
-
+ * <p>
  * Date: 2016/4/1 17:36
  * Copyright(©) 2015 by xiaomo.
  **/
@@ -50,7 +50,7 @@ public class UserModel extends BaseModel implements Serializable {
     @Column(name = "Phone")
     private Long phone = 0L;
 
-    @Column(name = "validateCode")
+    @Column(name = "ValidateCode")
     private String validateCode = "";
 
     @Column(name = "ImgUrl")

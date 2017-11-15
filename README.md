@@ -14,15 +14,11 @@
 - mysql5.5+
 - git: 版本管理
 - nginx: 反向代理服务器
-- lombok
 
 
 ### 注意事项
 - 本项目代码托管在[github](https://github.com/xiaomoinfo/SpringBootUnity)和[码云](http://git.oschina.net/hupeng/SpringBootUnity)两个地方,最新代码会先推送在github上,码云上会在github上更新完之后进行同步。
 - 本项目多数数据库都用到了`hibernate`，如果没有提供`sql`文件。则启动时会根据代码映射自动生成数据库表，请在启动前修改`application.properties`中的数据库连接信息
-- 本项目使用了`lombok`,在查看本项目时如果您没有下载`lombok 插件`，请先安装,不然找不到`get/set`方法。eclipse用户请参照[官网](http://jnb.ociweb.com/jnb/jnbJan2010.html#references)
-
-![lombok](screenshot/lombok.png)
 
 
 ### 启动方式
@@ -111,35 +107,13 @@ http://localhost:808/doc.html bootstrap-ui
 - [在线Cron表达式生成器](http://cron.qqe2.com/ "在线Cron表达式生成器")
 
 - [在线工具 - 程序员的工具箱](http://tool.lu/ "在线工具 - 程序员的工具箱")
+- [spring boot官方脚手架](https://start.spring.io/ "spring boot官方脚手架")
 
 
 ###  问题反馈
 1. 欢迎提[issue](https://github.com/xiaomoinfo/SpringBootUnity/issues)一起完善这个项目。
 2. QQ: 83387856
 4. 个人主站: https://xiaomo.info
-
-### 在线文档
-
-- [JDK7英文文档](http://tool.oschina.net/apidocs/apidoc?api=jdk_7u4 "JDK7英文文档")
-
-- [Spring4.x文档](http://spring.oschina.mopaas.com/ "Spring4.x文档")
-
-- [Mybatis3官网](http://www.mybatis.org/mybatis-3/zh/index.html "Mybatis3官网")
-
-- [Dubbo官网](http://dubbo.io/ "Dubbo官网")
-
-- [Nginx中文文档](http://tool.oschina.net/apidocs/apidoc?api=nginx-zh "Nginx中文文档")
-
-- [Freemarker在线手册](http://freemarker.foofun.cn/ "Freemarker在线中文手册")
-
-- [Velocity在线手册](http://velocity.apache.org/engine/devel/developer-guide.html "Velocity在线手册")
-
-- [Bootstrap在线手册](http://www.bootcss.com/ "Bootstrap在线手册")
-
-- [Git官网中文文档](https://git-scm.com/book/zh/v2 "Git官网中文文档")
-
-- [Thymeleaf](http://www.thymeleaf.org/doc/tutorials/3.0/thymeleafspring.html "Thymeleaf")
-
 
 
 ## [License](LICENSE "MIT")

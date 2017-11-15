@@ -142,7 +142,7 @@ public class RegExUtil {
      * 主要用于模板中模块标记分析函数 把查找到的元素加到vector中
      *
      * @param pattern 为正则表达式模式
-     * @param str             原始字串
+     * @param str     原始字串
      * @return vector
      * @since 1.0
      */
@@ -161,7 +161,7 @@ public class RegExUtil {
      * 功能主要是把查找到的元素加到vector中
      *
      * @param pattern 为正则表达式模式
-     * @param str             原始字串
+     * @param str     原始字串
      * @since 1.0
      */
     public static String[] splitTags(String pattern, String str) {
@@ -181,7 +181,7 @@ public class RegExUtil {
      * 匹配所有符合模式要求的字串并加到矢量vector数组中
      *
      * @param pattern 为正则表达式模式
-     * @param str             原始字串
+     * @param str     原始字串
      * @return vector
      * @since 1.0
      */
@@ -199,7 +199,7 @@ public class RegExUtil {
      * 匹配所有符合模式要求的字串并加到字符串数组中
      *
      * @param pattern 为正则表达式模式
-     * @param str             原始字串
+     * @param str     原始字串
      * @return array
      * @since 1.0
      */
@@ -259,6 +259,6 @@ public class RegExUtil {
 
 
     public static void main(String[] args) {
-        System.out.println(ereg(ID_CARD,"420325199210211911"));
+        System.out.println(ereg(ID_CARD, "420325199210211911"));
     }
 }

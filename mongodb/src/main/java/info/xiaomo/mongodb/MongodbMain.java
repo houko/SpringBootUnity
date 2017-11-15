@@ -32,7 +32,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * @author : xiaomo
  * github: https://github.com/xiaomoinfo
  * email: xiaomo@xiaomo.info
-
+ * <p>
  * Date: 2016/4/1 15:38
  * Description: RabbitMq启动器
  * Copyright(©) 2015 by xiaomo.
@@ -42,7 +42,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EntityScan("info.xiaomo.*.model")
 @RestController
 @EnableSwagger2
-@EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class,HibernateJpaAutoConfiguration.class})
+@EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
 public class MongodbMain {
     public static void main(String[] args) throws Exception {
         SpringApplication.run(MongodbMain.class, args);

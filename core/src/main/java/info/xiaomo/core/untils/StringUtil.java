@@ -321,6 +321,7 @@ public class StringUtil extends StringUtils {
 
     /**
      * 替换非法字符
+     *
      * @param input
      * @return
      */
@@ -494,8 +495,7 @@ public class StringUtil extends StringUtils {
 
         int i = 0;
 //避免新旧字符一样产生死循环
-        if (strOld.equals(strNew))
-        {
+        if (strOld.equals(strNew)) {
             return strSrc;
         }
 

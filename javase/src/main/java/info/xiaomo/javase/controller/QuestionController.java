@@ -10,10 +10,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -47,7 +44,7 @@ public class QuestionController {
      * @param id id
      * @return result
      */
-    @ApiOperation(value = "查找用户", notes = "查找用户", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "查找问题", notes = "查找问题", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "findById/{id}", method = RequestMethod.GET)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "唯一id", required = true, dataType = "Long", paramType = "path"),
@@ -58,6 +55,18 @@ public class QuestionController {
             return new Result(CodeConst.NOT_FOUNT.getResultCode(), CodeConst.NOT_FOUNT.getMessage());
         }
         return new Result<>(questionModel);
+    }
+
+    /**
+     * 根据id 查找用户
+     *
+     * @return result
+     */
+    @ApiOperation(value = "添加", notes = "添加", httpMethod = "POST", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value = "findById/{id}", method = RequestMethod.POST)
+    public Result addQuestion(@RequestBody QuestionModel questionModel) {
+        boolean add = service.add(questionModel);
+        return new Result<>(add);
     }
 
 }

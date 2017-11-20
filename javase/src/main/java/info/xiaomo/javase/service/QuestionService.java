@@ -24,4 +24,12 @@ public interface QuestionService {
      * @return
      */
     QuestionModel findById(Long id);
+
+    /**
+     * 添加
+     *
+     * @param questionModel questionModel
+     * @return
+     */
+    boolean add(QuestionModel questionModel);
 }

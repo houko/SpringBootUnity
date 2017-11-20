@@ -34,4 +34,10 @@ public class QuestionServiceImpl implements QuestionService {
     public QuestionModel findById(Long id) {
         return questionDao.findById(id);
     }
+
+    @Override
+    public boolean add(QuestionModel questionModel) {
+        QuestionModel save = questionDao.save(questionModel);
+        return save != null;
+    }
 }

@@ -36,6 +36,7 @@
         <module>multipleSource</module>
         <!-- 爬虫 -->
         <module>crawler</module>
+        <module>javase</module>
     </modules>
     <packaging>pom</packaging>
 

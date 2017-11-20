@@ -1,4 +1,4 @@
-package info.xiaomo.javase.bean;
+package info.xiaomo.javase.model;
 
 import info.xiaomo.core.base.BaseModel;
 import lombok.Data;
@@ -7,7 +7,6 @@ import lombok.EqualsAndHashCode;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -24,19 +23,19 @@ import java.util.List;
  */
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "adminUser")
+@Table(name = "question")
 @Data
-public class Question extends BaseModel implements Serializable {
+public class QuestionModel extends BaseModel implements Serializable {
     /**
      * 问题
      */
     private String question;
-    /**
-     * 选项
-     */
-    private List<String> choice;
-    /**
-     * 答案
-     */
-    private List<Integer> answer;
+//    /**
+//     * 选项
+//     */
+//    private List<String> choice;
+//    /**
+//     * 答案
+//     */
+//    private List<Integer> answer;
 }

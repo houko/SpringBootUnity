@@ -4,15 +4,13 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import springfox.documentation.annotations.ApiIgnore;
@@ -42,15 +40,13 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableAutoConfiguration
 @ComponentScan("info.xiaomo")
 @EntityScan("info.xiaomo.*.model")
-@EnableTransactionManagement
 @EnableJpaRepositories("info.xiaomo.*.dao")
-@EnableCaching
 @EnableSwagger2
-@Controller
-public class XiaomoMain extends WebMvcConfigurerAdapter {
+@RestController
+public class QuestionMain extends WebMvcConfigurerAdapter {
 
     public static void main(String[] args) throws Exception {
-        SpringApplication.run(XiaomoMain.class, args);
+        SpringApplication.run(QuestionMain.class, args);
     }
 
     /**
@@ -71,7 +67,7 @@ public class XiaomoMain extends WebMvcConfigurerAdapter {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("info.xiaomo.website"))
+                .apis(RequestHandlerSelectors.basePackage("info.xiaomo.javase"))
                 .paths(PathSelectors.any())
                 .build();
     }
@@ -79,8 +75,8 @@ public class XiaomoMain extends WebMvcConfigurerAdapter {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("Spring Boot中使用Swagger2构建RESTful APIs")
-                .description("api根地址：http://api.xiaomo.info:8080/")
-                .termsOfServiceUrl("https://xiaomo.info/")
+                .description("java se题库api")
+                .termsOfServiceUrl("https://question.xiaomo.info/")
                 .contact("小莫")
                 .version("1.0")
                 .build();

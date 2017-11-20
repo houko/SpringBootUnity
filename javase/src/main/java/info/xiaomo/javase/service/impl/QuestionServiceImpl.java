@@ -1,6 +1,9 @@
 package info.xiaomo.javase.service.impl;
 
+import info.xiaomo.javase.dao.QuestionDao;
+import info.xiaomo.javase.model.QuestionModel;
 import info.xiaomo.javase.service.QuestionService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -18,4 +21,17 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class QuestionServiceImpl implements QuestionService {
+
+    private final QuestionDao questionDao;
+
+    @Autowired
+    public QuestionServiceImpl(QuestionDao questionDao) {
+        this.questionDao = questionDao;
+    }
+
+
+    @Override
+    public QuestionModel findById(Long id) {
+        return questionDao.findById(id);
+    }
 }

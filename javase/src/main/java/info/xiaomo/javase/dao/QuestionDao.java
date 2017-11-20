@@ -1,6 +1,6 @@
 package info.xiaomo.javase.dao;
 
-import info.xiaomo.javase.bean.Question;
+import info.xiaomo.javase.model.QuestionModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -18,5 +18,13 @@ import org.springframework.stereotype.Repository;
  * Copyright(©) 2017 by xiaomo.
  */
 @Repository
-public interface QuestionDao extends JpaRepository<Question, Long> {
+public interface QuestionDao extends JpaRepository<QuestionModel, Long> {
+
+    /**
+     * 根据Id查找
+     *
+     * @param id
+     * @return
+     */
+    QuestionModel findById(Long id);
 }

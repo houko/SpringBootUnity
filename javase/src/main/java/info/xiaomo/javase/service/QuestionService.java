@@ -1,5 +1,7 @@
 package info.xiaomo.javase.service;
 
+import info.xiaomo.javase.model.QuestionModel;
+
 /**
  * 把今天最好的表现当作明天最新的起点．．～
  * いま 最高の表現 として 明日最新の始発．．～
@@ -14,4 +16,12 @@ package info.xiaomo.javase.service;
  * Copyright(©) 2017 by xiaomo.
  */
 public interface QuestionService {
+
+    /**
+     * 根据id查找
+     *
+     * @param id
+     * @return
+     */
+    QuestionModel findById(Long id);
 }

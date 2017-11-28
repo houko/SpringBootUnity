@@ -20,8 +20,8 @@ public interface QuestionService {
     /**
      * 根据id查找
      *
-     * @param id
-     * @return
+     * @param id id
+     * @return QuestionModel
      */
     QuestionModel findById(Long id);
 

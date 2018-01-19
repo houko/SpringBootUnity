@@ -19,7 +19,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  * github: https://github.com/xiaomoinfo
  * email: xiaomo@xiaomo.info
  * <p>
- * Date: 2016/4/1 15:38
+ * Date: 2016/4/1 15:31
  * Description: 任务启动器
  * Copyright(©) 2015 by xiaomo.
  **/
@@ -29,7 +29,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling
 @EnableAsync
 public class ScheduledMain {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         SpringApplication.run(ScheduledMain.class, args);
     }
 

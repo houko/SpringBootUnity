@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -38,7 +39,8 @@ public class MongoUserServiceImpl implements MongoUserService {
 
     @Override
     public MongoUser findById(Long id) {
-        return dao.findOne(id);
+        Optional<MongoUser> optionalUser = dao.findById(id);
+        return optionalUser.orElse(null);
     }
 
     @Override
@@ -53,7 +55,11 @@ public class MongoUserServiceImpl implements MongoUserService {
 
     @Override
     public void delete(Long id) {
-        dao.delete(id);
+        Optional<MongoUser> optional = dao.findById(id);
+        if (!optional.isPresent()) {
+            return;
+        }
+        dao.delete(optional.get());
     }
 
     @Override

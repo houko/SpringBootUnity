@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -42,12 +43,13 @@ public class TechnologyServiceImpl implements TechnologyService {
 
     @Override
     public Page<TechnologyModel> findAll(int start, int pageSize) {
-        return dao.findAll(new PageRequest(start - 1, pageSize));
+        return dao.findAll(PageRequest.of(start - 1, pageSize));
     }
 
     @Override
     public TechnologyModel findById(Long id) {
-        return dao.findOne(id);
+        Optional<TechnologyModel> optionalModel = dao.findById(id);
+        return optionalModel.orElse(null);
     }
 
     @Override
@@ -57,7 +59,11 @@ public class TechnologyServiceImpl implements TechnologyService {
 
     @Override
     public TechnologyModel update(TechnologyModel model) {
-        TechnologyModel result = dao.findOne(model.getId());
+        Optional<TechnologyModel> optional = dao.findById(model.getId());
+        if (!optional.isPresent()) {
+            return null;
+        }
+        TechnologyModel result = optional.get();
         if ("".equals(model.getUrl()) && model.getUrl() != null) {
             result.setUrl(model.getUrl());
         }
@@ -84,6 +90,10 @@ public class TechnologyServiceImpl implements TechnologyService {
 
     @Override
     public void del(Long id) {
-        dao.delete(id);
+        Optional<TechnologyModel> optional = dao.findById(id);
+        if (!optional.isPresent()) {
+            return;
+        }
+        dao.delete(optional.get());
     }
 }

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -38,8 +39,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserModel findUserById(Long id) {
-        return dao.findOne(id);
+    public Optional<UserModel> findUserById(Long id) {
+        return dao.findById(id);
     }
 
     @Override
@@ -86,7 +87,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Page<UserModel> findAll(int start, int pageSize) {
         Sort sort = new Sort(Sort.Direction.DESC, "createTime");
-        return dao.findAll(new PageRequest(start - 1, pageSize, sort));
+        return dao.findAll(PageRequest.of(start - 1, pageSize, sort));
     }
 
     @Override
@@ -96,11 +97,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserModel deleteUserById(Long id) throws UserNotFoundException {
-        UserModel userModel = dao.findOne(id);
-        if (userModel == null) {
+        Optional<UserModel> modelOptional = dao.findById(id);
+        if (!modelOptional.isPresent()) {
             throw new UserNotFoundException();
         }
-        dao.delete(userModel.getId());
+        UserModel userModel = modelOptional.get();
+        dao.delete(userModel);
         return userModel;
     }
 

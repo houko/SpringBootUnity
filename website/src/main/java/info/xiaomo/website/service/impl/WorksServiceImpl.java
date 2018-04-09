@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -42,12 +43,13 @@ public class WorksServiceImpl implements WorksService {
 
     @Override
     public Page<WorksModel> findAll(int start, int pageSize) {
-        return dao.findAll(new PageRequest(start - 1, pageSize));
+        return dao.findAll(PageRequest.of(start - 1, pageSize));
     }
 
     @Override
     public WorksModel findById(Long id) {
-        return dao.findOne(id);
+        Optional<WorksModel> optionalModel = dao.findById(id);
+        return optionalModel.orElse(null);
     }
 
     @Override
@@ -57,10 +59,11 @@ public class WorksServiceImpl implements WorksService {
 
     @Override
     public WorksModel update(WorksModel model) {
-        WorksModel result = dao.findOne(model.getId());
-        if (result == null) {
+        Optional<WorksModel> optional = dao.findById(model.getId());
+        if (!optional.isPresent()) {
             return null;
         }
+        WorksModel result = optional.get();
         if ("".equals(model.getCompleteTime()) && model.getCompleteTime() != null) {
             result.setCompleteTime(model.getCompleteTime());
         }
@@ -89,6 +92,10 @@ public class WorksServiceImpl implements WorksService {
 
     @Override
     public void del(Long id) {
-        dao.delete(id);
+        Optional<WorksModel> optional = dao.findById(id);
+        if (!optional.isPresent()) {
+            return;
+        }
+        dao.delete(optional.get());
     }
 }

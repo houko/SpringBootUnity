@@ -6,6 +6,8 @@ import info.xiaomo.javase.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 /**
  * 把今天最好的表现当作明天最新的起点．．～
  * いま 最高の表現 として 明日最新の始発．．～
@@ -32,12 +34,13 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public QuestionModel findById(Long id) {
-        return questionDao.findById(id);
+        Optional<QuestionModel> optionalModel = questionDao.findById(id);
+        return optionalModel.orElse(null);
     }
 
     @Override
     public boolean add(QuestionModel questionModel) {
-        QuestionModel save = questionDao.save(questionModel);
-        return save != null;
+        questionDao.save(questionModel);
+        return true;
     }
 }

@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import springfox.documentation.annotations.ApiIgnore;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
@@ -48,9 +48,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableCaching
 @EnableSwagger2
 @Controller
-public class XiaomoMain extends WebMvcConfigurerAdapter {
+public class XiaomoMain implements WebMvcConfigurer {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         SpringApplication.run(XiaomoMain.class, args);
     }
 

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * │＼＿＿╭╭╭╭╭＿＿／│
@@ -52,7 +53,8 @@ public class AdminUserServiceImpl implements AdminUserService {
 
     @Override
     public AdminModel findAdminUserById(Long id) {
-        return dao.findOne(id);
+        Optional<AdminModel> optionalModel = dao.findById(id);
+        return optionalModel.orElse(null);
     }
 
     @Override
@@ -65,44 +67,47 @@ public class AdminUserServiceImpl implements AdminUserService {
 
     @Override
     public AdminModel updateAdminUser(AdminModel model) throws UserNotFoundException {
-        AdminModel userUpdate = dao.findOne(model.getId());
-        if (userUpdate == null) {
+        Optional<AdminModel> optionalModel = dao.findById(model.getId());
+        if (!optionalModel.isPresent()) {
             throw new UserNotFoundException();
         }
+        AdminModel adminModel = optionalModel.get();
         if (model.getPassword() != null) {
-            userUpdate.setPassword(model.getPassword());
+            adminModel.setPassword(model.getPassword());
         }
         if (model.getUserName() != null) {
-            userUpdate.setUserName(model.getUserName());
+            adminModel.setUserName(model.getUserName());
         }
-        userUpdate.setUpdateTime(new Date());
-        return dao.save(userUpdate);
+        adminModel.setUpdateTime(new Date());
+        return dao.save(adminModel);
     }
 
     @Override
     public Page<AdminModel> getAdminUsers(int start, int pageSize) {
         Sort sort = new Sort(Sort.Direction.DESC, "createTime");
-        return dao.findAll(new PageRequest(start - 1, pageSize, sort));
+        return dao.findAll(PageRequest.of(start - 1, pageSize, sort));
     }
 
     @Override
     public AdminModel deleteAdminUserById(Long id) throws UserNotFoundException {
-        AdminModel adminModel = dao.findOne(id);
-        if (adminModel == null) {
+        Optional<AdminModel> optionalModel = dao.findById(id);
+        if (!optionalModel.isPresent()) {
             throw new UserNotFoundException();
         }
-        dao.delete(adminModel.getId());
+        AdminModel adminModel = optionalModel.get();
+        dao.delete(adminModel);
         return adminModel;
     }
 
     @Override
     public AdminModel forbidAdminUserById(Long id) throws UserNotFoundException {
-        AdminModel model = dao.findOne(id);
-        if (model == null) {
+        Optional<AdminModel> optionalModel = dao.findById(id);
+        if (!optionalModel.isPresent()) {
             throw new UserNotFoundException();
         }
-        model.setStatus(2);
-        return dao.save(model);
+        AdminModel adminModel = optionalModel.get();
+        adminModel.setStatus(2);
+        return dao.save(adminModel);
     }
 
     @Override

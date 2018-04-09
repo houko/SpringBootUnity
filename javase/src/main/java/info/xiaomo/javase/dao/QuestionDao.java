@@ -19,12 +19,4 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface QuestionDao extends JpaRepository<QuestionModel, Long> {
-
-    /**
-     * 根据Id查找
-     *
-     * @param id
-     * @return
-     */
-    QuestionModel findById(Long id);
 }

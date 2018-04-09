@@ -84,7 +84,7 @@
         <!-- html  -->
         <jsoup.version>1.10.1</jsoup.version>
         <!-- spring-boot version -->
-        <spring-boot.version>1.5.8.RELEASE</spring-boot.version>
+        <spring-boot.version>2.0.0.RELEASE</spring-boot.version>
         <!-- compiler-plugin version -->
         <maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
         <!-- surefile-plugin test util -->
@@ -103,7 +103,6 @@
         <jxl.version>2.6.12</jxl.version>
         <!-- microsoft office -->
         <poi.version>3.10-beta2</poi.version>
-        <kotlin.version>1.1.51</kotlin.version>
     </properties>
 
 
@@ -215,20 +214,6 @@
         </dependencies>
     </dependencyManagement>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-stdlib-jre8</artifactId>
-            <version>${kotlin.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-test</artifactId>
-            <version>${kotlin.version}</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
-
     <build>
         <plugins>
 
@@ -270,31 +255,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.jetbrains.kotlin</groupId>
-                <artifactId>kotlin-maven-plugin</artifactId>
-                <version>${kotlin.version}</version>
-                <executions>
-                    <execution>
-                        <id>compile</id>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>compile</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>test-compile</id>
-                        <phase>test-compile</phase>
-                        <goals>
-                            <goal>test-compile</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <jvmTarget>1.8</jvmTarget>
-                </configuration>
-            </plugin>
-
         </plugins>
     </build>
 </project>

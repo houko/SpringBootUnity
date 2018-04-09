@@ -19,10 +19,14 @@ import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.text.ParseException;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -61,12 +65,10 @@ public class UserController extends BaseController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "唯一id", required = true, dataType = "Long", paramType = "path"),
     })
+    @SuppressWarnings("unchecked")
     public Result findUserById(@PathVariable("id") Long id) {
-        UserModel userModel = service.findUserById(id);
-        if (userModel == null) {
-            return new Result(CodeConst.USER_NOT_FOUND.getResultCode(), CodeConst.USER_NOT_FOUND.getMessage());
-        }
-        return new Result<>(userModel);
+        Optional<UserModel> optional = service.findUserById(id);
+        return optional.map(Result::new).orElseGet(() -> new Result(CodeConst.USER_NOT_FOUND.getResultCode(), CodeConst.USER_NOT_FOUND.getMessage()));
     }
 
     /**
@@ -98,7 +100,7 @@ public class UserController extends BaseController {
             @ApiImplicitParam(name = "密码", required = true, dataType = "String", paramType = "path")
     })
     @RequestMapping(value = "register/{email}/{password}", method = RequestMethod.POST)
-    public Result register(@PathVariable("email") String email, @PathVariable("password") String password) throws Exception {
+    public Result register(@PathVariable("email") String email, @PathVariable("password") String password) {
         UserModel userModel = service.findUserByEmail(email);
         //邮箱被占用
         if (userModel != null) {
@@ -221,7 +223,7 @@ public class UserController extends BaseController {
     @ApiOperation(value = "处理激活", notes = "处理激活", httpMethod = "POST", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @RequestMapping(value = "validateEmail", method = RequestMethod.POST)
     public Result validateEmail(@RequestBody UserModel user
-    ) throws ServiceException, ParseException, UserNotFoundException {
+    ) throws ServiceException {
         //数据访问层，通过email获取用户信息
         UserModel userModel = service.findUserByEmail(user.getEmail());
         if (userModel != null) {

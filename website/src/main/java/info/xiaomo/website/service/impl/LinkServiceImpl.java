@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -37,7 +38,8 @@ public class LinkServiceImpl implements LinkService {
 
     @Override
     public LinkModel findById(Long id) {
-        return dao.findOne(id);
+        Optional<LinkModel> optionalModel = dao.findById(id);
+        return optionalModel.orElse(null);
     }
 
     @Override
@@ -48,7 +50,7 @@ public class LinkServiceImpl implements LinkService {
     @Override
     public Page<LinkModel> findAll(int start, int pageSize) {
         Sort sort = new Sort(Sort.Direction.DESC, "order");
-        return dao.findAll(new PageRequest(start - 1, pageSize, sort));
+        return dao.findAll(PageRequest.of(start - 1, pageSize, sort));
     }
 
     @Override
@@ -65,23 +67,29 @@ public class LinkServiceImpl implements LinkService {
 
     @Override
     public LinkModel update(LinkModel model) {
-        LinkModel updateModel = dao.findOne(model.getId());
+        Optional<LinkModel> optional = dao.findById(model.getId());
+        if (!optional.isPresent()) {
+            return null;
+        }
+        LinkModel linkModel = optional.get();
         if (model.getName() != null) {
-            updateModel.setName(model.getName());
+            linkModel.setName(model.getName());
         }
         if (model.getUrl() != null) {
-            updateModel.setUrl(model.getUrl());
+            linkModel.setUrl(model.getUrl());
         }
         model.setUpdateTime(new Date());
-        return dao.save(updateModel);
+        return dao.save(linkModel);
     }
 
     @Override
     public LinkModel delete(Long id) {
-        LinkModel model = dao.findOne(id);
-        if (model != null) {
-            dao.delete(id);
+        Optional<LinkModel> optional = dao.findById(id);
+        if (!optional.isPresent()) {
+            return null;
         }
-        return model;
+        LinkModel linkModel = optional.get();
+        dao.delete(linkModel);
+        return linkModel;
     }
 }

@@ -6,6 +6,7 @@ import info.xiaomo.website.model.UserModel;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -27,7 +28,7 @@ public interface UserService {
      * @param id id
      * @return UserModel
      */
-    UserModel findUserById(Long id);
+    Optional<UserModel> findUserById(Long id);
 
     /**
      * 根据邮件查用户

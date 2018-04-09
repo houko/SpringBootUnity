@@ -11,14 +11,6 @@ import org.springframework.stereotype.Repository;
 public interface BaseDao<T> extends JpaRepository<T, Long> {
 
     /**
-     * 根据id查
-     *
-     * @param id
-     * @return
-     */
-    T findById(Long id);
-
-    /**
      * 根据名字查
      *
      * @param name

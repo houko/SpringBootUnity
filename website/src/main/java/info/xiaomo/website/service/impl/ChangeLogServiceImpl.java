@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -37,7 +38,8 @@ public class ChangeLogServiceImpl implements ChangeLogService {
 
     @Override
     public ChangeLogModel findById(Long id) {
-        return dao.findOne(id);
+        Optional<ChangeLogModel> changeLogModel = dao.findById(id);
+        return changeLogModel.orElse(null);
     }
 
     @Override
@@ -48,7 +50,7 @@ public class ChangeLogServiceImpl implements ChangeLogService {
     @Override
     public Page<ChangeLogModel> findAll(int start, int pageSize) {
         Sort sort = new Sort(Sort.Direction.DESC, "createTime");
-        return dao.findAll(new PageRequest(start - 1, pageSize, sort));
+        return dao.findAll(PageRequest.of(start - 1, pageSize, sort));
     }
 
     @Override
@@ -65,20 +67,26 @@ public class ChangeLogServiceImpl implements ChangeLogService {
 
     @Override
     public ChangeLogModel update(ChangeLogModel model) {
-        ChangeLogModel updateModel = dao.findOne(model.getId());
-        if (model.getName() != null) {
-            updateModel.setName(model.getName());
+        Optional<ChangeLogModel> optionalModel = dao.findById(model.getId());
+        if (!optionalModel.isPresent()) {
+            return null;
         }
-        updateModel.setUpdateTime(new Date());
-        return dao.save(updateModel);
+        ChangeLogModel changeLogModel = optionalModel.get();
+        if (model.getName() != null) {
+            changeLogModel.setName(model.getName());
+        }
+        changeLogModel.setUpdateTime(new Date());
+        return dao.save(changeLogModel);
     }
 
     @Override
     public ChangeLogModel delete(Long id) {
-        ChangeLogModel model = dao.findOne(id);
-        if (model != null) {
-            dao.delete(id);
+        Optional<ChangeLogModel> optionalLogModel = dao.findById(id);
+        if (!optionalLogModel.isPresent()) {
+            return null;
         }
-        return model;
+        ChangeLogModel changeLogModel = optionalLogModel.get();
+        dao.delete(changeLogModel);
+        return changeLogModel;
     }
 }

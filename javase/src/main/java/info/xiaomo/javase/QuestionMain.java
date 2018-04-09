@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import springfox.documentation.annotations.ApiIgnore;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
@@ -43,9 +43,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableJpaRepositories("info.xiaomo.*.dao")
 @EnableSwagger2
 @RestController
-public class QuestionMain extends WebMvcConfigurerAdapter {
+public class QuestionMain implements WebMvcConfigurer {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         SpringApplication.run(QuestionMain.class, args);
     }
 

@@ -80,11 +80,11 @@
         <!-- upload util -->
         <commons-fileupload.version>1.3.2</commons-fileupload.version>
         <!-- json support -->
-        <fastjson.version>1.2.20</fastjson.version>
+        <fastjson.version>[1.2.31,)</fastjson.version>
         <!-- html  -->
         <jsoup.version>1.10.1</jsoup.version>
         <!-- spring-boot version -->
-        <spring-boot.version>2.0.0.RELEASE</spring-boot.version>
+        <spring-boot.version>2.0.3.RELEASE</spring-boot.version>
         <!-- compiler-plugin version -->
         <maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
         <!-- surefile-plugin test util -->
@@ -181,19 +181,9 @@
                 <version>${springfox-swagger-ui.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.mortbay.jasper</groupId>
-                <artifactId>jasper-jsp</artifactId>
-                <version>${jsper.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.mybatis.spring.boot</groupId>
                 <artifactId>mybatis-spring-boot-starter</artifactId>
                 <version>${mybatis.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.squareup.okhttp3</groupId>
-                <artifactId>okhttp</artifactId>
-                <version>${okhttp.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.jsoup</groupId>

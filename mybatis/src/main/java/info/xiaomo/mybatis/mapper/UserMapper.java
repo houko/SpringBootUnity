@@ -3,6 +3,7 @@ package info.xiaomo.mybatis.mapper;
 
 import info.xiaomo.mybatis.domain.User;
 import org.apache.ibatis.annotations.*;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,7 @@ import java.util.Map;
  * @author : xiaomo
  */
 @Mapper
+@Repository
 public interface UserMapper {
 
     @Results({

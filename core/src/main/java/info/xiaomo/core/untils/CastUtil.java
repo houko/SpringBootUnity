@@ -2,6 +2,7 @@ package info.xiaomo.core.untils;
 
 import java.io.*;
 import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
@@ -10,10 +11,10 @@ import java.util.Iterator;
  * 把今天最好的表现当作明天最新的起点．．～
  * いま 最高の表現 として 明日最新の始発．．～
  * Today the best performance  as tomorrow newest starter!
- * Created by IntelliJ IDEA.
+
  *
  * @author : xiaomo
- * github: https://github.com/xiaomoinfo
+ * github: https://github.com/houko
  * email: xiaomo@xiaomo.info
  * <p>
  * Date: 2016/11/22 14:55
@@ -162,7 +163,7 @@ public class CastUtil {
                 ObjectOutputStream e = new ObjectOutputStream(out);
                 e.writeObject(obj);
                 byte[] bytes = out.toByteArray();
-                return new String(bytes, "ISO-8859-1");
+                return new String(bytes, StandardCharsets.ISO_8859_1);
             } catch (IOException var4) {
                 var4.printStackTrace();
                 return null;
@@ -172,7 +173,7 @@ public class CastUtil {
 
     public static Object stringToObject(String string) {
         try {
-            byte[] e = string.getBytes("ISO-8859-1");
+            byte[] e = string.getBytes(StandardCharsets.ISO_8859_1);
             ByteArrayInputStream in = new ByteArrayInputStream(e);
             ObjectInputStream ois = new ObjectInputStream(in);
             return ois.readObject();
@@ -290,7 +291,7 @@ public class CastUtil {
     }
 
     public static String bytesToHexString(byte[] src) {
-        StringBuilder stringBuilder = new StringBuilder("");
+        StringBuilder stringBuilder = new StringBuilder();
         if (src != null && src.length > 0) {
             for (byte aSrc : src) {
                 int v = aSrc & 255;

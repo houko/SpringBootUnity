@@ -4,7 +4,7 @@ package info.xiaomo.crawler.model;
 import info.xiaomo.core.base.BaseModel;
 
 /**
- * @author : xiaomo (https://xiaomo.info) (https://github.com/xiaomoinfo)
+ * @author : xiaomo (https://xiaomo.info) (https://github.com/houko)
  * @created : 2016/12/24 18:06
  * 御魂模型
  */

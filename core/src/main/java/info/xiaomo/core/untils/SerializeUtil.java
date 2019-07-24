@@ -1,6 +1,7 @@
 package info.xiaomo.core.untils;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 
 /**
  * │＼＿＿╭╭╭╭╭＿＿／│
@@ -14,10 +15,10 @@ import java.io.*;
  * ｜╭－－－╮把今天最好的表现当作明天最新的起点．．～
  * いま 最高の表現 として 明日最新の始発．．～
  * Today the best performance  as tomorrow newest starter!
- * Created by IntelliJ IDEA.
+
  *
  * @author : xiaomo
- * github: https://github.com/xiaomoinfo
+ * github: https://github.com/houko
  * email: xiaomo@xiaomo.info
  * <p>
  * Date: 15/9/6 16:05
@@ -40,7 +41,7 @@ public class SerializeUtil {
             oos = new ObjectOutputStream(baos);
             oos.writeObject(object);
             byte[] bytes = baos.toByteArray();
-            return new String(bytes, "utf-8");
+            return new String(bytes, StandardCharsets.UTF_8);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -51,7 +52,7 @@ public class SerializeUtil {
      * 反序列化
      */
     public static Object unserialize(String s) throws UnsupportedEncodingException {
-        byte[] bytes = s.getBytes("utf-8");
+        byte[] bytes = s.getBytes(StandardCharsets.UTF_8);
         ByteArrayInputStream bais;
         try {
             //反序列化

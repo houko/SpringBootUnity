@@ -112,7 +112,7 @@ http://localhost:808/doc.html bootstrap-ui
 
 
 ###  问题反馈
-1. 欢迎提[issue](https://github.com/xiaomoinfo/SpringBootUnity/issues)一起完善这个项目。
+1. 欢迎提[issue](https://github.com/houko/SpringBootUnity/issues)一起完善这个项目。
 2. QQ: 83387856
 4. 个人主站: https://xiaomo.info
 

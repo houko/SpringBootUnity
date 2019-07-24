@@ -1,6 +1,7 @@
 package info.xiaomo.core.untils;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 /**
@@ -17,7 +18,7 @@ public class CharUtil {
     public static String iso2gb(String text) {
         String result;
         try {
-            result = new String(text.getBytes("ISO-8859-1"), "GB2312");
+            result = new String(text.getBytes(StandardCharsets.ISO_8859_1), "GB2312");
         } catch (UnsupportedEncodingException ex) {
             result = ex.toString();
         }
@@ -30,7 +31,7 @@ public class CharUtil {
     public static String gb2iso(String text) {
         String result = "";
         try {
-            result = new String(text.getBytes("GB2312"), "ISO-8859-1");
+            result = new String(text.getBytes("GB2312"), StandardCharsets.ISO_8859_1);
         } catch (UnsupportedEncodingException ex) {
             ex.printStackTrace();
         }
@@ -51,7 +52,7 @@ public class CharUtil {
 
                 byte[] b = new byte[0];
                 try {
-                    b = Character.toString(c).getBytes("UTF-8");
+                    b = Character.toString(c).getBytes(StandardCharsets.UTF_8);
                 } catch (Exception ignored) {
                 }
 
@@ -72,7 +73,7 @@ public class CharUtil {
      * Utf8URL解码
      */
     public static String utf8urldecode(String text) {
-        String result = "";
+        StringBuilder result = new StringBuilder();
         int p;
         if (text != null && text.length() > 0) {
             text = text.toLowerCase();
@@ -81,13 +82,13 @@ public class CharUtil {
                 return text;
             }
             while (p != -1) {
-                result += text.substring(0, p);
-                text = text.substring(p, text.length());
+                result.append(text, 0, p);
+                text = text.substring(p);
                 if (Objects.equals(text, "") || text.length() < 9) {
-                    return result;
+                    return result.toString();
                 }
-                result += codetoword(text.substring(0, 9));
-                text = text.substring(9, text.length());
+                result.append(codetoword(text.substring(0, 9)));
+                text = text.substring(9);
                 p = text.indexOf("%e");
             }
         }
@@ -104,11 +105,7 @@ public class CharUtil {
             code[0] = (byte) (Integer.parseInt(text.substring(1, 3), 16) - 256);
             code[1] = (byte) (Integer.parseInt(text.substring(4, 6), 16) - 256);
             code[2] = (byte) (Integer.parseInt(text.substring(7, 9), 16) - 256);
-            try {
-                result = new String(code, "UTF-8");
-            } catch (UnsupportedEncodingException ex) {
-                result = null;
-            }
+            result = new String(code, StandardCharsets.UTF_8);
         } else {
             result = text;
         }

@@ -47,17 +47,17 @@
         </developer>
     </developers>
 
-    <repositories>
-        <repository>
-            <id>central</id>
-            <name>aliyun maven</name>
-            <layout>default</layout>
-            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
+    <!--<repositories>-->
+        <!--<repository>-->
+            <!--<id>central</id>-->
+            <!--<name>aliyun maven</name>-->
+            <!--<layout>default</layout>-->
+            <!--<url>http://maven.aliyun.com/nexus/content/groups/public/</url>-->
+            <!--<snapshots>-->
+                <!--<enabled>true</enabled>-->
+            <!--</snapshots>-->
+        <!--</repository>-->
+    <!--</repositories>-->
 
     <!-- 属性 -->
     <properties>
@@ -78,7 +78,7 @@
         <!-- io util -->
         <commons-io.version>2.5</commons-io.version>
         <!-- upload util -->
-        <commons-fileupload.version>1.3.2</commons-fileupload.version>
+        <commons-fileupload.version>[1.3.3,)</commons-fileupload.version>
         <!-- json support -->
         <fastjson.version>[1.2.31,)</fastjson.version>
         <!-- html  -->

@@ -37,6 +37,7 @@
         <!-- 爬虫 -->
         <module>crawler</module>
         <module>javase</module>
+        <module>order</module>
     </modules>
     <packaging>pom</packaging>
 

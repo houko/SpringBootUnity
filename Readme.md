@@ -9,9 +9,8 @@
 ### 环境
 - `maven` latest   
 - `jdk1.8`   
-- `spring boot 1.5.8 release`(目前最新版)
--  个人推荐`idea`来代替eclipse（希望不要被说成异教徒必须死）
-- mysql5.5+
+- `spring boot 2.x release`
+- 个人推荐`idea`来代替eclipse
 - git: 版本管理
 - nginx: 反向代理服务器
 

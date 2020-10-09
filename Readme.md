@@ -66,6 +66,12 @@ http://localhost:808/doc.html bootstrap-ui
 - 2017-11-03 合并`api`和`website`模块,访问`localhost:8080`会显示网站主页,访问`localhost:8080/api`会显示api管理界面
 - 2018-04-09 将整个项目升级到spring boot2.0 release版本,api有较大变动
 - 2019-08-06 travis-ci指定jdk版本
+- 2020-10-09 升级版本到2020.2
+- 2020-10-09 升级jdk版本到11
+- 2020-10-09 升级mysql connector到8
+- 2020-10-09 升级spring boot到2.3.0
+- 2020-10-09 修复了升级后API的破坏性变动，修复了一些了编辑器警告
+
 
 
 

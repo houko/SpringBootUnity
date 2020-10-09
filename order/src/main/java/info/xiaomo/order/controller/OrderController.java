@@ -28,7 +28,7 @@ public class OrderController {
 
 
     @RequestMapping(value = "forbid/{id}", method = RequestMethod.GET)
-    @ApiOperation(value = "封号", notes = "根据传入的id对修改对应帐号状态", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "封号", notes = "根据传入的id对修改对应帐号状态", httpMethod = "GET")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "后台用户唯一id", required = true, dataType = "Long", paramType = "path")
     })

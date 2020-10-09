@@ -17,7 +17,6 @@ import java.util.Optional;
  * 把今天最好的表现当作明天最新的起点．．～
  * いま 最高の表現 として 明日最新の始発．．～
  * Today the best performance  as tomorrow newest starter!
-
  *
  * @author : xiaomo
  * github: https://github.com/houko
@@ -49,7 +48,7 @@ public class LinkServiceImpl implements LinkService {
 
     @Override
     public Page<LinkModel> findAll(int start, int pageSize) {
-        Sort sort = new Sort(Sort.Direction.DESC, "order");
+        Sort sort = Sort.by(Sort.Direction.DESC, "order");
         return dao.findAll(PageRequest.of(start - 1, pageSize, sort));
     }
 

@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>info.xiaomo</groupId>
     <artifactId>xiaomo</artifactId>
-    <version>2017.2</version>
+    <version>2020.1</version>
 
     <!-- 模块 -->
     <modules>
@@ -36,7 +36,9 @@
         <module>multipleSource</module>
         <!-- 爬虫 -->
         <module>crawler</module>
+        <!--  javase    -->
         <module>javase</module>
+        <!--    订单    -->
         <module>order</module>
     </modules>
     <packaging>pom</packaging>
@@ -48,30 +50,18 @@
         </developer>
     </developers>
 
-    <!--<repositories>-->
-        <!--<repository>-->
-            <!--<id>central</id>-->
-            <!--<name>aliyun maven</name>-->
-            <!--<layout>default</layout>-->
-            <!--<url>http://maven.aliyun.com/nexus/content/groups/public/</url>-->
-            <!--<snapshots>-->
-                <!--<enabled>true</enabled>-->
-            <!--</snapshots>-->
-        <!--</repository>-->
-    <!--</repositories>-->
-
     <!-- 属性 -->
     <properties>
         <!-- project encoding -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- sources resultCode version -->
-        <sources.version>1.8</sources.version>
+        <sources.version>11</sources.version>
         <!-- common util method jar -->
         <common-lang3.version>3.5</common-lang3.version>
         <!-- test jar -->
         <junit.version>4.12</junit.version>
         <!-- database connection -->
-        <mysql-connector>5.1.38</mysql-connector>
+        <mysql-connector>8.0.21</mysql-connector>
         <!-- logger -->
         <slf4j.version>1.7.21</slf4j.version>
         <!-- logback -->
@@ -85,7 +75,7 @@
         <!-- html  -->
         <jsoup.version>1.10.1</jsoup.version>
         <!-- spring-boot version -->
-        <spring-boot.version>2.0.3.RELEASE</spring-boot.version>
+        <spring-boot.version>2.3.0.RELEASE</spring-boot.version>
         <!-- compiler-plugin version -->
         <maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
         <!-- surefile-plugin test util -->
@@ -93,7 +83,7 @@
         <!-- mail -->
         <javax-mail.version>1.4.7</javax-mail.version>
         <!-- lomlok -->
-        <lombak.version>1.16.10</lombak.version>
+        <lombak.version>1.18.14</lombak.version>
         <!-- api文档 -->
         <springfox-swagger-ui.version>2.2.2</springfox-swagger-ui.version>
         <!-- mybatis -->
@@ -122,6 +112,11 @@
                 <version>${spring-boot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>dom4j</groupId>
+                <artifactId>dom4j</artifactId>
+                <version>1.6.1</version>
             </dependency>
             <dependency>
                 <groupId>junit</groupId>
@@ -246,16 +241,13 @@
             <!--source-->
             <plugin>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>2.1</version>
+                <version>3.2.0</version>
                 <configuration>
                     <attach>true</attach>
                 </configuration>
                 <executions>
                     <execution>
                         <phase>compile</phase>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
                     </execution>
                 </executions>
             </plugin>

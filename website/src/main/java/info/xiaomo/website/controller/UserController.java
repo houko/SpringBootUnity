@@ -56,7 +56,7 @@ public class UserController extends BaseController {
      * @param id id
      * @return result
      */
-    @ApiOperation(value = "查找用户", notes = "查找用户", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "查找用户", notes = "查找用户", httpMethod = "GET")
     @RequestMapping(value = "findById/{id}", method = RequestMethod.GET)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "唯一id", required = true, dataType = "Long", paramType = "path"),
@@ -64,18 +64,18 @@ public class UserController extends BaseController {
     @SuppressWarnings("unchecked")
     public Result findUserById(@PathVariable("id") Long id) {
         Optional<UserModel> optional = service.findUserById(id);
-        return optional.map(Result::new).orElseGet(() -> new Result(CodeConst.USER_NOT_FOUND.getResultCode(), CodeConst.USER_NOT_FOUND.getMessage()));
+        return optional.map(Result::new).orElseGet(() -> new Result<>(CodeConst.USER_NOT_FOUND.getResultCode(), CodeConst.USER_NOT_FOUND.getMessage()));
     }
 
     /**
      * 添加用户
      */
-    @ApiOperation(value = "添加用户", notes = "添加用户", httpMethod = "POST", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "添加用户", notes = "添加用户", httpMethod = "POST")
     @RequestMapping(value = "addUser", method = RequestMethod.POST)
     public Result addUser(@RequestBody UserModel user) {
         UserModel userModel = service.findUserByEmail(user.getEmail());
         if (userModel != null) {
-            return new Result(CodeConst.USER_REPEAT.getResultCode(), CodeConst.USER_REPEAT.getMessage());
+            return new Result<>(CodeConst.USER_REPEAT.getResultCode(), CodeConst.USER_REPEAT.getMessage());
         }
         String salt = RandomUtil.createSalt();
         user.setPassword(Md5Util.encode(user.getPassword(), salt));
@@ -90,7 +90,7 @@ public class UserController extends BaseController {
      *
      * @return result
      */
-    @ApiOperation(value = "注册", notes = "注册用户并发送验证链接到邮箱", httpMethod = "POST", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "注册", notes = "注册用户并发送验证链接到邮箱", httpMethod = "POST")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "用户名", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "密码", required = true, dataType = "String", paramType = "path")
@@ -100,7 +100,7 @@ public class UserController extends BaseController {
         UserModel userModel = service.findUserByEmail(email);
         //邮箱被占用
         if (userModel != null) {
-            return new Result(CodeConst.USER_REPEAT.getResultCode(), CodeConst.USER_REPEAT.getMessage());
+            return new Result<>(CodeConst.USER_REPEAT.getResultCode(), CodeConst.USER_REPEAT.getMessage());
         }
         String redirectValidateUrl = MailUtil.redirectValidateUrl(email, password);
         MailUtil.send(email, "帐号激活邮件", redirectValidateUrl);
@@ -113,7 +113,7 @@ public class UserController extends BaseController {
      *
      * @return result
      */
-    @ApiOperation(value = "登录", notes = "登录", httpMethod = "POST", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "登录", notes = "登录", httpMethod = "POST")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "email", value = "邮箱", required = true, dataType = "String", paramType = "path"),
             @ApiImplicitParam(name = "password", value = "密码", required = true, dataType = "String", paramType = "path")
@@ -123,11 +123,11 @@ public class UserController extends BaseController {
         UserModel userModel = service.findUserByEmail(email);
         //找不到用户
         if (userModel == null) {
-            return new Result(CodeConst.USER_NOT_FOUND.getResultCode(), CodeConst.USER_NOT_FOUND.getMessage());
+            return new Result<>(CodeConst.USER_NOT_FOUND.getResultCode(), CodeConst.USER_NOT_FOUND.getMessage());
         }
         //密码不正确
         if (!Md5Util.encode(password, userModel.getSalt()).equals(userModel.getPassword())) {
-            return new Result(CodeConst.AUTH_FAILED.getResultCode(), CodeConst.AUTH_FAILED.getMessage());
+            return new Result<>(CodeConst.AUTH_FAILED.getResultCode(), CodeConst.AUTH_FAILED.getMessage());
         }
         return new Result<>(userModel);
     }
@@ -139,12 +139,12 @@ public class UserController extends BaseController {
      * @return model
      * @throws UserNotFoundException UserNotFoundException
      */
-    @ApiOperation(value = "修改密码", notes = "修改密码", httpMethod = "POST", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "修改密码", notes = "修改密码", httpMethod = "POST")
     @RequestMapping(value = "changePassword", method = RequestMethod.POST)
     public Result changePassword(@RequestBody UserModel user) throws UserNotFoundException {
         UserModel userByEmail = service.findUserByEmail(user.getEmail());
         if (userByEmail == null) {
-            return new Result(CodeConst.USER_NOT_FOUND.getResultCode(), CodeConst.USER_NOT_FOUND.getMessage());
+            return new Result<>(CodeConst.USER_NOT_FOUND.getResultCode(), CodeConst.USER_NOT_FOUND.getMessage());
         }
         String salt = RandomUtil.createSalt();
         userByEmail.setPassword(Md5Util.encode(user.getPassword(), salt));
@@ -160,12 +160,12 @@ public class UserController extends BaseController {
      * @return model
      * @throws UserNotFoundException UserNotFoundException
      */
-    @ApiOperation(value = "更新用户信息", notes = "更新用户信息", httpMethod = "POST", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "更新用户信息", notes = "更新用户信息", httpMethod = "POST")
     @RequestMapping(value = "update", method = RequestMethod.POST)
     public Result update(@RequestBody UserModel user) throws UserNotFoundException {
         UserModel userModel = service.findUserByEmail(user.getEmail());
         if (userModel == null) {
-            return new Result(CodeConst.USER_NOT_FOUND.getResultCode(), CodeConst.USER_NOT_FOUND.getMessage());
+            return new Result<>(CodeConst.USER_NOT_FOUND.getResultCode(), CodeConst.USER_NOT_FOUND.getMessage());
         }
         userModel = new UserModel();
         userModel.setEmail(user.getEmail());
@@ -183,12 +183,12 @@ public class UserController extends BaseController {
      *
      * @return result
      */
-    @ApiOperation(value = "返回所有用户数据", notes = "返回所有用户数据", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "返回所有用户数据", notes = "返回所有用户数据", httpMethod = "GET")
     @RequestMapping(value = "findAll", method = RequestMethod.GET)
     public Result getAll() {
         List<UserModel> pages = service.findAll();
         if (pages == null || pages.size() <= 0) {
-            return new Result(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
+            return new Result<>(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
         }
         return new Result<>(pages);
     }
@@ -201,14 +201,14 @@ public class UserController extends BaseController {
      * @return result
      */
     @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
-    @ApiOperation(value = "根据id删除用户", notes = "根据id删除用户", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "根据id删除用户", notes = "根据id删除用户", httpMethod = "GET")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "唯一id", required = true, dataType = "Long", paramType = "path"),
     })
     public Result deleteUserById(@PathVariable("id") Long id) throws UserNotFoundException {
         UserModel userModel = service.deleteUserById(id);
         if (userModel == null) {
-            return new Result(CodeConst.USER_NOT_FOUND.getResultCode(), CodeConst.USER_NOT_FOUND.getMessage());
+            return new Result<>(CodeConst.USER_NOT_FOUND.getResultCode(), CodeConst.USER_NOT_FOUND.getMessage());
         }
         return new Result<>(userModel);
     }
@@ -216,19 +216,19 @@ public class UserController extends BaseController {
     /**
      * 处理激活
      */
-    @ApiOperation(value = "处理激活", notes = "处理激活", httpMethod = "POST", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "处理激活", notes = "处理激活", httpMethod = "POST")
     @RequestMapping(value = "validateEmail", method = RequestMethod.POST)
     public Result validateEmail(@RequestBody UserModel user
     ) throws ServiceException {
         //数据访问层，通过email获取用户信息
         UserModel userModel = service.findUserByEmail(user.getEmail());
         if (userModel != null) {
-            return new Result(CodeConst.USER_REPEAT.getResultCode(), CodeConst.USER_REPEAT.getMessage());
+            return new Result<>(CodeConst.USER_REPEAT.getResultCode(), CodeConst.USER_REPEAT.getMessage());
         }
         //验证码是否过期
         if (user.getRegisterTime() + TimeUtil.ONE_DAY_IN_MILLISECONDS < TimeUtil.getNowOfMills()) {
             LOGGER.info("用户{}使用己过期的激活码{}激活邮箱失败！", user.getEmail(), user.getEmail());
-            return new Result(CodeConst.TIME_PASSED.getResultCode(), CodeConst.TIME_PASSED.getMessage());
+            return new Result<>(CodeConst.TIME_PASSED.getResultCode(), CodeConst.TIME_PASSED.getMessage());
         }
         //激活
         String salt = RandomUtil.createSalt();

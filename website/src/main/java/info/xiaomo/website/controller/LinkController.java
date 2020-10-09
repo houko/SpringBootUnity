@@ -49,7 +49,7 @@ public class LinkController extends BaseController {
      * @return model
      */
     @RequestMapping(value = "findById/{id}", method = RequestMethod.GET)
-    @ApiOperation(value = "通过id查找", notes = "通过id查找", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "通过id查找", notes = "通过id查找", httpMethod = "GET")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "唯一id", required = true, dataType = "Long", paramType = "path")
     })
@@ -69,7 +69,7 @@ public class LinkController extends BaseController {
      */
     @Override
     @RequestMapping(value = "findByName/{name}", method = RequestMethod.GET)
-    @ApiOperation(value = "根据名字查找", notes = "根据名字查找", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "根据名字查找", notes = "根据名字查找", httpMethod = "GET")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "name", value = "友情链接名字", required = true, dataType = "String", paramType = "path")
     })
@@ -144,7 +144,7 @@ public class LinkController extends BaseController {
      */
     @Override
     @RequestMapping(value = "findAll", method = RequestMethod.GET)
-    @ApiOperation(value = "返回所有数据", notes = "返回所有数据", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "返回所有数据", notes = "返回所有数据", httpMethod = "GET")
     public Result findAll() {
         List<LinkModel> pages = service.findAll();
         if (pages == null || pages.size() == 0) {
@@ -182,7 +182,7 @@ public class LinkController extends BaseController {
      * @return model
      */
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    @ApiOperation(value = "添加链接", notes = "添加链接", httpMethod = "POST", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "添加链接", notes = "添加链接", httpMethod = "POST")
     public Result add(@RequestBody LinkModel model) {
         LinkModel linkModel = service.findByName(model.getName());
         if (linkModel != null) {
@@ -200,7 +200,7 @@ public class LinkController extends BaseController {
      *
      * @return model
      */
-    @ApiOperation(value = "更新链接", notes = "更新链接", httpMethod = "POST", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "更新链接", notes = "更新链接", httpMethod = "POST")
     @RequestMapping(value = "update", method = RequestMethod.POST)
     public Result update(@RequestBody LinkModel model) {
         LinkModel linkModel = service.findById(model.getId());
@@ -220,7 +220,7 @@ public class LinkController extends BaseController {
      * @return model
      */
     @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
-    @ApiOperation(value = "删除链接", notes = "删除链接", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "删除链接", notes = "删除链接", httpMethod = "GET")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "唯一id", required = true, dataType = "Long", paramType = "path")
     })

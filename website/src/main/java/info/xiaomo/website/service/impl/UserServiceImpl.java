@@ -86,7 +86,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Page<UserModel> findAll(int start, int pageSize) {
-        Sort sort = new Sort(Sort.Direction.DESC, "createTime");
+        Sort sort = Sort.by(Sort.Direction.DESC, "createTime");
         return dao.findAll(PageRequest.of(start - 1, pageSize, sort));
     }
 

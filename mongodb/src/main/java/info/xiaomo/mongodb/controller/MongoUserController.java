@@ -54,7 +54,7 @@ public class MongoUserController {
     @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
     public Result delete(@PathVariable("id") Long id) {
         service.delete(id);
-        return new Result(CodeConst.SUCCESS.getResultCode(), CodeConst.SUCCESS.getMessage());
+        return new Result<>(CodeConst.SUCCESS.getResultCode(), CodeConst.SUCCESS.getMessage());
     }
 
 }

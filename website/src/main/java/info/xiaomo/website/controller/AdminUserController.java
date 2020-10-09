@@ -56,7 +56,7 @@ public class AdminUserController extends BaseController {
      * @return Result
      */
     @RequestMapping(value = "login/{userName}/{password}", method = RequestMethod.POST)
-    @ApiOperation(value = "获取用户信息", notes = "根据用户帐号和密码登录后台", httpMethod = "POST", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "获取用户信息", notes = "根据用户帐号和密码登录后台", httpMethod = "POST")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userName", value = "用户名", required = true, dataType = "Result", paramType = "path"),
             @ApiImplicitParam(name = "password", value = "用户名", required = true, dataType = "Result", paramType = "path")
@@ -65,13 +65,13 @@ public class AdminUserController extends BaseController {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 400, message = "No Name Provided"),
     })
-    public Result login(@PathVariable("userName") String userName, @PathVariable("password") String password) {
+    public Result<AdminModel> login(@PathVariable("userName") String userName, @PathVariable("password") String password) {
         AdminModel adminModel = service.findAdminUserByUserName(userName);
         if (adminModel == null) {
-            return new Result(CodeConst.USER_NOT_FOUND.getResultCode(), CodeConst.USER_NOT_FOUND.getMessage());
+            return new Result<>(CodeConst.USER_NOT_FOUND.getResultCode(), CodeConst.USER_NOT_FOUND.getMessage());
         }
         if (!Md5Util.encode(password, adminModel.getSalt()).equals(adminModel.getPassword())) {
-            return new Result(CodeConst.AUTH_FAILED.getResultCode(), CodeConst.AUTH_FAILED.getMessage());
+            return new Result<>(CodeConst.AUTH_FAILED.getResultCode(), CodeConst.AUTH_FAILED.getMessage());
         }
         return new Result<>(adminModel);
     }
@@ -82,7 +82,7 @@ public class AdminUserController extends BaseController {
      *
      * @return Result
      */
-    @ApiOperation(value = "添加后台用户", notes = "传一个管理员用户模型过来然后保存到数据库", httpMethod = "POST", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "添加后台用户", notes = "传一个管理员用户模型过来然后保存到数据库", httpMethod = "POST")
     @RequestMapping(value = "add", method = RequestMethod.POST)
     @ApiResponses(value = {
             @ApiResponse(code = 404, message = "Not Found"),
@@ -91,7 +91,7 @@ public class AdminUserController extends BaseController {
     public Result add(@RequestBody AdminModel model) {
         AdminModel adminModel = service.findAdminUserByUserName(model.getUserName());
         if (adminModel != null) {
-            return new Result(CodeConst.ADMIN_USER_REPEAT.getResultCode(), CodeConst.ADMIN_USER_REPEAT.getMessage());
+            return new Result<>(CodeConst.ADMIN_USER_REPEAT.getResultCode(), CodeConst.ADMIN_USER_REPEAT.getMessage());
         }
         String salt = RandomUtil.createSalt();
         model.setSalt(salt);
@@ -106,7 +106,7 @@ public class AdminUserController extends BaseController {
      * @param id id
      * @return Result
      */
-    @ApiOperation(value = "查找用户", notes = "根据传来的id查找用户并返回", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "查找用户", notes = "根据传来的id查找用户并返回", httpMethod = "GET")
     @RequestMapping(value = "findById/{id}", method = RequestMethod.GET)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "后台用户唯一id", required = true, dataType = "Long", paramType = "path")
@@ -118,7 +118,7 @@ public class AdminUserController extends BaseController {
     public Result findUserById(@PathVariable("id") Long id) {
         AdminModel adminModel = service.findAdminUserById(id);
         if (adminModel == null) {
-            return new Result(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
+            return new Result<>(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
         }
         return new Result<>(adminModel);
     }
@@ -163,7 +163,7 @@ public class AdminUserController extends BaseController {
      * @return Result
      */
     @Override
-    @ApiOperation(value = "查找用户", notes = "根据传来的用户名查找用户并返回", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "查找用户", notes = "根据传来的用户名查找用户并返回", httpMethod = "GET")
     @RequestMapping(value = "findByName/{userName}", method = RequestMethod.GET)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userName", value = "用户名", required = true, dataType = "String", paramType = "path")
@@ -175,7 +175,7 @@ public class AdminUserController extends BaseController {
     public Result findByName(@PathVariable("userName") String userName) {
         AdminModel adminModel = service.findAdminUserByUserName(userName);
         if (adminModel == null) {
-            return new Result(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
+            return new Result<>(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
         }
         return new Result<>(adminModel);
     }
@@ -242,7 +242,7 @@ public class AdminUserController extends BaseController {
      * @throws UserNotFoundException UserNotFoundException
      */
     @RequestMapping(value = "changePassword", method = RequestMethod.POST)
-    @ApiOperation(value = "修改用户密码", notes = "传来模型验证并修改密码", httpMethod = "POST", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "修改用户密码", notes = "传来模型验证并修改密码", httpMethod = "POST")
     @ApiResponses(value = {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 400, message = "No Name Provided"),
@@ -250,7 +250,7 @@ public class AdminUserController extends BaseController {
     public Result changePassword(@RequestBody AdminModel model) throws UserNotFoundException {
         AdminModel adminModel = service.findAdminUserByUserName(model.getUserName());
         if (adminModel == null) {
-            return new Result(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
+            return new Result<>(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
         }
         String salt = RandomUtil.createSalt();
         adminModel.setSalt(salt);
@@ -266,7 +266,7 @@ public class AdminUserController extends BaseController {
      * @return 不分页
      */
     @RequestMapping(value = "findAll", method = RequestMethod.GET)
-    @ApiOperation(value = "返回所有用户信息", notes = "不分页", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "返回所有用户信息", notes = "不分页", httpMethod = "GET")
     @ApiResponses(value = {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 400, message = "No Name Provided"),
@@ -287,7 +287,7 @@ public class AdminUserController extends BaseController {
      * @throws UserNotFoundException UserNotFoundException
      */
     @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
-    @ApiOperation(value = "删除用户", notes = "根据传入的id删除对应的用户", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "删除用户", notes = "根据传入的id删除对应的用户", httpMethod = "GET")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "用户唯一id", required = true, dataType = "Long", paramType = "path")
     })
@@ -298,7 +298,7 @@ public class AdminUserController extends BaseController {
     public Result deleteUserById(@PathVariable("id") Long id) throws UserNotFoundException {
         AdminModel adminModel = service.findAdminUserById(id);
         if (adminModel == null) {
-            return new Result(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
+            return new Result<>(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
         }
         service.deleteAdminUserById(id);
         return new Result<>(adminModel);
@@ -312,7 +312,7 @@ public class AdminUserController extends BaseController {
      * @throws UserNotFoundException UserNotFoundException
      */
     @RequestMapping(value = "update/{userName}", method = RequestMethod.POST)
-    @ApiOperation(value = "更新用户信息", notes = "根据传入的模型更新用户信息", httpMethod = "POST", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "更新用户信息", notes = "根据传入的模型更新用户信息", httpMethod = "POST")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userName", value = "用户名", required = true, dataType = "String", paramType = "path")
     })
@@ -338,7 +338,7 @@ public class AdminUserController extends BaseController {
      * @throws UserNotFoundException UserNotFoundException
      */
     @RequestMapping(value = "forbid/{id}", method = RequestMethod.GET)
-    @ApiOperation(value = "封号", notes = "根据传入的id对修改对应帐号状态", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "封号", notes = "根据传入的id对修改对应帐号状态", httpMethod = "GET")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "后台用户唯一id", required = true, dataType = "Long", paramType = "path")
     })
@@ -349,7 +349,7 @@ public class AdminUserController extends BaseController {
     public Result forbid(@PathVariable("id") Long id) throws UserNotFoundException {
         AdminModel model = service.findAdminUserById(id);
         if (model == null) {
-            return new Result(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
+            return new Result<>(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
         }
         model = service.forbidAdminUserById(id);
         return new Result<>(model);

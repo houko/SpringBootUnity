@@ -50,14 +50,14 @@ public class ChangeLogController extends BaseController {
      */
     @Override
     @RequestMapping(value = "findById/{id}", method = RequestMethod.GET)
-    @ApiOperation(value = "通过id查找", notes = "通过id查找", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "通过id查找", notes = "通过id查找", httpMethod = "GET")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "唯一id", required = true, dataType = "Long", paramType = "path")
     })
     public Result findById(@PathVariable("id") Long id) {
         ChangeLogModel changeLogModel = service.findById(id);
         if (changeLogModel == null) {
-            return new Result(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
+            return new Result<>(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
         }
         return new Result<>(changeLogModel);
     }
@@ -69,14 +69,14 @@ public class ChangeLogController extends BaseController {
      */
     @Override
     @RequestMapping(value = "findByName/{name}", method = RequestMethod.GET)
-    @ApiOperation(value = "通过名字查找", notes = "通过名字查找", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "通过名字查找", notes = "通过名字查找", httpMethod = "GET")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "name", value = "更新日志内容", required = true, dataType = "String", paramType = "path")
     })
     public Result findByName(@PathVariable("name") String name) {
         ChangeLogModel model = service.findByName(name);
         if (model == null) {
-            return new Result(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
+            return new Result<>(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
         }
         return new Result<>(model);
     }
@@ -143,11 +143,11 @@ public class ChangeLogController extends BaseController {
      */
     @Override
     @RequestMapping(value = "findAll", method = RequestMethod.GET)
-    @ApiOperation(value = "分页查询更新日志", notes = "分页查询更新日志", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "分页查询更新日志", notes = "分页查询更新日志", httpMethod = "GET")
     public Result findAll() {
         List<ChangeLogModel> pages = service.findAll();
         if (pages == null || pages.size() <= 0) {
-            return new Result(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
+            return new Result<>(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
         }
         return new Result<>(pages);
     }
@@ -169,12 +169,12 @@ public class ChangeLogController extends BaseController {
      *
      * @return result
      */
-    @ApiOperation(value = "增加更新日志", notes = "增加更新日志", httpMethod = "POST", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "增加更新日志", notes = "增加更新日志", httpMethod = "POST")
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public Result add(@RequestBody ChangeLogModel model) {
         ChangeLogModel changeLogModel = service.findByName(model.getName());
         if (changeLogModel != null) {
-            return new Result(CodeConst.REPEAT.getResultCode(), CodeConst.REPEAT.getMessage());
+            return new Result<>(CodeConst.REPEAT.getResultCode(), CodeConst.REPEAT.getMessage());
         }
         changeLogModel = new ChangeLogModel();
         changeLogModel.setName(model.getName());
@@ -189,12 +189,12 @@ public class ChangeLogController extends BaseController {
      *
      * @return result
      */
-    @ApiOperation(value = "修改更新日志", notes = "修改更新日志", httpMethod = "POST", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "修改更新日志", notes = "修改更新日志", httpMethod = "POST")
     @RequestMapping(value = "update", method = RequestMethod.POST)
     public Result update(@RequestBody ChangeLogModel model) {
         ChangeLogModel changeLogModel = service.findByName(model.getName());
         if (changeLogModel == null) {
-            return new Result(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
+            return new Result<>(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
         }
         changeLogModel.setName(model.getName());
         changeLogModel.setOnlineTime(model.getOnlineTime());
@@ -207,14 +207,14 @@ public class ChangeLogController extends BaseController {
      * 删除更新日志
      */
     @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
-    @ApiOperation(value = "删除更新日志", notes = "删除更新日志", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "删除更新日志", notes = "删除更新日志", httpMethod = "GET")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "唯一id", required = true, dataType = "Long", paramType = "path")
     })
     public Result deleteById(@PathVariable("id") Long id) {
         ChangeLogModel changeLogModel = service.findById(id);
         if (changeLogModel == null) {
-            return new Result(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
+            return new Result<>(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
         }
         ChangeLogModel delModel = service.delete(id);
         return new Result<>(delModel);

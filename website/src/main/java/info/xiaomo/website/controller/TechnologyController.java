@@ -20,7 +20,6 @@ import java.util.List;
  * 把今天最好的表现当作明天最新的起点．．～
  * いま 最高の表現 として 明日最新の始発．．～
  * Today the best performance  as tomorrow newest starter!
-
  *
  * @author : xiaomo
  * github: https://github.com/houko
@@ -45,21 +44,21 @@ public class TechnologyController extends BaseController {
 
 
     @Override
-    @ApiOperation(value = "根据id查找技术", notes = "根据id查找技术", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "根据id查找技术", notes = "根据id查找技术", httpMethod = "GET")
     @RequestMapping(value = "/findById/{id}", method = RequestMethod.GET)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "唯一Id", required = true, dataType = "Long", paramType = "path")
     })
-    public Result findById(@PathVariable Long id) {
+    public Result<TechnologyModel> findById(@PathVariable Long id) {
         TechnologyModel model = service.findById(id);
         if (model == null) {
-            return new Result(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
+            return new Result<>(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
         }
         return new Result<>(model);
     }
 
     @Override
-    @ApiOperation(value = "根据名字查找技术", notes = "根据名字查找技术", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "根据名字查找技术", notes = "根据名字查找技术", httpMethod = "GET")
     @RequestMapping(value = "/findByName/{name}", method = RequestMethod.GET)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "name", value = "技术名字", required = true, dataType = "name", paramType = "path")
@@ -67,7 +66,7 @@ public class TechnologyController extends BaseController {
     public Result findByName(@PathVariable String name) {
         TechnologyModel model = service.findByName(name);
         if (model == null) {
-            return new Result(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
+            return new Result<>(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
         }
         return new Result<>(model);
     }
@@ -128,12 +127,12 @@ public class TechnologyController extends BaseController {
     }
 
     @Override
-    @ApiOperation(value = "查找所有", notes = "查找所有", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "查找所有", notes = "查找所有", httpMethod = "GET")
     @RequestMapping(value = "/findAll", method = RequestMethod.GET)
     public Result findAll() {
         List<TechnologyModel> all = service.findAll();
         if (all == null || all.isEmpty()) {
-            return new Result(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
+            return new Result<>(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
         }
         return new Result<>(all);
     }
@@ -151,23 +150,23 @@ public class TechnologyController extends BaseController {
     }
 
 
-    @ApiOperation(value = "添加链接", notes = "添加链接", httpMethod = "POST", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "添加链接", notes = "添加链接", httpMethod = "POST")
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public Result add(@RequestBody TechnologyModel model) {
         TechnologyModel addModel = service.findByName(model.getName());
         if (addModel != null) {
-            return new Result(CodeConst.REPEAT.getResultCode(), CodeConst.REPEAT.getMessage());
+            return new Result<>(CodeConst.REPEAT.getResultCode(), CodeConst.REPEAT.getMessage());
         }
         addModel = service.add(model);
         return new Result<>(addModel);
     }
 
-    @ApiOperation(value = "更新链接", notes = "更新链接", httpMethod = "POST", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "更新链接", notes = "更新链接", httpMethod = "POST")
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public Result update(@RequestBody TechnologyModel model) {
         TechnologyModel update = service.findById(model.getId());
         if (update == null) {
-            return new Result(CodeConst.CodeOR.getResultCode(), CodeConst.CodeOR.getMessage());
+            return new Result<>(CodeConst.CodeOR.getResultCode(), CodeConst.CodeOR.getMessage());
         }
         update = service.update(model);
         return new Result<>(update);
@@ -175,14 +174,14 @@ public class TechnologyController extends BaseController {
 
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    @ApiOperation(value = "删除链接", notes = "删除链接", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "删除链接", notes = "删除链接", httpMethod = "GET")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "唯一id", required = true, dataType = "Long", paramType = "path")
     })
     public Result delete(@PathVariable Long id) {
         TechnologyModel model = service.findById(id);
         if (model == null) {
-            return new Result(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
+            return new Result<>(CodeConst.NULL_DATA.getResultCode(), CodeConst.NULL_DATA.getMessage());
         }
         service.del(id);
         return new Result<>(model);

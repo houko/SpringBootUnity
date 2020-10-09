@@ -5,7 +5,7 @@
     <parent>
         <artifactId>xiaomo</artifactId>
         <groupId>info.xiaomo</groupId>
-        <version>2017.2</version>
+        <version>2020.1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -14,7 +14,7 @@
         <dependency>
             <groupId>info.xiaomo</groupId>
             <artifactId>core</artifactId>
-            <version>2017.2</version>
+            <version>2020.1</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

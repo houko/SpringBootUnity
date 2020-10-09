@@ -8,7 +8,7 @@
 
 ### 环境
 - `maven` latest   
-- `jdk1.8`   
+- `jdk11`   
 - `spring boot 2.x release`
 - 个人推荐`idea`来代替eclipse
 - git: 版本管理

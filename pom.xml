@@ -93,7 +93,7 @@
         <!-- excel -->
         <jxl.version>2.6.12</jxl.version>
         <!-- microsoft office -->
-        <poi.version>3.10-beta2</poi.version>
+        <poi.version>3.17</poi.version>
     </properties>
 
 

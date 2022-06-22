@@ -73,7 +73,7 @@
         <!-- json support -->
         <fastjson.version>[1.2.31,)</fastjson.version>
         <!-- html  -->
-        <jsoup.version>1.10.1</jsoup.version>
+        <jsoup.version>1.14.2</jsoup.version>
         <!-- spring-boot version -->
         <spring-boot.version>2.5.12</spring-boot.version>
         <!-- compiler-plugin version -->

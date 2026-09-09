@@ -1,4 +1,4 @@
-package info.xiaomo.anysc.task;
+package info.xiaomo.async.task;
 
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;

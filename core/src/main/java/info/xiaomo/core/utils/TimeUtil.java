@@ -1,4 +1,4 @@
-package info.xiaomo.core.untils;
+package info.xiaomo.core.utils;
 
 
 import info.xiaomo.core.constant.SymbolConst;

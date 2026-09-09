@@ -4,7 +4,7 @@
  * 创建日期：  2015年2月5日 下午2:38:48
  * 创建作者：  杨  强 <281455776@qq.com>
  */
-package info.xiaomo.core.untils;
+package info.xiaomo.core.utils;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.slf4j.Logger;

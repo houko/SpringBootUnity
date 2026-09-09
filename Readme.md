@@ -8,8 +8,8 @@
 
 ### 环境
 - `maven` latest   
-- `jdk11`   
-- `spring boot 2.x release`
+- `jdk21`   
+- `spring boot 4.x release`
 - 个人推荐`idea`来代替eclipse
 - git: 版本管理
 - nginx: 反向代理服务器
@@ -71,6 +71,11 @@ http://localhost:808/doc.html bootstrap-ui
 - 2020-10-09 升级mysql connector到8
 - 2020-10-09 升级spring boot到2.3.0
 - 2020-10-09 修复了升级后API的破坏性变动，修复了一些了编辑器警告
+- 2026-09-09 升级spring boot到4.1.1，jdk升级到21，全部依赖更新到最新版本
+- 2026-09-09 `javax.*` 迁移到 `jakarta.*`(persistence/servlet/mail/websocket)
+- 2026-09-09 api文档从已停止维护的springfox迁移到springdoc-openapi，swagger注解升级到OpenAPI 3
+- 2026-09-09 security模块改用SecurityFilterChain组件式配置，替换已移除的WebSecurityConfigurerAdapter
+- 2026-09-09 fastjson迁移到fastjson2，jackson升级到3.x，poi升级到5.x，dom4j迁移到org.dom4j
 
 
 

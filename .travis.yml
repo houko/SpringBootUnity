@@ -1,4 +1,4 @@
 language: java
 jdk:
-  - oraclejdk11
-dist: trusty
+  - openjdk21
+dist: jammy

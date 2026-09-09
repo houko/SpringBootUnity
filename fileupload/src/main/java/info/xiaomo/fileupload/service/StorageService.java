@@ -59,7 +59,7 @@ public class StorageService {
         }
         // 文件名完全由服务端生成, 客户端的原始文件名只贡献一个经过白名单校验的扩展名
         String stored = UUID.randomUUID() + safeExtensionOf(file.getOriginalFilename());
-        Path target = root.resolve(stored);
+        Path target = resolveWithinRoot(stored);
         try (var in = file.getInputStream()) {
             Files.copy(in, target, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
@@ -73,7 +73,7 @@ public class StorageService {
         if (fileName == null || !STORED_NAME.matcher(fileName).matches()) {
             throw new IllegalArgumentException("非法的文件名: " + fileName);
         }
-        Path target = root.resolve(fileName);
+        Path target = resolveWithinRoot(fileName);
         try {
             Resource resource = new UrlResource(target.toUri());
             if (!resource.exists() || !resource.isReadable()) {
@@ -83,6 +83,20 @@ public class StorageService {
         } catch (IOException e) {
             throw new UncheckedIOException("读取文件失败: " + fileName, e);
         }
+    }
+
+    /**
+     * 把文件名解析到存储根目录下, 并确认解析结果确实落在根目录之内。
+     *
+     * <p>normalize 会把 .. 折叠掉, 随后的 startsWith 保证无论输入是什么, 最终路径都不会逃出 root。
+     * 这是防目录穿越的标准写法, 也是静态分析工具能够识别的形式。
+     */
+    private Path resolveWithinRoot(String fileName) {
+        Path target = root.resolve(fileName).normalize();
+        if (!target.startsWith(root)) {
+            throw new IllegalArgumentException("非法的文件名: " + fileName);
+        }
+        return target;
     }
 
     /**

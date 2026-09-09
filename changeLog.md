@@ -58,3 +58,24 @@ http://localhost:8080/doc.html bootstrap-ui
 9. 打开此前被全局关闭的测试执行(surefire skipTests)
 10. 清理 oauth.properties 中提交进仓库的第三方登录密钥, 换成占位符
 ```
+
+- 2026-09-09 新增示例与既有示例改进
+
+```
+1. 新增 validation 模块: @Valid / @Validated 参数校验 + @RestControllerAdvice 全局异常处理
+2. 新增 fileupload 模块: 单文件/多文件上传与下载, 含路径穿越防护
+3. 新增 restclient 模块: 用 spring 6.1 引入的 RestClient 调用外部 HTTP 服务
+4. 新增 cache 模块: spring cache 抽象 + caffeine 本地缓存
+5. 新增 actuator 模块: 健康检查, 自定义 HealthIndicator 与 micrometer 业务指标
+6. 以上五个模块均不依赖外部服务, 且各自带可运行的测试
+7. 重写 async 模块: 去掉 90 行 return null 的空实现, 改用 CompletableFuture,
+   移除自旋等待, AsyncResult(已废弃)换成 CompletableFuture.completedFuture
+8. 修复 -parameters 编译标志缺失导致的运行时故障(详见下)
+9. 修正多个启动类中复制粘贴的 javadoc(非 rabbitmq 模块却写着"RabbitMq启动器")
+```
+
+其中第 8 点是一个仅在运行时才会暴露的问题: spring framework 6.1 移除了从调试符号推断参数名的
+LocalVariableTableParameterNameDiscoverer, 因此未显式命名的 @PathVariable / @RequestParam
+在 spring boot 4 下会直接抛 IllegalArgumentException。项目中共有 40 处这样的写法,
+编译期没有任何提示。spring-boot-starter-parent 默认会加 -parameters, 但本项目是导入 BOM
+而非继承 parent, 需要在 maven-compiler-plugin 中自行配置。

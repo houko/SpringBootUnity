@@ -18,7 +18,7 @@
 
 ## 模块一览
 
-一共 16 个模块。`core` 是被其他模块共同依赖的基础包，其余每个模块各自演示一项技术。
+一共 21 个模块。`core` 是被其他模块共同依赖的基础包，其余每个模块各自演示一项技术。
 
 | 模块 | 演示内容 | 启动类 | 需要的外部服务 |
 | --- | --- | --- | --- |
@@ -38,8 +38,15 @@
 | `crawler` | jsoup 网络爬虫（阴阳师式神数据），抓取后落库 | `CrawlerMain` | MySQL |
 | `freemarker` | FreeMarker 模板引擎 | `FreemarkerMain` | — |
 | `thymeleaf` | Thymeleaf 模板引擎 | `ThymeleafMain` | — |
+| `validation` | 参数校验（`@Valid` / `@Validated`）与 `@RestControllerAdvice` 全局异常处理 | `ValidationMain` | — |
+| `fileupload` | 文件上传下载，含路径穿越防护 | `FileUploadMain` | — |
+| `restclient` | 用 `RestClient` 调用外部 HTTP 服务 | `RestClientMain` | — |
+| `cache` | Spring Cache 抽象 + Caffeine 本地缓存 | `CacheMain` | — |
+| `actuator` | 健康检查、自定义 `HealthIndicator` 与业务指标 | `ActuatorMain` | — |
 
 除 `socket` 使用 8081 外，其余模块都监听 **8080**，所以一次只启动一个模块。
+
+其中 `validation`、`fileupload`、`restclient`、`cache`、`actuator`、`async` 六个模块附带可直接运行的测试。它们都不依赖外部服务，`mvn test` 即可跑通，也可以当作各自技术点的可执行文档来读。
 
 ## 技术栈
 
@@ -52,6 +59,8 @@
 | Jackson | 3.x |
 | API 文档 | springdoc-openapi 3.x（OpenAPI 3.1） |
 | 数据库驱动 | MySQL Connector/J |
+| 缓存 | Caffeine（`cache` 模块） |
+| 监控 | Micrometer + Spring Boot Actuator（`actuator` 模块） |
 | 其他 | MyBatis、Lettuce（Redis）、jsoup、Apache POI、fastjson2、zxing |
 
 Spring、Jackson、Hibernate、JUnit 等版本统一由 `spring-boot-dependencies` BOM 管理，不在本项目中单独指定。
@@ -83,6 +92,12 @@ mvn spring-boot:run -pl order
 ```
 
 在 IDE 中则找到对应模块的 `*Main` 类直接运行即可。
+
+跑测试：
+
+```bash
+mvn test
+```
 
 ![run](screenshot/run.png)
 

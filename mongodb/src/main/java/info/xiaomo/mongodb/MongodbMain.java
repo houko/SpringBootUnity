@@ -31,7 +31,7 @@ import org.springframework.web.servlet.ModelAndView;
  * email: xiaomo@xiaomo.info
  * <p>
  * Date: 2016/4/1 15:38
- * Description: RabbitMq启动器
+ * Description: MongoDB 启动器
  * Copyright(©) 2015 by xiaomo.
  **/
 @Configuration

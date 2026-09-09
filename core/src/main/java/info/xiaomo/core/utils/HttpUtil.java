@@ -11,11 +11,6 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
-import java.security.cert.CertificateException;
-import java.security.cert.X509Certificate;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -62,23 +57,16 @@ public class HttpUtil {
     }
 
     /**
-     * 初始化http请求参数
+     * 初始化 https 请求参数。证书与主机名校验一律交给 JDK 默认实现。
      *
-     * @throws IOException
-     * @throws NoSuchAlgorithmException
-     * @throws NoSuchProviderException
-     * @throws KeyManagementException
+     * @throws IOException IOException
      */
-    private static HttpsURLConnection initHttps(String urlStr, String method, Map<String, String> headers) throws IOException, NoSuchAlgorithmException, NoSuchProviderException, KeyManagementException {
-        TrustManager[] tm = {new MyX509TrustManager()};
-        SSLContext sslContext = SSLContext.getInstance("SSL", "SunJSSE");
-        sslContext.init(null, tm, new java.security.SecureRandom());
-        // 从上述SSLContext对象中得到SSLSocketFactory对象  
-        SSLSocketFactory ssf = sslContext.getSocketFactory();
+    private static HttpsURLConnection initHttps(String urlStr, String method, Map<String, String> headers) throws IOException {
         URL url = new URL(urlStr);
         HttpsURLConnection http = (HttpsURLConnection) url.openConnection();
-        // 设置域名校验
-        http.setHostnameVerifier(new HttpUtil().new TrustAnyHostnameVerifier());
+        // 不覆盖 SSLSocketFactory 与 HostnameVerifier, 使用 JDK 默认实现:
+        // 默认实现会校验证书链和主机名。此处原先装的是"接受任何证书"的 TrustManager 和
+        // "永远返回 true"的 HostnameVerifier, 等于完全关闭了 TLS 校验, 任何中间人都能解密和篡改流量。
         // 连接超时
         http.setConnectTimeout(25000);
         // 读取超时 --服务器响应比较慢，增大时间
@@ -91,7 +79,6 @@ public class HttpUtil {
                 http.setRequestProperty(entry.getKey(), entry.getValue());
             }
         }
-        http.setSSLSocketFactory(ssf);
         http.setDoOutput(true);
         http.setDoInput(true);
         http.connect();
@@ -275,8 +262,12 @@ public class HttpUtil {
         Cookie cookie = new Cookie(name, value);
         cookie.setPath("/");
         cookie.setMaxAge(maxAgeInSeconds);
-        // 指定为httpOnly保证安全性
+        // httpOnly: 禁止 JavaScript 读取, 降低 XSS 窃取 cookie 的风险
         cookie.setHttpOnly(true);
+        // secure: 只允许通过 https 发送, 避免明文链路上被嗅探。本地用 http 调试时该 cookie 不会被浏览器回传
+        cookie.setSecure(true);
+        // 限制跨站发送, 缓解 CSRF
+        cookie.setAttribute("SameSite", "Lax");
         response.addCookie(cookie);
     }
 
@@ -290,33 +281,4 @@ public class HttpUtil {
         return request.getHeader("User-Agent");
     }
 
-    /**
-     * https 域名校验
-     */
-    public class TrustAnyHostnameVerifier implements HostnameVerifier {
-        @Override
-        public boolean verify(String hostname, SSLSession session) {
-            return true;
-        }
-    }
-
-
-}
-
-class MyX509TrustManager implements X509TrustManager {
-
-    @Override
-    public X509Certificate[] getAcceptedIssuers() {
-        return null;
-    }
-
-    @Override
-    public void checkClientTrusted(X509Certificate[] chain, String authType)
-            throws CertificateException {
-    }
-
-    @Override
-    public void checkServerTrusted(X509Certificate[] chain, String authType)
-            throws CertificateException {
-    }
 }

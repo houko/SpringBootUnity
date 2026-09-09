@@ -1,14 +1,15 @@
 package info.xiaomo.website.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import info.xiaomo.core.base.BaseController;
 import info.xiaomo.core.base.Result;
 import info.xiaomo.core.constant.CodeConst;
 import info.xiaomo.website.model.TechnologyModel;
 import info.xiaomo.website.service.TechnologyService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
@@ -33,7 +34,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/technology")
-@Api(value = "技术中心相关api", description = "技术中心相关api")
+@Tag(name = "技术中心相关api", description = "技术中心相关api")
 public class TechnologyController extends BaseController {
     private final TechnologyService service;
 
@@ -44,10 +45,10 @@ public class TechnologyController extends BaseController {
 
 
     @Override
-    @ApiOperation(value = "根据id查找技术", notes = "根据id查找技术", httpMethod = "GET")
+    @Operation(summary = "根据id查找技术", description = "根据id查找技术")
     @RequestMapping(value = "/findById/{id}", method = RequestMethod.GET)
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "唯一Id", required = true, dataType = "Long", paramType = "path")
+    @Parameters({
+            @Parameter(name = "id", description = "唯一Id", required = true, in = ParameterIn.PATH)
     })
     public Result<TechnologyModel> findById(@PathVariable Long id) {
         TechnologyModel model = service.findById(id);
@@ -58,10 +59,10 @@ public class TechnologyController extends BaseController {
     }
 
     @Override
-    @ApiOperation(value = "根据名字查找技术", notes = "根据名字查找技术", httpMethod = "GET")
+    @Operation(summary = "根据名字查找技术", description = "根据名字查找技术")
     @RequestMapping(value = "/findByName/{name}", method = RequestMethod.GET)
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "name", value = "技术名字", required = true, dataType = "name", paramType = "path")
+    @Parameters({
+            @Parameter(name = "name", description = "技术名字", required = true, in = ParameterIn.PATH)
     })
     public Result findByName(@PathVariable String name) {
         TechnologyModel model = service.findByName(name);
@@ -127,7 +128,7 @@ public class TechnologyController extends BaseController {
     }
 
     @Override
-    @ApiOperation(value = "查找所有", notes = "查找所有", httpMethod = "GET")
+    @Operation(summary = "查找所有", description = "查找所有")
     @RequestMapping(value = "/findAll", method = RequestMethod.GET)
     public Result findAll() {
         List<TechnologyModel> all = service.findAll();
@@ -150,7 +151,7 @@ public class TechnologyController extends BaseController {
     }
 
 
-    @ApiOperation(value = "添加链接", notes = "添加链接", httpMethod = "POST")
+    @Operation(summary = "添加链接", description = "添加链接")
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public Result add(@RequestBody TechnologyModel model) {
         TechnologyModel addModel = service.findByName(model.getName());
@@ -161,7 +162,7 @@ public class TechnologyController extends BaseController {
         return new Result<>(addModel);
     }
 
-    @ApiOperation(value = "更新链接", notes = "更新链接", httpMethod = "POST")
+    @Operation(summary = "更新链接", description = "更新链接")
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public Result update(@RequestBody TechnologyModel model) {
         TechnologyModel update = service.findById(model.getId());
@@ -174,9 +175,9 @@ public class TechnologyController extends BaseController {
 
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    @ApiOperation(value = "删除链接", notes = "删除链接", httpMethod = "GET")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "唯一id", required = true, dataType = "Long", paramType = "path")
+    @Operation(summary = "删除链接", description = "删除链接")
+    @Parameters({
+            @Parameter(name = "id", description = "唯一id", required = true, in = ParameterIn.PATH)
     })
     public Result delete(@PathVariable Long id) {
         TechnologyModel model = service.findById(id);

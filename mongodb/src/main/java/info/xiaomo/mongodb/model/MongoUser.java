@@ -1,6 +1,6 @@
 package info.xiaomo.mongodb.model;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -32,33 +32,33 @@ public class MongoUser {
     @Id
     private int id;
 
-    @ApiModelProperty(value = "登录用户")
+    @Schema(description = "登录用户")
     private String email;
 
-    @ApiModelProperty(value = "昵称")
+    @Schema(description = "昵称")
     private String userName;
 
-    @ApiModelProperty(value = "密码")
+    @Schema(description = "密码")
     private String password;
 
-    @ApiModelProperty(value = "盐值")
+    @Schema(description = "盐值")
     private String salt;
 
-    @ApiModelProperty(value = "激活码")
+    @Schema(description = "激活码")
     private String validateCode;
 
-    @ApiModelProperty(value = "性别：1男2女0保密")
+    @Schema(description = "性别：1男2女0保密")
     private int gender = 0;
 
-    @ApiModelProperty(value = "电话")
+    @Schema(description = "电话")
     private Long phone = 0L;
 
-    @ApiModelProperty(value = "图片地址")
+    @Schema(description = "图片地址")
     private String imgUrl = "";
 
-    @ApiModelProperty(value = "地址")
+    @Schema(description = "地址")
     private String address = "";
 
-    @ApiModelProperty(value = "注册时间(时间戳)")
+    @Schema(description = "注册时间(时间戳)")
     private Long registerTime = 0L;
 }

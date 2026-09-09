@@ -1,5 +1,10 @@
 package info.xiaomo.website.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import info.xiaomo.core.base.BaseController;
 import info.xiaomo.core.base.Result;
 import info.xiaomo.core.constant.CodeConst;
@@ -11,10 +16,6 @@ import info.xiaomo.core.untils.RandomUtil;
 import info.xiaomo.core.untils.TimeUtil;
 import info.xiaomo.website.model.UserModel;
 import info.xiaomo.website.service.UserService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -40,7 +41,7 @@ import java.util.Optional;
  **/
 @RestController
 @RequestMapping("/user")
-@Api(value = "用户相关api", description = "用户相关api")
+@Tag(name = "用户相关api", description = "用户相关api")
 public class UserController extends BaseController {
 
     private final UserService service;
@@ -56,10 +57,10 @@ public class UserController extends BaseController {
      * @param id id
      * @return result
      */
-    @ApiOperation(value = "查找用户", notes = "查找用户", httpMethod = "GET")
+    @Operation(summary = "查找用户", description = "查找用户")
     @RequestMapping(value = "findById/{id}", method = RequestMethod.GET)
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "唯一id", required = true, dataType = "Long", paramType = "path"),
+    @Parameters({
+            @Parameter(name = "id", description = "唯一id", required = true, in = ParameterIn.PATH),
     })
     @SuppressWarnings("unchecked")
     public Result findUserById(@PathVariable("id") Long id) {
@@ -70,7 +71,7 @@ public class UserController extends BaseController {
     /**
      * 添加用户
      */
-    @ApiOperation(value = "添加用户", notes = "添加用户", httpMethod = "POST")
+    @Operation(summary = "添加用户", description = "添加用户")
     @RequestMapping(value = "addUser", method = RequestMethod.POST)
     public Result addUser(@RequestBody UserModel user) {
         UserModel userModel = service.findUserByEmail(user.getEmail());
@@ -90,10 +91,10 @@ public class UserController extends BaseController {
      *
      * @return result
      */
-    @ApiOperation(value = "注册", notes = "注册用户并发送验证链接到邮箱", httpMethod = "POST")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "用户名", required = true, dataType = "String", paramType = "path"),
-            @ApiImplicitParam(name = "密码", required = true, dataType = "String", paramType = "path")
+    @Operation(summary = "注册", description = "注册用户并发送验证链接到邮箱")
+    @Parameters({
+            @Parameter(name = "用户名", required = true, in = ParameterIn.PATH),
+            @Parameter(name = "密码", required = true, in = ParameterIn.PATH)
     })
     @RequestMapping(value = "register/{email}/{password}", method = RequestMethod.POST)
     public Result register(@PathVariable("email") String email, @PathVariable("password") String password) {
@@ -113,10 +114,10 @@ public class UserController extends BaseController {
      *
      * @return result
      */
-    @ApiOperation(value = "登录", notes = "登录", httpMethod = "POST")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "email", value = "邮箱", required = true, dataType = "String", paramType = "path"),
-            @ApiImplicitParam(name = "password", value = "密码", required = true, dataType = "String", paramType = "path")
+    @Operation(summary = "登录", description = "登录")
+    @Parameters({
+            @Parameter(name = "email", description = "邮箱", required = true, in = ParameterIn.PATH),
+            @Parameter(name = "password", description = "密码", required = true, in = ParameterIn.PATH)
     })
     @RequestMapping(value = "login/{email}/{password}", method = RequestMethod.POST)
     public Result login(@PathVariable("email") String email, @PathVariable("password") String password) {
@@ -139,7 +140,7 @@ public class UserController extends BaseController {
      * @return model
      * @throws UserNotFoundException UserNotFoundException
      */
-    @ApiOperation(value = "修改密码", notes = "修改密码", httpMethod = "POST")
+    @Operation(summary = "修改密码", description = "修改密码")
     @RequestMapping(value = "changePassword", method = RequestMethod.POST)
     public Result changePassword(@RequestBody UserModel user) throws UserNotFoundException {
         UserModel userByEmail = service.findUserByEmail(user.getEmail());
@@ -160,7 +161,7 @@ public class UserController extends BaseController {
      * @return model
      * @throws UserNotFoundException UserNotFoundException
      */
-    @ApiOperation(value = "更新用户信息", notes = "更新用户信息", httpMethod = "POST")
+    @Operation(summary = "更新用户信息", description = "更新用户信息")
     @RequestMapping(value = "update", method = RequestMethod.POST)
     public Result update(@RequestBody UserModel user) throws UserNotFoundException {
         UserModel userModel = service.findUserByEmail(user.getEmail());
@@ -183,7 +184,7 @@ public class UserController extends BaseController {
      *
      * @return result
      */
-    @ApiOperation(value = "返回所有用户数据", notes = "返回所有用户数据", httpMethod = "GET")
+    @Operation(summary = "返回所有用户数据", description = "返回所有用户数据")
     @RequestMapping(value = "findAll", method = RequestMethod.GET)
     public Result getAll() {
         List<UserModel> pages = service.findAll();
@@ -201,9 +202,9 @@ public class UserController extends BaseController {
      * @return result
      */
     @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
-    @ApiOperation(value = "根据id删除用户", notes = "根据id删除用户", httpMethod = "GET")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "唯一id", required = true, dataType = "Long", paramType = "path"),
+    @Operation(summary = "根据id删除用户", description = "根据id删除用户")
+    @Parameters({
+            @Parameter(name = "id", description = "唯一id", required = true, in = ParameterIn.PATH),
     })
     public Result deleteUserById(@PathVariable("id") Long id) throws UserNotFoundException {
         UserModel userModel = service.deleteUserById(id);
@@ -216,7 +217,7 @@ public class UserController extends BaseController {
     /**
      * 处理激活
      */
-    @ApiOperation(value = "处理激活", notes = "处理激活", httpMethod = "POST")
+    @Operation(summary = "处理激活", description = "处理激活")
     @RequestMapping(value = "validateEmail", method = RequestMethod.POST)
     public Result validateEmail(@RequestBody UserModel user
     ) throws ServiceException {

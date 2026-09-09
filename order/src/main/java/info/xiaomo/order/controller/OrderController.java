@@ -1,8 +1,14 @@
 package info.xiaomo.order.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import info.xiaomo.core.base.Result;
 import info.xiaomo.order.service.OrderService;
-import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/order")
-@Api(value = "识别订单")
+@Tag(name = "识别订单")
 public class OrderController {
 
     private final OrderService service;
@@ -28,13 +34,13 @@ public class OrderController {
 
 
     @RequestMapping(value = "forbid/{id}", method = RequestMethod.GET)
-    @ApiOperation(value = "封号", notes = "根据传入的id对修改对应帐号状态", httpMethod = "GET")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "后台用户唯一id", required = true, dataType = "Long", paramType = "path")
+    @Operation(summary = "封号", description = "根据传入的id对修改对应帐号状态")
+    @Parameters({
+            @Parameter(name = "id", description = "后台用户唯一id", required = true, in = ParameterIn.PATH)
     })
     @ApiResponses(value = {
-            @ApiResponse(code = 404, message = "Not Found"),
-            @ApiResponse(code = 400, message = "No Name Provided"),
+            @ApiResponse(responseCode = "404", description = "Not Found"),
+            @ApiResponse(responseCode = "400", description = "No Name Provided"),
     })
     public Result forbid(@PathVariable("id") Long id) {
         return new Result<>(null);

@@ -4,9 +4,9 @@ package info.xiaomo.website.model;
 import info.xiaomo.core.base.BaseModel;
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～

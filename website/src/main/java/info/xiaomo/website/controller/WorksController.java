@@ -1,13 +1,14 @@
 package info.xiaomo.website.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import info.xiaomo.core.base.Result;
 import info.xiaomo.core.constant.CodeConst;
 import info.xiaomo.website.model.WorksModel;
 import info.xiaomo.website.service.WorksService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,7 +31,7 @@ import java.util.List;
 
 @RequestMapping("/works")
 @RestController
-@Api(value = "作品相关api")
+@Tag(name = "作品相关api")
 public class WorksController {
 
     private final WorksService service;
@@ -42,9 +43,9 @@ public class WorksController {
 
 
     @RequestMapping(value = "/findById/{id}", method = RequestMethod.GET)
-    @ApiOperation(value = "根据id查找作品", notes = "根据id查找作品", httpMethod = "GET")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "唯一id", required = true, dataType = "Long", paramType = "path"),
+    @Operation(summary = "根据id查找作品", description = "根据id查找作品")
+    @Parameters({
+            @Parameter(name = "id", description = "唯一id", required = true, in = ParameterIn.PATH),
     })
     public Result<WorksModel> findById(@PathVariable Long id) {
         WorksModel model = service.findById(id);
@@ -55,7 +56,7 @@ public class WorksController {
     }
 
     @RequestMapping(value = "/findAll", method = RequestMethod.GET)
-    @ApiOperation(value = "查找所有", notes = "查找所有", httpMethod = "GET")
+    @Operation(summary = "查找所有", description = "查找所有")
     public Result<List<WorksModel>> findAll() {
         List<WorksModel> all = service.findAll();
         if (all == null || all.isEmpty()) {
@@ -66,9 +67,9 @@ public class WorksController {
 
 
     @RequestMapping(value = "/findByName/{name}", method = RequestMethod.GET)
-    @ApiOperation(value = "根据名字查找作品", notes = "根据名字查找作品", httpMethod = "GET")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "name", value = "作品名字", required = true, dataType = "String", paramType = "path"),
+    @Operation(summary = "根据名字查找作品", description = "根据名字查找作品")
+    @Parameters({
+            @Parameter(name = "name", description = "作品名字", required = true, in = ParameterIn.PATH),
     })
     public Result<WorksModel> findByName(@PathVariable String name) {
         WorksModel model = service.findByName(name);
@@ -78,7 +79,7 @@ public class WorksController {
         return new Result<>(model);
     }
 
-    @ApiOperation(value = "添加作品", notes = "添加作品", httpMethod = "POST")
+    @Operation(summary = "添加作品", description = "添加作品")
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public Result<WorksModel> add(@RequestBody WorksModel model) {
         WorksModel addModel = service.findByName(model.getName());
@@ -89,7 +90,7 @@ public class WorksController {
         return new Result<>(addModel);
     }
 
-    @ApiOperation(value = "更新作品", notes = "更新作品", httpMethod = "POST")
+    @Operation(summary = "更新作品", description = "更新作品")
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public Result<WorksModel> update(@RequestBody WorksModel model) {
         WorksModel worksModel = service.findById(model.getId());
@@ -101,10 +102,10 @@ public class WorksController {
     }
 
 
-    @ApiOperation(value = "根据id删除作品", notes = "根据id删除作品", httpMethod = "GET")
+    @Operation(summary = "根据id删除作品", description = "根据id删除作品")
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "唯一id", required = true, dataType = "Long", paramType = "path"),
+    @Parameters({
+            @Parameter(name = "id", description = "唯一id", required = true, in = ParameterIn.PATH),
     })
     public Result<WorksModel> delete(@PathVariable Long id) {
         WorksModel model = service.findById(id);

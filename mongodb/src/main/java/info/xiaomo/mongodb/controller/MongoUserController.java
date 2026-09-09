@@ -1,10 +1,10 @@
 package info.xiaomo.mongodb.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import info.xiaomo.core.base.Result;
 import info.xiaomo.core.constant.CodeConst;
 import info.xiaomo.mongodb.model.MongoUser;
 import info.xiaomo.mongodb.service.MongoUserService;
-import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("mongodb")
-@Api("mongodb測試")
+@Tag(name = "mongodb測試")
 public class MongoUserController {
 
     private final MongoUserService service;

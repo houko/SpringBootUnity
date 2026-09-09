@@ -1,14 +1,15 @@
 package info.xiaomo.website.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import info.xiaomo.core.base.BaseController;
 import info.xiaomo.core.base.Result;
 import info.xiaomo.core.constant.CodeConst;
 import info.xiaomo.website.model.LinkModel;
 import info.xiaomo.website.service.LinkService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
@@ -32,7 +33,7 @@ import java.util.List;
  **/
 @RestController
 @RequestMapping("/link")
-@Api(value = "友情链接相关api", description = "友情链接相关api")
+@Tag(name = "友情链接相关api", description = "友情链接相关api")
 public class LinkController extends BaseController {
 
     private final LinkService service;
@@ -49,9 +50,9 @@ public class LinkController extends BaseController {
      * @return model
      */
     @RequestMapping(value = "findById/{id}", method = RequestMethod.GET)
-    @ApiOperation(value = "通过id查找", notes = "通过id查找", httpMethod = "GET")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "唯一id", required = true, dataType = "Long", paramType = "path")
+    @Operation(summary = "通过id查找", description = "通过id查找")
+    @Parameters({
+            @Parameter(name = "id", description = "唯一id", required = true, in = ParameterIn.PATH)
     })
     public Result findLinkById(@PathVariable("id") Long id) {
         LinkModel model = service.findById(id);
@@ -69,9 +70,9 @@ public class LinkController extends BaseController {
      */
     @Override
     @RequestMapping(value = "findByName/{name}", method = RequestMethod.GET)
-    @ApiOperation(value = "根据名字查找", notes = "根据名字查找", httpMethod = "GET")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "name", value = "友情链接名字", required = true, dataType = "String", paramType = "path")
+    @Operation(summary = "根据名字查找", description = "根据名字查找")
+    @Parameters({
+            @Parameter(name = "name", description = "友情链接名字", required = true, in = ParameterIn.PATH)
     })
     public Result findByName(@PathVariable("name") String name) {
         LinkModel model = service.findByName(name);
@@ -144,7 +145,7 @@ public class LinkController extends BaseController {
      */
     @Override
     @RequestMapping(value = "findAll", method = RequestMethod.GET)
-    @ApiOperation(value = "返回所有数据", notes = "返回所有数据", httpMethod = "GET")
+    @Operation(summary = "返回所有数据", description = "返回所有数据")
     public Result findAll() {
         List<LinkModel> pages = service.findAll();
         if (pages == null || pages.size() == 0) {
@@ -182,7 +183,7 @@ public class LinkController extends BaseController {
      * @return model
      */
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    @ApiOperation(value = "添加链接", notes = "添加链接", httpMethod = "POST")
+    @Operation(summary = "添加链接", description = "添加链接")
     public Result add(@RequestBody LinkModel model) {
         LinkModel linkModel = service.findByName(model.getName());
         if (linkModel != null) {
@@ -200,7 +201,7 @@ public class LinkController extends BaseController {
      *
      * @return model
      */
-    @ApiOperation(value = "更新链接", notes = "更新链接", httpMethod = "POST")
+    @Operation(summary = "更新链接", description = "更新链接")
     @RequestMapping(value = "update", method = RequestMethod.POST)
     public Result update(@RequestBody LinkModel model) {
         LinkModel linkModel = service.findById(model.getId());
@@ -220,9 +221,9 @@ public class LinkController extends BaseController {
      * @return model
      */
     @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
-    @ApiOperation(value = "删除链接", notes = "删除链接", httpMethod = "GET")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "唯一id", required = true, dataType = "Long", paramType = "path")
+    @Operation(summary = "删除链接", description = "删除链接")
+    @Parameters({
+            @Parameter(name = "id", description = "唯一id", required = true, in = ParameterIn.PATH)
     })
     public Result delete(@PathVariable("id") Long id) {
         LinkModel linkmodel = service.findById(id);

@@ -1,5 +1,12 @@
 package info.xiaomo.website.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import info.xiaomo.core.base.BaseController;
 import info.xiaomo.core.base.Result;
 import info.xiaomo.core.constant.CodeConst;
@@ -8,7 +15,6 @@ import info.xiaomo.core.untils.Md5Util;
 import info.xiaomo.core.untils.RandomUtil;
 import info.xiaomo.website.model.AdminModel;
 import info.xiaomo.website.service.AdminUserService;
-import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
@@ -40,7 +46,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/adminUser")
-@Api(value = "后台用户相关api", description = "后台用户相关api")
+@Tag(name = "后台用户相关api", description = "后台用户相关api")
 public class AdminUserController extends BaseController {
 
     private final AdminUserService service;
@@ -56,14 +62,14 @@ public class AdminUserController extends BaseController {
      * @return Result
      */
     @RequestMapping(value = "login/{userName}/{password}", method = RequestMethod.POST)
-    @ApiOperation(value = "获取用户信息", notes = "根据用户帐号和密码登录后台", httpMethod = "POST")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "userName", value = "用户名", required = true, dataType = "Result", paramType = "path"),
-            @ApiImplicitParam(name = "password", value = "用户名", required = true, dataType = "Result", paramType = "path")
+    @Operation(summary = "获取用户信息", description = "根据用户帐号和密码登录后台")
+    @Parameters({
+            @Parameter(name = "userName", description = "用户名", required = true, in = ParameterIn.PATH),
+            @Parameter(name = "password", description = "用户名", required = true, in = ParameterIn.PATH)
     })
     @ApiResponses(value = {
-            @ApiResponse(code = 404, message = "Not Found"),
-            @ApiResponse(code = 400, message = "No Name Provided"),
+            @ApiResponse(responseCode = "404", description = "Not Found"),
+            @ApiResponse(responseCode = "400", description = "No Name Provided"),
     })
     public Result<AdminModel> login(@PathVariable("userName") String userName, @PathVariable("password") String password) {
         AdminModel adminModel = service.findAdminUserByUserName(userName);
@@ -82,11 +88,11 @@ public class AdminUserController extends BaseController {
      *
      * @return Result
      */
-    @ApiOperation(value = "添加后台用户", notes = "传一个管理员用户模型过来然后保存到数据库", httpMethod = "POST")
+    @Operation(summary = "添加后台用户", description = "传一个管理员用户模型过来然后保存到数据库")
     @RequestMapping(value = "add", method = RequestMethod.POST)
     @ApiResponses(value = {
-            @ApiResponse(code = 404, message = "Not Found"),
-            @ApiResponse(code = 400, message = "No Name Provided"),
+            @ApiResponse(responseCode = "404", description = "Not Found"),
+            @ApiResponse(responseCode = "400", description = "No Name Provided"),
     })
     public Result add(@RequestBody AdminModel model) {
         AdminModel adminModel = service.findAdminUserByUserName(model.getUserName());
@@ -106,14 +112,14 @@ public class AdminUserController extends BaseController {
      * @param id id
      * @return Result
      */
-    @ApiOperation(value = "查找用户", notes = "根据传来的id查找用户并返回", httpMethod = "GET")
+    @Operation(summary = "查找用户", description = "根据传来的id查找用户并返回")
     @RequestMapping(value = "findById/{id}", method = RequestMethod.GET)
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "后台用户唯一id", required = true, dataType = "Long", paramType = "path")
+    @Parameters({
+            @Parameter(name = "id", description = "后台用户唯一id", required = true, in = ParameterIn.PATH)
     })
     @ApiResponses(value = {
-            @ApiResponse(code = 404, message = "Not Found"),
-            @ApiResponse(code = 400, message = "No Name Provided"),
+            @ApiResponse(responseCode = "404", description = "Not Found"),
+            @ApiResponse(responseCode = "400", description = "No Name Provided"),
     })
     public Result findUserById(@PathVariable("id") Long id) {
         AdminModel adminModel = service.findAdminUserById(id);
@@ -163,14 +169,14 @@ public class AdminUserController extends BaseController {
      * @return Result
      */
     @Override
-    @ApiOperation(value = "查找用户", notes = "根据传来的用户名查找用户并返回", httpMethod = "GET")
+    @Operation(summary = "查找用户", description = "根据传来的用户名查找用户并返回")
     @RequestMapping(value = "findByName/{userName}", method = RequestMethod.GET)
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "userName", value = "用户名", required = true, dataType = "String", paramType = "path")
+    @Parameters({
+            @Parameter(name = "userName", description = "用户名", required = true, in = ParameterIn.PATH)
     })
     @ApiResponses(value = {
-            @ApiResponse(code = 404, message = "Not Found"),
-            @ApiResponse(code = 400, message = "No Name Provided"),
+            @ApiResponse(responseCode = "404", description = "Not Found"),
+            @ApiResponse(responseCode = "400", description = "No Name Provided"),
     })
     public Result findByName(@PathVariable("userName") String userName) {
         AdminModel adminModel = service.findAdminUserByUserName(userName);
@@ -242,10 +248,10 @@ public class AdminUserController extends BaseController {
      * @throws UserNotFoundException UserNotFoundException
      */
     @RequestMapping(value = "changePassword", method = RequestMethod.POST)
-    @ApiOperation(value = "修改用户密码", notes = "传来模型验证并修改密码", httpMethod = "POST")
+    @Operation(summary = "修改用户密码", description = "传来模型验证并修改密码")
     @ApiResponses(value = {
-            @ApiResponse(code = 404, message = "Not Found"),
-            @ApiResponse(code = 400, message = "No Name Provided"),
+            @ApiResponse(responseCode = "404", description = "Not Found"),
+            @ApiResponse(responseCode = "400", description = "No Name Provided"),
     })
     public Result changePassword(@RequestBody AdminModel model) throws UserNotFoundException {
         AdminModel adminModel = service.findAdminUserByUserName(model.getUserName());
@@ -266,10 +272,10 @@ public class AdminUserController extends BaseController {
      * @return 不分页
      */
     @RequestMapping(value = "findAll", method = RequestMethod.GET)
-    @ApiOperation(value = "返回所有用户信息", notes = "不分页", httpMethod = "GET")
+    @Operation(summary = "返回所有用户信息", description = "不分页")
     @ApiResponses(value = {
-            @ApiResponse(code = 404, message = "Not Found"),
-            @ApiResponse(code = 400, message = "No Name Provided"),
+            @ApiResponse(responseCode = "404", description = "Not Found"),
+            @ApiResponse(responseCode = "400", description = "No Name Provided"),
     })
     public Result getAll() {
         List<AdminModel> pages = service.getAdminUsers();
@@ -287,13 +293,13 @@ public class AdminUserController extends BaseController {
      * @throws UserNotFoundException UserNotFoundException
      */
     @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
-    @ApiOperation(value = "删除用户", notes = "根据传入的id删除对应的用户", httpMethod = "GET")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "用户唯一id", required = true, dataType = "Long", paramType = "path")
+    @Operation(summary = "删除用户", description = "根据传入的id删除对应的用户")
+    @Parameters({
+            @Parameter(name = "id", description = "用户唯一id", required = true, in = ParameterIn.PATH)
     })
     @ApiResponses(value = {
-            @ApiResponse(code = 404, message = "Not Found"),
-            @ApiResponse(code = 400, message = "No Name Provided"),
+            @ApiResponse(responseCode = "404", description = "Not Found"),
+            @ApiResponse(responseCode = "400", description = "No Name Provided"),
     })
     public Result deleteUserById(@PathVariable("id") Long id) throws UserNotFoundException {
         AdminModel adminModel = service.findAdminUserById(id);
@@ -312,13 +318,13 @@ public class AdminUserController extends BaseController {
      * @throws UserNotFoundException UserNotFoundException
      */
     @RequestMapping(value = "update/{userName}", method = RequestMethod.POST)
-    @ApiOperation(value = "更新用户信息", notes = "根据传入的模型更新用户信息", httpMethod = "POST")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "userName", value = "用户名", required = true, dataType = "String", paramType = "path")
+    @Operation(summary = "更新用户信息", description = "根据传入的模型更新用户信息")
+    @Parameters({
+            @Parameter(name = "userName", description = "用户名", required = true, in = ParameterIn.PATH)
     })
     @ApiResponses(value = {
-            @ApiResponse(code = 404, message = "Not Found"),
-            @ApiResponse(code = 400, message = "No Name Provided"),
+            @ApiResponse(responseCode = "404", description = "Not Found"),
+            @ApiResponse(responseCode = "400", description = "No Name Provided"),
     })
     public Result update(@PathVariable("userName") String userName) throws UserNotFoundException {
         AdminModel adminModel = service.findAdminUserByUserName(userName);
@@ -338,13 +344,13 @@ public class AdminUserController extends BaseController {
      * @throws UserNotFoundException UserNotFoundException
      */
     @RequestMapping(value = "forbid/{id}", method = RequestMethod.GET)
-    @ApiOperation(value = "封号", notes = "根据传入的id对修改对应帐号状态", httpMethod = "GET")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "后台用户唯一id", required = true, dataType = "Long", paramType = "path")
+    @Operation(summary = "封号", description = "根据传入的id对修改对应帐号状态")
+    @Parameters({
+            @Parameter(name = "id", description = "后台用户唯一id", required = true, in = ParameterIn.PATH)
     })
     @ApiResponses(value = {
-            @ApiResponse(code = 404, message = "Not Found"),
-            @ApiResponse(code = 400, message = "No Name Provided"),
+            @ApiResponse(responseCode = "404", description = "Not Found"),
+            @ApiResponse(responseCode = "400", description = "No Name Provided"),
     })
     public Result forbid(@PathVariable("id") Long id) throws UserNotFoundException {
         AdminModel model = service.findAdminUserById(id);

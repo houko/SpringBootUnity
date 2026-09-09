@@ -3,8 +3,8 @@ package info.xiaomo.crawler.model;
 import info.xiaomo.core.base.BaseModel;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
 /**
  * @author : xiaomo (https://xiaomo.info) (https://github.com/houko)

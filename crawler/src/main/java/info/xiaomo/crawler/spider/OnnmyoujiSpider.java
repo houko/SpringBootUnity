@@ -1,6 +1,6 @@
 package info.xiaomo.crawler.spider;
 
-import info.xiaomo.core.untils.HttpUtil;
+import info.xiaomo.core.utils.HttpUtil;
 import info.xiaomo.crawler.model.ShikigamiModel;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

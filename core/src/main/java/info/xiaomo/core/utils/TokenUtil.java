@@ -1,4 +1,4 @@
-package info.xiaomo.core.untils;
+package info.xiaomo.core.utils;
 
 import com.alibaba.fastjson2.JSONObject;
 import info.xiaomo.core.constant.SymbolConst;

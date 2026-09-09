@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.org/houko/SpringBootUnity.svg?branch=master)](https://travis-ci.org/houko/SpringBootUnity)
+[![Build Status](https://travis-ci.org/houko/SpringBootUnity.svg?branch=main)](https://travis-ci.org/houko/SpringBootUnity)
 [![Backers on Open Collective](https://opencollective.com/SpringBootUnity/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/SpringBootUnity/sponsors/badge.svg)](#sponsors) [![GitHub issues](https://img.shields.io/github/issues/houko/SpringBootUnity.svg)](https://github.com/houko/SpringBootUnity/issues)
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/houko/SpringBootUnity/master/LICENSE)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/houko/SpringBootUnity/main/LICENSE)
 [![Maven Central](https://img.shields.io/maven-central/v/org.apache.maven/apache-maven.svg)]()
 
 ###  项目简介

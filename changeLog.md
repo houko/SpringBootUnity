@@ -79,3 +79,17 @@ LocalVariableTableParameterNameDiscoverer, 因此未显式命名的 @PathVariabl
 在 spring boot 4 下会直接抛 IllegalArgumentException。项目中共有 40 处这样的写法,
 编译期没有任何提示。spring-boot-starter-parent 默认会加 -parameters, 但本项目是导入 BOM
 而非继承 parent, 需要在 maven-compiler-plugin 中自行配置。
+
+- 2026-09-09 修复 CodeQL 报出的安全问题
+
+```
+1. HttpUtil: 移除"接受任何证书"的 TrustManager 和"永远返回 true"的 HostnameVerifier,
+   TLS 证书链与主机名校验交回 JDK 默认实现
+2. HttpUtil.setCookie: 补上 secure 与 SameSite=Lax
+3. FileUtil: 上传文件名先过滤路径字符, 落盘路径用 normalize + startsWith 限制在 upload 目录内
+4. RandomUtil: token / 密码 / 盐值改用 RandomStringUtils.secure()(SecureRandom 支撑),
+   原先的 java.util.Random 种子只有 48 位且算法公开, 可预测
+5. 新增 SecurityHardeningTest 覆盖以上各项, 防止改回去
+```
+
+第 1 条是行为变更: 之前连接任何 https 站点都不校验证书, 现在会。如果有服务端用的是自签名或过期证书, 升级后会连接失败 —— 这正是该被暴露出来的问题, 正确的做法是把该证书加进信任库, 而不是关掉校验。

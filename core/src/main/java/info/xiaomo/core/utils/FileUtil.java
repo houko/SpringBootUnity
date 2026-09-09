@@ -2,11 +2,16 @@ package info.xiaomo.core.utils;
 
 import info.xiaomo.core.constant.FileConst;
 import info.xiaomo.core.constant.SymbolConst;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +25,14 @@ import java.util.List;
  */
 
 public class FileUtil {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(FileUtil.class);
+
+    /**
+     * 上传文件的存放目录。原先这里是空串, 等于把文件写进进程的工作目录。
+     */
+    private static final String UPLOAD_DIR = "upload";
+
     /**
      * Buffer size when reading from input stream.
      *
@@ -661,30 +674,23 @@ public class FileUtil {
      * @return fileUrl
      */
     public static String upload(MultipartFile file, String email) {
-        String savePath = "";
         String filename = "";
         if (file != null && !file.isEmpty()) {
             // 获取图片的文件名
             String fileName = file.getOriginalFilename();
-            // 重新定义图片名字
+            // 重新定义图片名字, 其中的用户输入已经过滤过路径字符
             filename = FileUtil.getNewFileName(fileName, email);
-            //上传服务器上 新文件路径
-            String os = System.getProperty("os.name").toLowerCase();
             try {
-                // 判断服务器上 文件夹是否存在
-                File newFile = new File(savePath);
-                if (!newFile.exists()) {
-                    boolean result = newFile.mkdirs();
-                    System.out.println(result);
+                Path root = Paths.get(UPLOAD_DIR).toAbsolutePath().normalize();
+                Files.createDirectories(root);
+                // normalize 折叠掉 .. , startsWith 确保最终路径不会逃出 root, 这是防目录穿越的标准写法
+                Path target = root.resolve(filename).normalize();
+                if (!target.startsWith(root)) {
+                    throw new IOException("非法的文件名: " + filename);
                 }
-                savePath = savePath + filename;
-                FileOutputStream out = new FileOutputStream(savePath);
-                // 写入文件
-                out.write(file.getBytes());
-                out.flush();
-                out.close();
+                Files.write(target, file.getBytes());
             } catch (Exception e) {
-                e.printStackTrace();
+                LOGGER.error("上传文件失败: {}", filename, e);
             }
         }
         return filename;
@@ -826,10 +832,26 @@ public class FileUtil {
         return null;
     }
 
+    /**
+     * 由日期、邮箱前缀和文件类型拼出新文件名。
+     *
+     * <p>fileName 与 email 都来自用户输入, 拼出来的结果会被当作路径使用, 因此两段都要先过滤掉
+     * 路径分隔符和 . 之类的字符, 否则形如 {@code a.b/../../evil} 的文件名会把整段路径带进来。
+     */
     public static String getNewFileName(String fileName, String email) {
-        String fileType = FileUtil.getFileType(fileName);
-        String newName = email.split(SymbolConst.AT)[0];
+        String fileType = sanitizeNamePart(FileUtil.getFileType(fileName));
+        String newName = sanitizeNamePart(email.split(SymbolConst.AT)[0]);
         return (TimeUtil.getDateNow(TimeUtil.DATE_FORMAT_STRING) + SymbolConst.HENGXIAN + newName + SymbolConst.DIAN + fileType).toLowerCase();
+    }
+
+    /**
+     * 只保留字母、数字、下划线和连字符。路径分隔符、点、以及其它任何可能改变路径含义的字符一律丢弃。
+     */
+    private static String sanitizeNamePart(String part) {
+        if (part == null) {
+            return "";
+        }
+        return part.replaceAll("[^A-Za-z0-9_-]", "");
     }
 
     public static boolean isImage(String imageName) {

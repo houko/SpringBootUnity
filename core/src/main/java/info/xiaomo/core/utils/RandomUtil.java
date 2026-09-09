@@ -66,30 +66,33 @@ public class RandomUtil {
 
 
     /**
-     * 生成一个10位的tonken用于http cache(纯数字)
+     * 生成一个10位的token用于http cache(纯数字)
+     *
+     * <p>用 secure() 而不是 random(): 后者底层是 java.util.Random, 种子只有 48 位且算法公开,
+     * 观察到少量输出就能推算出后续全部结果。token、密码、盐值这类东西一旦可预测, 相当于形同虚设。
      *
      * @return String    返回类型(纯数字)
      */
     public static String getTonken() {
-        return RandomStringUtils.random(10, NUM_S);
+        return RandomStringUtils.secure().next(10, NUM_S);
     }
 
     /**
-     * 生成随机数
+     * 生成随机密码。使用密码学安全的随机源。
      *
      * @return String    返回类型
      */
     public static String randomPwd(int count) {
-        return RandomStringUtils.random(count, STR_S);
+        return RandomStringUtils.secure().next(count, STR_S);
     }
 
     /**
-     * 生成随机数
+     * 生成随机密码。使用密码学安全的随机源。
      *
      * @return String    返回类型
      */
     public static String randomPwd() {
-        return RandomStringUtils.random(10, STR_S);
+        return randomPwd(10);
     }
 
     /**

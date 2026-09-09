@@ -1,18 +1,22 @@
 package info.xiaomo.security;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
-import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
+import org.springframework.boot.persistence.autoconfigure.EntityScan;
+import org.springframework.boot.jdbc.autoconfigure.DataSourceAutoConfiguration;
+import org.springframework.boot.hibernate.autoconfigure.HibernateJpaAutoConfiguration;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.SecurityFilterChain;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -33,30 +37,34 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @ComponentScan("info.xiaomo")
 @EntityScan("info.xiaomo.*.model")
 @EnableWebSecurity
-public class SecurityMain extends WebSecurityConfigurerAdapter {
+public class SecurityMain {
     public static void main(String[] args) throws Exception {
         SpringApplication.run(SecurityMain.class, args);
     }
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/", "/home").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .loginPage("/login")
-                .permitAll()
-                .and()
-                .logout()
-                .permitAll();
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        return http
+                .authorizeHttpRequests(requests -> requests
+                        .requestMatchers("/", "/home").permitAll()
+                        .anyRequest().authenticated())
+                .formLogin(login -> login
+                        .loginPage("/login")
+                        .permitAll())
+                .logout(Customizer.withDefaults())
+                .build();
     }
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("test").password("test").roles("USER");
+    /**
+     * 演示用的内存用户。{noop} 前缀表示密码不加密, 仅适用于示例, 生产环境请改用 BCryptPasswordEncoder。
+     */
+    @Bean
+    public UserDetailsService userDetailsService() {
+        UserDetails user = User.withUsername("test")
+                .password("{noop}test")
+                .roles("USER")
+                .build();
+        return new InMemoryUserDetailsManager(user);
     }
-
 
 }

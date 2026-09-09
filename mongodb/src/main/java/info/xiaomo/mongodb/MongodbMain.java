@@ -1,12 +1,17 @@
 package info.xiaomo.mongodb;
 
 
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Contact;
+import io.swagger.v3.oas.models.info.Info;
+import org.springdoc.core.models.GroupedOpenApi;
+import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
-import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
+import org.springframework.boot.persistence.autoconfigure.EntityScan;
+import org.springframework.boot.jdbc.autoconfigure.DataSourceAutoConfiguration;
+import org.springframework.boot.hibernate.autoconfigure.HibernateJpaAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -14,14 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-import springfox.documentation.annotations.ApiIgnore;
-import springfox.documentation.builders.ApiInfoBuilder;
-import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -41,7 +38,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @ComponentScan("info.xiaomo")
 @EntityScan("info.xiaomo.*.model")
 @RestController
-@EnableSwagger2
 @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
 public class MongodbMain {
     public static void main(String[] args) throws Exception {
@@ -49,29 +45,28 @@ public class MongodbMain {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    @ApiIgnore()
-    @ApiOperation(value = "重定向到api首页")
+    @Hidden
+    @Operation(summary = "重定向到api首页")
     public ModelAndView index() {
         return new ModelAndView("redirect:/swagger-ui.html");
     }
 
     @Bean
-    public Docket createRestApi() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .apiInfo(apiInfo())
-                .select()
-                .apis(RequestHandlerSelectors.basePackage("info.xiaomo.mongodb"))
-                .paths(PathSelectors.any())
+    public GroupedOpenApi mongodbApi() {
+        return GroupedOpenApi.builder()
+                .group("mongodb")
+                .packagesToScan("info.xiaomo.mongodb")
                 .build();
     }
 
-    private ApiInfo apiInfo() {
-        return new ApiInfoBuilder()
-                .title("Spring Boot中使用Swagger2构建RESTful APIs")
-                .description("使用mongodb构建api接口")
-                .termsOfServiceUrl("https://xiaomo.info/")
-                .contact("小莫")
-                .version("1.0")
-                .build();
+    @Bean
+    public OpenAPI openApi() {
+        return new OpenAPI()
+                .info(new Info()
+                        .title("Spring Boot中使用OpenAPI构建RESTful APIs")
+                        .description("使用mongodb构建api接口")
+                        .termsOfService("https://xiaomo.info/")
+                        .contact(new Contact().name("小莫"))
+                        .version("1.0"));
     }
 }

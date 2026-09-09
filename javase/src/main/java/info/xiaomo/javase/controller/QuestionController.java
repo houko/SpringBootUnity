@@ -1,13 +1,14 @@
 package info.xiaomo.javase.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import info.xiaomo.core.base.Result;
 import info.xiaomo.core.constant.CodeConst;
 import info.xiaomo.javase.model.QuestionModel;
 import info.xiaomo.javase.service.QuestionService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +28,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/question")
-@Api(value = "question", description = "question")
+@Tag(name = "question", description = "question")
 public class QuestionController {
 
 
@@ -44,10 +45,10 @@ public class QuestionController {
      * @param id id
      * @return result
      */
-    @ApiOperation(value = "查找问题", notes = "查找问题", httpMethod = "GET")
+    @Operation(summary = "查找问题", description = "查找问题")
     @RequestMapping(value = "findById/{id}", method = RequestMethod.GET)
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "唯一id", required = true, dataType = "Long", paramType = "path"),
+    @Parameters({
+            @Parameter(name = "id", description = "唯一id", required = true, in = ParameterIn.PATH),
     })
     public Result findUserById(@PathVariable("id") Long id) {
         QuestionModel questionModel = service.findById(id);
@@ -62,7 +63,7 @@ public class QuestionController {
      *
      * @return result
      */
-    @ApiOperation(value = "添加", notes = "添加", httpMethod = "POST")
+    @Operation(summary = "添加", description = "添加")
     @RequestMapping(value = "findById/{id}", method = RequestMethod.POST)
     public Result addQuestion(@RequestBody QuestionModel questionModel) {
         boolean add = service.add(questionModel);

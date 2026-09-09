@@ -1,6 +1,6 @@
 package info.xiaomo.redis.job;
 
-import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson2.JSON;
 import info.xiaomo.redis.model.CityInfo;
 import info.xiaomo.redis.service.CityService;
 import org.slf4j.Logger;

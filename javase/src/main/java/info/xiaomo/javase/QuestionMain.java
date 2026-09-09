@@ -1,9 +1,14 @@
 package info.xiaomo.javase;
 
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Contact;
+import io.swagger.v3.oas.models.info.Info;
+import org.springdoc.core.models.GroupedOpenApi;
+import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.boot.persistence.autoconfigure.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -13,14 +18,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import springfox.documentation.annotations.ApiIgnore;
-import springfox.documentation.builders.ApiInfoBuilder;
-import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
@@ -41,7 +38,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @ComponentScan("info.xiaomo")
 @EntityScan("info.xiaomo.*.model")
 @EnableJpaRepositories("info.xiaomo.*.dao")
-@EnableSwagger2
 @RestController
 public class QuestionMain implements WebMvcConfigurer {
 
@@ -55,31 +51,29 @@ public class QuestionMain implements WebMvcConfigurer {
      * @return 接口
      */
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    @ApiIgnore()
-    @ApiOperation(value = "重定向到api首页")
+    @Hidden
+    @Operation(summary = "重定向到api首页")
     public ModelAndView api() {
         return new ModelAndView("redirect:/swagger-ui.html");
     }
 
 
     @Bean
-    public Docket createRestApi() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .apiInfo(apiInfo())
-                .select()
-                .apis(RequestHandlerSelectors.basePackage("info.xiaomo.javase"))
-                .paths(PathSelectors.any())
+    public GroupedOpenApi javaseApi() {
+        return GroupedOpenApi.builder()
+                .group("javase")
+                .packagesToScan("info.xiaomo.javase")
                 .build();
     }
 
-    private ApiInfo apiInfo() {
-        return new ApiInfoBuilder()
-                .title("Spring Boot中使用Swagger2构建RESTful APIs")
-                .description("java se题库api")
-                .termsOfServiceUrl("https://question.xiaomo.info/")
-                .contact("小莫")
-                .version("1.0")
-                .build();
+    @Bean
+    public OpenAPI openApi() {
+        return new OpenAPI()
+                .info(new Info()
+                        .title("Spring Boot中使用OpenAPI构建RESTful APIs")
+                        .description("java se题库api")
+                        .termsOfService("https://question.xiaomo.info/")
+                        .contact(new Contact().name("小莫"))
+                        .version("1.0"));
     }
-
 }

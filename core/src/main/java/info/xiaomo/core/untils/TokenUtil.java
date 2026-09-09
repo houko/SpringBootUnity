@@ -1,6 +1,6 @@
 package info.xiaomo.core.untils;
 
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
 import info.xiaomo.core.constant.SymbolConst;
 
 import java.util.regex.Matcher;

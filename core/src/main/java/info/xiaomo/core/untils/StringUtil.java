@@ -2,7 +2,7 @@ package info.xiaomo.core.untils;
 
 import org.apache.commons.lang3.StringUtils;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.UnsupportedEncodingException;

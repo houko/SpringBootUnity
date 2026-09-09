@@ -1,6 +1,6 @@
 package info.xiaomo.core.untils;
 
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSession;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～

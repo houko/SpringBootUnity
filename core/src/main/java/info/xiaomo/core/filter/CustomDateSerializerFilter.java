@@ -1,21 +1,20 @@
 package info.xiaomo.core.filter;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.SerializerProvider;
 import info.xiaomo.core.untils.TimeUtil;
+import tools.jackson.core.JsonGenerator;
+import tools.jackson.databind.SerializationContext;
+import tools.jackson.databind.ValueSerializer;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
  * @author : xiaomo
  */
-public class CustomDateSerializerFilter extends JsonSerializer<Date> {
+public class CustomDateSerializerFilter extends ValueSerializer<Date> {
 
     @Override
-    public void serialize(Date value, JsonGenerator jsonGenerator, SerializerProvider provider) throws IOException {
+    public void serialize(Date value, JsonGenerator jsonGenerator, SerializationContext context) {
         SimpleDateFormat sdf = new SimpleDateFormat(TimeUtil.DEFAULT_FORMAT2);
         jsonGenerator.writeString(sdf.format(value));
     }

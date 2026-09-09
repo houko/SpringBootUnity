@@ -1,90 +1,145 @@
 [![Build](https://github.com/houko/SpringBootUnity/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/houko/SpringBootUnity/actions/workflows/build.yml)
-[![Backers on Open Collective](https://opencollective.com/SpringBootUnity/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/SpringBootUnity/sponsors/badge.svg)](#sponsors) [![GitHub issues](https://img.shields.io/github/issues/houko/SpringBootUnity.svg)](https://github.com/houko/SpringBootUnity/issues)
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/houko/SpringBootUnity/main/LICENSE)
-[![Maven Central](https://img.shields.io/maven-central/v/org.apache.maven/apache-maven.svg)]()
+[![CodeQL](https://github.com/houko/SpringBootUnity/actions/workflows/codeql-analysis.yml/badge.svg?branch=main)](https://github.com/houko/SpringBootUnity/actions/workflows/codeql-analysis.yml)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Spring Boot](https://img.shields.io/badge/spring%20boot-4.1.1-brightgreen.svg)](https://spring.io/projects/spring-boot)
+[![JDK](https://img.shields.io/badge/JDK-21%2B-orange.svg)](https://adoptium.net/)
+[![GitHub issues](https://img.shields.io/github/issues/houko/SpringBootUnity.svg)](https://github.com/houko/SpringBootUnity/issues)
+[![Backers on Open Collective](https://opencollective.com/SpringBootUnity/backers/badge.svg)](#支持者) [![Sponsors on Open Collective](https://opencollective.com/SpringBootUnity/sponsors/badge.svg)](#赞助商)
 
-###  项目简介
+# SpringBootUnity
+
 ![mark](screenshot/SpringBootUnity.png)
 
-### 环境
-- `maven` latest   
-- `jdk21`   
-- `spring boot 4.x release`
-- 个人推荐`idea`来代替eclipse
-- git: 版本管理
-- nginx: 反向代理服务器
+## 项目简介
 
+需求是多变的。本项目以 Spring Boot 为基础，针对不同需求把不同的技术和 Spring Boot 搭配起来，每一种搭配单独做成一个模块，因此它是一个偏使用示例的集合而非一个完整产品。
 
-### 注意事项
-- 本项目代码托管在[github](https://github.com/houko/SpringBootUnity)和[码云](http://git.oschina.net/hupeng_admin/SpringBootUnity)两个地方,最新代码会先推送在github上,码云上会在github上更新完之后进行同步。
-- 本项目多数数据库都用到了`hibernate`，如果没有提供`sql`文件。则启动时会根据代码映射自动生成数据库表，请在启动前修改`application.properties`中的数据库连接信息
+每个模块都能独立打包、独立启动，互不影响，可以只挑自己关心的那一个跑起来看。如果你在使用 Spring Boot 的过程中有什么好用的技术，欢迎提 PR。
 
+## 模块一览
 
-### 启动方式
+一共 16 个模块。`core` 是被其他模块共同依赖的基础包，其余每个模块各自演示一项技术。
 
-- 本地运行
-本repo是一个多模块组成，每一个模块都可以单独打包运行。如果想运行哪个模块可以找到对应的Main文件右键运行。
+| 模块 | 演示内容 | 启动类 | 需要的外部服务 |
+| --- | --- | --- | --- |
+| `core` | 公共基础包：工具类、基类、常量、异常、过滤器。被所有模块依赖，**不可独立运行** | — | — |
+| `website` | 个人站点：JPA + FreeMarker 页面 + OpenAPI 接口，模块中最完整的一个 | `XiaomoMain` | MySQL、Redis |
+| `javase` | Java SE 题库接口，JPA + OpenAPI 的典型增删改查 | `QuestionMain` | MySQL |
+| `order` | 订单接口，含 zxing 二维码生成 | `OrderMain` | — |
+| `mongodb` | MongoDB 文档数据库读写 | `MongodbMain` | MongoDB |
+| `mybatis` | MyBatis 替代 JPA 作为持久层 | `MybatisMain` | MySQL |
+| `multipleSource` | 多数据源配置与切换 | `MultipleSourceMain` | MySQL ×2 |
+| `redis` | Redis 缓存读写与定时刷新 | `RedisMain` | Redis |
+| `rabbitmq` | RabbitMQ 消息收发 | `RabbitMqMain` | RabbitMQ |
+| `security` | Spring Security 表单登录与鉴权 | `SecurityMain` | — |
+| `socket` | WebSocket 在线聊天，端口 **8081** | `ChatMain` | — |
+| `scheduled` | `@Scheduled` 定时任务 | `ScheduledMain` | — |
+| `async` | `@Async` 异步任务 | `AsyncMain` | — |
+| `crawler` | jsoup 网络爬虫（阴阳师式神数据），抓取后落库 | `CrawlerMain` | MySQL |
+| `freemarker` | FreeMarker 模板引擎 | `FreemarkerMain` | — |
+| `thymeleaf` | Thymeleaf 模板引擎 | `ThymeleafMain` | — |
+
+除 `socket` 使用 8081 外，其余模块都监听 **8080**，所以一次只启动一个模块。
+
+## 技术栈
+
+| 组件 | 版本 |
+| --- | --- |
+| Spring Boot | 4.1.1 |
+| JDK | 21（编译目标；CI 同时在 21 和 25 上构建） |
+| Maven | 3.9+ |
+| Hibernate / Spring Data JPA | 7.x |
+| Jackson | 3.x |
+| API 文档 | springdoc-openapi 3.x（OpenAPI 3.1） |
+| 数据库驱动 | MySQL Connector/J |
+| 其他 | MyBatis、Lettuce（Redis）、jsoup、Apache POI、fastjson2、zxing |
+
+Spring、Jackson、Hibernate、JUnit 等版本统一由 `spring-boot-dependencies` BOM 管理，不在本项目中单独指定。
+
+## 环境要求
+
+- JDK 21 或更高（Spring Boot 4 的最低要求是 17）
+- Maven 3.9 或更高
+- 按需准备对应模块的外部服务（见上表），只跑不需要外部服务的模块则无需任何准备
+
+## 快速开始
+
+构建全部模块：
+
+```bash
+mvn clean install
+```
+
+启动某一个模块，例如不依赖任何外部服务的 `order`：
+
+```bash
+java -jar order/target/order-2020.1.jar
+```
+
+也可以用 Maven 直接跑：
+
+```bash
+mvn spring-boot:run -pl order
+```
+
+在 IDE 中则找到对应模块的 `*Main` 类直接运行即可。
+
 ![run](screenshot/run.png)
 
+部署到服务器时，Spring Boot 内置了 Tomcat，把打好的 jar 传上去执行就可以：
 
-- 在linux服务器运行
- `spring boot`内置了tomcat做为web容器，默认打成jar包直接放在服务器上执行就可以了
-> `java -Xms64m -Xmx2048m -jar project.jar 5 >> ./project.log &`
-
-
-
-### 打包
-- 如果需要定制化打成war包，那么也很简单。在`maven`中做下设置就ok了,然后把war包扔到tomcat下面就可以运行了
-
-```
-    <modelVersion>4.0.0</modelVersion>
-    <artifactId>api</artifactId>
-    <packaging>war</packaging>
+```bash
+java -Xms64m -Xmx2048m -jar order-2020.1.jar >> ./order.log 2>&1 &
 ```
 
+## API 文档
 
-### 更新日志
-- 2017-09-02 api模块: 添加swagger-bootstrap-ui,和原有ui并行存在。       
-http://localhost:8080 默认UI           
-http://localhost:808/doc.html bootstrap-ui  
+带有 OpenAPI 注解的模块（`website`、`javase`、`order`、`mongodb`）启动后可访问：
 
-- 2017-09-02 spring boot版本从1.4.3更新到1.5.8   
-- 2017-09-02 修复不配置数据库信息无法启动的bug   
-- 2017-09-02 版本号更新到2017.1   
-- 2017-09-02 api模块(swagger)添加开源库swagger-bootstrap-ui，和swagger默认UI同时存在。  
-- 2017-09-02 web模块添加数据库sql文件,导入后一键启动可直接访问到web界面。  
-- 2017-09-06 mybatis模块:添加USER.sql,启动后访问:http://localhost:8080 即可看到接口数据
-- 2017-09-06 所有模块： 添加 characterEncoding=utf8&useSSL=true 解决高版本mysql的sll警告
-- 2017-09-06 添加代码贡献者列表和支持者，赞助商链接。
-- 2017-09-08 crawler模块(网络爬虫):修复本地文件目录不存在会报错的bug。处理方式为：不存在则自动创建
-- 2017-11-02 开源协议从apache更换到MIT
-- 2017-11-02 添加本地运行方式的说明
-- 2017-11-02 版本更新到2020.1
-- 2017-11-02 spring boot版本更新到1.5.8
-- 2017-11-03 添加kotlin环境配置
-- 2017-11-03 按照阿里巴巴编程规范插件P3C优化代码
-- 2017-11-03 合并`api`和`website`模块,访问`localhost:8080`会显示网站主页,访问`localhost:8080/api`会显示api管理界面
-- 2018-04-09 将整个项目升级到spring boot2.0 release版本,api有较大变动
-- 2019-08-06 travis-ci指定jdk版本
-- 2020-10-09 升级版本到2020.2
-- 2020-10-09 升级jdk版本到11
-- 2020-10-09 升级mysql connector到8
-- 2020-10-09 升级spring boot到2.3.0
-- 2020-10-09 修复了升级后API的破坏性变动，修复了一些了编辑器警告
-- 2026-09-09 升级spring boot到4.1.1，jdk升级到21，全部依赖更新到最新版本
-- 2026-09-09 `javax.*` 迁移到 `jakarta.*`(persistence/servlet/mail/websocket)
-- 2026-09-09 api文档从已停止维护的springfox迁移到springdoc-openapi，swagger注解升级到OpenAPI 3
-- 2026-09-09 security模块改用SecurityFilterChain组件式配置，替换已移除的WebSecurityConfigurerAdapter
-- 2026-09-09 fastjson迁移到fastjson2，jackson升级到3.x，poi升级到5.x，dom4j迁移到org.dom4j
+- Swagger UI：<http://localhost:8080/swagger-ui.html>
+- OpenAPI 描述文档：<http://localhost:8080/v3/api-docs>
 
+![swagger](screenshot/swagger-ui.png)
 
+## 配置说明
 
+每个模块的配置在各自的 `src/main/resources/config/application.properties`，日志配置在同目录的 `logback-dev.xml`。
+
+需要注意：
+
+- 涉及数据库的模块请先修改 `spring.datasource.*` 中的连接信息。多数模块使用 Hibernate 的 `ddl-auto=update`，在没有提供 sql 文件时会依据实体类映射自动建表。
+- 仓库里的账号密码全部是占位符，**不要把真实凭据提交进版本库**。`core/src/main/resources/config/oauth.properties` 中的第三方登录密钥同理，请填入自己申请的值，或改为从环境变量注入。
+
+## 打包成 war
+
+如果需要部署到外部 Tomcat，在对应模块的 `pom.xml` 中改打包方式即可：
+
+```xml
+<packaging>war</packaging>
+```
+
+## 更新日志
+
+完整记录见 [changeLog.md](changeLog.md)，以下为主要节点：
+
+- **2026-09-09** 升级到 Spring Boot 4.1.1、JDK 21，全部依赖更新到最新版本；`javax.*` 迁移到 `jakarta.*`；API 文档从已停止维护的 springfox 迁移到 springdoc-openapi；security 模块改用 `SecurityFilterChain` 组件式配置；fastjson 迁移到 fastjson2，Jackson 升级到 3.x，POI 升级到 5.x；新增 GitHub Actions 构建 CI
+- **2020-10-09** 升级到 Spring Boot 2.3.0、JDK 11，MySQL Connector 升级到 8
+- **2018-04-09** 升级到 Spring Boot 2.0 release，API 有较大变动
+- **2017-11-03** 合并 `api` 和 `website` 模块；按阿里巴巴编程规范 P3C 优化代码
+- **2017-11-02** 开源协议从 Apache 更换为 MIT
+- **2017-09-08** crawler 模块修复本地目录不存在时报错的问题
+
+## 项目状态
+
+本项目定位是示例集合，模块按需增删。欢迎通过 [issue](https://github.com/houko/SpringBootUnity/issues) 反馈问题或提出想看到的技术搭配。
+
+本项目同时托管在 [GitHub](https://github.com/houko/SpringBootUnity) 和 [Gitee](https://gitee.com/hupeng_admin/SpringBootUnity)，以 GitHub 为准。
 
 ## 贡献者
 
 感谢所有为本项目做出贡献的开发者们.
-<a href="graphs/contributors"><img src="https://opencollective.com/SpringBootUnity/contributors.svg?width=890" /></a>
 
+<a href="https://github.com/houko/SpringBootUnity/graphs/contributors"><img src="https://opencollective.com/SpringBootUnity/contributors.svg?width=890" /></a>
 
 ## 支持者
 
@@ -92,10 +147,9 @@ http://localhost:808/doc.html bootstrap-ui
 
 <a href="https://opencollective.com/SpringBootUnity#backers" target="_blank"><img src="https://opencollective.com/SpringBootUnity/backers.svg?width=890"></a>
 
-
 ## 赞助商
 
-[[成为赞助商](https://opencollective.com/SpringBootUnity#sponsor)]支持本项目并成为赞助商. 您的LOGO和网站链接将会被展示在这里. 
+[[成为赞助商](https://opencollective.com/SpringBootUnity#sponsor)]支持本项目并成为赞助商. 您的 LOGO 和网站链接将会被展示在这里.
 
 <a href="https://opencollective.com/SpringBootUnity/sponsor/0/website" target="_blank"><img src="https://opencollective.com/SpringBootUnity/sponsor/0/avatar.svg"></a>
 <a href="https://opencollective.com/SpringBootUnity/sponsor/1/website" target="_blank"><img src="https://opencollective.com/SpringBootUnity/sponsor/1/avatar.svg"></a>
@@ -108,47 +162,22 @@ http://localhost:808/doc.html bootstrap-ui
 <a href="https://opencollective.com/SpringBootUnity/sponsor/8/website" target="_blank"><img src="https://opencollective.com/SpringBootUnity/sponsor/8/avatar.svg"></a>
 <a href="https://opencollective.com/SpringBootUnity/sponsor/9/website" target="_blank"><img src="https://opencollective.com/SpringBootUnity/sponsor/9/avatar.svg"></a>
 
-###  项目说明
-需求是多变的，本项目是以spring boot为基础，在使用spring boot的过程中对应不同的需求选用不同的技术和spring boot进行搭配，因此本项目是个偏于使用示例的定位。同时如果您在使用spring boot的过程中有什么好用的技术期待您对本项目的PR。
+## 关于我
 
-### 关于我
- @[小莫](https://xiaomo.info)：本人是一个热爱开源精神、追求新潮的开发者，技术过得去，还算勤勉！习惯以github的issue驱动方式来组织我的项目，也希望感兴趣的朋友和我联系，一起进步，共同开发感兴趣的开源项目。目前任rpg服务端主程，熟悉游戏开发和web开发。同时也是个喜欢二次元的死宅，爱动漫，略懂日语。
+@[小莫](https://xiaomo.info)：热爱开源、追求新潮的开发者，习惯以 GitHub 的 issue 驱动方式组织自己的项目。熟悉游戏开发和 Web 开发，目前任 RPG 服务端主程。也是个喜欢二次元的死宅，爱动漫，略懂日语。
 
-### 在线小工具
+欢迎联系一起进步：
 
-- [在线Cron表达式生成器](http://cron.qqe2.com/ "在线Cron表达式生成器")
+- Issue：<https://github.com/houko/SpringBootUnity/issues>
+- 个人主站：<https://xiaomo.info>
+- QQ：83387856
 
-- [在线工具 - 程序员的工具箱](http://tool.lu/ "在线工具 - 程序员的工具箱")
-- [spring boot官方脚手架](https://start.spring.io/ "spring boot官方脚手架")
+## 相关链接
 
+- [Spring Boot 官方脚手架](https://start.spring.io/)
+- [Spring Boot 官方文档](https://docs.spring.io/spring-boot/index.html)
+- [在线 Cron 表达式生成器](https://cron.qqe2.com/)
 
-###  问题反馈
-1. 欢迎提[issue](https://github.com/houko/SpringBootUnity/issues)一起完善这个项目。
-2. QQ: 83387856
-4. 个人主站: https://xiaomo.info
+## License
 
-
-## [License](LICENSE "MIT")
-
-    MIT License
-    
-    Copyright (c) 2022 Peng Hu
-    
-    Permission is hereby granted, free of charge, to any person obtaining a copy
-    of this software and associated documentation files (the "Software"), to deal
-    in the Software without restriction, including without limitation the rights
-    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-    copies of the Software, and to permit persons to whom the Software is
-    furnished to do so, subject to the following conditions:
-    
-    The above copyright notice and this permission notice shall be included in all
-    copies or substantial portions of the Software.
-    
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-    SOFTWARE.
-
+[MIT](LICENSE) © Peng Hu

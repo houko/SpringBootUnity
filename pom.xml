@@ -40,6 +40,16 @@
         <module>javase</module>
         <!--    订单    -->
         <module>order</module>
+        <!-- 参数校验与全局异常处理 -->
+        <module>validation</module>
+        <!-- 文件上传下载 -->
+        <module>fileupload</module>
+        <!-- 调用外部 http 服务 -->
+        <module>restclient</module>
+        <!-- 缓存抽象 -->
+        <module>cache</module>
+        <!-- 健康检查与运行指标 -->
+        <module>actuator</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -199,6 +209,13 @@
                 <configuration>
                     <release>${sources.version}</release>
                     <encoding>${project.build.sourceEncoding}</encoding>
+                    <!--
+                        必须保留。spring 6.1 起移除了从调试符号推断参数名的 LocalVariableTableParameterNameDiscoverer,
+                        不带 -parameters 时, 未显式命名的 @PathVariable / @RequestParam 会在运行时抛
+                        IllegalArgumentException, 编译期没有任何提示。
+                        spring-boot-starter-parent 默认会加这个标志, 但本项目是导入 BOM 而非继承 parent, 需要自己配。
+                    -->
+                    <parameters>true</parameters>
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.projectlombok</groupId>

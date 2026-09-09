@@ -1,6 +1,6 @@
 package info.xiaomo.crawler.schedule;
 
-import info.xiaomo.core.untils.DownUtil;
+import info.xiaomo.core.utils.DownUtil;
 import info.xiaomo.crawler.model.ShikigamiModel;
 import info.xiaomo.crawler.service.ShikigamaService;
 import info.xiaomo.crawler.spider.OnnmyoujiSpider;

@@ -1,7 +1,7 @@
 package info.xiaomo.chat.socket;
 
-import info.xiaomo.core.untils.HtmlUtil;
-import info.xiaomo.core.untils.TimeUtil;
+import info.xiaomo.core.utils.HtmlUtil;
+import info.xiaomo.core.utils.TimeUtil;
 import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

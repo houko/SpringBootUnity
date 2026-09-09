@@ -1,4 +1,4 @@
-package info.xiaomo.core.untils;
+package info.xiaomo.core.utils;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;

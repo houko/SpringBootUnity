@@ -1,6 +1,6 @@
-package info.xiaomo.anysc.controller;
+package info.xiaomo.async.controller;
 
-import info.xiaomo.anysc.task.AsyncTask;
+import info.xiaomo.async.task.AsyncTask;
 import info.xiaomo.core.base.BaseController;
 import info.xiaomo.core.base.Result;
 import org.springframework.beans.factory.annotation.Autowired;

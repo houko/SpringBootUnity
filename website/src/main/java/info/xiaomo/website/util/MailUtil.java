@@ -2,7 +2,7 @@ package info.xiaomo.website.util;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
-import info.xiaomo.core.untils.TimeUtil;
+import info.xiaomo.core.utils.TimeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;

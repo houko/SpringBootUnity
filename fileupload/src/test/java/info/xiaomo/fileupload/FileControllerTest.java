@@ -81,4 +81,39 @@ class FileControllerTest {
                 .andExpect(status().is4xxClientError());
     }
 
+    @Test
+    void 不符合存储命名格式的文件名应当被拒绝() throws Exception {
+        mockMvc.perform(get("/file/download/{name}", "pom.xml"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message").value("非法的文件名: pom.xml"));
+    }
+
+    @Test
+    void 原始文件名中的路径穿越片段不得混入扩展名() throws Exception {
+        // 按"最后一个点之后"取扩展名会得到 .b/../../evil, 若不做处理就会写到上传目录之外
+        MockMultipartFile evil = new MockMultipartFile(
+                "file", "a.b/../../evil", "text/plain", "payload".getBytes());
+
+        String body = mockMvc.perform(multipart("/file/upload").file(evil))
+                .andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
+
+        String stored = body.replaceAll(".*\"data\"\\s*:\\s*\"([^\"]+)\".*", "$1");
+        // 扩展名没有通过白名单, 被整个丢弃, 只留下服务端生成的 UUID
+        assertThat(stored).doesNotContain("..").doesNotContain("/").doesNotContain("evil");
+        assertThat(stored).matches("[0-9a-f-]{36}");
+    }
+
+    @Test
+    void 合法扩展名应当被保留() throws Exception {
+        MockMultipartFile file = new MockMultipartFile(
+                "file", "report.PDF", "application/pdf", "pdf".getBytes());
+
+        String body = mockMvc.perform(multipart("/file/upload").file(file))
+                .andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString(StandardCharsets.UTF_8);
+
+        assertThat(body.replaceAll(".*\"data\"\\s*:\\s*\"([^\"]+)\".*", "$1")).endsWith(".PDF");
+    }
+
 }

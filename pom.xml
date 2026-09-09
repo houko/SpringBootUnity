@@ -55,45 +55,40 @@
         <!-- project encoding -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- sources resultCode version -->
-        <sources.version>11</sources.version>
+        <sources.version>21</sources.version>
+        <!-- spring-boot version; 该 BOM 统一管理 spring / jackson / hibernate / junit 等版本 -->
+        <spring-boot.version>4.1.1</spring-boot.version>
+        <!-- 以下三项覆盖 spring-boot BOM, 取各自的最新发布版 -->
+        <mysql-connector.version>26.7.0</mysql-connector.version>
+        <slf4j.version>2.0.19</slf4j.version>
+        <lombok.version>1.18.48</lombok.version>
         <!-- common util method jar -->
-        <common-lang3.version>3.5</common-lang3.version>
-        <!-- test jar -->
-        <junit.version>4.13.1</junit.version>
-        <!-- database connection -->
-        <mysql-connector>8.0.28</mysql-connector>
-        <!-- logger -->
-        <slf4j.version>1.7.21</slf4j.version>
-        <!-- logback -->
-        <logback.version>1.1.7</logback.version>
+        <common-lang3.version>3.20.0</common-lang3.version>
         <!-- io util -->
-        <commons-io.version>2.7</commons-io.version>
-        <!-- upload util -->
-        <commons-fileupload.version>[1.3.3,)</commons-fileupload.version>
+        <commons-io.version>2.22.0</commons-io.version>
         <!-- json support -->
-        <fastjson.version>[1.2.31,)</fastjson.version>
-        <!-- html  -->
-        <jsoup.version>1.14.2</jsoup.version>
-        <!-- spring-boot version -->
-        <spring-boot.version>2.5.12</spring-boot.version>
-        <!-- compiler-plugin version -->
-        <maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
-        <!-- surefile-plugin test util -->
-        <surefire-plugin.version>2.19.1</surefire-plugin.version>
-        <!-- mail -->
-        <javax-mail.version>1.4.7</javax-mail.version>
-        <!-- lomlok -->
-        <lombak.version>1.18.14</lombak.version>
-        <!-- api文档 -->
-        <springfox-swagger-ui.version>2.2.2</springfox-swagger-ui.version>
-        <!-- mybatis -->
-        <mybatis.version>1.1.1</mybatis.version>
+        <fastjson2.version>2.0.65</fastjson2.version>
+        <!-- xml -->
+        <dom4j.version>2.2.0</dom4j.version>
         <!-- 操作html -->
-        <jsoup.version>1.9.2</jsoup.version>
+        <jsoup.version>1.23.2</jsoup.version>
+        <!-- api文档 -->
+        <springdoc.version>3.1.1</springdoc.version>
+        <knife4j.version>4.5.0</knife4j.version>
+        <!-- mybatis -->
+        <mybatis.version>4.1.0</mybatis.version>
+        <!-- 二维码 -->
+        <zxing.version>3.5.4</zxing.version>
         <!-- excel -->
         <jxl.version>2.6.12</jxl.version>
         <!-- microsoft office -->
-        <poi.version>3.17</poi.version>
+        <poi.version>5.5.1</poi.version>
+        <!-- compiler-plugin version -->
+        <maven-compiler-plugin.version>3.16.0</maven-compiler-plugin.version>
+        <!-- surefile-plugin test util -->
+        <surefire-plugin.version>3.6.0</surefire-plugin.version>
+        <!-- source-plugin version -->
+        <maven-source-plugin.version>3.4.0</maven-source-plugin.version>
     </properties>
 
 
@@ -102,36 +97,30 @@
         <dependencies>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-parent</artifactId>
-                <version>${spring-boot.version}</version>
-                <type>pom</type>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-web</artifactId>
+                <artifactId>spring-boot-dependencies</artifactId>
                 <version>${spring-boot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
             <dependency>
-                <groupId>dom4j</groupId>
+                <groupId>org.dom4j</groupId>
                 <artifactId>dom4j</artifactId>
-                <version>1.6.1</version>
+                <version>${dom4j.version}</version>
             </dependency>
             <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>${junit.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>mysql</groupId>
-                <artifactId>mysql-connector-java</artifactId>
-                <version>${mysql-connector}</version>
+                <groupId>com.mysql</groupId>
+                <artifactId>mysql-connector-j</artifactId>
+                <version>${mysql-connector.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <!-- 与 slf4j-api 保持同版本; spring-boot BOM 通过 logging starter 引入该包 -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>jul-to-slf4j</artifactId>
                 <version>${slf4j.version}</version>
             </dependency>
             <dependency>
@@ -140,9 +129,9 @@
                 <version>${commons-io.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>fastjson</artifactId>
-                <version>${fastjson.version}</version>
+                <groupId>com.alibaba.fastjson2</groupId>
+                <artifactId>fastjson2</artifactId>
+                <version>${fastjson2.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.commons</groupId>
@@ -150,31 +139,30 @@
                 <version>${common-lang3.version}</version>
             </dependency>
             <dependency>
-                <groupId>commons-fileupload</groupId>
-                <artifactId>commons-fileupload</artifactId>
-                <version>${commons-fileupload.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>javax.mail</groupId>
-                <artifactId>mail</artifactId>
-                <version>${javax-mail.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
-                <version>${lombak.version}</version>
+                <version>${lombok.version}</version>
             </dependency>
-            <!-- Swagger -->
+            <!-- OpenAPI 文档: springfox 已停止维护且不支持 jakarta, 换用 springdoc -->
             <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-swagger-ui</artifactId>
-                <version>${springfox-swagger-ui.version}</version>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+                <version>${springdoc.version}</version>
             </dependency>
-
             <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-swagger2</artifactId>
-                <version>${springfox-swagger-ui.version}</version>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+                <version>${knife4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.zxing</groupId>
+                <artifactId>core</artifactId>
+                <version>${zxing.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.zxing</groupId>
+                <artifactId>javase</artifactId>
+                <version>${zxing.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.mybatis.spring.boot</groupId>
@@ -209,9 +197,15 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven-compiler-plugin.version}</version>
                 <configuration>
-                    <source>${sources.version}</source>
-                    <target>${sources.version}</target>
+                    <release>${sources.version}</release>
                     <encoding>${project.build.sourceEncoding}</encoding>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
                 </configuration>
             </plugin>
 
@@ -241,7 +235,7 @@
             <!--source-->
             <plugin>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>3.2.0</version>
+                <version>${maven-source-plugin.version}</version>
                 <configuration>
                     <attach>true</attach>
                 </configuration>

@@ -29,7 +29,7 @@ import org.springframework.security.web.SecurityFilterChain;
  * email: xiaomo@xiaomo.info
  * <p>
  * Date: 2016/4/1 15:38
- * Description: RabbitMq启动器
+ * Description: Spring Security 启动器
  * Copyright(©) 2015 by xiaomo.
  **/
 @Configuration

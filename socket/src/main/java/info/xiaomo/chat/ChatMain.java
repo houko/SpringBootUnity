@@ -21,7 +21,7 @@ import org.springframework.web.socket.server.standard.ServerEndpointExporter;
  * email: xiaomo@xiaomo.info
  * <p>
  * Date: 2016/4/1 15:38
- * Description: 后台管理启动器
+ * Description: WebSocket 在线聊天启动器
  * Copyright(©) 2015 by xiaomo.
  **/
 @Configuration

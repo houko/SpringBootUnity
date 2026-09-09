@@ -5,15 +5,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 /**
+ * CRUD 控制器的公共契约。仅供确实提供增删改查的控制器继承, 不做 CRUD 的控制器不要继承它,
+ * 否则会被迫写出一堆 return null 的空实现。
+ *
  * @author : xiaomo (https://xiaomo.info) (https://github.com/houko)
  * @version : 2017/1/11 16:41
  */
-@RestController
 public abstract class BaseController<T> {
 
     protected final Logger LOGGER = LoggerFactory.getLogger(getClass());

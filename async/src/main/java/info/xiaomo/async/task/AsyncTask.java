@@ -1,48 +1,39 @@
 package info.xiaomo.async.task;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Component;
 
-import java.util.Random;
-import java.util.concurrent.Future;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
+ * 用 @Async 把方法丢到线程池里执行, 调用方立刻拿到一个 CompletableFuture 而不会阻塞。
+ * 生效的前提是启动类上加了 @EnableAsync, 见 {@link info.xiaomo.async.AsyncMain}。
+ *
  * @author : xiaomo
  */
 @Component
 public class AsyncTask {
 
-    private static Random random = new Random();
+    private static final Logger LOGGER = LoggerFactory.getLogger(AsyncTask.class);
 
     @Async
-    public Future<String> doTaskOne() throws Exception {
-        System.out.println("开始做任务一");
+    public CompletableFuture<String> doTask(String name) {
         long start = System.currentTimeMillis();
-        Thread.sleep(random.nextInt(10000));
-        long end = System.currentTimeMillis();
-        System.out.println("完成任务一，耗时：" + (end - start) + "毫秒");
-        return new AsyncResult<>("任务一完成");
-    }
-
-    @Async
-    public Future<String> doTaskTwo() throws Exception {
-        System.out.println("开始做任务二");
-        long start = System.currentTimeMillis();
-        Thread.sleep(random.nextInt(10000));
-        long end = System.currentTimeMillis();
-        System.out.println("完成任务二，耗时：" + (end - start) + "毫秒");
-        return new AsyncResult<>("任务二完成");
-    }
-
-    @Async
-    public Future<String> doTaskThree() throws Exception {
-        System.out.println("开始做任务三");
-        long start = System.currentTimeMillis();
-        Thread.sleep(random.nextInt(10000));
-        long end = System.currentTimeMillis();
-        System.out.println("完成任务三，耗时：" + (end - start) + "毫秒");
-        return new AsyncResult<>("任务三完成");
+        LOGGER.info("开始{}", name);
+        try {
+            // 用随机耗时模拟一个慢操作
+            Thread.sleep(ThreadLocalRandom.current().nextInt(1000, 3000));
+        } catch (InterruptedException e) {
+            // 恢复中断状态, 让上层能感知到取消
+            Thread.currentThread().interrupt();
+            return CompletableFuture.failedFuture(e);
+        }
+        long cost = System.currentTimeMillis() - start;
+        LOGGER.info("完成{}, 耗时 {} 毫秒", name, cost);
+        return CompletableFuture.completedFuture(name + "完成, 耗时 " + cost + " 毫秒");
     }
 
 }

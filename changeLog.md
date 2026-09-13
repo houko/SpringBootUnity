@@ -93,3 +93,18 @@ LocalVariableTableParameterNameDiscoverer, 因此未显式命名的 @PathVariabl
 ```
 
 第 1 条是行为变更: 之前连接任何 https 站点都不校验证书, 现在会。如果有服务端用的是自签名或过期证书, 升级后会连接失败 —— 这正是该被暴露出来的问题, 正确的做法是把该证书加进信任库, 而不是关掉校验。
+
+- 2026-09-14 新增五个示例模块
+
+```
+1. 新增 aop 模块: 自定义 @Loggable 注解 + @Aspect 记录耗时与调用次数
+2. 新增 httpinterface 模块: @HttpExchange + HttpServiceProxyFactory 声明式 HTTP 客户端
+3. 新增 i18n 模块: MessageSource + AcceptHeaderLocaleResolver 多语言文案
+4. 新增 ratelimit 模块: HandlerInterceptor + 固定时间窗口接口限流
+5. 新增 graphql 模块: @QueryMapping + .graphqls schema 提供 /graphql 查询接口
+6. 以上五个模块均不依赖外部服务, 且各自带可运行的测试
+```
+
+几个 Spring Boot 4 下的注意点: aop starter 已从 spring-boot-starter-aop 改名为 spring-boot-starter-aspectj;
+声明式客户端直接使用 spring 内置的 @HttpExchange, 无需再引入 OpenFeign; ratelimit 模块把 Clock 抽成
+bean, 测试里用 @Primary 注入一个可拨动的时钟, 不靠 sleep 验证"窗口滚动后放行"。

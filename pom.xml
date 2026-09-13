@@ -50,6 +50,16 @@
         <module>cache</module>
         <!-- 健康检查与运行指标 -->
         <module>actuator</module>
+        <!-- AOP 切面 -->
+        <module>aop</module>
+        <!-- 声明式 HTTP 客户端 -->
+        <module>httpinterface</module>
+        <!-- 国际化 -->
+        <module>i18n</module>
+        <!-- 接口限流 -->
+        <module>ratelimit</module>
+        <!-- GraphQL 查询 -->
+        <module>graphql</module>
     </modules>
     <packaging>pom</packaging>
 

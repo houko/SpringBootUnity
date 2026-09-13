@@ -18,7 +18,7 @@
 
 ## 模块一览
 
-一共 21 个模块。`core` 是被其他模块共同依赖的基础包，其余每个模块各自演示一项技术。
+一共 26 个模块。`core` 是被其他模块共同依赖的基础包，其余每个模块各自演示一项技术。
 
 | 模块 | 演示内容 | 启动类 | 需要的外部服务 |
 | --- | --- | --- | --- |
@@ -43,10 +43,15 @@
 | `restclient` | 用 `RestClient` 调用外部 HTTP 服务 | `RestClientMain` | — |
 | `cache` | Spring Cache 抽象 + Caffeine 本地缓存 | `CacheMain` | — |
 | `actuator` | 健康检查、自定义 `HealthIndicator` 与业务指标 | `ActuatorMain` | — |
+| `aop` | AOP 切面：自定义 `@Loggable` 注解记录耗时与调用次数 | `AopMain` | — |
+| `httpinterface` | `@HttpExchange` 声明式 HTTP 客户端（代替 OpenFeign） | `HttpInterfaceMain` | — |
+| `i18n` | 国际化：`MessageSource` + `LocaleResolver` 多语言文案 | `I18nMain` | — |
+| `ratelimit` | 接口限流：`HandlerInterceptor` + 固定时间窗口 | `RateLimitMain` | — |
+| `graphql` | GraphQL 查询接口（`@QueryMapping` + schema） | `GraphqlMain` | — |
 
 除 `socket` 使用 8081 外，其余模块都监听 **8080**，所以一次只启动一个模块。
 
-其中 `validation`、`fileupload`、`restclient`、`cache`、`actuator`、`async` 六个模块附带可直接运行的测试。它们都不依赖外部服务，`mvn test` 即可跑通，也可以当作各自技术点的可执行文档来读。
+其中 `validation`、`fileupload`、`restclient`、`cache`、`actuator`、`async`、`aop`、`httpinterface`、`i18n`、`ratelimit`、`graphql` 十一个模块附带可直接运行的测试。它们都不依赖外部服务，`mvn test` 即可跑通，也可以当作各自技术点的可执行文档来读。
 
 ## 技术栈
 
@@ -61,6 +66,8 @@
 | 数据库驱动 | MySQL Connector/J |
 | 缓存 | Caffeine（`cache` 模块） |
 | 监控 | Micrometer + Spring Boot Actuator（`actuator` 模块） |
+| AOP | AspectJ（`aop` 模块） |
+| GraphQL | Spring GraphQL + GraphQL Java（`graphql` 模块） |
 | 其他 | MyBatis、Lettuce（Redis）、jsoup、Apache POI、fastjson2、zxing |
 
 Spring、Jackson、Hibernate、JUnit 等版本统一由 `spring-boot-dependencies` BOM 管理，不在本项目中单独指定。

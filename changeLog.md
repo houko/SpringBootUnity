@@ -108,3 +108,19 @@ LocalVariableTableParameterNameDiscoverer, 因此未显式命名的 @PathVariabl
 几个 Spring Boot 4 下的注意点: aop starter 已从 spring-boot-starter-aop 改名为 spring-boot-starter-aspectj;
 声明式客户端直接使用 spring 内置的 @HttpExchange, 无需再引入 OpenFeign; ratelimit 模块把 Clock 抽成
 bean, 测试里用 @Primary 注入一个可拨动的时钟, 不靠 sleep 验证"窗口滚动后放行"。
+
+- 2026-09-14 新增四个带外部依赖的示例模块
+
+```
+1. 新增 kafka 模块: KafkaTemplate + @KafkaListener 消息收发, 测试用 @EmbeddedKafka 内嵌 broker
+2. 新增 mail 模块: SimpleMailMessage / MimeMessageHelper 发邮件, 测试用 GreenMail 内嵌 SMTP
+3. 新增 elasticsearch 模块: Spring Data Elasticsearch 定义索引 + 仓储检索(与 mongodb 一样不带自动化测试)
+4. 新增 flyway 模块: db/migration 下的 V1/V2 迁移脚本 + JdbcTemplate 读取, 测试用内嵌 H2
+5. kafka/mail/flyway 三个模块的测试都不依赖外部服务, CI 上 mvn clean install 可稳定跑通
+```
+
+几个 Spring Boot 4 下的注意点: kafka 和 flyway 的自动配置都从 spring-boot-autoconfigure 抽成了独立
+starter(spring-boot-starter-kafka / spring-boot-starter-flyway), 直接引 spring-kafka / flyway-core 拿不到自动配置;
+flyway 模块保留了 DataSource, 此时必须再把 JPA 相关自动配置(HibernateJpaAutoConfiguration + DataJpaRepositoriesAutoConfiguration)
+排除掉, 否则 core 传递引入的 spring-data-jpa 会尝试创建 entityManagerFactory; mail 测试要把
+spring.mail.properties.mail.smtp.auth / starttls 关掉并清空用户名密码, 否则 JavaMailSender 会在 GreenMail 上做 AUTH。

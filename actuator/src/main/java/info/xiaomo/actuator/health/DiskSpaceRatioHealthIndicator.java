@@ -1,5 +1,6 @@
 package info.xiaomo.actuator.health;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.health.contributor.Health;
 import org.springframework.boot.health.contributor.HealthIndicator;
 import org.springframework.stereotype.Component;
@@ -16,9 +17,14 @@ import java.io.File;
 public class DiskSpaceRatioHealthIndicator implements HealthIndicator {
 
     /**
-     * 可用空间低于该比例就判定为不健康。
+     * 可用空间低于该比例就判定为不健康, 可通过配置覆盖(测试里把它设成 0 以消除对磁盘的依赖)。
      */
-    private static final double THRESHOLD = 0.05;
+    private final double threshold;
+
+    public DiskSpaceRatioHealthIndicator(
+            @Value("${actuator.disk-space-ratio.threshold:0.05}") double threshold) {
+        this.threshold = threshold;
+    }
 
     @Override
     public Health health() {
@@ -30,12 +36,12 @@ public class DiskSpaceRatioHealthIndicator implements HealthIndicator {
         }
 
         double freeRatio = (double) free / total;
-        Health.Builder builder = freeRatio >= THRESHOLD ? Health.up() : Health.down();
+        Health.Builder builder = freeRatio >= threshold ? Health.up() : Health.down();
         return builder
                 .withDetail("totalBytes", total)
                 .withDetail("freeBytes", free)
                 .withDetail("freeRatio", String.format("%.4f", freeRatio))
-                .withDetail("threshold", THRESHOLD)
+                .withDetail("threshold", threshold)
                 .build();
     }
 

@@ -1,0 +1,5 @@
+CREATE TABLE users (
+    id BIGINT PRIMARY KEY,
+    name VARCHAR(64) NOT NULL,
+    email VARCHAR(128) NOT NULL UNIQUE
+);

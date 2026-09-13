@@ -18,7 +18,7 @@
 
 ## 模块一览
 
-一共 26 个模块。`core` 是被其他模块共同依赖的基础包，其余每个模块各自演示一项技术。
+一共 30 个模块。`core` 是被其他模块共同依赖的基础包，其余每个模块各自演示一项技术。
 
 | 模块 | 演示内容 | 启动类 | 需要的外部服务 |
 | --- | --- | --- | --- |
@@ -48,10 +48,14 @@
 | `i18n` | 国际化：`MessageSource` + `LocaleResolver` 多语言文案 | `I18nMain` | — |
 | `ratelimit` | 接口限流：`HandlerInterceptor` + 固定时间窗口 | `RateLimitMain` | — |
 | `graphql` | GraphQL 查询接口（`@QueryMapping` + schema） | `GraphqlMain` | — |
+| `kafka` | Kafka 消息收发（`KafkaTemplate` + `@KafkaListener`） | `KafkaMain` | Kafka |
+| `mail` | 邮件发送（`SimpleMailMessage` / `MimeMessageHelper`） | `MailMain` | SMTP 服务器 |
+| `elasticsearch` | Spring Data Elasticsearch 文档检索 | `ElasticsearchMain` | Elasticsearch |
+| `flyway` | Flyway 数据库迁移 + `JdbcTemplate` 读取 | `FlywayMain` | MySQL |
 
 除 `socket` 使用 8081 外，其余模块都监听 **8080**，所以一次只启动一个模块。
 
-其中 `validation`、`fileupload`、`restclient`、`cache`、`actuator`、`async`、`aop`、`httpinterface`、`i18n`、`ratelimit`、`graphql` 十一个模块附带可直接运行的测试。它们都不依赖外部服务，`mvn test` 即可跑通，也可以当作各自技术点的可执行文档来读。
+其中 `validation`、`fileupload`、`restclient`、`cache`、`actuator`、`async`、`aop`、`httpinterface`、`i18n`、`ratelimit`、`graphql`、`kafka`、`mail`、`flyway` 十四个模块附带可直接运行的测试。它们的测试都不依赖外部服务——`kafka` 用内嵌 Kafka、`mail` 用 GreenMail 内嵌 SMTP、`flyway` 用内嵌 H2，其余用 Spring 测试上下文；`mvn test` 即可跑通，也可以当作各自技术点的可执行文档来读。
 
 ## 技术栈
 
@@ -68,6 +72,10 @@
 | 监控 | Micrometer + Spring Boot Actuator（`actuator` 模块） |
 | AOP | AspectJ（`aop` 模块） |
 | GraphQL | Spring GraphQL + GraphQL Java（`graphql` 模块） |
+| 消息 | Spring for Apache Kafka（`kafka` 模块） |
+| 邮件 | Spring Mail + Jakarta Mail（`mail` 模块） |
+| 搜索引擎 | Spring Data Elasticsearch（`elasticsearch` 模块） |
+| 数据库迁移 | Flyway（`flyway` 模块） |
 | 其他 | MyBatis、Lettuce（Redis）、jsoup、Apache POI、fastjson2、zxing |
 
 Spring、Jackson、Hibernate、JUnit 等版本统一由 `spring-boot-dependencies` BOM 管理，不在本项目中单独指定。

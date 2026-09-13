@@ -10,7 +10,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest(classes = ActuatorMain.class)
+@SpringBootTest(classes = ActuatorMain.class, properties = {
+        // 把自定义磁盘比例阈值的判定下限改成 0, 让测试不依赖真实磁盘空间, 避免磁盘快满时误报不健康
+        "actuator.disk-space-ratio.threshold=0"
+})
 @AutoConfigureMockMvc
 class ActuatorEndpointTest {
 

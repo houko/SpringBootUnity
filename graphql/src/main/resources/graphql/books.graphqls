@@ -1,0 +1,11 @@
+# GraphQL schema。@QueryMapping 方法只提供取值逻辑, 字段结构、类型、是否可空都在这里声明。
+type Query {
+    bookById(id: ID!): Book
+    allBooks: [Book!]!
+}
+
+type Book {
+    id: ID!
+    title: String!
+    author: String!
+}

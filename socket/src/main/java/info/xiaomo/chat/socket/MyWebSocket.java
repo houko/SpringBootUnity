@@ -96,9 +96,10 @@ public class MyWebSocket {
     @OnMessage
     public void onMessage(String message) throws IOException {
         String date = "<font color='green'>" + TimeUtil.getDateNow(TimeUtil.DATE_PATTERN) + "</font></br>";
-        // 群发消息
+        // 群发前先 HTML 转义用户输入, 避免把消息里的 <script> 等标签直接广播给其他客户端(XSS)
+        String safe = HtmlUtil.htmlEncode(message);
         for (MyWebSocket item : webSocketSet) {
-            item.sendMessage(date + message);
+            item.sendMessage(date + safe);
         }
         LOGGER.info("客户端消息:{}", HtmlUtil.delHTMLTag(message));
     }

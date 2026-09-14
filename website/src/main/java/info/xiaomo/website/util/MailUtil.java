@@ -10,11 +10,12 @@ import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 import jakarta.mail.*;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Properties;
 
 /**
@@ -43,11 +44,15 @@ public class MailUtil {
      */
     private static Session getSession() throws IOException {
         Properties props = new Properties();
-        String dir = System.getProperty("user.dir");
-        FileInputStream is = new FileInputStream(dir + "/website/src/main/resources/config/application.properties");
-        props.load(is);
-        USERNAME = String.valueOf(props.get("mail.username"));
-        PASSWORD = String.valueOf(props.get("mail.password"));
+        // 从 classpath 读取配置, 不再依赖进程工作目录(user.dir)下的绝对路径
+        try (InputStream is = MailUtil.class.getClassLoader().getResourceAsStream("config/application.properties")) {
+            if (is == null) {
+                throw new IOException("未找到 classpath 下的 config/application.properties");
+            }
+            props.load(is);
+        }
+        USERNAME = Objects.toString(props.get("mail.username"), "");
+        PASSWORD = Objects.toString(props.get("mail.password"), "");
         Authenticator authenticator = new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
@@ -78,22 +83,18 @@ public class MailUtil {
     }
 
     /**
-     * 返回激活链接
+     * 返回邮件内容
      *
      * @param email email
-     * @return 有3个参数 email password
+     * @return 邮件内容
      */
-    public static String getContent(String email, String password, Configuration configuration) {
+    public static String getContent(String email, Configuration configuration) {
         Long now = TimeUtil.getNowOfMills();
         Map<String, Object> data = new HashMap<>(10);
-        StringBuilder sb = new StringBuilder("http://localhost:8080/user/validate?email=");
-        sb.append(email);
-        sb.append("&password=");
-        sb.append(password);
-        sb.append("&time=");
-        sb.append(now);
+        // 激活流程不再通过邮件携带密码, 链接直接指向首页
+        String url = "http://localhost:8080/";
         data.put("email", email);
-        data.put("url", sb.toString());
+        data.put("url", url);
         data.put("now", TimeUtil.getFormatDate(now, TimeUtil.DEFAULT_FORMAT));
         Template template;
         String readyParsedTemplate = null;

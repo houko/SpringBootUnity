@@ -43,7 +43,8 @@ public class CommonDao {
     }
 
     public <T extends BaseModel> void delete(T entity) {
-        entityManager.remove(entity);
+        // 传入的实体可能是游离态, 不在持久化上下文中时先 merge 再 remove, 避免 IllegalArgumentException
+        entityManager.remove(entityManager.contains(entity) ? entity : entityManager.merge(entity));
     }
 
     public List getAll(Class<? extends BaseModel> tableClass) {

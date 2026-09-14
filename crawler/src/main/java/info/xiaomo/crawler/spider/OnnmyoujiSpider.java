@@ -28,7 +28,9 @@ public class OnnmyoujiSpider {
         List<String> shikigamiDetailInfoUrl = getShikigamiDetailInfoUrl();
         for (String url : shikigamiDetailInfoUrl) {
             ShikigamiModel shikigamiModel = getShikigami(url);
-            list.add(shikigamiModel);
+            if (shikigamiModel != null) {
+                list.add(shikigamiModel);
+            }
         }
         return list;
     }
@@ -41,11 +43,16 @@ public class OnnmyoujiSpider {
         List<String> list = new ArrayList<>();
         String html = HttpUtil.get(URL);
         Document doc = Jsoup.parse(html);
-        Element select = doc.select(".heroList-2").get(0);
-        Elements liElement = select.select("a");
+        Elements select = doc.select(".heroList-2");
+        if (select.isEmpty()) {
+            return list;
+        }
+        Elements liElement = select.get(0).select("a");
         for (Element element : liElement) {
             String href = element.attr("href");
-            list.add(href);
+            if (href != null && !href.isEmpty()) {
+                list.add(href);
+            }
         }
         return list;
     }
@@ -58,11 +65,16 @@ public class OnnmyoujiSpider {
         List<String> list = new ArrayList<>();
         String html = HttpUtil.get(URL);
         Document doc = Jsoup.parse(html);
-        Element select = doc.select(".heroList-1").get(0);
-        Elements liElement = select.select("a");
+        Elements select = doc.select(".heroList-1");
+        if (select.isEmpty()) {
+            return list;
+        }
+        Elements liElement = select.get(0).select("a");
         for (Element element : liElement) {
             String href = element.attr("href");
-            list.add(href);
+            if (href != null && !href.isEmpty()) {
+                list.add(href);
+            }
         }
         return list;
     }
@@ -72,20 +84,32 @@ public class OnnmyoujiSpider {
      * 获取式神信息
      */
     private static ShikigamiModel getShikigami(String url) {
-        ShikigamiModel a = new ShikigamiModel();
-        String html = HttpUtil.get(url);
-        Document doc = Jsoup.parse(html);
-        Elements selects = doc.select("table").get(1).select("tr").get(2).select("td");
-        String seiyou = selects.get(0).text();
-        String name = selects.get(1).text();
-        String star = selects.get(2).text();
-        String sex = selects.get(3).text();
-        String level = selects.get(4).text();
-        String getWay = selects.get(5).text();
-        String image = doc.select("table").get(0).select("tr").get(0).select("img").attr("src");
-        return new ShikigamiModel(name, image, seiyou, sex, star, getWay, level, "");
-
-
+        try {
+            ShikigamiModel a = new ShikigamiModel();
+            String html = HttpUtil.get(url);
+            Document doc = Jsoup.parse(html);
+            Elements tables = doc.select("table");
+            if (tables.size() < 2) {
+                return null;
+            }
+            Elements trs = tables.get(1).select("tr");
+            if (trs.size() < 3) {
+                return null;
+            }
+            Elements selects = trs.get(2).select("td");
+            String seiyou = selects.size() > 0 ? selects.get(0).text() : "";
+            String name = selects.size() > 1 ? selects.get(1).text() : "";
+            String star = selects.size() > 2 ? selects.get(2).text() : "";
+            String sex = selects.size() > 3 ? selects.get(3).text() : "";
+            String level = selects.size() > 4 ? selects.get(4).text() : "";
+            String getWay = selects.size() > 5 ? selects.get(5).text() : "";
+            String image = tables.get(0).select("tr").isEmpty()
+                    ? "" : tables.get(0).select("tr").get(0).select("img").attr("src");
+            return new ShikigamiModel(name, image, seiyou, sex, star, getWay, level, "");
+        } catch (Exception e) {
+            // 页面结构变化或网络异常时跳过该条, 交由调用方过滤 null
+            return null;
+        }
     }
 
 }

@@ -8,15 +8,12 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import info.xiaomo.core.base.BaseController;
 import info.xiaomo.core.base.Result;
 import info.xiaomo.core.constant.CodeConst;
-import info.xiaomo.core.constant.GenderConst;
 import info.xiaomo.core.exception.UserNotFoundException;
-import info.xiaomo.core.utils.MailUtil;
 import info.xiaomo.core.utils.Md5Util;
 import info.xiaomo.core.utils.RandomUtil;
 import info.xiaomo.core.utils.TimeUtil;
 import info.xiaomo.website.model.UserModel;
 import info.xiaomo.website.service.UserService;
-import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
@@ -91,21 +88,28 @@ public class UserController extends BaseController {
      *
      * @return result
      */
-    @Operation(summary = "注册", description = "注册用户并发送验证链接到邮箱")
+    @Operation(summary = "注册", description = "注册用户")
     @Parameters({
-            @Parameter(name = "用户名", required = true, in = ParameterIn.PATH),
-            @Parameter(name = "密码", required = true, in = ParameterIn.PATH)
+            @Parameter(name = "email", description = "邮箱", required = true, in = ParameterIn.QUERY),
+            @Parameter(name = "password", description = "密码", required = true, in = ParameterIn.QUERY)
     })
-    @RequestMapping(value = "register/{email}/{password}", method = RequestMethod.POST)
-    public Result register(@PathVariable("email") String email, @PathVariable("password") String password) {
+    @RequestMapping(value = "register", method = RequestMethod.POST)
+    public Result register(@RequestParam("email") String email, @RequestParam("password") String password) {
         UserModel userModel = service.findUserByEmail(email);
         //邮箱被占用
         if (userModel != null) {
             return new Result<>(CodeConst.USER_REPEAT.getResultCode(), CodeConst.USER_REPEAT.getMessage());
         }
-        String redirectValidateUrl = MailUtil.redirectValidateUrl(email, password);
-        MailUtil.send(email, "帐号激活邮件", redirectValidateUrl);
-        return new Result<>(redirectValidateUrl);
+        // 直接创建账号, 密码加盐 MD5 哈希后入库, 表单密码只经 POST body 传输, 不再通过邮件回传明文密码
+        String salt = RandomUtil.createSalt();
+        UserModel newUser = new UserModel();
+        newUser.setEmail(email);
+        newUser.setPassword(Md5Util.encode(password, salt));
+        newUser.setSalt(salt);
+        newUser.setValidateCode(Md5Util.encode(email, ""));
+        newUser.setRegisterTime(TimeUtil.getNowOfMills());
+        service.addUser(newUser);
+        return new Result<>(newUser);
     }
 
 
@@ -116,11 +120,11 @@ public class UserController extends BaseController {
      */
     @Operation(summary = "登录", description = "登录")
     @Parameters({
-            @Parameter(name = "email", description = "邮箱", required = true, in = ParameterIn.PATH),
-            @Parameter(name = "password", description = "密码", required = true, in = ParameterIn.PATH)
+            @Parameter(name = "email", description = "邮箱", required = true, in = ParameterIn.QUERY),
+            @Parameter(name = "password", description = "密码", required = true, in = ParameterIn.QUERY)
     })
-    @RequestMapping(value = "login/{email}/{password}", method = RequestMethod.POST)
-    public Result login(@PathVariable("email") String email, @PathVariable("password") String password) {
+    @RequestMapping(value = "login", method = RequestMethod.POST)
+    public Result login(@RequestParam("email") String email, @RequestParam("password") String password) {
         UserModel userModel = service.findUserByEmail(email);
         //找不到用户
         if (userModel == null) {
@@ -168,7 +172,6 @@ public class UserController extends BaseController {
         if (userModel == null) {
             return new Result<>(CodeConst.USER_NOT_FOUND.getResultCode(), CodeConst.USER_NOT_FOUND.getMessage());
         }
-        userModel = new UserModel();
         userModel.setEmail(user.getEmail());
         userModel.setNickName(user.getNickName());
         userModel.setPhone(user.getPhone());
@@ -211,39 +214,6 @@ public class UserController extends BaseController {
         if (userModel == null) {
             return new Result<>(CodeConst.USER_NOT_FOUND.getResultCode(), CodeConst.USER_NOT_FOUND.getMessage());
         }
-        return new Result<>(userModel);
-    }
-
-    /**
-     * 处理激活
-     */
-    @Operation(summary = "处理激活", description = "处理激活")
-    @RequestMapping(value = "validateEmail", method = RequestMethod.POST)
-    public Result validateEmail(@RequestBody UserModel user
-    ) throws ServiceException {
-        //数据访问层，通过email获取用户信息
-        UserModel userModel = service.findUserByEmail(user.getEmail());
-        if (userModel != null) {
-            return new Result<>(CodeConst.USER_REPEAT.getResultCode(), CodeConst.USER_REPEAT.getMessage());
-        }
-        //验证码是否过期
-        if (user.getRegisterTime() + TimeUtil.ONE_DAY_IN_MILLISECONDS < TimeUtil.getNowOfMills()) {
-            LOGGER.info("用户{}使用己过期的激活码{}激活邮箱失败！", user.getEmail(), user.getEmail());
-            return new Result<>(CodeConst.TIME_PASSED.getResultCode(), CodeConst.TIME_PASSED.getMessage());
-        }
-        //激活
-        String salt = RandomUtil.createSalt();
-        userModel = new UserModel();
-        userModel.setNickName(user.getNickName());
-        userModel.setEmail(user.getEmail());
-        userModel.setGender(GenderConst.SECRET);
-        userModel.setValidateCode(Md5Util.encode(user.getEmail(), salt));
-        userModel.setPhone(0L);
-        userModel.setSalt(salt);
-        userModel.setAddress("");
-        userModel.setPassword(Md5Util.encode(user.getPassword(), salt));
-        userModel = service.addUser(userModel);
-        LOGGER.info("用户{}使用激活码{}激活邮箱成功！", userModel.getEmail(), userModel.getValidateCode());
         return new Result<>(userModel);
     }
 

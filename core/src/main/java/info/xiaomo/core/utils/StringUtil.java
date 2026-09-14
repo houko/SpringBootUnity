@@ -194,8 +194,10 @@ public class StringUtil extends StringUtils {
         char ch = '}';
         for (int start, end; (start = s.indexOf(str, cursor)) != -1 && (end = s.indexOf(ch, start)) != -1; ) {
             sb.append(s.substring(cursor, start));
-            String key = s.substring(start + 2, end);
-            sb.append(map.get(StringUtils.trim(key)));
+            String key = StringUtils.trim(s.substring(start + 2, end));
+            String value = map.get(key);
+            // 缺失的 key 原样保留占位符, 而不是拼出字面量 "null"
+            sb.append(value != null ? value : str + key + ch);
             cursor = end + 1;
         }
         sb.append(s.substring(cursor, s.length()));
@@ -209,30 +211,35 @@ public class StringUtil extends StringUtils {
      * @return ip 如果返回null,说明是一个不合法的ip地址格式
      */
     public static String getIP(HttpServletRequest request) {
-        String ip = request.getHeader("X-Requested-For");
-        String unknown = "unknown";
-        if (StringUtils.isBlank(ip) || unknown.equalsIgnoreCase(ip)) {
-            ip = request.getHeader("X-Forwarded-For");
-        }
-        if (StringUtils.isBlank(ip) || unknown.equalsIgnoreCase(ip)) {
-            ip = request.getHeader("Proxy-Client-IP");
-        }
-        if (StringUtils.isBlank(ip) || unknown.equalsIgnoreCase(ip)) {
-            ip = request.getHeader("WL-Proxy-Client-IP");
-        }
-        if (StringUtils.isBlank(ip) || unknown.equalsIgnoreCase(ip)) {
-            ip = request.getHeader("HTTP_CLIENT_IP");
-        }
-        if (StringUtils.isBlank(ip) || unknown.equalsIgnoreCase(ip)) {
-            ip = request.getHeader("HTTP_X_FORWARDED_FOR");
-        }
-        if (StringUtils.isBlank(ip) || unknown.equalsIgnoreCase(ip)) {
+        // 反代场景下这些头可能是逗号分隔的多级代理列表, 取第一段(真实客户端地址)并跳过 "unknown"
+        String ip = firstCandidate(request.getHeader("X-Forwarded-For"),
+                request.getHeader("X-Requested-For"),
+                request.getHeader("Proxy-Client-IP"),
+                request.getHeader("WL-Proxy-Client-IP"),
+                request.getHeader("HTTP_CLIENT_IP"),
+                request.getHeader("HTTP_X_FORWARDED_FOR"));
+        if (ip == null) {
             ip = request.getRemoteAddr();
         }
-        if (!ip.matches(IP_REGEX)) {
+        if (ip == null || !ip.matches(IP_REGEX)) {
             return null;
         }
         return ip;
+    }
+
+    private static String firstCandidate(String... headers) {
+        for (String header : headers) {
+            if (StringUtils.isBlank(header)) {
+                continue;
+            }
+            for (String part : header.split(",")) {
+                String candidate = part.trim();
+                if (StringUtils.isNotBlank(candidate) && !"unknown".equalsIgnoreCase(candidate)) {
+                    return candidate;
+                }
+            }
+        }
+        return null;
     }
 
     /**
@@ -467,7 +474,7 @@ public class StringUtil extends StringUtils {
                     param = obj.toString();
                 }
             }
-            m.appendReplacement(sb, param);
+            m.appendReplacement(sb, Matcher.quoteReplacement(param));
         }
         m.appendTail(sb);
         return sb.toString();
@@ -964,12 +971,25 @@ public class StringUtil extends StringUtils {
                     || ch == ')') {
                 sbuf.append((char) ch);
             } else if (ch == '%') {
+                // 末尾残缺的 % (如 "abc", "abc%u123") 直接原样输出剩余部分, 不再越界访问
+                if (i + 1 >= len) {
+                    sbuf.append(s.substring(i));
+                    break;
+                }
                 int cint = 0;
                 if ('u' != s.charAt(i + 1)) {
+                    if (i + 3 > len) {
+                        sbuf.append(s.substring(i));
+                        break;
+                    }
                     cint = (cint << 4) | VAL[s.charAt(i + 1)];
                     cint = (cint << 4) | VAL[s.charAt(i + 2)];
                     i += 2;
                 } else {
+                    if (i + 6 > len) {
+                        sbuf.append(s.substring(i));
+                        break;
+                    }
                     cint = (cint << 4) | VAL[s.charAt(i + 2)];
                     cint = (cint << 4) | VAL[s.charAt(i + 3)];
                     cint = (cint << 4) | VAL[s.charAt(i + 4)];

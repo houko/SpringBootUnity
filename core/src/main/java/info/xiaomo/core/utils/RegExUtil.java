@@ -2,6 +2,8 @@ package info.xiaomo.core.utils;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -167,13 +169,11 @@ public class RegExUtil {
     public static String[] splitTags(String pattern, String str) {
         Pattern p = Pattern.compile(pattern);
         Matcher m = p.matcher(str);
-        String[] array = new String[m.groupCount()];
-        int i = 0;
+        List<String> array = new ArrayList<>();
         while (m.find()) {
-            array[i] = eregReplace("(\\[\\#)|(\\#\\])", "", m.group());
-            i++;
+            array.add(eregReplace("(\\[\\#)|(\\#\\])", "", m.group()));
         }
-        return array;
+        return array.toArray(new String[0]);
     }
 
 
@@ -206,13 +206,11 @@ public class RegExUtil {
     public static String[] regMatchAll2Array(String pattern, String str) throws PatternSyntaxException {
         Pattern p = Pattern.compile(pattern);
         Matcher m = p.matcher(str);
-        String[] array = new String[m.groupCount()];
-        int i = 0;
+        List<String> array = new ArrayList<>();
         while (m.find()) {
-            array[i] = m.group();
-            i++;
+            array.add(m.group());
         }
-        return array;
+        return array.toArray(new String[0]);
     }
 
     /**

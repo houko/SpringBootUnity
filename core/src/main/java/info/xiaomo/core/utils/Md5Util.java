@@ -1,5 +1,6 @@
 package info.xiaomo.core.utils;
 
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 
 /**
@@ -70,7 +71,7 @@ public class Md5Util {
         try {
             resultString = password + salt;
             MessageDigest md = MessageDigest.getInstance("md5");
-            resultString = byteArrayToString(md.digest(resultString.getBytes()));
+            resultString = byteArrayToString(md.digest(resultString.getBytes(StandardCharsets.UTF_8)));
         } catch (Exception ex) {
             ex.printStackTrace();
         }

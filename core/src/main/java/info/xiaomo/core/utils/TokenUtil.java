@@ -39,8 +39,10 @@ public class TokenUtil {
                 if (m2.find()) {
                     accessToken = m2.group(1);
                 } else {
-                    String temp = string.split(SymbolConst.DENGHAO)[1];
-                    accessToken = temp.split(SymbolConst.AND)[0];
+                    String[] parts = string.split(SymbolConst.DENGHAO);
+                    if (parts.length > 1) {
+                        accessToken = parts[1].split(SymbolConst.AND)[0];
+                    }
                 }
             }
         }

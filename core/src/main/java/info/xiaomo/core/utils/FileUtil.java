@@ -856,11 +856,11 @@ public class FileUtil {
 
     public static boolean isImage(String imageName) {
         String fileType = FileUtil.getFileType(imageName);
-        return !("bmp".equals(fileType) || "BMP".equals(fileType)
-                || "jpg".equals(fileType) || "JPG".equals(fileType)
-                || "jpeg".equals(fileType) || "JPEG".equals(fileType)
-                || "git".equals(fileType) || "GIF".equals(fileType)
-                || "png".equals(fileType) || "PNG".equals(fileType));
+        return "bmp".equalsIgnoreCase(fileType)
+                || "jpg".equalsIgnoreCase(fileType)
+                || "jpeg".equalsIgnoreCase(fileType)
+                || "gif".equalsIgnoreCase(fileType)
+                || "png".equalsIgnoreCase(fileType);
     }
 
 }

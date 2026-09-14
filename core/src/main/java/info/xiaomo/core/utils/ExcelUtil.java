@@ -102,11 +102,11 @@ public class ExcelUtil {
                                 }
                                 break;
                             case FORMULA:
-                                // 导入时如果为公式生成的数据则无值
-                                if (!"".equals(cell.getStringCellValue())) {
+                                // 公式单元格可能是字符串或数值, 分别取值, 避免类型不匹配时抛异常
+                                try {
                                     value = cell.getStringCellValue();
-                                } else {
-                                    value = cell.getNumericCellValue() + "";
+                                } catch (IllegalStateException e) {
+                                    value = String.valueOf(cell.getNumericCellValue());
                                 }
                                 break;
                             case BLANK:

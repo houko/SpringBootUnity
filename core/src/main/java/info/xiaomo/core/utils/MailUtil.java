@@ -3,9 +3,10 @@ package info.xiaomo.core.utils;
 import jakarta.mail.*;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Date;
+import java.util.Objects;
 import java.util.Properties;
 
 /**
@@ -31,11 +32,15 @@ public class MailUtil {
      */
     private static Session getSession() throws IOException {
         Properties props = new Properties();
-        String dir = System.getProperty("user.dir");
-        FileInputStream is = new FileInputStream(dir + "/website/src/main/resources/config/application.properties");
-        props.load(is);
-        USERNAME = String.valueOf(props.get("mail.username"));
-        PASSWORD = String.valueOf(props.get("mail.password"));
+        // 从 classpath 读取配置, 不再依赖进程工作目录(user.dir)下的绝对路径
+        try (InputStream is = MailUtil.class.getClassLoader().getResourceAsStream("config/application.properties")) {
+            if (is == null) {
+                throw new IOException("未找到 classpath 下的 config/application.properties");
+            }
+            props.load(is);
+        }
+        USERNAME = Objects.toString(props.get("mail.username"), "");
+        PASSWORD = Objects.toString(props.get("mail.password"), "");
         Authenticator authenticator = new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
@@ -60,35 +65,5 @@ public class MailUtil {
         } catch (Exception mex) {
             mex.printStackTrace();
         }
-    }
-
-    /**
-     * 返回激活链接
-     *
-     * @param email email
-     * @return 有3个参数 email password  time
-     */
-    public static String redirectValidateUrl(String email, String password) {
-        Long now = TimeUtil.getNowOfMills();
-        StringBuilder sb = new StringBuilder("点击下面链接激活账号，48小时生效，否则重新注册账号，链接只能使用一次，请尽快激活！</br>");
-        sb.append("<a href=\"http://localhost:8080/user/validate?email=");
-        sb.append(email);
-        sb.append("&password=");
-        sb.append(password);
-        sb.append("&time=");
-        sb.append(now);
-        sb.append("\">");
-        sb.append("http://localhost:8080/user/validate?email=");
-        sb.append(email);
-        sb.append("&password=");
-        sb.append(password);
-        sb.append("&time=");
-        sb.append(now);
-        sb.append("</a><br/>");
-        sb.append("<span style='float:right;padding-right:4%'>小莫</span></br>");
-        sb.append("<span style='float:right'>");
-        sb.append(TimeUtil.getFormatDate());
-        sb.append("</span></br>");
-        return sb.toString();
     }
 }

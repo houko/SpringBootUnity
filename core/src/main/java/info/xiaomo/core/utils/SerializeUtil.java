@@ -41,7 +41,7 @@ public class SerializeUtil {
             oos = new ObjectOutputStream(baos);
             oos.writeObject(object);
             byte[] bytes = baos.toByteArray();
-            return new String(bytes, StandardCharsets.UTF_8);
+            return new String(bytes, StandardCharsets.ISO_8859_1);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -51,8 +51,8 @@ public class SerializeUtil {
     /**
      * 反序列化
      */
-    public static Object unserialize(String s) throws UnsupportedEncodingException {
-        byte[] bytes = s.getBytes(StandardCharsets.UTF_8);
+    public static Object unserialize(String s) {
+        byte[] bytes = s.getBytes(StandardCharsets.ISO_8859_1);
         ByteArrayInputStream bais;
         try {
             //反序列化

@@ -53,6 +53,9 @@ public class SqlUtil {
     }
 
     private String delSQlString(String sql) {
+        if (sql == null || sql.isEmpty()) {
+            return "in()";
+        }
         StringBuilder delSql = new StringBuilder("in(");
         StringTokenizer tokenizer = new StringTokenizer(sql, "|");
 

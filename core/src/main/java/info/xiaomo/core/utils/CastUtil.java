@@ -1,6 +1,7 @@
 package info.xiaomo.core.utils;
 
 import java.io.*;
+import java.math.BigDecimal;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
@@ -74,49 +75,31 @@ public class CastUtil {
     }
 
     public static int isNumeric(String str) {
-        if (str == null) {
+        if (str == null || str.isEmpty()) {
             return 0;
-        } else {
-            boolean isdouble = false;
-            boolean hasE = false;
-            int i = str.length();
-
-            while (true) {
-                while (true) {
-                    char c;
-                    do {
-                        --i;
-                        if (i < 0) {
-                            if (isdouble) {
-                                return 2;
-                            }
-
-                            return 1;
-                        }
-
-                        c = str.charAt(i);
-                    } while (i == 0 && c == 45);
-
-                    if (c == 46) {
-                        if (isdouble) {
-                            return 0;
-                        }
-
-                        isdouble = true;
-                    } else if (c != 69 && c != 101) {
-                        if (!Character.isDigit(str.charAt(i))) {
-                            return 0;
-                        }
-                    } else {
-                        if (hasE) {
-                            return 0;
-                        }
-
-                        hasE = true;
-                    }
-                }
+        }
+        String check = str;
+        if (check.charAt(0) == '-') {
+            // 允许唯一的负号前缀(负整数), 与旧实现一致; "-" 单独出现视为非数字
+            check = check.substring(1);
+            if (check.isEmpty()) {
+                return 0;
+            }
+        } else if (check.charAt(0) == '+') {
+            return 0;
+        }
+        try {
+            // 用 BigDecimal 严格校验, "1.2.3" 之类非法数字返回 0, 不再抛运行期异常
+            new BigDecimal(check);
+        } catch (NumberFormatException e) {
+            return 0;
+        }
+        for (int i = 0; i < check.length(); i++) {
+            if (!Character.isDigit(check.charAt(i))) {
+                return 2;
             }
         }
+        return 1;
     }
 
     public static HashMap copyMap(HashMap map) {
